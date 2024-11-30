@@ -11,6 +11,7 @@
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/common.css" />
   </head>
+
   <body>
     <header>
       <div class="logo">ATTENTION</div>
