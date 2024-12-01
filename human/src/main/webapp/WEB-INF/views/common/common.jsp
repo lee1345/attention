@@ -1,57 +1,49 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ATTENTION</title>
-    <link rel="stylesheet" href="common.css">
-</head>
-<body>
-<header>
-    <div class="logo">ATTENTION</div>
-    <div class="user-info">
-        <%
-        // 로그인 여부 확인: session에서 사용자 정보를 가져옴
-        String userName = (String) session.getAttribute("userName");
-        String userTeam = (String) session.getAttribute("userTeam");
-        if (userName != null && userTeam != null) {
-        %>
-        <span><%= userTeam %></span> <!-- 로그인 후 부서 표시 -->
-        <strong><%= userName %></strong> <!-- 로그인 후 이름 표시 -->
-        <a href="editProfile.jsp">정보수정</a> <!-- jsp명 임의지정 -->
-        <a href="logout.jsp">로그아웃</a> <!-- jsp명 임의지정 -->
-        <%
-        } else {
-        %>
-        <a href="login.jsp">로그인</a> <!-- jsp명 임의지정 -->
-        <a href="signup.jsp">회원가입</a> <!-- jsp명 임의지정 -->
-        <%
-        }
-        %>
-    </div>
-</header>
-<div class="container">
-    <nav class="sidebar">
+    <!-- 동적 경로로 CSS 로드 -->
+    <link rel="stylesheet" href="${contextPath}/css/common.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">ATTENTION</div>
+      <div class="user-info">
+        <!-- 로그인 여부에 따라 표시되는 콘텐츠 -->
+        <div id="login">로그인</div>
+        <div id="sing">회원가입</div>
+      </div>
+    </header>
+    <div class="container">
+      <nav class="sidebar">
         <ul>
-            <li>
-                <span>할일관리</span>
-                <ul>
-                    <li><a href="teamTasks.jsp">- 팀별 할일</a></li> <!-- jsp명 임의지정 -->
-                    <li><a href="myTasks.jsp">- 나의 할일</a></li> <!-- jsp명 임의지정 -->
-                </ul>
-            </li>
-            <li><a href="schedule.jsp">일정관리</a></li> <!-- jsp명 임의지정 -->
-            <li>
-                <span>게시판</span>
-                <ul>
-                    <li><a href="notices.jsp">- 공지사항</a></li> <!-- jsp명 임의지정 -->
-                    <li><a href="freeBoard.jsp">- 자유게시판</a></li> <!-- jsp명 임의지정 -->
-                </ul>
-            </li>
-            <li><a href="addressBook.jsp">주소록</a></li> <!-- jsp명 임의지정 -->
+          <li>
+            <span>할일관리</span>
+            <ul>
+              <li>- 팀별 할일</li>
+              <li>- 나의 할일</li>
+            </ul>
+          </li>
+          <ul>
+            <li><strong>일정관리</strong></li>
+          </ul>
+          <li>
+            <span>게시판</span>
+            <ul>
+              <li>- 공지사항</li>
+              <li>- 자유게시판</li>
+            </ul>
+          </li>
+          <li><strong>주소록</strong></li>
         </ul>
-    </nav>
-</div>
-</body>
+      </nav>
+    </div>
+  </body>
 </html>
