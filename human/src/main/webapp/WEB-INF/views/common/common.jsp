@@ -20,8 +20,19 @@
       <div class="logo">ATTENTION</div>
       <div class="user-info">
         <!-- 로그인 여부에 따라 표시되는 콘텐츠 -->
-        <a id="login">로그인</a>
-        <a id="signup">회원가입</a>
+          <c:choose>
+            <c:when test="${not empty sessionScope.user}">
+              <span>${sessionScope.user.department}</span> <!-- 부서명 -->
+              <strong>${sessionScope.user.name}</strong> <!-- 사용자 이름 -->
+              <span>${sessionScope.user.position}</span> <!-- 직위 -->
+              <a href="${contextPath}/user/edit">정보수정</a>
+              <a href="${contextPath}/auth/logout">로그아웃</a>
+            </c:when>
+              <c:otherwise>
+                <a id="login" href="${contextPath}/auth/login">로그인</a>
+                <a id="signup" href="${contextPath}/auth/signup">회원가입</a>
+              </c:otherwise>
+          </c:choose>
       </div>
     </header>
 
