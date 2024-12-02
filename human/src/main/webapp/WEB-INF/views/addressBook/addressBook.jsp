@@ -21,19 +21,21 @@
         <div class="search-register">
             <form method="GET" action="${contextPath}/addressBook/search">
                 <!-- 구분 -->
-                <div class="filter-group">
-                    <label for="category">구분</label>
-                    <select id="category" name="category">
-                        <option value="name">이름</option>
-                        <option value="department">부서</option>
-                        <option value="company">회사명</option>
-                    </select>
-                </div>
-                <!-- 검색창 -->
-                <div class="filter-group">
-                    <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
-                    <button type="submit" class="btn-search">조회</button>
-                    <button type="button" class="btn-register" onclick="location.href='${contextPath}/addressBook/register'">등록하기</button>
+                <div class="filter">
+                    <div class="filter-group">
+                        <label for="category">구분</label>
+                        <select id="category" name="category">
+                            <option value="name">이름</option>
+                            <option value="department">부서</option>
+                            <option value="company">회사명</option>
+                        </select>
+                    </div>
+                    <!-- 검색창 -->
+                    <div class="filter-group">
+                        <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
+                        <button type="submit" class="btn-search">조회</button>
+                        <button type="button" class="btn-register" onclick="location.href='${contextPath}/addressBook/register'">등록하기</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -73,7 +75,6 @@
             </c:forEach>
         </div>
     </div>
-
     </div> <!-- common.jsp에 container의 닫는부분 -->
 </body>
 </html>

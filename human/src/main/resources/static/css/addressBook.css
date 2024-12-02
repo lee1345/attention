@@ -23,6 +23,10 @@
     margin-bottom: 20px;
 }
 
+.search-register .filter {
+    display: flex;
+}
+
 .search-register .filter-group {
     display: flex;
     align-items: center;
