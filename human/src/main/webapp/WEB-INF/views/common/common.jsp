@@ -17,7 +17,9 @@
   </head>
 
     <header>
-      <div class="logo">ATTENTION</div>
+      <div class="logo">
+        <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
+      </div>
       <div class="user-info">
         <!-- 로그인 여부에 따라 표시되는 콘텐츠 -->
           <c:choose>
@@ -25,12 +27,12 @@
               <span>${sessionScope.user.department}</span> <!-- 부서명 -->
               <strong>${sessionScope.user.name}</strong> <!-- 사용자 이름 -->
               <span>${sessionScope.user.position}</span> <!-- 직위 -->
-              <a href="${contextPath}/user/edit">정보수정</a>
-              <a href="${contextPath}/auth/logout">로그아웃</a>
+              <a href="${contextPath}/user/edit">Mypage</a>
+              <a href="${contextPath}/auth/logout">Logout</a>
             </c:when>
               <c:otherwise>
-                <a id="login" href="${contextPath}/auth/login">로그인</a>
-                <a id="signup" href="${contextPath}/auth/signup">회원가입</a>
+                <a id="login" href="${contextPath}/auth/login">Login</a>
+                <a id="signup" href="${contextPath}/auth/signup">Signup</a>
               </c:otherwise>
           </c:choose>
       </div>
