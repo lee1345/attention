@@ -51,7 +51,7 @@ header .user-info a:hover {
 
 /* 사이드바 스타일 */
 .sidebar {
-  width: 200px;
+  width: 150px;
   background-color: #fff;
   border-right: 1px solid #ddd;
   padding: 20px 30px;
@@ -72,7 +72,7 @@ header .user-info a:hover {
 .sidebar li span,
 strong {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   color: #333;
   display: block;
   margin-bottom: 5px;
@@ -85,4 +85,16 @@ strong {
 
 .sidebar a:hover {
   text-decoration: underline;
+}
+
+/* <a> 태그의 기본 스타일 제거 */
+a {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+/* hover 상태에서도 밑줄 제거 강제 적용 */
+a:hover, a:focus, a:active {
+  text-decoration: none !important; /* !important로 강제 제거 */
+  color: inherit; /* 색상 유지 */
 }
