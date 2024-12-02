@@ -13,7 +13,7 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping("/todo")
+    @GetMapping("/todo/todo.do")
     public String taskList(Model model) {
         model.addAttribute("tasks", taskService.getAllTasks());
         return "todo/todo";

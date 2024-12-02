@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Team Task List</title>
     <link rel="stylesheet" href="/css/todo.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> //차트 라이브러리 불러오기 그리기 위한 기능 제공
 </head>
 <body>
     <%@ include file="/common/header.jsp" %> <!-- 헤더 추가 -->
@@ -17,9 +17,9 @@
                 <!-- 부서별 업무 현황 -->
                 <section class="chart">
                     <h3>부서 업무 현황</h3>
-                    <canvas id="departmentChart"></canvas>
-                    <ul class="chart-legend">
-                        <li>예정: <span>${departmentCounts.scheduled}</span>건</li>
+                    <canvas id="departmentChart"></canvas> //부서별 업무 현황 차트
+                    <ul class="chart-legend">// 텍스트로 업무 상태를 표시하고 동적으로 값을 삽입
+                        <li>예정: <span>${departmentCounts.scheduled}</span>건</li> //departmentCount객체에서 데이터를 가져옴
                         <li>진행지연: <span>${departmentCounts.delayedInProgress}</span>건</li>
                         <li>진행중: <span>${departmentCounts.inProgress}</span>건</li>
                         <li>완료지연: <span>${departmentCounts.delayedCompleted}</span>건</li>
@@ -30,9 +30,9 @@
                 <!-- 나의 업무 참여 현황 -->
                 <section class="chart">
                     <h3>나의 업무 참여 현황</h3>
-                    <canvas id="myTaskChart"></canvas>
+                    <canvas id="myTaskChart"></canvas> //개인 업무 참여 현황을 시각적으로 표시
                     <ul class="chart-legend">
-                        <li>예정: <span>${myTaskCounts.scheduled}</span>건</li>
+                        <li>예정: <span>${myTaskCounts.scheduled}</span>건</li> //myTaskCount 객체에서 데이터를 가져옴
                         <li>진행지연: <span>${myTaskCounts.delayedInProgress}</span>건</li>
                         <li>진행중: <span>${myTaskCounts.inProgress}</span>건</li>
                         <li>완료지연: <span>${myTaskCounts.delayedCompleted}</span>건</li>
@@ -45,8 +45,8 @@
             <div class="task-and-search-container">
                 <!-- TEAM 업무 등록 -->
                 <section class="task-registration">
-                    <button>TEAM 업무 등록하기</button>
-                    <div class="filters">
+                    <button>TEAM 업무 등록하기</button> // 새로운 업무를 추가하는 역할
+                    <div class="filters"> // 업무 검색 조건을 초기화, 숨긴 업무을 복원하는 기능
                         <button onclick="resetFilters()">검색/정렬 초기화</button>
                         <button onclick="hideSelectedTasks()">선택 업무 숨기기</button>
                         <button onclick="restoreHiddenTasks()">숨긴 업무 다시 보기</button>
