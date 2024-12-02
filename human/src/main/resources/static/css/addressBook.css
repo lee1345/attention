@@ -31,6 +31,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-right:10px;
 }
 
 .search-register select,
@@ -65,7 +66,8 @@
 
 .address-table th,
 .address-table td {
-    border: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }

@@ -1,5 +1,5 @@
 
-.notice {
+.freeBoard {
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -9,7 +9,7 @@
     flex: 1;
 }
 
-.notice h2 {
+.freeBoard h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -58,31 +58,62 @@
     background-color: #0056b3;
 }
 
-.notice-table {
+.tabs {
+    margin: 20px 0px;
+}
+
+.tab-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+.tab-item a {
+    text-decoration: none;
+    padding: 10px 15px;
+    display: inline-block;
+    color: black;
+}
+
+.tab-item a:hover {
+    color: #555;
+}
+
+/* 구분선 스타일 */
+.separator {
+    width: 1px;
+    height: 35px;
+    background-color: #000; /* 검정색 세로선 */
+    margin: 2px 5px; /* 좌우 간격 */
+}
+
+.freeBoard-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-.notice-table th,
-.notice-table td {
+.freeBoard-table th,
+.freeBoard-table td {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }
 
-.notice-table th {
+.freeBoard-table th {
     background-color: #f8f9fa;
     font-weight: bold;
     color: #333;
 }
 
-.notice-table tr:nth-child(even) {
+.freeBoard-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.notice-table tr:hover {
+.freeBoard-table tr:hover {
     background-color: #f1f1f1;
 }
 
