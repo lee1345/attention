@@ -4,49 +4,46 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATTENTION</title>
-  <link rel="stylesheet" href="${contextPath}/css/common.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATTENTION</title>
+    <!-- 동적 경로로 CSS 로드 -->
+    <link rel="stylesheet" href="${contextPath}/css/common.css" />
+  </head>
 
-<body>
-<header>
-  <div class="logo">ATTENTION</div>
-  <div class="user-info">
-    <c:choose>
-      <c:when test="${not empty sessionScope.user}">
-        <div id="logout">로그아웃</div>
-      </c:when>
-      <c:otherwise>
+  <body>
+    <header>
+      <div class="logo">ATTENTION</div>
+      <div class="user-info">
+        <!-- 로그인 여부에 따라 표시되는 콘텐츠 -->
         <div id="login">로그인</div>
         <div id="sing">회원가입</div>
-      </c:otherwise>
-    </c:choose>
-  </div>
-</header>
-<div class="container">
-  <nav class="sidebar">
-    <ul>
-      <li>
-        <span>할일관리</span>
+      </div>
+    </header>
+    <div class="container">
+      <nav class="sidebar">
         <ul>
-          <li>- 팀별 할일</li>
-          <li>- 나의 할일</li>
+          <li>
+            <span>할일관리</span>
+            <ul>
+              <li>- 팀별 할일</li>
+              <li>- 나의 할일</li>
+            </ul>
+          </li>
+          <ul>
+            <li><strong>일정관리</strong></li>
+          </ul>
+          <li>
+            <span>게시판</span>
+            <ul>
+              <li>- 공지사항</li>
+              <li>- 자유게시판</li>
+            </ul>
+          </li>
+          <li><strong>주소록</strong></li>
         </ul>
-      </li>
-      <li><strong>일정관리</strong></li>
-      <li>
-        <span>게시판</span>
-        <ul>
-          <li>- 공지사항</li>
-          <li>- 자유게시판</li>
-        </ul>
-      </li>
-      <li><strong>주소록</strong></li>
-    </ul>
-  </nav>
-</div>
-</body>
+      </nav>
+    </div>
+  </body>
 </html>
