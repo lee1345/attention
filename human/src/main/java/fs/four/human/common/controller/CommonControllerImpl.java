@@ -16,4 +16,9 @@ public class CommonControllerImpl implements CommonController {
         System.out.println("-----common--------");
         return new ModelAndView("common/common");
     }
+    // 주소록 페이지 이동
+    @GetMapping("/addressBook")
+    public ModelAndView addressBookPage() {
+        return new ModelAndView("addressBook/addressBook"); // "WEB-INF/views/addressBook/addressBook.jsp"
+    }
 }
