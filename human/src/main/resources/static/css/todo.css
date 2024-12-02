@@ -1,0 +1,99 @@
+/* Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Chart Section */
+.chart-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.chart {
+    flex: 1;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.chart-legend {
+    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+}
+
+.chart-legend li {
+    margin-bottom: 5px;
+}
+
+/* TEAM 업무 등록 및 검색 조건 */
+.task-and-search-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.task-registration, .search-filters {
+    flex: 1;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.task-registration button,
+.search-filters button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.sort-options {
+    margin-bottom: 20px;
+}
+
+.sort-button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.sort-button.active {
+    background-color: #007BFF;
+    color: #fff;
+    border-color: #0056b3;
+}
+
+/* Task List */
+.task-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.task-list table th, .task-list table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
