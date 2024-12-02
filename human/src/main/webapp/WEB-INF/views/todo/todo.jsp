@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Team Task List</title>
+    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/todo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> //차트 라이브러리 불러오기 그리기 위한 기능 제공
 </head>
 <body>
-    <%@ include file="/common/header.jsp" %> <!-- 헤더 추가 -->
+    <%@ include file="../common/common.jsp" %> <!-- 헤더 추가 -->
     <div class="layout-container">
-        <%@ include file="/common/aside.jsp" %> <!-- 어사이드 추가 -->
         <main>
             <!-- 상단 차트 -->
             <div class="chart-section">

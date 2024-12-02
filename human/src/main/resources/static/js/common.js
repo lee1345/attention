@@ -1,4 +1,4 @@
-// 경로 설정
+// 경로 설정 :
 const navigationLinks = {
   login: `${"${contextPath}"}/login.jsp`,
   signup: `${"${contextPath}"}/signup.jsp`,
