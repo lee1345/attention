@@ -2,21 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<!DOCTYPE html>
-<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ATTENTION</title>
+
     <!-- 폰트어썸 경로 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/common.css" />
     <!-- JS 파일 로드 -->
     <script src="${contextPath}/js/common.js" defer></script>
+
+    <title>ATTENTION</title>
   </head>
 
-  <body>
     <header>
       <div class="logo">ATTENTION</div>
       <div class="user-info">
@@ -25,6 +24,7 @@
         <a id="signup">회원가입</a>
       </div>
     </header>
+
     <div class="container">
       <nav class="sidebar">
         <ul>
@@ -50,7 +50,3 @@
           </li>
         </ul>
       </nav>
-    </div>
-  </body>
-
-</html>
