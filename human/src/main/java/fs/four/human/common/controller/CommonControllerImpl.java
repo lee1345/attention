@@ -1,15 +1,18 @@
 package fs.four.human.common.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-public class CommonControllerImpl {
-
-    @GetMapping("/common")
-    public String showCommonPage(Model model) {
-        model.addAttribute("message", "JSP 출력 성공!");
-        return "common/common"; // WEB-INF/views/common/common.jsp
+@RestController
+@RequestMapping("/common")
+public class CommonControllerImpl implements CommonController {
+    @GetMapping
+    public ModelAndView common(HttpServletRequest request, HttpServletResponse response) {
+        return new ModelAndView("common");
     }
 }
+

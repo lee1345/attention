@@ -13,7 +13,6 @@
   </head>
 
   <body>
-    <h1>${message}</h1> <!-- message 속성을 출력 -->
     <header>
       <div class="logo">ATTENTION</div>
       <div class="user-info">
