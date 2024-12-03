@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fs.four.human.common.dao.CommonDAO">
-    <select id="getCommonData" resultType="fs.four.human.common.vo.CommonVO">
-        SELECT * FROM t_common ORDER BY created_date DESC
+    <select id="getEmployeeById" resultType="CommonVO">
+        SELECT
+            e_id,
+            e_name,
+            e_position,
+            e_dept
+        FROM employee
+        WHERE e_id = #{e_id}
     </select>
 </mapper>
