@@ -82,7 +82,7 @@
             </ul>
           </li>
           <li>
-            <strong><a id="addressBook"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
+            <strong><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
           </li>
         </ul>
       </nav>
