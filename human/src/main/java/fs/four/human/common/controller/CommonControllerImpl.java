@@ -15,5 +15,6 @@ public class CommonControllerImpl implements CommonController {
         System.out.println("-----common-----");
         return new ModelAndView("common/common");
     }
-}
 
+
+}
