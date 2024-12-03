@@ -16,4 +16,5 @@ public class AddressService {
     public List<AddressVO> getAllAddress() {
         return addressDAO.getAllAddress();
     }
+
 }

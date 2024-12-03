@@ -19,17 +19,20 @@ public class AddressControllerImpl {
 
     @Autowired
     private AddressService addressService;
-
+    
+//    기본 주소 페이지 
     @GetMapping
     public ModelAndView address(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("-----address--------");
         return new ModelAndView("address/address");
     }
-
+    
+//    주소 데이터를 가져와 JSP에 전달
     @GetMapping("/address")
     public String getAddress(Model model) {
         List<AddressVO> addressList = addressService.getAllAddress(); // 데이터 가져오기
         model.addAttribute("addressList", addressList); // 데이터를 JSP로 전달
         return "address/address"; // JSP 파일명
     }
+
 }
