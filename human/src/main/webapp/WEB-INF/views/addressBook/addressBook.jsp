@@ -5,10 +5,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <title>AddressBook</title>
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/addressBook.css" />
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <title>AddressBook</title>
+    <!-- 부트스트랩 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -37,8 +42,10 @@
                         <div class="filter-group">
                             <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
                             <button type="submit" class="btn-search">조회</button>
-                            <button type="button" class="btn-register" onclick="location.href='${contextPath}/addressBook/register'">등록하기</button>
+                            <button type="button" class="btn-register" data-bs-toggle="modal" data-bs-target="#registerModal">등록하기</button>
                         </div>
+
+
                     </div>
                 </form>
             </div>
@@ -79,5 +86,48 @@
             </div>
         </div>
     </div> <!-- common.jsp에 container의 닫는부분 -->
+
+    <!-- 게시글 작성 모달 -->
+                            <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- 모달 헤더 -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="registerModalLabel">주소록 등록</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <!-- 모달 바디 -->
+                                        <div class="modal-body">
+                                            <form id="registerForm" method="POST" action="${contextPath}/addressBook/register">
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">이름</label>
+                                                    <input type="text" class="form-control" id="title" name="title" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">휴대폰</label>
+                                                    <input type="number" class="form-control" id="content" name="content" required></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">이메일</label>
+                                                    <input type="email" class="form-control" id="content" name="content" required></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">부서명</label>
+                                                    <input type="text" class="form-control" id="content" name="content" required></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">회사명</label>
+                                                    <input type="text" class="form-control" name="content" required></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">그룹</label>
+                                                    <input type="text" class="form-control" id="content" name="content" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">추가하기</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 </body>
 </html>
