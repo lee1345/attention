@@ -54,7 +54,7 @@
             <p id="popup-details"></p>
         </div>
     </div>
-
+</div>
     <script src="${contextPath}/js/schedule.js"></script>
 </body>
 </html>
