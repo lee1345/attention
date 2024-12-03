@@ -6,6 +6,7 @@
     <select id="getAllAddress" resultType="AddressVO">
         SELECT
         AD_ID AS adId,
+        AD_EMPL_ID AS adEmplId,
         AD_NAME AS adName,
         AD_PHONE AS adPhone,
         AD_EMAIL AS adEmail,

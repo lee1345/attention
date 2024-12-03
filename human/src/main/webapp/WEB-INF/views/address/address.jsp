@@ -29,7 +29,7 @@
                             <option value="phone">휴대폰</option>
                             <option value="email">이메일</option>
                             <option value="department">부서명</option>
-                            <option value="company">회사명</option>
+<!--                            <option value="company">회사명</option>-->
                             <option value="byname">그룹(별칭)</option>
                         </select>
                     </div>
@@ -47,12 +47,13 @@
         <table class="address-table">
             <thead>
                 <tr>
-                    <th>번호</th>
+                    <th>ID</th>
+<!--                    <th>EMPL_ID</th>-->
                     <th>이름</th>
-                    <th>휴대폰</th>
+                    <th>핸드폰</th>
                     <th>이메일</th>
                     <th>부서명</th>
-                    <th>회사명</th>
+<!--                    <th>회사명</th>-->
                     <th>그룹(별칭)</th>
                 </tr>
             </thead>
@@ -60,11 +61,11 @@
                 <c:forEach var="address" items="${addressList}">
                     <tr>
                         <td>${address.adId}</td>
+<!--                        <td>${address.adEmplId}</td>-->
                         <td>${address.adName}</td>
                         <td>${address.adPhone}</td>
                         <td>${address.adEmail}</td>
                         <td>${address.adDeptName}</td>
-                        <td>${address.company}</td> <!-- 필요하면 company 필드 추가 -->
                         <td>${address.adGroup}</td>
                     </tr>
                 </c:forEach>
