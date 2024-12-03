@@ -16,18 +16,21 @@
     <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
     <div class="address-book">
-        <h2>주소록</h2>
+        <h2>주소록</h2><br>
         <!-- 검색 및 등록 섹션 -->
         <div class="search-register">
             <form method="GET" action="${contextPath}/addressBook/search">
                 <!-- 구분 -->
                 <div class="filter">
                     <div class="filter-group">
-                        <label for="category">구분</label>
+                        <label for="category"></label>
                         <select id="category" name="category">
                             <option value="name">이름</option>
-                            <option value="department">부서</option>
+                            <option value="phone">휴대폰</option>
+                            <option value="email">이메일</option>
+                            <option value="department">부서명</option>
                             <option value="company">회사명</option>
+                            <option value="byname">그룹(별칭)</option>
                         </select>
                     </div>
                     <!-- 검색창 -->

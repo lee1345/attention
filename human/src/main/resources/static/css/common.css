@@ -85,10 +85,10 @@ header .user-info a:hover {
 .sidebar li span,
 strong {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   color: #333;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   cursor: auto;
 }
 
