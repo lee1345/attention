@@ -84,7 +84,7 @@
 /* 구분선 스타일 */
 .separator {
     width: 1px;
-    height: 35px;
+    height: 32px;
     background-color: #000; /* 검정색 세로선 */
     margin: 2px 5px; /* 좌우 간격 */
 }
