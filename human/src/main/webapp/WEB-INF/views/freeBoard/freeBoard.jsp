@@ -6,17 +6,17 @@
 <html lang="ko">
 <head>
     <!-- 동적 경로로 CSS 로드 -->
-    <link rel="stylesheet" href="${contextPath}/css/notice.css" />
+    <link rel="stylesheet" href="${contextPath}/css/freeBoard.css" />
 
-    <title>Notice</title>
+    <title>freeBoard</title>
 </head>
 
 <body>
 <!-- 공통 헤더&사이드 -->
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
-<div class="notice">
-    <h2>공지사항</h2><br>
+<div class="freeBoard">
+    <h2>자유게시판</h2><br>
     <!-- 검색 및 등록 섹션 -->
     <div class="search-register">
         <form method="GET" action="${contextPath}/addressBook/search">
@@ -26,6 +26,7 @@
                 <div class="filter-group">
                     <label for="category"></label>
                     <select id="category" name="category">
+                        <option value="group">분류</option>
                         <option value="title">제목</option>
                         <option value="author">작성자</option>
                     </select>
@@ -44,15 +45,25 @@
                 <!-- 버튼 -->
                 <div class="filter-group">
                     <button type="submit" class="btn-search">조회</button>
-                    <button type="button" class="btn-register" onclick="location.href='${contextPath}/notice/register'">등록하기</button>
+                    <button type="button" class="btn-register" onclick="location.href='${contextPath}/freeBoard/register'">등록하기</button>
                 </div>
             </div>
         </form>
     </div>
 
+    <!-- 탭 메뉴 추가 -->
+    <div class="tabs">
+        <ul class="tab-menu">
+            <li class="tab-item active"><a href="${contextPath}/freeBoard?tab=qna">Q&A</a></li>
+            <li class="separator"></li>
+            <li class="tab-item"><a href="${contextPath}/freeBoard?tab=tip">꿀팁</a></li>
+            <li class="separator"></li>
+            <li class="tab-item"><a href="${contextPath}/freeBoard?tab=free">자유이야기</a></li>
+        </ul>
+    </div>
 
     <!-- 공지사항 리스트 -->
-    <table class="notice-table">
+    <table class="freeBoard-table">
         <thead>
         <tr>
             <th>번호</th>
@@ -62,7 +73,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="entry" items="${noticeList}">
+        <c:forEach var="entry" items="${freeBoardList}">
             <tr>
                 <td>${entry.id}</td>
                 <td>${entry.name}</td>
@@ -79,7 +90,7 @@
     <!-- 페이지네이션 -->
     <div class="pagination">
         <c:forEach var="page" begin="1" end="${totalPages}">
-            <a href="${contextPath}/notice?page=${page}" class="${page == currentPage ? 'active' : ''}">${page}</a>
+            <a href="${contextPath}/freeBoard?page=${page}" class="${page == currentPage ? 'active' : ''}">${page}</a>
         </c:forEach>
     </div>
 </div>

@@ -1,5 +1,5 @@
 
-.notice {
+.address-book {
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -9,7 +9,7 @@
     flex: 1;
 }
 
-.notice h2 {
+.address-book h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -58,31 +58,31 @@
     background-color: #0056b3;
 }
 
-.notice-table {
+.address-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-.notice-table th,
-.notice-table td {
+.address-table th,
+.address-table td {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }
 
-.notice-table th {
+.address-table th {
     background-color: #f8f9fa;
     font-weight: bold;
     color: #333;
 }
 
-.notice-table tr:nth-child(even) {
+.address-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.notice-table tr:hover {
+.address-table tr:hover {
     background-color: #f1f1f1;
 }
 
