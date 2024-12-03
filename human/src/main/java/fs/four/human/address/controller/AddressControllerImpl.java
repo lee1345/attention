@@ -36,14 +36,11 @@ public class AddressControllerImpl {
     // 필터와 검색어 기반 조회
     @GetMapping("/search")
     public String searchAddress(@RequestParam("category") String category,
-                                @RequestParam(value = "query", required = false) String query,
+                                @RequestParam("query") String query,
                                 Model model) {
-        // 검색어가 비어 있으면 기본 주소록 화면으로 리다이렉트
-        if (query == null || query.trim().isEmpty()) {
-            return "redirect:/address"; // 기본 주소 화면으로 이동
-        }
 
-        System.out.println("검색 요청: category = " + category + ", query = " + query);
+        System.out.println("검색 필터 category : " + category);
+        System.out.println("검색어 query : " + query);
 
         // 검색 수행
         List<AddressVO> searchResults = addressService.searchAddress(category, query);

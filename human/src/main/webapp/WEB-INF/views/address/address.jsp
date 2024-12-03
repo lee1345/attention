@@ -41,7 +41,6 @@
                     <button type="button" class="btn-register" onclick="location.href='${contextPath}/address/register'">등록하기</button>
                 </div>
             </form>
-
         </div>
 
         <!-- 주소록 리스트 -->
@@ -70,6 +69,7 @@
                         <td>${address.adGroup}</td>
                     </tr>
                 </c:forEach>
+                <!-- 검색 결과가 없는 경우 -->
                 <c:if test="${empty addressList}">
                     <tr>
                         <td colspan="7" style="text-align:center;">데이터가 없습니다.</td>

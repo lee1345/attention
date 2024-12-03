@@ -26,7 +26,7 @@
         AD_DEPT_NAME AS adDeptName,
         AD_GROUP AS adGroup
         FROM ADDRESS
-        WHERE ${category} LIKE CONCAT('%', #{query}, '%')
+        WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
     </select>
 
 </mapper>
