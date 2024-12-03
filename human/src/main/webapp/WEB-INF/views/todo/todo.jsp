@@ -6,20 +6,19 @@
     <title>Team Task List</title>
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/todo.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> //차트 라이브러리 불러오기 그리기 위한 기능 제공
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <%@ include file="../common/common.jsp" %> <!-- 헤더 추가 -->
+    <%@ include file="../common/common.jsp" %>
     <div class="layout-container">
         <main>
             <!-- 상단 차트 -->
             <div class="chart-section">
-                <!-- 부서별 업무 현황 -->
                 <section class="chart">
                     <h3>부서 업무 현황</h3>
-                    <canvas id="departmentChart"></canvas> //부서별 업무 현황 차트
-                    <ul class="chart-legend">// 텍스트로 업무 상태를 표시하고 동적으로 값을 삽입
-                        <li>예정: <span>${departmentCounts.scheduled}</span>건</li> //departmentCount객체에서 데이터를 가져옴
+                    <canvas id="departmentChart"></canvas>
+                    <ul class="chart-legend">
+                        <li>예정: <span>${departmentCounts.scheduled}</span>건</li>
                         <li>진행지연: <span>${departmentCounts.delayedInProgress}</span>건</li>
                         <li>진행중: <span>${departmentCounts.inProgress}</span>건</li>
                         <li>완료지연: <span>${departmentCounts.delayedCompleted}</span>건</li>
@@ -27,12 +26,11 @@
                     </ul>
                 </section>
 
-                <!-- 나의 업무 참여 현황 -->
                 <section class="chart">
                     <h3>나의 업무 참여 현황</h3>
-                    <canvas id="myTaskChart"></canvas> //개인 업무 참여 현황을 시각적으로 표시
+                    <canvas id="myTaskChart"></canvas>
                     <ul class="chart-legend">
-                        <li>예정: <span>${myTaskCounts.scheduled}</span>건</li> //myTaskCount 객체에서 데이터를 가져옴
+                        <li>예정: <span>${myTaskCounts.scheduled}</span>건</li>
                         <li>진행지연: <span>${myTaskCounts.delayedInProgress}</span>건</li>
                         <li>진행중: <span>${myTaskCounts.inProgress}</span>건</li>
                         <li>완료지연: <span>${myTaskCounts.delayedCompleted}</span>건</li>
@@ -43,17 +41,15 @@
 
             <!-- TEAM 업무 등록 및 검색 조건 -->
             <div class="task-and-search-container">
-                <!-- TEAM 업무 등록 -->
                 <section class="task-registration">
-                    <button>TEAM 업무 등록하기</button> // 새로운 업무를 추가하는 역할
-                    <div class="filters"> // 업무 검색 조건을 초기화, 숨긴 업무을 복원하는 기능
+                    <button>TEAM 업무 등록하기</button>
+                    <div class="filters">
                         <button onclick="resetFilters()">검색/정렬 초기화</button>
                         <button onclick="hideSelectedTasks()">선택 업무 숨기기</button>
                         <button onclick="restoreHiddenTasks()">숨긴 업무 다시 보기</button>
                     </div>
                 </section>
 
-                <!-- 검색 및 정렬 조건 -->
                 <section class="search-filters">
                     <form method="GET" action="/todo">
                         <label for="taskType">구분:</label>
@@ -105,6 +101,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- `tasks` 리스트를 반복하면서 각 업무 데이터 출력 -->
                         <c:forEach var="task" items="${tasks}">
                             <tr>
                                 <td><input type="checkbox" name="selectedTasks" value="${task.id}"></td>
@@ -136,7 +133,7 @@
             data: {
                 labels: ['예정', '진행지연', '진행중', '완료지연', '완료'],
                 datasets: [{
-                    data: [2, 0, 1, 0, 1],
+                    data: [${departmentCounts.scheduled}, ${departmentCounts.delayedInProgress}, ${departmentCounts.inProgress}, ${departmentCounts.delayedCompleted}, ${departmentCounts.completed}],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
                 }]
             }
@@ -148,7 +145,7 @@
             data: {
                 labels: ['예정', '진행지연', '진행중', '완료지연', '완료'],
                 datasets: [{
-                    data: [2, 0, 1, 0, 1],
+                    data: [${myTaskCounts.scheduled}, ${myTaskCounts.delayedInProgress}, ${myTaskCounts.inProgress}, ${myTaskCounts.delayedCompleted}, ${myTaskCounts.completed}],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
                 }]
             }

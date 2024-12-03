@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fs.four.human.common.dao.CommonDAO">
     <select id="getCommonData" resultType="fs.four.human.common.vo.CommonVO">
-        SELECT * FROM t_common ORDER BY created_date DESC
+        SELECT * FROM employee ORDER BY e_id DESC
     </select>
 </mapper>
