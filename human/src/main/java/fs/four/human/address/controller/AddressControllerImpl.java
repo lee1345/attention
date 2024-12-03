@@ -25,9 +25,6 @@ public class AddressControllerImpl {
         // Service에서 데이터 가져오기
         List<AddressVO> addressList = addressService.getAllAddress();
 
-        // 가져온 데이터 로그로 출력 (디버깅용)
-        System.out.println("Address List: " + addressList);
-
         // 모델에 데이터 추가
         model.addAttribute("addressList", addressList);
 

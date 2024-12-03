@@ -15,7 +15,6 @@ public class AddressService {
 
     public List<AddressVO> getAllAddress() {
         List<AddressVO> addresses = addressDAO.getAllAddress();
-        System.out.println("Fetched Addresses: " + addresses);
         return addresses;
     }
 }
