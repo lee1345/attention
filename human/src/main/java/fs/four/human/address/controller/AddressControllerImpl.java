@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,5 +31,23 @@ public class AddressControllerImpl {
 
         // JSP 파일로 전달
         return "address/address"; // JSP 파일 경로
+    }
+
+    // 필터와 검색어 기반 조회
+    @GetMapping("/search")
+    public String searchAddress(@RequestParam("category") String category,
+                                @RequestParam(value = "query", required = false) String query,
+                                Model model) {
+        // 검색어가 비어 있으면 기본 주소록 화면으로 리다이렉트
+        if (query == null || query.trim().isEmpty()) {
+            return "redirect:/address"; // 기본 주소 화면으로 이동
+        }
+
+        System.out.println("검색 요청: category = " + category + ", query = " + query);
+
+        // 검색 수행
+        List<AddressVO> searchResults = addressService.searchAddress(category, query);
+        model.addAttribute("addressList", searchResults); // 검색 결과를 모델에 추가
+        return "address/address"; //
     }
 }

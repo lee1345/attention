@@ -14,4 +14,19 @@
         AD_GROUP AS adGroup
         FROM ADDRESS
     </select>
+
+    <!-- 필터와 검색어 기반 검색 -->
+    <select id="searchAddress" resultType="AddressVO">
+        SELECT
+        AD_ID AS adId,
+        AD_EMPL_ID AS adEmplId,
+        AD_NAME AS adName,
+        AD_PHONE AS adPhone,
+        AD_EMAIL AS adEmail,
+        AD_DEPT_NAME AS adDeptName,
+        AD_GROUP AS adGroup
+        FROM ADDRESS
+        WHERE ${category} LIKE CONCAT('%', #{query}, '%')
+    </select>
+
 </mapper>
