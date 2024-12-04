@@ -20,7 +20,11 @@ public class AddressRestController {
     // 전체 주소 데이터 반환 (JSON)
     @GetMapping
     public List<AddressVO> getAllAddress() {
-        return addressService.getAllAddress();
+        try {
+            return addressService.getAllAddress();
+        } catch (Exception e) {
+            throw new RuntimeException("전체 데이터를 가져오는 중 오류가 발생했습니다.");
+        }
     }
 
     // 검색 결과 반환 (JSON)
@@ -28,9 +32,14 @@ public class AddressRestController {
     public List<AddressVO> searchAddress(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {
-        System.out.println("검색 필터 category: " + category);
-        System.out.println("검색어 query: " + query);
 
-        return addressService.searchAddress(category, query);
+        try {
+            System.out.println("검색 필터 category: " + category);
+            System.out.println("검색어 query: " + query);
+
+            return addressService.searchAddress(category, query);
+        } catch (Exception e) {
+            throw new RuntimeException("검색 중 오류가 발생했습니다.");
+        }
     }
 }
