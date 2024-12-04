@@ -6,5 +6,4 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface LoginController {
     public ModelAndView login(HttpServletRequest reqeust, HttpServletResponse response) throws Exception;
-
 }

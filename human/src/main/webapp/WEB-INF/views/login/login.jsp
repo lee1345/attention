@@ -52,41 +52,52 @@
       <!-- 회원가입 -->
       <div class="login-container" id="signup-page" style="display: none;">
         <h1>SIGN IN</h1>
-        <form id="signup-form">
-          <label for="signup-id">ID</label>
-          <input type="text" id="signup-id" name="signup-id" placeholder="아이디를 입력하세요" required>
+        <form id="signup-form" action="/login/sign_in" method="post">
+          <label for="e_id">ID</label>
+          <input type="text" id="e_id" name="e_id" placeholder="아이디를 입력하세요" maxlength="16" required>
 
-          <label for="signup-pw">PASSWORD</label>
-          <input type="password" id="signup-pw" name="signup-pw" placeholder="비밀번호를 입력하세요" required>
+          <label for="e_pw">PASSWORD</label>
+          <input type="password" id="e_pw" name="e_pw" placeholder="비밀번호를 입력하세요" minlength="8" maxlength="16" required>
 
-          <label for="signup-pw-confirm">PASSWORD CONFIRM</label>
-          <input type="password" id="signup-pw-confirm" name="signup-pw-confirm" placeholder="비밀번호 확인" required>
+          <label for="pw_confirm">PASSWORD CONFIRM</label>
+          <input type="password" id="pw_confirm" name="pw_confirm" placeholder="비밀번호 확인" required>
 
-          <label for="signup-name">이름</label>
-          <input type="text" id="signup-name" name="signup-name" placeholder="이름을 입력하세요" required>
+          <label for="e_name">이름</label>
+          <input type="text" id="e_name" name="e_name" placeholder="이름을 입력하세요" maxlength="16" required>
 
-          <label for="signup-department">부서</label>
-          <select id="signup-department" name="signup-department" required>
+          <label for="e_dept">부서</label>
+          <select id="e_dept" name="e_dept" required>
             <option value="">부서를 선택하세요</option>
-            <option value="hr">인사팀</option>
-            <option value="marketing">개발</option>
-            <option value="sales">영업부</option>
+            <option value="M">경영</option>
+            <option value="H">인사총무</option>
+            <option value="F">재무회계</option>
+            <option value="S">영업마케팅</option>
           </select>
 
-          <label for="signup-phone">전화번호</label>
-          <input type="tel" id="signup-phone" name="signup-phone" placeholder="전화번호를 입력하세요" required >
+            <label for="e_position">직위</label>
+            <select id="e_position" name="e_position" required>
+              <option value="">직위를 선택하세요</option>
+              <option value="C">대표</option>
+              <option value="SM">수석</option>
+              <option value="M">책임</option>
+              <option value="SA">선임</option>
+              <option value="JA">사원</option>
+            </select>
 
-          <label for="signup-email">이메일</label>
-          <input type="email" id="signup-email" name="signup-email" placeholder="이메일을 입력하세요" required>
+          <label for="e_phone">전화번호</label>
+          <input type="tel" id="e_phone" name="e_phone" placeholder="전화번호를 입력하세요" required >
+
+          <label for="e_email">이메일</label>
+          <input type="email" id="e_email" name="e_email" placeholder="이메일을 입력하세요" required>
 
           <div class="checkbox-container">
             <input type="checkbox" style="width:40px" id="agree" name="agree" required>
             <label for="agree">개인정보활용동의</label>
           </div>
 
-          <button type="submit" action="#">가입하기</button>
+          <button type="submit">가입하기</button>
           <div class="links" style="text-align: center;">
-            <a href="${contextPath}/login" >로그인화면으로 이동</a>
+            <a href="${contextPath}/login">로그인화면으로 이동</a>
           </div>
         </form>
       </div>
