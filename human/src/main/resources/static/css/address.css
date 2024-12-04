@@ -58,32 +58,42 @@
     background-color: #0056b3;
 }
 
+/* 테이블 스타일 */
 .address-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    width: 100%; /* 테이블 너비를 100%로 설정 */
+    border-collapse: collapse; /* 테두리 간격 제거 */
 }
 
 .address-table th,
 .address-table td {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd; /* 상단 테두리 */
+    border-bottom: 1px solid #ddd; /* 하단 테두리 */
     padding: 10px;
     text-align: center;
+    white-space: nowrap; /* 빈 공간일 때 셀 높이를 유지 */
 }
 
+/* 헤더 스타일 */
 .address-table th {
     background-color: #f8f9fa;
     font-weight: bold;
     color: #333;
 }
 
+/* 홀수 행 배경색 */
 .address-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+/* 행 hover 효과 */
 .address-table tr:hover {
     background-color: #f1f1f1;
+}
+
+/* 빈 셀에도 테두리를 유지 */
+.address-table td:empty::after {
+    content: "\00a0"; /* 공백 문자 추가 */
+    display: block;
 }
 
 .pagination {
