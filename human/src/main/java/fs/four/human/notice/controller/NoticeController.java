@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Notice")
+@RequestMapping("/notice")
 public class NoticeController {
 
     @Autowired
@@ -46,9 +46,8 @@ public class NoticeController {
 
             List<NoticeVO> searchNotice = noticeService.searchNotice(category, query);
             model.addAttribute("noticeList", searchNotice);
-
-
             return "notice/notice"; // JSP 파일 경로
+
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "검색 중 오류가 발생했습니다.");
