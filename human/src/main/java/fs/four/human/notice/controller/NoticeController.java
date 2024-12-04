@@ -12,27 +12,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/notice")
+@RequestMapping("/Notice")
 public class NoticeController {
-    
+
     @Autowired
     private NoticeService noticeService;
-    
-    // JSP 페이지 랜더링 ( 전체 데이터 )
+
+    // JSP 페이지 렌더링 ( 전체 데이터 )
     @GetMapping
     public String notice(Model model) {
         try {
-            List<NoticeVO> noticeList = noticeService.getAllNotice(); // service에서 데이터 가져오기
-            model.addAttribute("noticeList", noticeList); // 모델에 데이터 추가
+            List<NoticeVO> noticeList = noticeService.getAllNotice();
+            model.addAttribute("noticeList", noticeList);
             System.out.println("-----notice-----");
-            return "notice/notice"; // JSP 파일로 전달
+            return "notice/notice"; // JSP 파일 경로
 
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("errorMessage", "공지사항 데이터를 불러오는 중 오류가 발생했습니다.");
-            return "error/error";
+            model.addAttribute("errorMessage", "데이터를 불러오는 중 오류가 발생했습니다.");
+            return "error/error"; // 에러 JSP 파일 경로
         }
     }
+
     // JSP 페이지 렌더링 (검색 데이터)
     @GetMapping("/search")
     public String searchNotice(
@@ -40,19 +41,18 @@ public class NoticeController {
             @RequestParam("query") String query, Model model) {
 
         try {
-            List<NoticeVO> searchNotice = noticeService.searchNotice(category, query);
-            model.addAttribute("NoticeList", searchNotice);
-
             System.out.println("검색 필터 category: " + category);
             System.out.println("검색어 query: " + query);
 
-            return "Notice/Notice"; // JSP 파일 경로
+            List<NoticeVO> searchNotice = noticeService.searchNotice(category, query);
+            model.addAttribute("noticeList", searchNotice);
 
+
+            return "notice/notice"; // JSP 파일 경로
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "검색 중 오류가 발생했습니다.");
             return "error/error"; // 에러 JSP 파일 경로
         }
     }
-    
 }
