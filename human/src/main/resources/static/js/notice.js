@@ -12,8 +12,23 @@ $(document).ready(function () {
             return;
         }
 
-         // 검색 데이터 로드
-         searchNoticeData(category, query);
+        const searchData = {
+            category: category,
+            query: query
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/notice/search',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify(searchData),
+            success: function (data)    {
+                     renderNoticeTable(data);
+            },
+            error: function (xhr) {
+                   alert("검색어를 확인해주세요 !");
+            }
+        });
     });
 });
 
@@ -27,20 +42,6 @@ function NoticeAllData() {
         },
         error: function (xhr) {
               console.error("데이터 요청 실패:", xhr.responseText);
-        }
-    });
-}
-
-// 검색 데이터 로드
-function searchNoticeData(category, query) {
-    $.ajax({
-        type: 'GET', // GET 요청으로 변경
-        url: `/api/notice/search?category=${category}&query=${query}`, // URL에 파라미터 추가
-        success: function (data) {
-            renderNoticeTable(data);
-        },
-        error: function (xhr) {
-            console.error("검색 실패:", xhr.responseText);
         }
     });
 }
@@ -62,8 +63,6 @@ function renderNoticeTable(data) {
                 <td>${notice.bTitle}</td>
                 <td>${notice.bContent}</td>
                 <td>${notice.bWriter}</td>
-                <td>${notice.bGroup}</td>
-                <td>${notice.bCategory}</td>
             </tr>
         `;
         noticeTable.append(row);

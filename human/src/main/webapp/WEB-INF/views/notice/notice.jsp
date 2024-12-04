@@ -33,8 +33,6 @@
                     <th>제목</th>
                     <th>내용</th>
                     <th>작성자</th>
-                    <th>그룹</th>
-                    <th>구분</th>
                 </tr>
             </thead>
             <tbody id="noticeTable">

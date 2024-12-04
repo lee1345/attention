@@ -8,9 +8,7 @@
         B_ID AS bId,
         B_TITLE AS bTitle,
         B_CONTENT AS bContent,
-        B_WRITER AS bWriter,
-        B_GROUP AS bGroup,
-        B_CATEGORY AS bCategory
+        B_WRITER AS bWriter
         FROM board
     </select>
 
@@ -20,9 +18,7 @@
         B_ID AS bId,
         B_TITLE AS bTitle,
         B_CONTENT AS bContent,
-        B_WRITER AS bWriter,
-        B_GROUP AS bGroup,
-        B_CATEGORY AS bCategory
+        B_WRITER AS bWriter
         FROM board
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 검색 필터 적용 -->
     </select>
