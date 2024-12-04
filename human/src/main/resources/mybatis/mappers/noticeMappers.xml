@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fs.four.human.notice.dao.NoticeDAO">
+
+    <!-- 전체 주소록 조회 -->
+    <select id="getAllNotice" resultType="NoticeVO">
+        SELECT
+        B_ID AS bId,
+        B_TITLE AS btitle,
+        B_CONTENT AS bContent,
+        B_WRITER AS bWriter,
+        B_GROUP AS bGroup,
+        B_CATEGORY AS bCategory,
+        FROM ADDRESS
+    </select>
+</mapper>

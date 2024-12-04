@@ -1,19 +1,34 @@
 package fs.four.human.notice.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import fs.four.human.notice.service.NoticeService;
+import fs.four.human.notice.vo.NoticeVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/notice")
-public class NoticeControllerImpl implements NoticeController {
+public class NoticeControllerImpl {
+    
+    @Autowired
+    private NoticeService noticeService;
+    
+    // 기본 주소 페이지 및 주소 데이터 가져오기
     @GetMapping
-    public ModelAndView notice(HttpServletRequest request, HttpServletResponse response) {
+    public String notice(Model model) {
         System.out.println("-----notice-----");
-        return new ModelAndView("notice/notice");
+        
+        // service에서 데이터 가져오기
+        List<NoticeVO> noticeList = noticeService.getAllNotice();
+        
+        // 모델에 데이터 추가
+        model.addAttribute("noticeList", noticeList);
+        
+        // JSP 파일로 전달
+        return "notice/notice";
     }
 }
-
