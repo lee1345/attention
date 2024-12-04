@@ -5,10 +5,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <title>Notice</title>
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/notice.css" />
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <title>Notice</title>
+    <!-- 부트스트랩 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -44,7 +48,7 @@
                 <!-- 버튼 -->
                 <div class="filter-group">
                     <button type="submit" class="btn-search">조회</button>
-                    <button type="button" class="btn-register" onclick="location.href='${contextPath}/notice/register'">등록하기</button>
+                    <button type="button" class="btn-register" data-bs-toggle="modal" data-bs-target="#registerModal">등록하기</button>
                 </div>
             </div>
         </form>
@@ -84,5 +88,55 @@
     </div>
 </div>
 </div> <!-- common.jsp에 container의 닫는부분 -->
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="${contextPath}/addressBook/register">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">주소록 등록</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 이름 -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">이름</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <!-- 휴대폰 -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">휴대폰</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <!-- 이메일 -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">이메일</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <!-- 부서명 -->
+                    <div class="mb-3">
+                        <label for="department" class="form-label">부서명</label>
+                        <input type="text" class="form-control" id="department" name="department">
+                    </div>
+                    <!-- 회사명 -->
+                    <div class="mb-3">
+                        <label for="company" class="form-label">회사명</label>
+                        <input type="text" class="form-control" id="company" name="company">
+                    </div>
+                    <!-- 그룹 -->
+                    <div class="mb-3">
+                        <label for="group" class="form-label">그룹(별칭)</label>
+                        <input type="text" class="form-control" id="group" name="group">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
