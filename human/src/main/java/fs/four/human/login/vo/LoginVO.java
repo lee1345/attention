@@ -8,20 +8,10 @@ public class LoginVO {
     String e_pwd;
     String e_phone;
     String e_email;
-    String e_dept;
     String e_position;
+    String e_dept;
     Date e_created_date;
     Date e_updated_date;
-
-    public LoginVO(String e_id, String e_name, String e_pwd, String e_phone, String e_email, String e_position, String e_dept) {
-        this.e_id = e_id;
-        this.e_name = e_name;
-        this.e_pwd = e_pwd;
-        this.e_phone = e_phone;
-        this.e_email = e_email;
-        this.e_dept = e_dept;
-        this.e_position = e_position;
-    }
 
     public String getE_id() {
         return e_id;

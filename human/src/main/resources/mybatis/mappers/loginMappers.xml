@@ -5,7 +5,7 @@
 <mapper namespace="fs.four.human.login.dao.LoginDAO">
 
 <insert id="insertMember" parameterType="LoginVO">
-    INSERT INTO MEMBER (
+    INSERT INTO EMPLOYEE (
     E_ID, E_NAME, E_PWD, E_PHONE, E_EMAIL, E_DEPT, E_POSITION, E_CREATED_DATE, E_UPDATED_DATE
     ) VALUES (
     #{e_id}, #{e_name}, #{e_pwd}, #{e_phone}, #{e_email}, #{e_dept}, #{e_position}, SYSDATE, SYSDATE

@@ -52,12 +52,12 @@
       <!-- 회원가입 -->
       <div class="login-container" id="signup-page" style="display: none;">
         <h1>SIGN IN</h1>
-        <form id="signup-form" action="/login/sign_in" method="post">
+        <form id="signup-form" action="${contextPath}/login/sign_in" method="post">
           <label for="e_id">ID</label>
           <input type="text" id="e_id" name="e_id" placeholder="아이디를 입력하세요" maxlength="16" required>
 
-          <label for="e_pw">PASSWORD</label>
-          <input type="password" id="e_pw" name="e_pw" placeholder="비밀번호를 입력하세요" minlength="8" maxlength="16" required>
+          <label for="e_pwd">PASSWORD</label>
+          <input type="password" id="e_pwd" name="e_pwd" placeholder="비밀번호를 입력하세요" minlength="8" maxlength="16" required>
 
           <label for="pw_confirm">PASSWORD CONFIRM</label>
           <input type="password" id="pw_confirm" name="pw_confirm" placeholder="비밀번호 확인" required>

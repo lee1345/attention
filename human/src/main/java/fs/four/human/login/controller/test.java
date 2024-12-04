@@ -1,7 +1,7 @@
 //package fs.four.human.login.controller;
 //
-//import fs.four.human.login.service.LoginService;
 //import fs.four.human.login.vo.LoginVO;
+//import fs.four.human.login.service.LoginService;
 //import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,8 @@
 //
 //@Controller
 //@RequestMapping("/login")
-//public class test implements LoginController {
+//public class LoginControllerImpl implements LoginController {
 //
-
 //    @Autowired
 //    private LoginService loginService;
 //
@@ -28,15 +27,7 @@
 //
 //    @PostMapping("/sign_in")
 //    public String signUp(LoginVO loginVO) {
-//        int result = loginService.signUp(loginVO);
-//        String viewpage = null;
-//        if(result==1){
-//            viewpage = "redirect:/common";
-//        }else{
-//            alert("가입에 실패하였습니다.");
-//        }
-//        return viewpage;
-//
+//        loginService.signUp(loginVO);
+//        return "redirect:/login"; // 로그인 페이지로 리다이렉트
 //    }
 //}
-
