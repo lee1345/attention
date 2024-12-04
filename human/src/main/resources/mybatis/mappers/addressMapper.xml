@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fs.four.human.address.dao.AddressDAO">
+
+    <!-- 전체 주소록 조회 -->
+    <select id="getAllAddress" resultType="AddressVO">
+        SELECT
+        AD_ID AS adId,
+        AD_EMPL_ID AS adEmplId,
+        AD_NAME AS adName,
+        AD_PHONE AS adPhone,
+        AD_EMAIL AS adEmail,
+        AD_DEPT_NAME AS adDeptName,
+        AD_GROUP AS adGroup
+        FROM ADDRESS
+    </select>
+
+    <!-- 필터와 검색어 기반 검색 -->
+    <select id="searchAddress" resultType="AddressVO">
+        SELECT
+        AD_ID AS adId,
+        AD_EMPL_ID AS adEmplId,
+        AD_NAME AS adName,
+        AD_PHONE AS adPhone,
+        AD_EMAIL AS adEmail,
+        AD_DEPT_NAME AS adDeptName,
+        AD_GROUP AS adGroup
+        FROM ADDRESS
+        WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
+    </select>
+
+<!--    &lt;!&ndash; 새로운 주소 데이터 등록 &ndash;&gt;-->
+<!--    <insert id="createAddress">-->
+<!--        INSERT INTO ADDRESS (AD_ID, AD_EMPL_ID, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP)-->
+<!--        VALUES (#{adId}, #{adEmplId}, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup})-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash; 주소 데이터 수정 &ndash;&gt;-->
+<!--    <update id="updateAddress">-->
+<!--        UPDATE ADDRESS-->
+<!--        SET AD_NAME = #{adName},-->
+<!--        AD_PHONE = #{adPhone},-->
+<!--        AD_EMAIL = #{adEmail},-->
+<!--        AD_DEPT_NAME = #{adDeptName},-->
+<!--        AD_GROUP = #{adGroup}-->
+<!--        WHERE AD_ID = #{adId}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash; 주소 데이터 삭제 &ndash;&gt;-->
+<!--    <delete id="deleteAddress">-->
+<!--        DELETE FROM ADDRESS WHERE AD_ID = #{id}-->
+<!--    </delete>-->
+
+</mapper>

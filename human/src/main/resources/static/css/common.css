@@ -39,7 +39,7 @@ header .user-info {
   align-items: center;
   margin-right: 30px;
   gap: 30px;
-  cursor: pointer;
+
 }
 
 header .user-info span {
@@ -54,6 +54,7 @@ header .user-info strong {
 
 header .user-info a:hover {
   text-decoration: underline;
+  color: #555;
 }
 
 /* 레이아웃 스타일 */
@@ -80,13 +81,13 @@ header .user-info a:hover {
 .sidebar li {
   margin-bottom: 10px;
   cursor: pointer;
+  color: #555;
 }
 
 .sidebar li span,
 strong {
   font-weight: bold;
   font-size: 20px;
-  color: #333;
   display: block;
   margin-bottom: 10px;
   cursor: auto;
@@ -98,4 +99,5 @@ strong {
 
 .sidebar a:hover {
   text-decoration: underline;
+  color: #959595;
 }

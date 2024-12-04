@@ -7,7 +7,7 @@ const navigationLinks = {
   schedule: "/schedule", // 일정관리 경로
   notice: "/notice", // 공지사항 경로
   freeBoard: "/freeBoard", // 자유게시판 경로
-  addressBook: "/addressBook", // 주소록 경로
+  address: "/address", // 주소록 경로
 };
 
 // 링크 설정 함수
@@ -16,7 +16,7 @@ function setupNavigation() {
   Object.keys(navigationLinks).forEach((key) => {
     const linkElement = document.getElementById(key); // 해당 id를 가진 요소 찾기
     if (linkElement) {
-      linkElement.href = navigationLinks[key]; // href 속성 설정
+      linkElement.href = navigationLinks[key];
     }
   });
 }
