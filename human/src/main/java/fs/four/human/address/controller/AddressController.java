@@ -18,7 +18,7 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    // JSP 페이지 렌더링 (전체 데이터)
+    // JSP 페이지 렌더링 ( 전체 데이터 )
     @GetMapping
     public String address(Model model) {
         try {
@@ -44,8 +44,8 @@ public class AddressController {
             System.out.println("검색 필터 category: " + category);
             System.out.println("검색어 query: " + query);
 
-            List<AddressVO> searchResults = addressService.searchAddress(category, query);
-            model.addAttribute("addressList", searchResults);
+            List<AddressVO> searchAddress = addressService.searchAddress(category, query);
+            model.addAttribute("addressList", searchAddress);
 
 
             return "address/address"; // JSP 파일 경로

@@ -30,7 +30,7 @@
 
           <label for="login-pw">Password</label>
           <input type="password" id="login-pw" name="login-pw" placeholder="비밀번호를 입력하세요" required>
-
+          <br><br>
           <button type="submit" id="btn_login">LOGIN</button>
           <div class="links">
             <a id="signup-link">회원가입</a>
@@ -56,34 +56,37 @@
         <form id="signup-form">
           <label for="e_id">ID</label>
           <input type="text" id="e_id" name="e_id" placeholder="아이디를 입력하세요" maxlength="16" required>
+          <div class="warning" id="idWarning"></div>
 
           <label for="e_pwd">PASSWORD</label>
           <input type="password" id="e_pwd" name="e_pwd" placeholder="비밀번호를 입력하세요" minlength="8" maxlength="16" required>
 
           <label for="pw_confirm">PASSWORD CONFIRM</label>
           <input type="password" id="pw_confirm" name="pw_confirm" placeholder="비밀번호 확인" required>
+          <div class="warning" id="pwdWarning"></div>
 
           <label for="e_name">이름</label>
           <input type="text" id="e_name" name="e_name" placeholder="이름을 입력하세요" maxlength="16" required>
+          <div class="warning" id="nameWarning"></div>
 
           <label for="e_dept">부서</label>
-          <select id="e_dept" name="e_dept" required>
-            <option value="">부서를 선택하세요</option>
-            <option value="M">경영</option>
-            <option value="H">인사총무</option>
-            <option value="F">재무회계</option>
-            <option value="S">영업마케팅</option>
-          </select>
+            <select id="e_dept" name="e_dept" required>
+              <option value="">부서를 선택하세요</option>
+              <option value="M">경영</option>
+              <option value="H">인사총무</option>
+              <option value="F">재무회계</option>
+              <option value="S">영업마케팅</option>
+            </select>
 
           <label for="e_position">직위</label>
-          <select id="e_position" name="e_position" required>
-            <option value="">직위를 선택하세요</option>
-            <option value="C">대표</option>
-            <option value="SM">수석</option>
-            <option value="M">책임</option>
-            <option value="SA">선임</option>
-            <option value="JA">사원</option>
-          </select>
+            <select id="e_position" name="e_position" required>
+              <option value="">직위를 선택하세요</option>
+              <option value="C">대표</option>
+              <option value="SM">수석</option>
+              <option value="M">책임</option>
+              <option value="SA">선임</option>
+              <option value="JA">사원</option>
+            </select>
 
           <label for="e_phone">전화번호</label>
           <input type="tel" id="e_phone" name="e_phone" placeholder="전화번호를 입력하세요" required>
@@ -97,6 +100,7 @@
           </div>
 
           <button type="button" id="btn_submit">회원가입</button>
+            <a href="${contextPath}/login">로그인 창으로 돌아가기</a>
         </form>
       </div>
     </div>
