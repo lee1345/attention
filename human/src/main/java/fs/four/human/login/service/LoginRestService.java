@@ -16,4 +16,12 @@ public class LoginRestService {
     public void signUp(LoginVO loginVO) {
         loginDAO.insertMember(loginVO);
     }
+
+    public boolean validateLogin(LoginVO loginVO) {
+        LoginVO user = loginDAO.findUserById(loginVO.getE_id());
+        if (user != null && user.getE_pwd().equals(loginVO.getE_pwd())) {
+            return true;
+        }
+        return false;
+    }
 }
