@@ -47,12 +47,12 @@ $(document).ready(function() {
       e_position: $('#e_position').val()
     };
 
-    // jQuery AJAX 요청
+
     $.ajax({
       type: "POST",
-      url: "/login/sign_in",  // contextPath를 사용하여 정확한 URL을 설정
+      url: "/login/sign_in",
       contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify(formData),  // 데이터를 JSON 형식으로 변환하여 전송
+      data: JSON.stringify(formData),
       success: function(response) {
         alert("회원가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
         window.location.href = "/login";
