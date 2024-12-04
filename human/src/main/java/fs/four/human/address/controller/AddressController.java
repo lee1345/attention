@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,9 +46,8 @@ public class AddressController {
 
             List<AddressVO> searchAddress = addressService.searchAddress(category, query);
             model.addAttribute("addressList", searchAddress);
-
-
             return "address/address"; // JSP 파일 경로
+
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "검색 중 오류가 발생했습니다.");
