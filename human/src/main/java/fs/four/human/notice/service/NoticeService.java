@@ -13,8 +13,14 @@ public class NoticeService {
     @Autowired
     private NoticeDAO noticeDAO;
 
+    // 전체 게시물 데이터 조회
     public List<NoticeVO> getAllNotice() {
-        List<NoticeVO> notice = noticeDAO.getAllNotice();
-        return notice;
+        return noticeDAO.getAllNotice();
     }
+
+    // 필터와 검색어 기반 검색
+    public List<NoticeVO> searchNotice(String category, String query) {
+        return noticeDAO.searchNotice(category, query);
+    }
+
 }

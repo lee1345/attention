@@ -1,6 +1,5 @@
 package fs.four.human.freeBoard.controller;
 
-import fs.four.human.notice.controller.NoticeController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -17,4 +16,3 @@ public class FreeBoardControllerImpl implements FreeBoardController {
         return new ModelAndView("freeBoard/freeBoard");
     }
 }
-
