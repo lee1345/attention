@@ -16,7 +16,7 @@ function setupNavigation() {
   Object.keys(navigationLinks).forEach((key) => {
     const linkElement = document.getElementById(key); // 해당 id를 가진 요소 찾기
     if (linkElement) {
-      linkElement.href = navigationLinks[key]; // href 속성 설정
+      linkElement.href = navigationLinks[key];
     }
   });
 }
