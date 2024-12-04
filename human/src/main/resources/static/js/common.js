@@ -7,7 +7,7 @@ const navigationLinks = {
   schedule: "/schedule", // 일정관리 경로
   notice: "/notice", // 공지사항 경로
   freeBoard: "/freeBoard", // 자유게시판 경로
-  addressBook: "/addressBook", // 주소록 경로
+  address: "/address", // 주소록 경로
 };
 
 // 링크 설정 함수
