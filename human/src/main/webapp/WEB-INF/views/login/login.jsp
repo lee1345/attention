@@ -9,6 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOGIN</title>
   <link rel="stylesheet" href="${contextPath}/css/login.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.js" ></script>
+
 </head>
 <body>
   <div class="container">
@@ -19,7 +21,6 @@
 
     <!-- 오른쪽 로그인 기능 영역 -->
     <div class="form-section">
-
       <!-- 로그인 -->
       <div class="login-container" id="login-page">
         <h1>LOGIN</h1>
@@ -52,7 +53,7 @@
       <!-- 회원가입 -->
       <div class="login-container" id="signup-page" style="display: none;">
         <h1>SIGN IN</h1>
-        <form id="signup-form" action="${contextPath}/login/sign_in" method="post">
+        <form id="signup-form">
           <label for="e_id">ID</label>
           <input type="text" id="e_id" name="e_id" placeholder="아이디를 입력하세요" maxlength="16" required>
 
@@ -74,18 +75,18 @@
             <option value="S">영업마케팅</option>
           </select>
 
-            <label for="e_position">직위</label>
-            <select id="e_position" name="e_position" required>
-              <option value="">직위를 선택하세요</option>
-              <option value="C">대표</option>
-              <option value="SM">수석</option>
-              <option value="M">책임</option>
-              <option value="SA">선임</option>
-              <option value="JA">사원</option>
-            </select>
+          <label for="e_position">직위</label>
+          <select id="e_position" name="e_position" required>
+            <option value="">직위를 선택하세요</option>
+            <option value="C">대표</option>
+            <option value="SM">수석</option>
+            <option value="M">책임</option>
+            <option value="SA">선임</option>
+            <option value="JA">사원</option>
+          </select>
 
           <label for="e_phone">전화번호</label>
-          <input type="tel" id="e_phone" name="e_phone" placeholder="전화번호를 입력하세요" required >
+          <input type="tel" id="e_phone" name="e_phone" placeholder="전화번호를 입력하세요" required>
 
           <label for="e_email">이메일</label>
           <input type="email" id="e_email" name="e_email" placeholder="이메일을 입력하세요" required>
@@ -95,10 +96,7 @@
             <label for="agree">개인정보활용동의</label>
           </div>
 
-          <button type="submit">가입하기</button>
-          <div class="links" style="text-align: center;">
-            <a href="${contextPath}/login">로그인화면으로 이동</a>
-          </div>
+          <button type="button" id="btn_submit">회원가입</button>
         </form>
       </div>
     </div>

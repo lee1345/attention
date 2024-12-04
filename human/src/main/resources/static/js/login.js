@@ -2,10 +2,9 @@
 document.getElementById('signup-link').addEventListener('click', () => {
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('signup-page').style.display = 'block';
-  });
+});
 
-//개인정보 활용 동의 모달
-
+// 개인정보 활용 동의 모달
 document.addEventListener("DOMContentLoaded", () => {
   const checkbox = document.getElementById("agree");
   const modal = document.getElementById("privacy-modal");
@@ -32,5 +31,36 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.style.display = "none";
       checkbox.checked = true; // 체크박스 해제
     }
+  });
+});
+
+// 회원가입 ajax 통신
+$(document).ready(function() {
+  $('#btn_submit').on('click', function() {
+    const formData = {
+      e_id: $('#e_id').val(),
+      e_name: $('#e_name').val(),
+      e_pwd: $('#e_pwd').val(),
+      e_phone: $('#e_phone').val(),
+      e_email: $('#e_email').val(),
+      e_dept: $('#e_dept').val(),
+      e_position: $('#e_position').val()
+    };
+
+    // jQuery AJAX 요청
+    $.ajax({
+      type: "POST",
+      url: "/login/sign_in",  // contextPath를 사용하여 정확한 URL을 설정
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(formData),  // 데이터를 JSON 형식으로 변환하여 전송
+      success: function(response) {
+        alert("회원가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
+        window.location.href = "/login";
+
+      },
+      error: function(xhr, status, error) {
+        alert("회원가입 실패: " + error);
+      }
+    });
   });
 });

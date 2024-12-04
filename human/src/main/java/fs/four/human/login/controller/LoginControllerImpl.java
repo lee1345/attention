@@ -25,9 +25,4 @@ public class LoginControllerImpl implements LoginController {
         return new ModelAndView("login/login");
     }
 
-    @PostMapping("/sign_in")
-    public String signUp(LoginVO loginVO) {
-        loginService.signUp(loginVO);
-        return "redirect:/login"; // 로그인 페이지로 리다이렉트
-    }
 }
