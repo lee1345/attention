@@ -64,3 +64,28 @@ $(document).ready(function() {
     });
   });
 });
+
+//로그인 기능
+$('#btn_login').on('click', function() {
+    event.preventDefault()
+    const loginData = {
+        e_id: $('#login-id').val(),
+        e_pwd: $('#login-pw').val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/login/log_in",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify(loginData),
+        success: function(response) {
+            alert("로그인 성공하였습니다.");
+            window.location.href = "/common";
+        },
+        error: function(xhr) {
+            alert("로그인 실패 "+xhr.responseText);
+        }
+    });
+});
+
+

@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LoginDAO {
     void insertMember(LoginVO loginVO);
-
+    LoginVO findUserById(String e_id);
 }

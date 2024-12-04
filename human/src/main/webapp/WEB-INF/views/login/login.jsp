@@ -31,7 +31,7 @@
           <label for="login-pw">Password</label>
           <input type="password" id="login-pw" name="login-pw" placeholder="비밀번호를 입력하세요" required>
 
-          <button type="submit">LOGIN</button>
+          <button type="submit" id="btn_login">LOGIN</button>
           <div class="links">
             <a id="signup-link">회원가입</a>
             <a id="forgot-link">아이디/비밀번호 찾기</a>
