@@ -21,24 +21,38 @@ public class AddressController {
     // JSP 페이지 렌더링 (전체 데이터)
     @GetMapping
     public String address(Model model) {
-        List<AddressVO> addressList = addressService.getAllAddress();
-        model.addAttribute("addressList", addressList);
+        try {
+            List<AddressVO> addressList = addressService.getAllAddress();
+            model.addAttribute("addressList", addressList);
+            System.out.println("-----address-----");
+            return "address/address"; // JSP 파일 경로
 
-        return "address/address"; // JSP 파일 경로
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "데이터를 불러오는 중 오류가 발생했습니다.");
+            return "error/error"; // 에러 JSP 파일 경로
+        }
     }
 
     // JSP 페이지 렌더링 (검색 데이터)
     @GetMapping("/search")
     public String searchAddress(
             @RequestParam("category") String category,
-            @RequestParam("query") String query,
-            Model model) {
-        System.out.println("검색 필터 category: " + category);
-        System.out.println("검색어 query: " + query);
+            @RequestParam("query") String query, Model model) {
 
-        List<AddressVO> searchResults = addressService.searchAddress(category, query);
-        model.addAttribute("addressList", searchResults);
+        try {
+            System.out.println("검색 필터 category: " + category);
+            System.out.println("검색어 query: " + query);
 
-        return "address/address"; // JSP 파일 경로
+            List<AddressVO> searchResults = addressService.searchAddress(category, query);
+            model.addAttribute("addressList", searchResults);
+
+
+            return "address/address"; // JSP 파일 경로
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "검색 중 오류가 발생했습니다.");
+            return "error/error"; // 에러 JSP 파일 경로
+        }
     }
 }

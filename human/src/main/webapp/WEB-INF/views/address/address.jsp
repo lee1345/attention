@@ -47,7 +47,7 @@
                     <th>그룹(별칭)</th>
                 </tr>
             </thead>
-            <tbody id="addressTableBody">
+            <tbody id="addressTable">
                 <!-- AJAX로 데이터 로드 -->
             </tbody>
         </table>
