@@ -62,15 +62,15 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="entry" items="${noticeList}">
+        <c:forEach var="notice" items="${noticeList}">
             <tr>
-                <td>${entry.id}</td>
-                <td>${entry.name}</td>
-                <td>${entry.phone}</td>
-                <td>${entry.email}</td>
-                <td>${entry.department}</td>
-                <td>${entry.company}</td>
-                <td>${entry.group}</td>
+                <td>${notice.id}</td>
+                <td>${notice.name}</td>
+                <td>${notice.phone}</td>
+                <td>${notice.email}</td>
+                <td>${notice.department}</td>
+                <td>${notice.company}</td>
+                <td>${notice.group}</td>
             </tr>
         </c:forEach>
         </tbody>
