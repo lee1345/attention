@@ -45,6 +45,7 @@ h1 {
 }
 
 label {
+  font-size: 10pt;
   display: block;
   margin: 10px 0 5px;
   color: #007BFF;
@@ -53,7 +54,7 @@ label {
 input, select, button {
   width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   border: 1px solid #bdbdbd;
   border-radius: 4px;
   font-size: 14px;

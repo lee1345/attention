@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 });
 
-// 전체 데이터 로드 함수
+// 주소록 데이터 로드 함수
 function addressAllData() {
     $.ajax({
         type: 'GET',

@@ -6,11 +6,20 @@
     <select id="getAllNotice" resultType="NoticeVO">
         SELECT
         B_ID AS bId,
-        B_TITLE AS btitle,
+        B_TITLE AS bTitle,
         B_CONTENT AS bContent,
-        B_WRITER AS bWriter,
-        B_GROUP AS bGroup,
-        B_CATEGORY AS bCategory,
-        FROM ADDRESS
+        B_WRITER AS bWriter
+        FROM board
+    </select>
+
+    <!-- 검색 기능 -->
+    <select id="searchNotice" resultType="NoticeVO">
+        SELECT
+        B_ID AS bId,
+        B_TITLE AS bTitle,
+        B_CONTENT AS bContent,
+        B_WRITER AS bWriter
+        FROM board
+        WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 검색 필터 적용 -->
     </select>
 </mapper>

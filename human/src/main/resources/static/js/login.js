@@ -88,4 +88,7 @@ $('#btn_login').on('click', function() {
     });
 });
 
+//중복검사
+const inputName = document.getElementById('e_id');
+const inputPwd = document.getElementById('e_pwd');
 
