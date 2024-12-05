@@ -71,32 +71,31 @@ function renderTable(data) {
     });
 }
 
-// 등록하기
+
+
 $(document).ready(function () {
-    // 등록 버튼 클릭 이벤트
-    $('#registerForm').on('submit', function (e) {
-        e.preventDefault(); // 기본 폼 제출 동작 방지
-
-        const formData = {
-            adName: $('#name').val(),
-            adPhone: $('#phone').val(),
-            adEmail: $('#email').val(),
-            adDeptName: $('#department').val(),
-            adGroup: $('#group').val()
-        };
-
+    // 등록하기 버튼 클릭 이벤트
+    $('.btn-register').on('click', function () {
+        // Ajax로 모달 HTML 가져오기
         $.ajax({
-            type: 'POST',
-            url: '/api/address/addressModal',
-            contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify(formData),
-            success: function () {
-                alert("등록 성공!");
-                $('#registerModal').modal('hide'); // 모달 닫기
-                addressAllData(); // 전체 데이터 다시 로드
+            url: '/address/addressModal', // 컨트롤러에서 반환하는 JSP 경로
+            method: 'GET',
+            success: function (data) {
+                // 동적으로 모달 HTML 추가
+                if ($('#registerModal').length === 0) {
+                    $('body').append(data); // 가져온 HTML을 body에 추가
+                }
+
+                // Bootstrap 모달 띄우기
+                $('#registerModal').modal('show');
+
+                // 모달 닫힐 때 HTML 제거
+                $('#registerModal').on('hidden.bs.modal', function () {
+                    $(this).remove(); // 모달 DOM 삭제
+                });
             },
             error: function (xhr) {
-                alert("등록 실패: " + xhr.responseText);
+                alert('모달 로드 실패: ' + xhr.statusText);
             }
         });
     });

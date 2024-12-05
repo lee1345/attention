@@ -1,4 +1,4 @@
-body {
+.common {
   margin: 30px;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9; /* 전체 배경색 */
@@ -6,13 +6,13 @@ body {
 }
 
 /* <a> 태그의 기본 스타일 제거 */
-a {
+.common a {
   text-decoration: none; /* 밑줄 제거 */
   color: inherit; /* 부모 요소의 색상 상속 */
 }
 
 /* hover 상태에서도 밑줄 제거 강제 적용 */
-a:hover, a:focus, a:active {
+.common a:hover, a:focus, a:active {
   text-decoration: none !important; /* !important로 강제 제거 */
   color: inherit; /* 색상 유지 */
 }

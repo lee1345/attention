@@ -29,7 +29,7 @@
                     </select>
                     <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
                     <button type="button" class="btn-search" id="searchBtn">조회</button>
-                    <button type="button" class="btn-register" onclick="location.href='${contextPath}/address/addressModal'">등록하기</button>
+                    <button type="button" class="btn-register btn btn-primary">등록하기</button>
                 </div>
             </form>
         </div>
