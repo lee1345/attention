@@ -1,14 +1,14 @@
 // 회원가입 버튼 클릭 시 화면 전환
-document.getElementById('signup-link').addEventListener('click', () => {
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('signup-page').style.display = 'block';
+document.getElementById('signup_link').addEventListener('click', () => {
+    document.getElementById('login_page').style.display = 'none';
+    document.getElementById('signup_page').style.display = 'block';
 });
 
 // 개인정보 활용 동의 모달
 document.addEventListener("DOMContentLoaded", () => {
   const checkbox = document.getElementById("agree");
-  const modal = document.getElementById("privacy-modal");
-  const closeBtn = document.querySelector(".close-btn");
+  const modal = document.getElementById("privacyModal");
+  const closeBtn = document.querySelector(".close_btn");
 
   // 체크박스 클릭 시 모달 표시
   checkbox.addEventListener("change", () => {
