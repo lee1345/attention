@@ -1,7 +1,7 @@
 package fs.four.human.freeBoard.controller;
 
-import fs.four.human.freeBoard.service.FreeBoardService;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
+import fs.four.human.freeBoard.service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +23,7 @@ public class FreeBoardController {
     public String freeBoard(Model model) {
         try {
             List<FreeBoardVO> freeBoardList = freeBoardService.getAllFreeBoard();
+            System.out.println(freeBoardList.toString());
             model.addAttribute("freeBoardList", freeBoardList);
             System.out.println("-----freeBoard-----");
             return "freeBoard/freeBoard"; // JSP 파일 경로
@@ -53,11 +54,5 @@ public class FreeBoardController {
             model.addAttribute("errorMessage", "검색 중 오류가 발생했습니다.");
             return "error/error"; // 에러 JSP 파일 경로
         }
-    }
-
-    // 모달 HTML 반환
-    @GetMapping("/freeBoardModal")
-    public String getFreeBoardModal() {
-        return "freeBoard/freeBoardModal"; // JSP 파일 경로 (모달 HTML 파일)
     }
 }

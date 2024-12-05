@@ -3,7 +3,10 @@ package fs.four.human.freeBoard.controller;
 import fs.four.human.freeBoard.service.FreeBoardService;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -35,21 +38,8 @@ public class FreeBoardRestController {
             System.out.println("검색어 query: " + query);
 
             return freeBoardService.searchFreeBoard(category, query);
-
         } catch (Exception e) {
             throw new RuntimeException("검색 중 오류가 발생했습니다.");
         }
     }
-
-//    // 새로운 주소 데이터 등록 API
-//    @PostMapping("/register")
-//    public ResponseEntity<String> createFreeBoard(@RequestBody FreeBoardVO freeBoard) {
-//        try {
-//            freeBoardService.createFreeBoard(freeBoard);
-//            return ResponseEntity.ok("등록 성공!");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 실패: " + e.getMessage());
-//        }
-//    }
 }
