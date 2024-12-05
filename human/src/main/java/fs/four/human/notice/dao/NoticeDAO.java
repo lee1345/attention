@@ -14,6 +14,6 @@ public interface NoticeDAO {
 
     // 필터와 검색어 기반 검색
     List<NoticeVO> searchNotice(
-            @Param("category") String category, @Param("query") String query);
-
+            @Param("category") String category,
+            @Param("query") String query);
 }

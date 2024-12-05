@@ -1,14 +1,14 @@
 $(document).ready(function () {
-    // 초기 데이터 로드
-    NoticeAllData();
+    // 전체 데이터 로드 (GET)
+    noticeAllData();
 
     // 검색 버튼 클릭 이벤트
-    $('#btnSearch').on('click', function () {
+    $('#searchBtn').on('click', function () {
         const category = $('#category').val();
         const query = $('#searchQuery').val().trim();
 
         if (!query) {
-            alert("검색어를 입력하세요!");
+            alert("검색어를 입력하세요 !");
             return;
         }
 
@@ -22,32 +22,32 @@ $(document).ready(function () {
             url: '/api/notice/search',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(searchData),
-            success: function (data)    {
-                     renderNoticeTable(data);
+            success: function (data) {
+                renderTable(data);
             },
             error: function (xhr) {
-                   alert("검색어를 확인해주세요 !");
+                alert("검색어를 확인해주세요 !");
             }
         });
     });
 });
 
-// 공지사항 데이터 로드
-function NoticeAllData() {
+// 공지사항 데이터 로드 함수
+function noticeAllData() {
     $.ajax({
         type: 'GET',
         url: '/api/notice',
         success: function (data) {
-            renderNoticeTable(data);
+            renderTable(data);
         },
         error: function (xhr) {
-              console.error("데이터 요청 실패:", xhr.responseText);
+            console.error("데이터 요청 실패:", xhr.responseText);
         }
     });
 }
 
-// 테이블 렌더링
-function renderNoticeTable(data) {
+// 테이블 렌더링 함수
+function renderTable(data) {
     const noticeTable = $('#noticeTable');
     noticeTable.empty(); // 기존 내용 초기화
 
@@ -67,5 +67,4 @@ function renderNoticeTable(data) {
         `;
         noticeTable.append(row);
     });
-
 }

@@ -46,9 +46,8 @@ public class AddressController {
 
             List<AddressVO> searchAddress = addressService.searchAddress(category, query);
             model.addAttribute("addressList", searchAddress);
-
-
             return "address/address"; // JSP 파일 경로
+
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "검색 중 오류가 발생했습니다.");

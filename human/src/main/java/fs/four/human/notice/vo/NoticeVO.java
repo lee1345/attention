@@ -10,8 +10,6 @@ public class NoticeVO {
     private String bTitle;
     private String bContent;
     private String bWriter;
-    private String bGroup;
-    private String bCategory;
 
     public NoticeVO(){
 
