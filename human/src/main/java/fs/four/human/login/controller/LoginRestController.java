@@ -44,17 +44,22 @@ public class LoginRestController {
             return ResponseEntity.status(500).body("서버 오류로 인해 로그인에 실패했습니다.");
         }
     }
-}
 
-    //아이디 중복확인
-//    @PostMapping("checkId")
-//    public ResponseEntity<String> checkId(@RequestParam String e_id) {
-//        try {
-//            boolean idAvailable = loginRestService.IdCorrect(e_id);
-//            return ResponseEntity.ok("확인");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(500).body("서버오류");
-//        }
-//    } }
+    // 아이디 중복 체크
+    @GetMapping("/idCheck")
+    public ResponseEntity<String> checkId(@RequestParam String e_id) {
+        try {
+            boolean IdAvailable = loginRestService.checkId(e_id);
+            if (IdAvailable) {
+                return ResponseEntity.ok("사용 가능한 아이디입니다.");
+            } else {
+                return ResponseEntity.status(409).body("이미 사용 중인 아이디입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("아이디 중복 확인 실패");
+        }
+    }
+
+}
 

@@ -15,16 +15,16 @@
 <body>
   <div class="container">
     <!-- 왼쪽 이미지 영역 -->
-    <div class="imageSection">
+    <div class="image-section">
       <img src="${contextPath}/images/banner.PNG" style="width:650px;">
     </div>
 
     <!-- 오른쪽 로그인 기능 영역 -->
-    <div class="formSection">
+    <div class="form-section">
       <!-- 로그인 -->
-      <div class="loginContainer" id="login_page">
+      <div class="login-container" id="login-page">
         <h1>LOGIN</h1>
-        <form id="login_form">
+        <form id="login-form">
           <label for="login_id">ID</label>
           <input type="text" id="login_id" name="login_id" placeholder="ID를 입력하세요" required>
 
@@ -33,30 +33,31 @@
           <br><br>
           <button type="submit" id="btn_login">LOGIN</button>
           <div class="links">
-            <a id="signup_link">회원가입</a>
-            <a id="forgot_link">아이디/비밀번호 찾기</a>
+            <a id="signup-link">회원가입</a>
+            <a id="forgot-link">아이디/비밀번호 찾기</a>
           </div>
         </form>
       </div>
 
       <!-- 개인정보 모달창 -->
-      <div id="privacyModal" class="modal">
-        <div class="modal_content">
+      <div id="privacy-modal" class="modal">
+        <div class="modal-content">
           <h2>개인정보 활용 동의</h2>
           <br>
           <p>회원님의 개인정보는 서비스 제공 및 계정 관리를 위해 사용되며, 동의 없이 외부에 제공되지 않습니다.</p>
           <br>
-          <button class="close_btn">확인</button>
+          <button class="close-btn">확인</button>
         </div>
       </div>
 
       <!-- 회원가입 -->
-      <div class="loginContainer" id="signup_page" style="display: none;">
+      <div class="login-container" id="signup-page" style="display: none;">
         <h1>SIGN IN</h1>
-        <form id="signupForm">
+        <form id="signup-form">
           <label for="e_id">ID</label>
           <input type="text" id="e_id" name="e_id" placeholder="아이디를 입력하세요" maxlength="16" required>
           <div class="warning" id="idWarning"></div>
+          <button class="idCehck" id="idCheck" onclick="fn_idCheck()">아이디 중복 확인</button>
 
           <label for="e_pwd">PASSWORD</label>
           <input type="password" id="e_pwd" name="e_pwd" placeholder="비밀번호를 입력하세요" minlength="8" maxlength="16" required>
@@ -64,6 +65,7 @@
           <label for="pw_confirm">PASSWORD CONFIRM</label>
           <input type="password" id="pw_confirm" name="pw_confirm" placeholder="비밀번호 확인" required>
           <div class="warning" id="pwdWarning"></div>
+          <div id="pwdStatus"></div>
 
           <label for="e_name">이름</label>
           <input type="text" id="e_name" name="e_name" placeholder="이름을 입력하세요" maxlength="16" required>
@@ -94,13 +96,12 @@
           <label for="e_email">이메일</label>
           <input type="email" id="e_email" name="e_email" placeholder="이메일을 입력하세요" required>
 
-          <div class="checkbox_container">
+          <div class="checkbox-container">
             <input type="checkbox" style="width:40px" id="agree" name="agree" required>
             <label for="agree">개인정보활용동의</label>
           </div>
 
           <button type="button" id="btn_submit">회원가입</button>
-            <a href="${contextPath}/login">로그인 창으로 돌아가기</a>
         </form>
       </div>
     </div>

@@ -15,7 +15,9 @@ public class LoginRestService {
         return storedPassword != null && storedPassword.equals(e_pwd);
     }
 
-//    public boolean IdCorrect(String e_id){
-//        return loginDAO.newIdCheck(e_id)==0;
-//    }
+    public boolean checkId(String e_id) {
+        String checkId = loginDAO.newIdCheck(e_id);
+        return checkId == null;
+    }
+
 }

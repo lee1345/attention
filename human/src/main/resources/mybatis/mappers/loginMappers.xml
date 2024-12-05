@@ -15,10 +15,10 @@
         WHERE E_ID = #{e_id}
     </select>
 
-<!--    <select id="newIdCheck" resultType="int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM EMPLOYEE-->
-<!--        WHERE E_ID = #{e_id}-->
-<!--    </select>-->
+    <select id="newIdCheck" resultType="String">
+        SELECT e_id
+        FROM EMPLOYEE
+        WHERE e_id = #{e_id}
+    </select>
 
 </mapper>
