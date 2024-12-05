@@ -13,4 +13,7 @@ public interface LoginDAO {
     //로그인
     String loginMatching(
             @Param("e_id") String e_id);
+
+    int newIdCheck(
+            @Param("e_id") String e_id);
 }
