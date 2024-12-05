@@ -50,7 +50,7 @@ $(document).ready(function() {
 
     $.ajax({
       type: "POST",
-      url: "/login/sign_in",
+      url: "/login/signIn",
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(formData),
       success: function(response) {
@@ -66,18 +66,17 @@ $(document).ready(function() {
 });
 
 //로그인 기능
-$('#btn_login').on('click', function() {
+$('#btn_login').on('click', function(event) {
     event.preventDefault()
     const loginData = {
-        e_id: $('#login-id').val(),
-        e_pwd: $('#login-pw').val()
+        e_id: $('#login_id').val(),
+        e_pwd: $('#login_pw').val()
     };
 
     $.ajax({
         type: "POST",
-        url: "/login/log_in",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify(loginData),
+        url: "/login/logIn",
+        data: loginData,
         success: function(response) {
             alert("로그인 성공하였습니다.");
             window.location.href = "/common";
@@ -88,7 +87,4 @@ $('#btn_login').on('click', function() {
     });
 });
 
-//중복검사
-const inputName = document.getElementById('e_id');
-const inputPwd = document.getElementById('e_pwd');
 
