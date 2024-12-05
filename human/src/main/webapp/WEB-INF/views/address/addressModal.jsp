@@ -7,7 +7,6 @@
 <head>
     <title>주소록</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
-    <script src="${contextPath}/js/addressModal.js" defer></script>
     <!-- 부트스트랩 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -16,7 +15,6 @@
 </head>
 
 <body>
-    </div>
     <!-- 등록 모달 -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog">

@@ -36,10 +36,8 @@ header .logo {
 
 header .user-info {
   display: flex;
-  align-items: center;
-  margin-right: 30px;
+  margin-right:10px;
   gap: 30px;
-
 }
 
 header .user-info span {

@@ -23,11 +23,11 @@ public class AddressService {
         return addressDAO.searchAddress(category, query);
     }
 
-//    // 새로운 주소 데이터 등록
-//    public AddressVO createAddress(AddressVO address) {
-//        addressDAO.createAddress(address);
-//        return address; // 등록된 주소 데이터 반환
-//    }
+    // 새로운 주소 데이터 등록
+    public AddressVO createAddress(AddressVO address) {
+        addressDAO.createAddress(address);
+        return address; // 등록된 주소 데이터 반환
+    }
 //
 //    // 주소 데이터 수정
 //    public AddressVO updateAddress(String id, AddressVO address) {

@@ -70,3 +70,34 @@ function renderTable(data) {
         addressTable.append(row);
     });
 }
+
+// 등록하기
+$(document).ready(function () {
+    // 등록 버튼 클릭 이벤트
+    $('#registerForm').on('submit', function (e) {
+        e.preventDefault(); // 기본 폼 제출 동작 방지
+
+        const formData = {
+            adName: $('#name').val(),
+            adPhone: $('#phone').val(),
+            adEmail: $('#email').val(),
+            adDeptName: $('#department').val(),
+            adGroup: $('#group').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/address/addressModal',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify(formData),
+            success: function () {
+                alert("등록 성공!");
+                $('#registerModal').modal('hide'); // 모달 닫기
+                addressAllData(); // 전체 데이터 다시 로드
+            },
+            error: function (xhr) {
+                alert("등록 실패: " + xhr.responseText);
+            }
+        });
+    });
+});

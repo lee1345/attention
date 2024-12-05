@@ -16,8 +16,8 @@ public interface AddressDAO {
     List<AddressVO> searchAddress(
             @Param("category") String category, @Param("query") String query);
 
-//    // 새로운 주소 데이터 등록
-//    void createAddress(AddressVO address);
+    // 새로운 주소 데이터 등록
+    void createAddress(AddressVO address);
 //
 //    // 주소 데이터 수정
 //    void updateAddress(AddressVO address);

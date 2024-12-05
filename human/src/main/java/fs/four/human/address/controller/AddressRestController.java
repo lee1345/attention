@@ -3,10 +3,9 @@ package fs.four.human.address.controller;
 import fs.four.human.address.service.AddressService;
 import fs.four.human.address.vo.AddressVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +39,18 @@ public class AddressRestController {
             return addressService.searchAddress(category, query);
         } catch (Exception e) {
             throw new RuntimeException("검색 중 오류가 발생했습니다.");
+        }
+    }
+
+    // 새로운 주소 데이터 등록 API
+    @PostMapping("/register")
+    public ResponseEntity<String> createAddress(@RequestBody AddressVO address) {
+        try {
+            addressService.createAddress(address);
+            return ResponseEntity.ok("등록 성공!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 실패: " + e.getMessage());
         }
     }
 }

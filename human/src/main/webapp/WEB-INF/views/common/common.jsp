@@ -25,17 +25,17 @@
         <c:when test="${not empty sessionScope.user}">
           <!-- 로그인 상태 -->
           <span>${sessionScope.user.e_dept}</span> <!-- 부서명 -->
-          <strong>${sessionScope.user.e_name}</strong> <!-- 이름 -->
+          <span>${sessionScope.user.e_name}</span> <!-- 이름 -->
           <span>${sessionScope.user.e_position}</span> <!-- 직위 -->
-          <a href="${contextPath}/user/edit">Mypage</a>
-          <a href="${contextPath}/common/logout">Logout</a>
+          <span><a id="#">MyPage</a><span>
+          <span><a id="login">Logout</a><span>
         </c:when>
         <c:otherwise>
           <!-- 비로그인 상태 -->
           <span>OO팀</span>
-          <strong>OOO</strong>
+          <span>OOO</span>
           <span>사원</span>
-          <a href="${contextPath}/common/login">Login</a>
+          <span><a id="login">Login</a></span>
         </c:otherwise>
       </c:choose>
     </div>
