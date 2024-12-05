@@ -7,6 +7,9 @@ $(document).ready(function () {
         const category = $('#category').val();
         const query = $('#searchQuery').val().trim();
 
+        // 디버깅 로그로 요청 데이터 확인
+        console.log("AJAX Request - Category:", category, "Query:", query);
+
         if (!query) {
             alert("검색어를 입력하세요 !");
             return;
@@ -20,10 +23,14 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/api/address/search',
-            contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify(searchData),
-            success: function (data)    {
-                     renderTable(data);
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                 category: $('#category').val(),
+                 query: $('#searchQuery').val().trim()
+            },
+            success: function (data) {
+            console.log("AJAX Success Data:", data); // 성공 데이터 확인
+            renderTable(data);
             },
             error: function (xhr) {
                 alert("검색어를 확인해주세요 !");
@@ -74,8 +81,11 @@ function renderTable(data) {
 
 
 $(document).ready(function () {
+
     // 등록하기 버튼 클릭 이벤트
     $('.btn-register').on('click', function () {
+        event.preventDefault()
+
         // Ajax로 모달 HTML 가져오기
         $.ajax({
             url: '/address/addressModal', // 컨트롤러에서 반환하는 JSP 경로

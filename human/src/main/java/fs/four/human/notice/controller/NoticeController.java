@@ -37,7 +37,7 @@ public class NoticeController {
     }
 
     // JSP 페이지 렌더링 (검색 데이터)
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String searchNotice(
             @RequestParam("category") String category,
             @RequestParam("query") String query, Model model) {

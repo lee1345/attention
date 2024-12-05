@@ -18,7 +18,7 @@
 
     <!-- 검색 및 등록 섹션 -->
     <div class="search-register">
-        <form id="searchForm" method="POST">
+        <form id="searchForm">
             <div class="filter-group">
                 <select id="category" name="category">
                     <option value="B_ID" selected>번호</option>
@@ -26,9 +26,9 @@
                     <option value="B_CONTENT">내용</option>
                     <option value="B_WRITER">작성자</option>
                 </select>
-                <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" required/>
-                <button type="button" class="btn-search" id="searchBtn">조회</button>
-                <button type="button" class="btn-register" onclick="location.href='${contextPath}/notice/noticeModal'">등록하기</button>
+                <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요"/>
+                <button type="submit" class="btn-search" id="searchBtn">조회</button>
+                <button type="button" class="btn-register">등록하기</button>
             </div>
         </form>
     </div>

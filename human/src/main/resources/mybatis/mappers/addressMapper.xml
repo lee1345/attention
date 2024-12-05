@@ -28,27 +28,4 @@
         FROM ADDRESS
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
     </select>
-
-    <!-- 새로운 주소 데이터 등록 -->
-    <insert id="createAddress">
-        INSERT INTO ADDRESS (AD_ID, AD_EMPL_ID, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP)
-        VALUES (#{adId}, #{adEmplId}, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup})
-    </insert>
-
-<!--    &lt;!&ndash; 주소 데이터 수정 &ndash;&gt;-->
-<!--    <update id="updateAddress">-->
-<!--        UPDATE ADDRESS-->
-<!--        SET AD_NAME = #{adName},-->
-<!--        AD_PHONE = #{adPhone},-->
-<!--        AD_EMAIL = #{adEmail},-->
-<!--        AD_DEPT_NAME = #{adDeptName},-->
-<!--        AD_GROUP = #{adGroup}-->
-<!--        WHERE AD_ID = #{adId}-->
-<!--    </update>-->
-
-<!--    &lt;!&ndash; 주소 데이터 삭제 &ndash;&gt;-->
-<!--    <delete id="deleteAddress">-->
-<!--        DELETE FROM ADDRESS WHERE AD_ID = #{id}-->
-<!--    </delete>-->
-
 </mapper>

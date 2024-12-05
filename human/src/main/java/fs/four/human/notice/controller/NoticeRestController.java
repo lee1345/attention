@@ -15,7 +15,7 @@ public class NoticeRestController {
     private NoticeService noticeService;
 
     // 전체 데이터 반환 (JSON)
-    @PostMapping
+    @GetMapping
     public List<NoticeVO> getAllNotice() {
         try {
             return noticeService.getAllNotice();
@@ -26,12 +26,12 @@ public class NoticeRestController {
 
     // 검색 결과 반환 (JSON)
     @PostMapping("/search")
-    public List<NoticeVO> searchNotice(@RequestBody NoticeVO noticeVO) { // JSON 데이터를 객체로 매핑
-        if (noticeVO.getBCategory() == null || noticeVO.getBTitle() == null) {
-            throw new RuntimeException("검색 필터와 검색어는 null이 될 수 없습니다!");
+    public List<NoticeVO> searchNotice(
+            @RequestParam("category") String category,
+            @RequestParam("query") String query) {
+        if (category == null || query == null || category.isEmpty() || query.isEmpty()) {
+            throw new IllegalArgumentException("카테고리와 검색어는 반드시 필요합니다.");
         }
-
-        return noticeService.searchNotice(noticeVO.getBCategory(), noticeVO.getBTitle());
+        return noticeService.searchNotice(category, query);
     }
-
 }
