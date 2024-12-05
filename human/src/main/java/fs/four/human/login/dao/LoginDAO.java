@@ -14,6 +14,8 @@ public interface LoginDAO {
     String loginMatching(
             @Param("e_id") String e_id);
 
-    int newIdCheck(
-            @Param("e_id") String e_id);
+//    int newIdCheck(
+//            @Param("e_id") String e_id);
+
+
 }
