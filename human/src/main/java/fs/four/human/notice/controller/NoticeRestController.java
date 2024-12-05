@@ -29,9 +29,23 @@ public class NoticeRestController {
     public List<NoticeVO> searchNotice(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {
-        if (category == null || query == null || category.isEmpty() || query.isEmpty()) {
-            throw new IllegalArgumentException("카테고리와 검색어는 반드시 필요합니다.");
+        try {
+            // 디버깅 로그
+            System.out.println("받은 카테고리: " + category);
+            System.out.println("받은 검색어: " + query);
+
+            // 검색 조건 검증
+            if (category == null || category.isEmpty() || query == null || query.isEmpty()) {
+                throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
+            }
+            // 검색 결과 반환
+            return noticeService.searchNotice(category, query);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("검색 중 문제가 발생했습니다.");
         }
-        return noticeService.searchNotice(category, query);
     }
 }

@@ -5,30 +5,29 @@
     <!-- 전체 주소록 조회 -->
     <select id="getAllNotice" resultType="NoticeVO">
         SELECT
-        B_ID AS bId,
-        B_TITLE AS bTitle,
-        B_CONTENT AS bContent,
-        B_WRITER AS bWriter,
-        B_GROUP AS bGroup,
-        B_CATEGORY AS bCategory,
-        B_CREATED_DATE AS bCreatedDate,
-        B_UPDATED_DATE AS bUpdatedDate
-        FROM board
+        B_ID,
+        B_TITLE,
+        B_CONTENT,
+        B_WRITER,
+        B_GROUP,
+        B_CATEGORY,
+        B_CREATED_DATE,
+        B_UPDATED_DATE
+        FROM BOARD
     </select>
 
     <!-- 검색 기능 -->
     <select id="searchNotice" resultType="NoticeVO">
         SELECT
-        B_ID AS bId,
-        B_TITLE AS bTitle,
-        B_CONTENT AS bContent,
-        B_WRITER AS bWriter,
-        B_GROUP AS bGroup,
-        B_CATEGORY AS bCategory,
-        B_CREATED_DATE AS bCreatedDate,
-        B_UPDATED_DATE AS bUpdatedDate
-        FROM board
+        B_ID,
+        B_TITLE,
+        B_CONTENT,
+        B_WRITER,
+        B_GROUP,
+        B_CATEGORY,
+        B_CREATED_DATE,
+        B_UPDATED_DATE
+        FROM BOARD
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
-
     </select>
 </mapper>

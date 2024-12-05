@@ -50,6 +50,7 @@ public class AddressRestController {
             throw new RuntimeException("검색 중 문제가 발생했습니다.");
         }
     }
+}
 
 
 //    // 새로운 주소 데이터 등록 API
@@ -64,4 +65,3 @@ public class AddressRestController {
 //        }
 //    }
 //}
-}

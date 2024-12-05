@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // 전체 데이터 로드 (GET 요청)
+    // 전체 데이터 로드 (GET)
     noticeAllData();
 
     // 검색 버튼 클릭 이벤트
@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         if (!query) {
             alert("검색어를 입력하세요!");
-            return; // 검색어가 없으면 요청 중단
+            return;
         }
 
         const searchData = {
@@ -19,14 +19,19 @@ $(document).ready(function () {
 
         // AJAX GET 요청
         $.ajax({
-            type: 'GET',
-            url: `/api/notice/search?category=${encodeURIComponent(category)}&query=${encodeURIComponent(query)}`, // 템플릿 리터럴로 URL 생성
+            type: 'POST',
+            url: '/api/notice/search',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                   category: $('#category').val(),
+                   query: $('#searchQuery').val().trim()
+            },
             success: function (data) {
-                renderTable(data); // 성공 시 테이블 렌더링
+            console.log("AJAX Success Data:", data); // 성공 데이터 확인
+            renderTable(data);
             },
             error: function (xhr) {
-                alert("검색 요청에 실패했습니다!");
-                console.error(xhr.responseText);
+                   alert("검색어를 확인해주세요 !");
             }
         });
     });
@@ -61,12 +66,13 @@ function renderTable(data) {
     data.forEach(notice => {
         const row = `
             <tr>
-                <td>${notice.bid}</td> <!-- 서버에서 반환하는 필드 이름에 맞게 수정 -->
-                <td>${notice.btitle}</td>
-                <td>${notice.bcontent}</td>
-                <td>${notice.bwriter}</td>
+                <td>${notice.B_ID}</td>
+                <td>${notice.B_TITLE}</td>
+                <td>${notice.B_CONTENT}</td>
+                <td>${notice.B_WRITER}</td>
+                <td>${notice.B_CREATED_DATE}</td>
             </tr>
         `;
-        noticeTable.append(row); // 테이블에 행 추가
+        noticeTable.append(row);
     });
 }

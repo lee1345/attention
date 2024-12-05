@@ -7,9 +7,6 @@ $(document).ready(function () {
         const category = $('#category').val();
         const query = $('#searchQuery').val().trim();
 
-        // 디버깅 로그로 요청 데이터 확인
-        console.log("AJAX Request - Category:", category, "Query:", query);
-
         if (!query) {
             alert("검색어를 입력하세요 !");
             return;
@@ -39,7 +36,7 @@ $(document).ready(function () {
     });
 });
 
-// 주소록 데이터 로드 함수
+// 주소록 전체 데이터 로드 함수
 function addressAllData() {
     $.ajax({
         type: 'GET',

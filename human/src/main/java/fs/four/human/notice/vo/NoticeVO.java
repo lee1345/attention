@@ -2,36 +2,23 @@ package fs.four.human.notice.vo;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Setter
-@ToString
 public class NoticeVO {
-    private Long bId;            // 게시글 ID
-    private String bTitle;       // 게시글 제목
-    private String bContent;     // 게시글 내용
-    private String bWriter;      // 작성자
-    private String bGroup;       // 그룹
-    private String bCategory;    // 카테고리
-    private Date bCreatedDate;   // 생성 날짜
-    private Date bUpdatedDate;   // 수정 날짜 (옵션)
+    private String B_ID;            // 게시글 ID
+    private String B_TITLE;       // 게시글 제목
+    private String B_CONTENT;     // 게시글 내용
+    private String B_WRITER;      // 작성자
+    private String B_GROUP;       // 그룹
+    private String B_CATEGORY;    // 카테고리
+    private Date B_CREATED_DATE;   // 생성 날짜
+    private Date B_UPDATED_DATE;   // 수정 날짜 (옵션)
 
     // 기본 생성자
     public NoticeVO() {
     }
 
-    // 매개변수 생성자
-    public NoticeVO(Long bId, String bTitle, String bContent, String bWriter, String bGroup, String bCategory, Date bCreatedDate, Date bUpdatedDate) {
-        this.bId = bId;
-        this.bTitle = bTitle;
-        this.bContent = bContent;
-        this.bWriter = bWriter;
-        this.bGroup = bGroup;
-        this.bCategory = bCategory;
-        this.bCreatedDate = bCreatedDate;
-        this.bUpdatedDate = bUpdatedDate;
-    }
 }
