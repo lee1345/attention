@@ -44,4 +44,16 @@ public class LoginRestController {
             return ResponseEntity.status(500).body("서버 오류로 인해 로그인에 실패했습니다.");
         }
     }
-}
+
+    //아이디 중복확인
+    @PostMapping("checkId")
+    public ResponseEntity<String> checkId(@RequestParam String e_id) {
+        try {
+            boolean idAvailable = loginRestService.IdCorrect(e_id);
+            return ResponseEntity.ok("확인");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("서버오류");
+        }
+    } }
+

@@ -1,14 +1,14 @@
 // 회원가입 버튼 클릭 시 화면 전환
-document.getElementById('signup-link').addEventListener('click', () => {
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('signup-page').style.display = 'block';
+document.getElementById('signup_link').addEventListener('click', () => {
+    document.getElementById('login_page').style.display = 'none';
+    document.getElementById('signup_page').style.display = 'block';
 });
 
 // 개인정보 활용 동의 모달
 document.addEventListener("DOMContentLoaded", () => {
   const checkbox = document.getElementById("agree");
-  const modal = document.getElementById("privacy-modal");
-  const closeBtn = document.querySelector(".close-btn");
+  const modal = document.getElementById("privacyModal");
+  const closeBtn = document.querySelector(".close_btn");
 
   // 체크박스 클릭 시 모달 표시
   checkbox.addEventListener("change", () => {
@@ -87,4 +87,46 @@ $('#btn_login').on('click', function(event) {
     });
 });
 
+//아이디 중복확인
+$('#e_id').on('input', function(){
+    const e_id = $(this).val().trim();
+
+    if(e_id === ''){
+        $('#idWarning').text('');
+        return;
+    }
+    $.ajax({
+        type:"POST",
+        url: "/login/checkId"
+        data: { e_id: e_id },
+        success: function (idAvailable) {
+            if (idAvailable) {
+                $('#idWarning').text('사용 가능합니다.').css('color', 'green');
+            } else {
+                $('#idWarning').text('중복된 아이디입니다.').css('color', 'red');
+            }
+        },
+        error: function () {
+            $('#idWarning').text('아이디 확인 중 오류가 발생했습니다.').css('color', 'red');
+        }
+    });
+
+})
+
+// 비밀번호 일치 여부 확인
+$('#pw_confirm').on('input', function () {
+    const password = $('#e_pwd').val();
+    const confirmPassword = $(this).val();
+
+    if (password === '' || confirmPassword === '') {
+        $('#pwdWarning').text(''); // 비어 있을 때 경고 문구 제거
+        return;
+    }
+
+    if (password === confirmPassword) {
+        $('#pwdWarning').text('비밀번호가 일치합니다.').css('color', 'green');
+    } else {
+        $('#pwdWarning').text('비밀번호가 같지 않습니다.').css('color', 'red');
+    }
+});
 
