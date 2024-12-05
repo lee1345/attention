@@ -9,8 +9,8 @@
         VALUES (#{e_id}, #{e_name}, #{e_pwd}, #{e_phone}, #{e_email}, #{e_dept}, #{e_position}, SYSDATE, SYSDATE)
     </insert>
 
-    <select id="findUserById" parameterType="String" resultType="fs.four.human.login.vo.LoginVO">
-        SELECT *
+    <select id="loginMatching" resultType="String">
+        SELECT E_PWD
         FROM EMPLOYEE
         WHERE E_ID = #{e_id}
     </select>

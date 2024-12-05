@@ -25,11 +25,11 @@
       <div class="login-container" id="login-page">
         <h1>LOGIN</h1>
         <form id="login-form">
-          <label for="login-id">ID</label>
-          <input type="text" id="login-id" name="login-id" placeholder="ID를 입력하세요" required>
+          <label for="login_id">ID</label>
+          <input type="text" id="login_id" name="login_id" placeholder="ID를 입력하세요" required>
 
-          <label for="login-pw">Password</label>
-          <input type="password" id="login-pw" name="login-pw" placeholder="비밀번호를 입력하세요" required>
+          <label for="login_pw">Password</label>
+          <input type="password" id="login_pw" name="login_pw" placeholder="비밀번호를 입력하세요" required>
           <br><br>
           <button type="submit" id="btn_login">LOGIN</button>
           <div class="links">
