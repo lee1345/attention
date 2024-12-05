@@ -6,9 +6,8 @@
 <html lang="ko">
 <head>
     <title>주소록</title>
-    <link rel="stylesheet" href="${contextPath}/css/address.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
-    <script src="${contextPath}/js/address.js" defer></script>
+    <script src="${contextPath}/js/addressModal.js" defer></script>
     <!-- 부트스트랩 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -17,45 +16,6 @@
 </head>
 
 <body>
-    <%@ include file="/WEB-INF/views/common/common.jsp" %>
-
-    <div class="address-book">
-        <h2>주소록</h2><br>
-
-        <!-- 검색 및 등록 섹션 -->
-        <div class="search-register">
-            <form id="searchForm">
-                <div class="filter-group">
-                    <select id="category" name="category">
-                        <option value="AD_NAME" selected>이름</option>
-                        <option value="AD_PHONE">휴대폰</option>
-                        <option value="AD_EMAIL">이메일</option>
-                        <option value="AD_DEPT_NAME">부서명</option>
-                        <option value="AD_GROUP">그룹(별칭)</option>
-                    </select>
-                    <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
-                    <button type="button" class="btn-search" id="searchBtn">조회</button>
-                    <button type="button" class="btn-register" data-bs-toggle="modal" data-bs-target="#registerModal">등록하기</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- 주소록 리스트 -->
-        <table class="address-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>이름</th>
-                    <th>핸드폰</th>
-                    <th>이메일</th>
-                    <th>부서명</th>
-                    <th>그룹(별칭)</th>
-                </tr>
-            </thead>
-            <tbody id="addressTable">
-                <!-- AJAX로 데이터 로드 -->
-            </tbody>
-        </table>
     </div>
     <!-- 등록 모달 -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
@@ -97,6 +57,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
