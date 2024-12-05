@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fs.four.human.freeBoard.dao.FreeBoardDAO">
+
+    <!-- 전체 게시글 조회 -->
+    <select id="getAllFreeBoard" resultType="FreeBoardVO">
+        SELECT
+        B_ID AS bId,
+        B_TITLE AS bTitle,
+        B_CONTENT AS bContent,
+        B_WRITER AS bWriter,
+        B_GROUP AS bGroup,
+        B_CATEGORY AS bCategory,
+        B_CREATED_DATE AS bCreatedDate,
+        B_UPDATED_DATE AS bUpdatedDate
+        FROM BOARD
+    </select>
+
+    <!-- 검색 필터 -->
+    <select id="searchFreeBoard" resultType="FreeBoardVO">
+        SELECT
+        B_ID AS bId,
+        B_TITLE AS bTitle,
+        B_CONTENT AS bContent,
+        B_WRITER AS bWriter,
+        B_GROUP AS bGroup,
+        B_CATEGORY AS bCategory,
+        B_CREATED_DATE AS bCreatedDate,
+        B_UPDATED_DATE AS bUpdatedDate
+        FROM BOARD
+        WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%'
+    </select>
+</mapper>

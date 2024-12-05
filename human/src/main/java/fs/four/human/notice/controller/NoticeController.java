@@ -23,6 +23,7 @@ public class NoticeController {
     public String notice(Model model) {
         try {
             List<NoticeVO> noticeList = noticeService.getAllNotice();
+            System.out.println(noticeList.toString());
             model.addAttribute("noticeList", noticeList);
             System.out.println("-----notice-----");
             return "notice/notice"; // JSP 파일 경로

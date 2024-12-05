@@ -6,10 +6,10 @@
 <html lang="ko">
 <head>
     <title>freeBoard</title>
-    <!-- 동적 경로로 CSS 로드 -->
-    <link rel="stylesheet" href="${contextPath}/css/freeBoard.css" />
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 동적 경로로 CSS 로드 -->
+    <link rel="stylesheet" href="${contextPath}/css/freeBoard.css" />
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 
     <!-- 검색 및 등록 섹션 -->
     <div class="search-register">
-        <form method="GET" action="${contextPath}/addressBook/search">
+        <form method="GET" action="${contextPath}/freeBoard/search">
             <!-- 검색 필터 -->
             <div class="filter">
                 <!-- 제목 선택 -->
@@ -70,20 +70,19 @@
         <tr>
             <th>번호</th>
             <th>제목</th>
+            <th>내용</th>
             <th>작성자</th>
             <th>등록일</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="entry" items="${freeBoardList}">
+        <c:forEach var="freeBoard" items="${freeBoardList}">
             <tr>
-                <td>${entry.id}</td>
-                <td>${entry.name}</td>
-                <td>${entry.phone}</td>
-                <td>${entry.email}</td>
-                <td>${entry.department}</td>
-                <td>${entry.company}</td>
-                <td>${entry.group}</td>
+                <td>${freeBoard.bId}</td>
+                <td>${freeBoard.bTitle}</td>
+                <td>${freeBoard.bContent}</td>
+                <td>${freeBoard.bWriter}</td>
+                <td>${freeBoard.bCreatedDate}</td>
             </tr>
         </c:forEach>
         </tbody>

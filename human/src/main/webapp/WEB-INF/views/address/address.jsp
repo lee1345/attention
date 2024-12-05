@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <link rel="stylesheet" href="${contextPath}/css/address.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
+    <link rel="stylesheet" href="${contextPath}/css/address.css" />
     <script src="${contextPath}/js/address.js" defer></script>
     <title>주소록</title>
 </head>

@@ -11,6 +11,7 @@ public class NoticeVO {
     private String bContent;
     private String bWriter;
 
+
     public NoticeVO(){
 
     }
