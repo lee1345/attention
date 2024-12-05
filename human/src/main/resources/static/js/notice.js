@@ -66,11 +66,11 @@ function renderTable(data) {
     data.forEach(notice => {
         const row = `
             <tr>
-                <td>${notice.B_ID}</td>
-                <td>${notice.B_TITLE}</td>
-                <td>${notice.B_CONTENT}</td>
-                <td>${notice.B_WRITER}</td>
-                <td>${notice.B_CREATED_DATE}</td>
+                <td>${notice.bid}</td>
+                <td>${notice.btitle}</td>
+                <td>${notice.bcontent}</td>
+                <td>${notice.bwriter}</td>
+                <td>${notice.bcreatedDate}</td>
             </tr>
         `;
         noticeTable.append(row);
