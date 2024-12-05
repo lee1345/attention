@@ -7,12 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginServiceImpl implements LoginService{
-    private final LoginDAO loginDAO;
 
     @Autowired
-    public LoginServiceImpl(LoginDAO loginDAO) {
-        this.loginDAO = loginDAO;
-    }
+    private LoginDAO loginDAO;
 
     @Override
     public void signUp(LoginVO loginVO) {

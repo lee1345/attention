@@ -16,54 +16,55 @@
     <title>ATTENTION</title>
   </head>
   <body>
-  <header>
-    <div class="logo">
-      <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
-    </div>
-    <div class="user-info">
-      <c:choose>
-        <c:when test="${not empty sessionScope.user}">
-          <!-- 로그인 상태 -->
-          <span>${sessionScope.user.e_dept}</span> <!-- 부서명 -->
-          <strong>${sessionScope.user.e_name}</strong> <!-- 이름 -->
-          <span>${sessionScope.user.e_position}</span> <!-- 직위 -->
-          <a href="${contextPath}/user/edit">Mypage</a>
-          <a href="${contextPath}/common/logout">Logout</a>
-        </c:when>
-        <c:otherwise>
-          <!-- 비로그인 상태 -->
-          <span>OO팀</span>
-          <strong>OOO</strong>
-          <span>사원</span>
-          <a href="${contextPath}/common/login">Login</a>
-        </c:otherwise>
-      </c:choose>
-    </div>
-  </header>
+  <div class="common">
+      <header>
+        <div class="logo">
+          <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
+        </div>
+        <div class="user-info">
+          <c:choose>
+            <c:when test="${not empty sessionScope.user}">
+              <!-- 로그인 상태 -->
+              <span>${sessionScope.user.e_dept}</span> <!-- 부서명 -->
+              <span>${sessionScope.user.e_name}</span> <!-- 이름 -->
+              <span>${sessionScope.user.e_position}</span> <!-- 직위 -->
+              <span><a id="#">MyPage</a><span>
+              <span><a id="login">Logout</a><span>
+            </c:when>
+            <c:otherwise>
+              <!-- 비로그인 상태 -->
+              <span>OO팀</span>
+              <span>OOO</span>
+              <span>사원</span>
+              <span><a id="login">Login</a></span>
+            </c:otherwise>
+          </c:choose>
+        </div>
+      </header>
 
-  <div class="container">
-    <nav class="sidebar">
-      <ul>
-        <li>
-          <span><i class="fa-solid fa-bars"></i> 할일관리</span>
+      <div class="container">
+        <nav class="sidebar">
           <ul>
-            <li><a id="teamTasks">- 팀별 할일</a></li>
-            <li><a id="myTasks">- 나의 할일</a></li>
+            <li>
+              <span><i class="fa-solid fa-bars"></i> 할일관리</span>
+              <ul>
+                <li><a id="teamTasks">- 팀별 할일</a></li>
+                <li><a id="myTasks">- 나의 할일</a></li>
+              </ul>
+            </li>
+            <strong><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></strong>
+            <li>
+              <span><i class="fa-solid fa-bullhorn"></i> 게시판</span>
+              <ul>
+                <li><a id="notice">- 공지사항</a></li>
+                <li><a id="freeBoard">- 자유게시판</a></li>
+              </ul>
+            </li>
+            <li>
+              <strong><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
+            </li>
           </ul>
-        </li>
-        <strong><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></strong>
-        <li>
-          <span><i class="fa-solid fa-bullhorn"></i> 게시판</span>
-          <ul>
-            <li><a id="notice">- 공지사항</a></li>
-            <li><a id="freeBoard">- 자유게시판</a></li>
-          </ul>
-        </li>
-        <li>
-          <strong><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
-        </li>
-      </ul>
-    </nav>
+        </nav>
 
   </body>
 </html>

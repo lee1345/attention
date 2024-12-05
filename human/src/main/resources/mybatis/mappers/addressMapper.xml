@@ -29,11 +29,11 @@
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
     </select>
 
-<!--    &lt;!&ndash; 새로운 주소 데이터 등록 &ndash;&gt;-->
-<!--    <insert id="createAddress">-->
-<!--        INSERT INTO ADDRESS (AD_ID, AD_EMPL_ID, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP)-->
-<!--        VALUES (#{adId}, #{adEmplId}, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup})-->
-<!--    </insert>-->
+    <!-- 새로운 주소 데이터 등록 -->
+    <insert id="createAddress">
+        INSERT INTO ADDRESS (AD_ID, AD_EMPL_ID, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP)
+        VALUES (#{adId}, #{adEmplId}, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup})
+    </insert>
 
 <!--    &lt;!&ndash; 주소 데이터 수정 &ndash;&gt;-->
 <!--    <update id="updateAddress">-->

@@ -70,3 +70,33 @@ function renderTable(data) {
         addressTable.append(row);
     });
 }
+
+
+
+$(document).ready(function () {
+    // 등록하기 버튼 클릭 이벤트
+    $('.btn-register').on('click', function () {
+        // Ajax로 모달 HTML 가져오기
+        $.ajax({
+            url: '/address/addressModal', // 컨트롤러에서 반환하는 JSP 경로
+            method: 'GET',
+            success: function (data) {
+                // 동적으로 모달 HTML 추가
+                if ($('#registerModal').length === 0) {
+                    $('body').append(data); // 가져온 HTML을 body에 추가
+                }
+
+                // Bootstrap 모달 띄우기
+                $('#registerModal').modal('show');
+
+                // 모달 닫힐 때 HTML 제거
+                $('#registerModal').on('hidden.bs.modal', function () {
+                    $(this).remove(); // 모달 DOM 삭제
+                });
+            },
+            error: function (xhr) {
+                alert('모달 로드 실패: ' + xhr.statusText);
+            }
+        });
+    });
+});

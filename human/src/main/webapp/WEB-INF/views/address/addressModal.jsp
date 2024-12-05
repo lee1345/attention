@@ -6,17 +6,13 @@
 <html lang="ko">
 <head>
     <title>주소록</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
-    <script src="${contextPath}/js/addressModal.js" defer></script>
     <!-- 부트스트랩 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
     <!-- 부트스트랩 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    </div>
     <!-- 등록 모달 -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -26,7 +22,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="registerForm" method="POST" action="${contextPath}/addressBook/register">
+                    <form id="registerForm" method="POST" action="${contextPath}/address/register">
                         <div class="mb-3">
                             <label for="name" class="form-label">이름</label>
                             <input type="text" class="form-control" id="name" name="name" required />

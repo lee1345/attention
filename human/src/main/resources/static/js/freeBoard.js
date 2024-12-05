@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // 전체 데이터 로드 (GET)
-    noticeAllData();
+    freeBoardAllData();
 
     // 검색 버튼 클릭 이벤트
     $('#searchBtn').on('click', function () {
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/api/notice/search',
+            url: '/api/freeBoard/search',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(searchData),
             success: function (data) {
@@ -33,10 +33,10 @@ $(document).ready(function () {
 });
 
 // 공지사항 데이터 로드 함수
-function noticeAllData() {
+function freeBoardAllData() {
     $.ajax({
         type: 'GET',
-        url: '/api/notice',
+        url: '/api/freeBoard',
         success: function (data) {
             renderTable(data);
         },
@@ -48,23 +48,23 @@ function noticeAllData() {
 
 // 테이블 렌더링 함수
 function renderTable(data) {
-    const noticeTable = $('#noticeTable');
-    noticeTable.empty(); // 기존 내용 초기화
+    const freeBoardTable = $('#freeBoardTable');
+    freeBoardTable.empty(); // 기존 내용 초기화
 
     if (data.length === 0) {
-        noticeTable.append(`<tr><td colspan="6" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        freeBoardTable.append(`<tr><td colspan="6" style="text-align: center;">데이터가 없습니다.</td></tr>`);
         return;
     }
 
-    data.forEach(notice => {
+    data.forEach(freeBoard => {
         const row = `
             <tr>
-                <td>${notice.bid}</td>
-                <td>${notice.btitle}</td>
-                <td>${notice.bcontent}</td>
-                <td>${notice.bwriter}</td>
+                <td>${freeBoard.bid}</td>
+                <td>${freeBoard.btitle}</td>
+                <td>${freeBoard.bcontent}</td>
+                <td>${freeBoard.bwriter}</td>
             </tr>
         `;
-        noticeTable.append(row);
+        freeBoardTable.append(row);
     });
 }
