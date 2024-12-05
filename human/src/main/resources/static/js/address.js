@@ -80,8 +80,12 @@ function renderTable(data) {
 $(document).ready(function () {
 
     // 등록하기 버튼 클릭 이벤트
-    $('.btn-register').on('click', function () {
+    $('.btn-register').on('click', function (event) {
+        // 기본 동작 방지
         event.preventDefault()
+
+        // 기존 모든 모달 제거
+            $('.modal').remove(); // 모든 기존 모달 제거
 
         // Ajax로 모달 HTML 가져오기
         $.ajax({
@@ -89,16 +93,14 @@ $(document).ready(function () {
             method: 'GET',
             success: function (data) {
                 // 동적으로 모달 HTML 추가
-                if ($('#registerModal').length === 0) {
-                    $('body').append(data); // 가져온 HTML을 body에 추가
-                }
+                $('body').append(data);
 
                 // Bootstrap 모달 띄우기
                 $('#registerModal').modal('show');
 
                 // 모달 닫힐 때 HTML 제거
                 $('#registerModal').on('hidden.bs.modal', function () {
-                    $(this).remove(); // 모달 DOM 삭제
+                    $(this).remove();
                 });
             },
             error: function (xhr) {
@@ -107,3 +109,14 @@ $(document).ready(function () {
         });
     });
 });
+
+
+// // Bootstrap 모달 열기
+//const modalElement = document.querySelector('#registerModal');
+//const modal = new bootstrap.Modal(modalElement);
+//modal.show();
+//
+//// 모달 닫힐 때 DOM 제거
+//modalElement.addEventListener('hidden.bs.modal', function () {
+//modalElement.remove();
+//});
