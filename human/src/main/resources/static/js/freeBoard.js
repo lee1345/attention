@@ -2,6 +2,14 @@ $(document).ready(function () {
     // 전체 데이터 로드 (GET)
     freeBoardAllData();
 
+    // 엔터 키를 누르면 검색 버튼 클릭
+    $('#searchQuery').on('keypress', function (event) {
+        if (event.key === 'Enter') { // 엔터 키 감지
+            event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
+            $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
+        }
+    });
+
     // 검색 버튼 클릭 이벤트
     $('#searchBtn').on('click', function () {
         const category = $('#category').val();

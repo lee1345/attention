@@ -52,5 +52,26 @@
         </table>
     </div>
 </div> <!-- common.jsp에 container의 닫는부분 -->
-</body>
-</html>
+
+<!-- 팝업 배경 오버레이 -->
+<div class="popup-overlay" id="popupOverlay"></div>
+
+<!-- 팝업 -->
+<div class="popup hidden" id="popup">
+    <button class="close-btn" id="closePopup">X</button>
+    <h2>주소 등록</h2>
+    <form id="registerForm">
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" required /><br>
+        <label for="phone">핸드폰:</label>
+        <input type="text" id="phone" name="phone" required /><br>
+        <label for="email">이메일:</label>
+        <input type="email" id="email" name="email" required /><br>
+        <label for="dept">부서명:</label>
+        <input type="text" id="dept" name="dept" /><br>
+        <label for="group">그룹(별칭):</label>
+        <input type="text" id="group" name="group" /><br>
+        <button type="submit" class="submit-btn">등록</button>
+    </form>
+</div>
+
