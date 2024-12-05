@@ -18,7 +18,7 @@
 
     <!-- 검색 및 등록 섹션 -->
     <div class="search-register">
-        <form id="searchForm" action="javascript:void(0);" >
+        <form id="searchForm" method="POST">
             <div class="filter-group">
                 <select id="category" name="category">
                     <option value="B_ID" selected>번호</option>

@@ -27,7 +27,7 @@ public class AddressRestController {
     }
 
     // 검색 결과 반환 (JSON)
-    @GetMapping("/search")
+    @PostMapping("/search")
     public List<AddressVO> searchAddress(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {

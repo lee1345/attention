@@ -29,5 +29,6 @@
         B_UPDATED_DATE AS bUpdatedDate
         FROM board
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 검색 필터 적용 -->
+
     </select>
 </mapper>

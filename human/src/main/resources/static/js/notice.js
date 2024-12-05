@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // 전체 데이터 로드 (GET)
+    // 전체 데이터 로드 (POST)
     noticeAllData();
 
     // 검색 버튼 클릭 이벤트
@@ -13,12 +13,12 @@ $(document).ready(function () {
         }
 
         const searchData = {
-            category: category,
-            query: query
+            bCategory: category, //
+            bTitle: query        //
         };
 
         $.ajax({
-            type: 'POST',
+            type: 'POST', //
             url: '/api/notice/search',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(searchData),
@@ -26,7 +26,8 @@ $(document).ready(function () {
                 renderTable(data);
             },
             error: function (xhr) {
-                alert("검색어를 확인해주세요 !");
+                alert("검색 요청에 실패했습니다!");
+                console.error(xhr.responseText);
             }
         });
     });
@@ -35,8 +36,10 @@ $(document).ready(function () {
 // 공지사항 데이터 로드 함수
 function noticeAllData() {
     $.ajax({
-        type: 'GET',
+        type: 'POST', //
         url: '/api/notice',
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify({}),
         success: function (data) {
             renderTable(data);
         },
