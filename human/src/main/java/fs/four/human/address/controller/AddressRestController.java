@@ -50,18 +50,22 @@ public class AddressRestController {
             throw new RuntimeException("검색 중 문제가 발생했습니다.");
         }
     }
+    // 새로운 주소 데이터 등록 API
+    @PostMapping("/register")
+    @ResponseBody
+    public String createAddress(@RequestBody AddressVO address) {
+        try {
+            // 디버깅 로그
+            System.out.println("받은 데이터: " + address);
+            addressService.createAddress(address);
+            return "등록 성공!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "등록 실패: " + e.getMessage();
+        }
+    }
 }
 
 
-//    // 새로운 주소 데이터 등록 API
-//    @PostMapping("/register")
-//    public ResponseEntity<String> createAddress(@RequestBody AddressVO address) {
-//        try {
-//            addressService.createAddress(address);
-//            return ResponseEntity.ok("등록 성공!");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 실패: " + e.getMessage());
-//        }
-//    }
-//}
+
+

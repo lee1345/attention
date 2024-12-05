@@ -24,21 +24,7 @@ public class AddressService {
     }
 
     // 새로운 주소 데이터 등록
-    public AddressVO createAddress(AddressVO address) {
+    public void createAddress(AddressVO address) {
         addressDAO.createAddress(address);
-        return address; // 등록된 주소 데이터 반환
     }
-//
-//    // 주소 데이터 수정
-//    public AddressVO updateAddress(String id, AddressVO address) {
-//        address.setAdId(id);
-//        addressDAO.updateAddress(address);
-//        return address;
-//    }
-//
-//    // 주소 데이터 삭제
-//    public void deleteAddress(String id) {
-//        addressDAO.deleteAddress(id);
-//    }
-
 }
