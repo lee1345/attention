@@ -26,20 +26,20 @@ public class CommonControllerImpl implements CommonController {
         return new ModelAndView("common/common");
     }
 
-    @PostMapping("/login")
-    public ModelAndView login(String e_id, HttpSession session) {
-
-        // CommonService를 호출하여 e_id로 사용자 정보를 가져옴
-        CommonVO employee = commonService.getEmployeeInfo(e_id);
-
-        // 사용자 정보가 존재하면 (로그인 성공)
-        if (employee != null) {
-            session.setAttribute("user", employee); // 세션에 사용자 정보를 저장
-            return new ModelAndView("redirect:/common/common"); // 성공 시 메인 화면으로 리다이렉트 ( 이거 정해야함 )
-        } else { // 사용자 정보가 없으면 (로그인 실패)
-            ModelAndView mav = new ModelAndView("login/login"); // 로그인 페이지로 이동
-            mav.addObject("error", "Invalid ID or password"); // 에러 메시지를 뷰로 전달
-            return mav;
-        }
-    }
+//    @PostMapping("/login")
+//    public ModelAndView login(String e_id, HttpSession session) {
+//
+//        // CommonService를 호출하여 e_id로 사용자 정보를 가져옴
+//        CommonVO employee = commonService.getEmployeeInfo(e_id);
+//
+//        // 사용자 정보가 존재하면 (로그인 성공)
+//        if (employee != null) {
+//            session.setAttribute("loginUserID", e_id); // 세션에 사용자 정보를 저장
+//            return new ModelAndView("redirect:/common/common"); // 성공 시 메인 화면으로 리다이렉트 ( 이거 정해야함 )
+//        } else { // 사용자 정보가 없으면 (로그인 실패)
+//            ModelAndView mav = new ModelAndView("login/login"); // 로그인 페이지로 이동
+//            mav.addObject("error", "Invalid ID or password"); // 에러 메시지를 뷰로 전달
+//            return mav;
+//        }
+//    }
 }
