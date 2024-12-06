@@ -33,6 +33,15 @@
         </form>
     </div>
 
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+        <ul>
+            <li><a href="#">QnA</a></li>
+            <li><a href="#">꿀팁</a></li>
+            <li><a href="#">자유이야기</a></li>
+        </ul>
+    </div>
+
     <!-- 공지사항 리스트 -->
     <table class="freeBoard-table">
         <thead>

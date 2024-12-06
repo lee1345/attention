@@ -58,37 +58,57 @@
     background-color: #0056b3;
 }
 
-.tabs {
-    margin: 20px 0px;
-}
-
-.tab-menu {
-    list-style: none;
+/* 네비게이션 바 스타일 */
+.navbar {
     display: flex;
-    gap: 15px;
-    padding: 0;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
-.tab-item a {
+.navbar li {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.navbar li:not(:last-child)::after {
+    content: ''; /* 가상 요소 추가 */
+    display: block;
+    width: 1px; /* 구분선 두께 */
+    height: 18px; /* 구분선 높이 */
+    background-color: #333; /* 구분선 색상 (검은색) */
+    position: absolute;
+    right: -10px; /* 구분선 간격 */
+    top: 50%;
+    transform: translateY(-50%); /* 수직 가운데 정렬 */
+}
+
+.navbar a {
     text-decoration: none;
-    padding: 10px 15px;
-    display: inline-block;
-    color: black;
+    padding: 10px 10px;
+    transition: all 0.2s ease; /* 부드러운 효과 추가 */
+    line-height: 1.5;
 }
 
-.tab-item a:hover {
-    color: #555;
+.navbar a:hover {
+    color: #007BFF; /* 마우스 올렸을 때 글자 파란색 */
+    border-bottom: 2px solid #007BFF; /* 마우스 올렸을 때 밑줄 */
+    padding-bottom: 2px; /* 밑줄 위치 조정 */
 }
 
-/* 구분선 스타일 */
-.separator {
-    width: 1px;
-    height: 32px;
-    background-color: #000; /* 검정색 세로선 */
-    margin: 2px 5px; /* 좌우 간격 */
-}
 
+/* 테이블 스타일 */
 .freeBoard-table {
     width: 100%;
     border-collapse: collapse;
