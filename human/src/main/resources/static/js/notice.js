@@ -25,7 +25,7 @@ $(document).ready(function () {
             query: query
         };
 
-        // AJAX GET 요청
+        // AJAX POST 요청
         $.ajax({
             type: 'POST',
             url: '/api/notice/search',
@@ -70,17 +70,88 @@ function renderTable(data) {
         return;
     }
 
+// 날짜 포맷 변환 함수
+    function formatDate(dateString) {
+        const date = new Date(dateString); // ISO 형식 문자열을 Date 객체로 변환
+        const year = date.getFullYear(); // 연도
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 +1)
+        const day = String(date.getDate()).padStart(2, '0'); // 일
+        return `${year}-${month}-${day}`; // "YYYY-MM-DD" 형식 반환
+    }
+
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(notice => {
+        const formattedDate = formatDate(notice.b_CreatedDate); // 날짜 변환
         const row = `
             <tr>
-                <td>${notice.bid}</td>
-                <td>${notice.btitle}</td>
-                <td>${notice.bcontent}</td>
-                <td>${notice.bwriter}</td>
-                <td>${notice.bcreatedDate}</td>
+                <td>${notice.b_Id}</td>
+                <td>${notice.b_Title}</td>
+                <td>${notice.b_Content}</td>
+                <td>${notice.b_Writer}</td>
+                <td>${formattedDate}</td> <!-- 변환된 날짜 사용 -->
             </tr>
         `;
         noticeTable.append(row);
     });
 }
+
+// 팝업창
+$(document).ready(function () {
+    $('.btn-register').on('click', function () {
+        $('#popupOverlay, #popup').fadeIn();
+    });
+
+    // 팝업 닫기
+    $('#closePopup').on('click', function () {
+        $('#popupOverlay, #popup').fadeOut();
+    });
+
+    // 폼 제출
+    $('#registerForm').on('submit', function (event) {
+       event.preventDefault();
+       const formData = $(this).serialize();
+
+    $.ajax({
+       type: 'POST',
+       url: '/api/notice/register',
+       data: formData,
+       success: function () {
+                 alert('등록 성공!');
+       $('#popupOverlay, #popup').fadeOut();
+           addressAllData();
+       },
+       error: function () {
+              alert('등록 실패!');
+           }
+       });
+   });
+});
+
+
+// 주소록 등록하기
+$('#registerForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 폼 제출 방지
+
+    const formData = {
+        adName: $('#name').val(),
+        adPhone: $('#phone').val(),
+        adEmail: $('#email').val(),
+        adDeptName: $('#dept').val(),
+        adGroup: $('#group').val()
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/notice/register',
+        contentType: 'application/json', // JSON 타입으로 전송
+        data: JSON.stringify(formData), // JSON 데이터로 변환
+        success: function () {
+            alert('등록 성공!');
+            $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
+            addressAllData(); // 데이터 다시 로드
+        },
+        error: function () {
+            alert('등록 실패!');
+        }
+    });
+});

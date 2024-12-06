@@ -31,8 +31,11 @@
 
     <!-- 새로운 주소 데이터 등록 -->
     <insert id="createAddress">
-        INSERT INTO ADDRESS (  AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP )
-        VALUES ( #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup} )
+        INSERT INTO ADDRESS (ad_id, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP )
+        VALUES ( address_seq.NEXTVAL, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup} )
+
+<!--        INSERT INTO ADDRESS (ad_id, ad_empl_id, ad_name, ad_phone, ad_email, ad_dept_name, ad_group)-->
+<!--        VALUES (address_seq.NEXTVAL, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup});-->
     </insert>
 
 </mapper>

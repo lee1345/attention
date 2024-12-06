@@ -50,5 +50,23 @@
     </table>
 </div>
 </div> <!-- common.jsp에 container의 닫는부분 -->
+
+<!-- 팝업 배경 오버레이 -->
+<div class="popup-overlay" id="popupOverlay"></div>
+
+<!-- 팝업 -->
+<div class="popup hidden" id="popup">
+    <button class="close-btn" id="closePopup">X</button>
+    <h2>주소 등록</h2>
+    <form id="registerForm">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" required /><br>
+        <label for="content">내용</label>
+        <input type="textarea" id="content" name="content" required /><br>
+        <label for="name">작성자</label>
+        <input type="text" id="name" name="name" required /><br>
+        <button type="submit" class="submit-btn">등록</button>
+    </form>
+</div>
 </body>
 </html>

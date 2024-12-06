@@ -22,23 +22,12 @@
           <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
         </div>
         <div class="user-info">
-          <c:choose>
-            <c:when test="${not empty sessionScope.user}">
-              <!-- 로그인 상태 -->
+              <span>로그인(테스트)중입니다 : ${e_id}</span>
               <span>${sessionScope.user.e_dept}</span> <!-- 부서명 -->
               <span>${sessionScope.user.e_name}</span> <!-- 이름 -->
               <span>${sessionScope.user.e_position}</span> <!-- 직위 -->
               <span><a id="#">MyPage</a><span>
               <span><a id="login">Logout</a><span>
-            </c:when>
-            <c:otherwise>
-              <!-- 비로그인 상태 -->
-              <span>OO팀</span>
-              <span>OOO</span>
-              <span>사원</span>
-              <span><a id="login">Login</a></span>
-            </c:otherwise>
-          </c:choose>
         </div>
       </header>
 

@@ -23,4 +23,9 @@ public class NoticeService {
         return noticeDAO.searchNotice(category, query);
     }
 
+    // 새로운 주소 데이터 등록
+    public void createNotice(NoticeVO notice) {
+        noticeDAO.createNotice(notice);
+    }
+
 }

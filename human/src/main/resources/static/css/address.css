@@ -90,12 +90,6 @@
     background-color: #f1f1f1;
 }
 
-/* 빈 셀에도 테두리를 유지 */
-.address-table td:empty::after {
-    content: "\00a0"; /* 공백 문자 추가 */
-    display: block;
-}
-
 .pagination {
     display: flex;
     justify-content: center;
@@ -120,71 +114,6 @@
     background-color: #0056b3;
     color: #fff;
 }
-
-
-
-
-
-/* 주소록 스타일 */
-.address-book {
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.address-book h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.search-register .filter-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.search-register select,
-.search-register input,
-.search-register .btn-search,
-.search-register .btn-register {
-    padding: 8px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.search-register .btn-search:hover,
-.search-register .btn-register:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
-
-/* 테이블 스타일 */
-.address-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.address-table th,
-.address-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.address-table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-.address-table tr:hover {
-    background-color: #f1f1f1;
-}
-
 
 
 /* 팝업 및 오버레이 스타일 */
@@ -289,7 +218,3 @@
 .popup form .submit-btn:hover {
     background: #0056b3;
 }
-
-
-
-

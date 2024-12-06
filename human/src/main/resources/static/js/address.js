@@ -25,6 +25,7 @@ $(document).ready(function () {
             query: query
         };
 
+        // AJAX POST 요청
         $.ajax({
             type: 'POST',
             url: '/api/address/search',
@@ -90,7 +91,7 @@ $(document).ready(function () {
     });
 
     // 팝업 닫기
-    $('#closePopup, #popupOverlay').on('click', function () {
+    $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
     });
 

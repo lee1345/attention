@@ -1,5 +1,6 @@
 package fs.four.human.login.controller;
 
+import jakarta.servlet.http.HttpSession;
 import fs.four.human.login.service.LoginRestService;
 import fs.four.human.login.service.LoginService;
 import fs.four.human.login.vo.LoginVO;
@@ -31,10 +32,11 @@ public class LoginRestController {
 
     //로그인
     @PostMapping("/logIn")
-    public ResponseEntity<String> login(@RequestParam String e_id, @RequestParam String e_pwd) {
+    public ResponseEntity<String> login(@RequestParam String e_id, @RequestParam String e_pwd, HttpSession session) {
         try {
             boolean isValid = loginRestService.validateLogin(e_id, e_pwd);
             if (isValid) {
+                session.setAttribute("loginUserID",e_id);
                 return ResponseEntity.ok("로그인 성공");
             } else {
                 return ResponseEntity.status(401).body("아이디 또는 비밀번호가 잘못되었습니다.");
@@ -48,6 +50,9 @@ public class LoginRestController {
     // 아이디 중복 체크
     @GetMapping("/idCheck")
     public ResponseEntity<String> checkId(@RequestParam String e_id) {
+        if (e_id == null || e_id.isEmpty()) {
+            return ResponseEntity.status(400).body("아이디를 입력해 주세요.");
+        }
         try {
             boolean IdAvailable = loginRestService.checkId(e_id);
             if (IdAvailable) {
@@ -60,6 +65,7 @@ public class LoginRestController {
             return ResponseEntity.status(500).body("아이디 중복 확인 실패");
         }
     }
+
 
 }
 
