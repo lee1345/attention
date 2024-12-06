@@ -1,16 +1,18 @@
 body {
+    display: flex; /* 전체를 가로로 배치 */
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
 }
 
 .layout-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+     display: flex; /* 어사이드와 메인 컨텐츠를 가로로 배치 */
+        width: 100%; /* 전체 너비 */
+        min-height: 100vh; /* 화면 전체 높이 */
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1{
@@ -66,7 +68,7 @@ h2 {
     display: flex; /* 차트와 범례를 한 줄에 배치 */
     align-items: center; /* 세로 중앙 정렬 */
     justify-content: space-between; /* 차트와 범례를 양쪽에 배치 */
-    width: 100%; /* 컨테이너 가로 크기 */
+    width: 70%; /* 컨테이너 가로 크기 */
     gap: 20px; /* 차트와 범례 사이의 간격 */
 }
 
