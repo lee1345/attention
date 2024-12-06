@@ -91,7 +91,7 @@ $(document).ready(function () {
     });
 
     // 팝업 닫기
-    $('#closePopup, #popupOverlay').on('click', function () {
+    $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
     });
 

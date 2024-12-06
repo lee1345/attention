@@ -59,17 +59,22 @@
 </div>
 </div> <!-- common.jsp에 container의 닫는부분 -->
 
+<!-- 팝업 배경 오버레이 -->
+<div class="popup-overlay" id="popupOverlay"></div>
+
 <!-- 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
     <h2>게시판 등록</h2>
     <form id="registerForm">
-        <label for="name">제목</label>
-        <input type="text" id="name" name="name" required /><br>
-        <label for="phone">내용</label>
-        <input type="text" id="phone" name="phone" required /><br>
-        <label for="email">작성자</label>
-        <input type="email" id="email" name="email" required /><br>
+        <label for="title">구분</label>
+        <input type="text" id="QnA" name="QnA" required /><br>
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" required /><br>
+        <label for="content">내용</label>
+        <input type="text" id="content" name="content" required /><br>
+        <label for="name">작성자</label>
+        <input type="email" id="name" name="name" required /><br>
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>
