@@ -70,15 +70,25 @@ function renderTable(data) {
         return;
     }
 
+// 날짜 포맷 변환 함수
+    function formatDate(dateString) {
+        const date = new Date(dateString); // ISO 형식 문자열을 Date 객체로 변환
+        const year = date.getFullYear(); // 연도
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 +1)
+        const day = String(date.getDate()).padStart(2, '0'); // 일
+        return `${year}-${month}-${day}`; // "YYYY-MM-DD" 형식 반환
+    }
+
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(notice => {
+        const formattedDate = formatDate(notice.b_CreatedDate); // 날짜 변환
         const row = `
             <tr>
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
                 <td>${notice.b_Content}</td>
                 <td>${notice.b_Writer}</td>
-                <td>${notice.b_CreatedDate}</td>
+                <td>${formattedDate}</td> <!-- 변환된 날짜 사용 -->
             </tr>
         `;
         noticeTable.append(row);
