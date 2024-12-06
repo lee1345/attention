@@ -37,11 +37,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
-
+      locale: 'ko',
       headerToolbar: {
-        left: 'prev,next', // 왼쪽에 아무것도 배치하지 않음
-        center: 'title', // 중앙에 prev, title, next 배치
-        right: 'today' // 오른쪽에 아무것도 배치하지 않음
+        left: '', // 왼쪽에 아무것도 배치하지 않음
+        center: 'prev title next', // 중앙에 prev, title, next 배치
+        right: '' // today 버튼 제거
+      },
+      buttonText: {
+        today: '오늘로 이동'
       },
 
       events: sampleEvents.map(event => {
@@ -85,14 +88,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // 필터 버튼 동작
     document.getElementById('filter-my-events').addEventListener('click', function () {
       filterEvents('M'); // 내 일정 보기
+      this.classList.add('active');
     });
 
     document.getElementById('filter-team-events').addEventListener('click', function () {
       filterEvents('T'); // 팀 일정 보기
+      this.classList.add('active');
     });
 
     document.getElementById('filter-all-events').addEventListener('click', function () {
       filterEvents(null); // 모든 일정 보기
+      this.classList.add('active');
     });
 
     function filterEvents(type) {
@@ -107,4 +113,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }
+
+    const leftButtons = document.querySelectorAll('.left-buttons .btn');
+
+    // 각 버튼에 클릭 이벤트 추가
+    leftButtons.forEach((button) => {
+      button.addEventListener('click', function () {
+        // 기존 활성화된 버튼에서 active 클래스 제거
+        leftButtons.forEach((btn) => {
+          btn.classList.remove('active');
+        });
+
+        // 현재 클릭된 버튼에 active 클래스 추가
+        this.classList.add('active');
+      });
+    });
   });
