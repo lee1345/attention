@@ -41,9 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
     headerToolbar: {
       left: '', // 왼쪽에 아무것도 배치하지 않음
       center: 'prev title next', // 중앙에 prev, title, next 배치
-      right: ''
+      right: 'today'
     },
-
+    buttonText: {
+      today: '오늘로 이동하기'
+    },
 
     events: sampleEvents.map(event => {
       // T: 팀 일정은 녹색, M: 내 일정은 파란색
