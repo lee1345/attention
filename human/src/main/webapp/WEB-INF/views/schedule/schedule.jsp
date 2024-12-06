@@ -14,47 +14,42 @@
 <!-- 공통 헤더&사이드 -->
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
-    <div class="calendar-container">
-        <h1>일정관리</h1>
+    <div class="headContainer" style="display: inline-block">
+        <h1 class="text-center">일정 조회</h1>
         <br>
-        <div class="filters">
-            <div>
-                <label><input type="radio" id="individual-view" name="view" value="M" checked> 내 일정만 보기</label>
-                <label><input type="radio" id="team-view" name="view" value="T"> 팀 일정만 보기</label>
-                <label><input type="radio" id="all-view" name="view" value="all"> 모두 보기</label>
-            </div>
-            <div>
-                <button id="monthly-view">월간보기</button>
-                <button id="weekly-view">주간보기</button>
-                <button id="daily-view">일간보기</button>
-                <button id="export-excel">목록 EXCEL 추출</button>
-            </div>
-        </div>
-        <div class="navigation">
-            <button id="prev-month">〈</button>
-            <span id="current-month">2024.11</span>
-            <button id="next-month">〉</button>
-        </div>
-        <div id="calendar">
-            <!-- 달력 내용은 JS로 생성 -->
-        </div>
-    </div>
 
-    <!-- 팝업 -->
-    <div id="popup" class="hidden">
-        <div class="popup-content">
-            <button id="close-popup">X</button>
-            <h2 id="popup-title"></h2>
-            <p><strong>중요도:</strong> <span id="popup-priority"></span></p>
-            <p><strong>진행상황:</strong> <span id="popup-status"></span></p>
-            <p><strong>일시:</strong> <span id="popup-date"></span></p>
-            <p><strong>담당자:</strong> <span id="popup-manager"></span></p>
-            <p><strong>참여자:</strong> <span id="popup-participants"></span></p>
-            <p><strong>내용:</strong></p>
-            <p id="popup-details"></p>
+        <!-- 필터 버튼 -->
+        <div class="text-center mb-3">
+          <button id="filter-my-events" class="btn btn-primary">내 일정 보기</button>
+          <button id="filter-team-events" class="btn btn-success">팀 일정 보기</button>
+          <button id="filter-all-events" class="btn btn-secondary">모두 보기</button>
+          <button id="view-month" class="btn btn-outline-primary">월별 보기</button>
+          <button id="view-week" class="btn btn-outline-primary">주별 보기</button>
+          <button id="view-day" class="btn btn-outline-primary">일별 보기</button>
         </div>
-    </div>
-</div>
-    <script src="${contextPath}/js/schedule.js"></script>
-</body>
-</html>
+        <!-- FullCalendar -->
+        <br>
+        <div id="calendar"></div>
+      </div>
+
+      <!-- 모달 -->
+      <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-title">일정 제목</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">일정 내용이 여기에 표시됩니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JS -->
+      <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.1/locales/ko.global.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="${contextPath}/js/schedule.js"></script>
+    </body>
+    </html>
+
