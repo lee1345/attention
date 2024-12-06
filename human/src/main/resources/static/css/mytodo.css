@@ -5,12 +5,14 @@ body {
 }
 
 .layout-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+     padding: 20px;
+     background-color: #fff;
+     border: 1px solid #ddd;
+     border-radius: 8px;
+     margin-left: 20px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     flex: 1;
 }
 
 h1{
@@ -63,14 +65,28 @@ h2 {
 }
 
 .chart-container {
-    display: flex; /* 차트와 범례를 한 줄에 배치 */
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: space-between; /* 차트와 범례를 양쪽에 배치 */
-    width: 100%; /* 컨테이너 가로 크기 */
-    gap: 20px; /* 차트와 범례 사이의 간격 */
+    width: 150px; /* 차트 크기를 줄임 */
+       height: 150px;
+       overflow: hidden;
+       display: flex;
+       justify-content: center;
+       align-items: center;
 }
 
+.chart-container {
+    justify-content: center;
+    display: flex; /* 차트와 범례를 한 줄에 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 20px; /* 차트와 범례 사이 간격 */
+    width: 100%;
+    max-width: 500px;
+    height: auto; /* 부모 요소 크기에 따라 차트 크기 설정 */
+}
 
+ #myChart {
+    width: 150px; /* 차트 크기 고정 */
+    height: 150px;
+}
 
 
 .chart canvas {

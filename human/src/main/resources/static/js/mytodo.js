@@ -43,8 +43,8 @@
 
         // 캔버스 크기 고정
         const canvas = document.getElementById('myChart');
-        canvas.style.width = '300px';  // 원하는 너비
-        canvas.style.height = '300px'; // 원하는 높이
+        canvas.style.width = '150px';  // 원하는 너비
+        canvas.style.height = '150px'; // 원하는 높이
 
         // 차트 생성
         const ctx = canvas.getContext('2d');
@@ -67,6 +67,7 @@
                     tooltip: {
                         enabled: false // 툴팁 비활성화
                     }
+
                 }
             },
             plugins: [{
