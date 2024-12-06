@@ -50,6 +50,9 @@ public class LoginRestController {
     // 아이디 중복 체크
     @GetMapping("/idCheck")
     public ResponseEntity<String> checkId(@RequestParam String e_id) {
+        if (e_id == null || e_id.isEmpty()) {
+            return ResponseEntity.status(400).body("아이디를 입력해 주세요.");
+        }
         try {
             boolean IdAvailable = loginRestService.checkId(e_id);
             if (IdAvailable) {
@@ -62,6 +65,7 @@ public class LoginRestController {
             return ResponseEntity.status(500).body("아이디 중복 확인 실패");
         }
     }
+
 
 }
 
