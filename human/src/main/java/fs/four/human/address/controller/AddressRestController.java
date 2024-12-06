@@ -42,14 +42,17 @@ public class AddressRestController {
 
             // 검색 결과 반환
             return addressService.searchAddress(category, query);
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             throw e; // 클라이언트에 예외 전달
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("검색 중 문제가 발생했습니다.");
         }
     }
+
     // 새로운 주소 데이터 등록 API
     @PostMapping("/register")
     @ResponseBody
@@ -65,7 +68,3 @@ public class AddressRestController {
         }
     }
 }
-
-
-
-

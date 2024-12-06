@@ -1,5 +1,6 @@
 package fs.four.human.freeBoard.dao;
 
+import fs.four.human.address.vo.AddressVO;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,4 +17,7 @@ public interface FreeBoardDAO {
     List<FreeBoardVO> searchFreeBoard(
             @Param("category") String category,
             @Param("query") String query);
+
+    // 새로운 주소 데이터 등록
+    void createFreeBoard(FreeBoardVO freeBoard);
 }

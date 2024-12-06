@@ -48,4 +48,19 @@ public class NoticeRestController {
             throw new RuntimeException("검색 중 문제가 발생했습니다.");
         }
     }
+
+    // 새로운 주소 데이터 등록 API
+    @PostMapping("/register")
+    @ResponseBody
+    public String createNotice(@RequestBody NoticeVO notice) {
+        try {
+            // 디버깅 로그
+            System.out.println("받은 데이터: " + notice);
+            noticeService.createNotice(notice);
+            return "등록 성공!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "등록 실패: " + e.getMessage();
+        }
+    }
 }

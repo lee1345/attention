@@ -74,4 +74,5 @@
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>
-
+</body>
+</html>

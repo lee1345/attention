@@ -67,12 +67,44 @@ function renderTable(data) {
     data.forEach(freeBoard => {
         const row = `
             <tr>
-                <td>${freeBoard.bid}</td>
-                <td>${freeBoard.btitle}</td>
-                <td>${freeBoard.bcontent}</td>
-                <td>${freeBoard.bwriter}</td>
+                <td>${freeBoard.b_Id}</td>
+                <td>${freeBoard.b_Title}</td>
+                <td>${freeBoard.b_Content}</td>
+                <td>${freeBoard.b_Writer}</td>
             </tr>
         `;
         freeBoardTable.append(row);
     });
 }
+
+// 팝업창
+$(document).ready(function () {
+    $('.btn-register').on('click', function () {
+        $('#popupOverlay, #popup').fadeIn();
+    });
+
+    // 팝업 닫기
+    $('#closePopup, #popupOverlay').on('click', function () {
+        $('#popupOverlay, #popup').fadeOut();
+    });
+
+    // 폼 제출
+    $('#registerForm').on('submit', function (event) {
+       event.preventDefault();
+       const formData = $(this).serialize();
+
+    $.ajax({
+       type: 'POST',
+       url: '/api/freeBoard/register',
+       data: formData,
+       success: function () {
+                 alert('등록 성공!');
+       $('#popupOverlay, #popup').fadeOut();
+           addressAllData();
+       },
+       error: function () {
+              alert('등록 실패!');
+           }
+       });
+   });
+});

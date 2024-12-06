@@ -54,10 +54,4 @@ public class NoticeController {
             return "error/error"; // 에러 JSP 파일 경로
         }
     }
-
-    // 모달 HTML 반환
-    @GetMapping("/addressModal")
-    public String getAddressModal() {
-        return "address/addressModal"; // JSP 파일 경로 (모달 HTML 파일)
-    }
 }
