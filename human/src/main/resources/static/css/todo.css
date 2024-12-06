@@ -61,11 +61,13 @@ h2 {
 
 
 .chart-container {
+    justify-content: center;
     display: flex; /* 차트와 범례를 한 줄에 배치 */
     align-items: center; /* 세로 중앙 정렬 */
     gap: 20px; /* 차트와 범례 사이 간격 */
     width: 100%;
     max-width: 500px;
+    height: auto; /* 부모 요소 크기에 따라 차트 크기 설정 */
 }
 
 #departmentChart, #myTaskChart {
@@ -74,8 +76,8 @@ h2 {
 }
 
 .chart canvas {
-    width: 10px; /* 차트의 고정 너비 */
-    height: 10px; /* 차트의 고정 높이 */
+    width: 100%; /* 차트 크기를 부모에 맞춤 */
+    height: 300px; /* 고정 높이 설정 */
     margin: 0 auto; /* 차트를 가로 중앙에 정렬 */
     display: block; /* 캔버스 요소의 디폴트 정렬 문제 해결 */
 }

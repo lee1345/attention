@@ -12,7 +12,16 @@
   <script src="https://code.jquery.com/jquery-3.4.1.js" ></script>
 </head>
 <body>
+<!-- 공통 헤더&사이드 -->
+<%@ include file="/WEB-INF/views/common/common.jsp" %>
 
-  <script src="${contextPath}/js/login.js"></script>
+
+
+
+
+
+
+
+  <script src="${contextPath}/js/mytodo.js"></script>
 </body>
 </html>

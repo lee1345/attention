@@ -16,7 +16,7 @@ public class mytodoControllerImpl implements mytodoController {
 //
 
     @GetMapping
-    public ModelAndView mytodo(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView todo(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("-----mytodo-----");
         return new ModelAndView("mytodo/mytodo");
     }

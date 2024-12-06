@@ -6,5 +6,5 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface mytodoController {
 
-    public ModelAndView mytodo(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView todo(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

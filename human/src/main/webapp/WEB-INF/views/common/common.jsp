@@ -37,8 +37,8 @@
             <li>
               <span><i class="fa-solid fa-bars"></i> 할일관리</span>
               <ul>
-                <li><a id="teamTasks">- 팀별 할일</a></li>
-                <li><a id="myTasks">- 나의 할일</a></li>
+                <li><a id="todo">- 팀별 할일</a></li>
+                <li><a id="mytodo">- 나의 할일</a></li>
               </ul>
             </li>
             <strong><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></strong>

@@ -2,8 +2,8 @@
 const navigationLinks = {
   login: "/login", // 로그인 경로
   signup: "/signup", // 회원가입 경로
-  teamTasks: "/teamTasks", // 팀별 할일 경로
-  myTasks: "/myTasks", // 나의 할일 경로
+  todo: "/todo", // 팀별 할일 경로
+  mytodo: "/mytodo", // 나의 할일 경로
   schedule: "/schedule", // 일정관리 경로
   notice: "/notice", // 공지사항 경로
   freeBoard: "/freeBoard", // 자유게시판 경로
