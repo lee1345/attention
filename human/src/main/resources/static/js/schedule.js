@@ -1,196 +1,110 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const calendar = document.getElementById("calendar");
-    const popup = document.getElementById("popup");
-    const closePopup = document.getElementById("close-popup");
-    const prevMonth = document.getElementById("prev-month");
-    const nextMonth = document.getElementById("next-month");
-    const currentMonth = document.getElementById("current-month");
-    const monthlyView = document.getElementById("monthly-view");
-    const weeklyView = document.getElementById("weekly-view");
-    const dailyView = document.getElementById("daily-view");
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
 
-    const individualRadio = document.getElementById("individual-view");
-    const teamRadio = document.getElementById("team-view");
-    const allRadio = document.getElementById("all-view");
-
-    let today = new Date();
-    let currentYear = today.getFullYear();
-    let currentMonthIndex = today.getMonth();
-
-    // Sample events with type "T" for team and "M" for individual
-    const events = [
-        {
-            date: "2024-11-20",
-            title: "[토스] 홈페이지 외주",
-            priority: "중요",
-            status: "진행",
-            time: "2024.11.20 (수) 09:00 ~ 2024.11.22 (금) 18:00",
-            manager: "김혜민",
-            participants: "김혜민, 이태웅, 전지훈",
-            details: "김혜민 -> DB설계, 이태웅 -> 회원가입 담당, 전지훈 -> 상세메뉴 담당",
-            type: "T" // Team event
-        },
-        {
-            date: "2024-11-22",
-            title: "[개인] 디자인 수정",
-            priority: "보통",
-            status: "완료",
-            time: "2024.11.22 (금) 15:00 ~ 2024.11.22 (금) 17:00",
-            manager: "이태웅",
-            participants: "이태웅",
-            details: "디자인 수정 작업",
-            type: "M" // Individual event
-        },
-        {
-            date: "2024-11-24",
-            title: "[팀] 회의",
-            priority: "중요",
-            status: "진행",
-            time: "2024.11.24 (일) 10:00 ~ 2024.11.24 (일) 12:00",
-            manager: "전지훈",
-            participants: "전지훈, 김혜민",
-            details: "팀 회의 진행",
-            type: "T" // Team event
-        }
+    // 샘플 일정 데이터
+    var sampleEvents = [
+      {
+        id: '1',
+        title: '개인 일정 1',
+        start: '2024-11-03',
+        end: '2024-11-04',
+        description: '개인 일정 설명입니다.',
+        extendedProps: { type: 'M' } // M: 내 일정
+      },
+      {
+        id: '2',
+        title: '팀 프로젝트 준비',
+        start: '2024-11-07 10:00',
+        end: '2024-11-09 10:00',
+        description: '팀 발표 준비를 위한 일정입니다.',
+        extendedProps: { type: 'T' } // T: 팀 일정
+      },
+      {
+        id: '3',
+        title: '개인 일정 2',
+        start: '2024-11-10',
+        description: '또 다른 개인 일정입니다.',
+        extendedProps: { type: 'M' }
+      },
+      {
+        id: '4',
+        title: '팀 워크샵',
+        start: '2024-11-15',
+        description: '팀 워크샵 일정입니다.',
+        extendedProps: { type: 'T' }
+      }
     ];
 
-    function updateCalendar(year, monthIndex) {
-        calendar.innerHTML = "";
-        currentMonth.textContent = `${year}.${String(monthIndex + 1).padStart(2, "0")}`;
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
 
-        const firstDay = new Date(year, monthIndex, 1);
-        const lastDay = new Date(year, monthIndex + 1, 0);
+      headerToolbar: {
+        left: 'prev,next', // 왼쪽에 아무것도 배치하지 않음
+        center: 'title', // 중앙에 prev, title, next 배치
+        right: 'today' // 오른쪽에 아무것도 배치하지 않음
+      },
 
-        for (let i = 0; i < firstDay.getDay(); i++) {
-            calendar.appendChild(document.createElement("div"));
+      events: sampleEvents.map(event => {
+        // T: 팀 일정은 녹색, M: 내 일정은 파란색
+        if (event.extendedProps.type === 'T') {
+          event.color = 'green';
+        } else if (event.extendedProps.type === 'M') {
+          event.color = 'blue';
         }
+        return event;
+      }),
 
-        for (let i = 1; i <= lastDay.getDate(); i++) {
-            const day = document.createElement("div");
-            day.textContent = i;
+      eventClick: function (info) {
+        // 모달창에 데이터 표시
+        document.getElementById('modal-title').innerText = info.event.title;
+        document.getElementById('modal-body').innerText =
+          info.event.extendedProps.description || '설명 없음';
 
-            const dateStr = `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
-            const filteredEvents = events.filter((e) => e.date === dateStr);
-
-            if (filteredEvents.length > 0) {
-                filteredEvents.forEach(event => {
-                    const eventElem = document.createElement("div");
-                    eventElem.textContent = event.title;
-                    eventElem.classList.add("event");
-                    eventElem.dataset.event = JSON.stringify(event);
-
-                    if (event.type === "T") {
-                        eventElem.classList.add("team-event"); // Green color for team events
-                    } else {
-                        eventElem.classList.add("individual-event"); // Default color for individual events
-                    }
-                    day.appendChild(eventElem);
-                });
-            }
-
-            calendar.appendChild(day);
-        }
-    }
-
-    function showPopup(event) {
-        document.getElementById("popup-title").textContent = event.title;
-        document.getElementById("popup-priority").textContent = event.priority;
-        document.getElementById("popup-status").textContent = event.status;
-        document.getElementById("popup-date").textContent = event.time;
-        document.getElementById("popup-manager").textContent = event.manager;
-        document.getElementById("popup-participants").textContent = event.participants;
-        document.getElementById("popup-details").textContent = event.details;
-
-        popup.classList.remove("hidden");
-    }
-
-    function handleViewChange(view) {
-        if (view === "weekly") {
-            const startDay = new Date(currentYear, currentMonthIndex, today.getDate() - today.getDay());
-            calendar.innerHTML = "";
-
-            for (let i = 0; i < 7; i++) {
-                const day = new Date(startDay);
-                day.setDate(startDay.getDate() + i);
-
-                const dayElem = document.createElement("div");
-                dayElem.textContent = day.getDate();
-
-                const dateStr = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getDate()).padStart(2, "0")}`;
-                const event = events.find((e) => e.date === dateStr);
-
-                if (event) {
-                    dayElem.classList.add("event");
-                    dayElem.dataset.event = JSON.stringify(event);
-                }
-
-                calendar.appendChild(dayElem);
-            }
-        } else if (view === "daily") {
-            calendar.innerHTML = "";
-            const day = document.createElement("div");
-            day.textContent = today.getDate();
-
-            const dateStr = `${currentYear}-${String(currentMonthIndex + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-            const event = events.find((e) => e.date === dateStr);
-
-            if (event) {
-                day.classList.add("event");
-                day.dataset.event = JSON.stringify(event);
-            }
-
-            calendar.appendChild(day);
-        } else {
-            updateCalendar(currentYear, currentMonthIndex);
-        }
-    }
-
-    prevMonth.addEventListener("click", () => {
-        currentMonthIndex--;
-        if (currentMonthIndex < 0) {
-            currentMonthIndex = 11;
-            currentYear--;
-        }
-        updateCalendar(currentYear, currentMonthIndex);
+        // 모달 열기
+        var modalEl = document.getElementById('eventModal');
+        var modal = new bootstrap.Modal(modalEl);
+        modal.show();
+      }
     });
 
-    nextMonth.addEventListener("click", () => {
-        currentMonthIndex++;
-        if (currentMonthIndex > 11) {
-            currentMonthIndex = 0;
-            currentYear++;
-        }
-        updateCalendar(currentYear, currentMonthIndex);
+    calendar.render();
+
+    // 뷰 변경 버튼 동작
+    document.getElementById('view-month').addEventListener('click', function () {
+      calendar.changeView('dayGridMonth');
     });
 
-    calendar.addEventListener("click", (e) => {
-        if (e.target.classList.contains("event")) {
-            const event = JSON.parse(e.target.dataset.event);
-            showPopup(event);
-        }
+    document.getElementById('view-week').addEventListener('click', function () {
+      calendar.changeView('timeGridWeek');
     });
 
-    closePopup.addEventListener("click", () => {
-        popup.classList.add("hidden");
+    document.getElementById('view-day').addEventListener('click', function () {
+      calendar.changeView('timeGridDay');
     });
 
-    monthlyView.addEventListener("click", () => handleViewChange("monthly"));
-    weeklyView.addEventListener("click", () => handleViewChange("weekly"));
-    dailyView.addEventListener("click", () => handleViewChange("daily"));
+    // 필터 버튼 동작
+    document.getElementById('filter-my-events').addEventListener('click', function () {
+      filterEvents('M'); // 내 일정 보기
+    });
 
-    individualRadio.addEventListener("change", () => filterEvents("M"));
-    teamRadio.addEventListener("change", () => filterEvents("T"));
-    allRadio.addEventListener("change", () => filterEvents("all"));
+    document.getElementById('filter-team-events').addEventListener('click', function () {
+      filterEvents('T'); // 팀 일정 보기
+    });
+
+    document.getElementById('filter-all-events').addEventListener('click', function () {
+      filterEvents(null); // 모든 일정 보기
+    });
 
     function filterEvents(type) {
-        if (type === "M") {
-            updateCalendar(currentYear, currentMonthIndex);
-        } else if (type === "T") {
-            updateCalendar(currentYear, currentMonthIndex);
-        } else {
-            updateCalendar(currentYear, currentMonthIndex);
-        }
-    }
+      // 기존 일정 제거
+      const allEvents = calendar.getEvents();
+      allEvents.forEach(event => event.remove());
 
-    updateCalendar(currentYear, currentMonthIndex);
-});
+      // 일정 필터링 후 다시 추가
+      sampleEvents.forEach(event => {
+        if (!type || event.extendedProps.type === type) {
+          calendar.addEvent(event);
+        }
+      });
+    }
+  });
