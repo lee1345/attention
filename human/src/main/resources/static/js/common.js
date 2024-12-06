@@ -23,3 +23,4 @@ function setupNavigation() {
 
 // DOM이 로드된 후 링크 설정
 document.addEventListener("DOMContentLoaded", setupNavigation);
+

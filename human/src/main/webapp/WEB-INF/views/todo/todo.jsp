@@ -54,7 +54,7 @@
                <!-- 5번~10번 -->
                <div class="actions-section">
                    <div class="actions-buttons">
-                       <button class="large-button" >TEAM 업무 등록하기</button>
+                       <button class="large-button" >TEAM 업무<br> 등록하기</br></button>
                        <div class="inline-buttons">
                            <button>검색/정렬 초기화</button>
                            <button>선택 업무 숨기기</button>
