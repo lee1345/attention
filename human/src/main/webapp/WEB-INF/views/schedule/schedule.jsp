@@ -23,16 +23,15 @@
         <div class="left-buttons">
           <button id="filter-my-events" class="btn btn-primary">내 일정 보기</button>
           <button id="filter-team-events" class="btn btn-success">팀 일정 보기</button>
-          <button id="filter-all-events" class="btn btn-secondary active">모두 보기</button>
+          <button id="filter-all-events" class="btn btn-secondary active" style="width:100px;">모두 보기</button>
         </div>
         <div class="right-buttons">
-          <button id="go-today" class="btn btn-outline-primary active">오늘로이동</button>
           <button id="view-month" class="btn btn-outline-primary active">월별 보기</button>
           <button id="view-week" class="btn btn-outline-primary">주별 보기</button>
           <button id="view-day" class="btn btn-outline-primary">일별 보기</button>
         </div>
       </div>
-    <br>
+    <br><br>
     <!-- FullCalendar -->
     <div id="calendar"></div>
   </div>
