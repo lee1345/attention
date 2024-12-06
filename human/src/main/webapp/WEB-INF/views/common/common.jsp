@@ -22,10 +22,8 @@
           <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
         </div>
         <div class="user-info">
-              <span>로그인(테스트)중입니다 : ${e_id}</span>
-              <span>${sessionScope.user.e_dept}</span> <!-- 부서명 -->
-              <span>${sessionScope.user.e_name}</span> <!-- 이름 -->
-              <span>${sessionScope.user.e_position}</span> <!-- 직위 -->
+              <span>${e_id}님 안녕하세요 </span>
+
               <span><a id="#">MyPage</a><span>
               <span><a id="login">Logout</a><span>
         </div>
@@ -40,8 +38,10 @@
                 <li><a id="todo">- 팀별 할일</a></li>
                 <li><a id="mytodo">- 나의 할일</a></li>
               </ul>
+              <br>
             </li>
             <strong><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></strong>
+            <br><br>
             <li>
               <span><i class="fa-solid fa-bullhorn"></i> 게시판</span>
               <ul>
@@ -49,6 +49,7 @@
                 <li><a id="freeBoard">- 자유게시판</a></li>
               </ul>
             </li>
+            <br><br>
             <li>
               <strong><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
             </li>

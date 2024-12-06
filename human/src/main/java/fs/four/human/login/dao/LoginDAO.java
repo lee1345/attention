@@ -17,5 +17,4 @@ public interface LoginDAO {
     //아이디 중복체크
     String newIdCheck(
             @Param("e_id") String e_id);
-
 }
