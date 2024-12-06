@@ -40,7 +40,7 @@ $(document).ready(function () {
     });
 });
 
-// 공지사항 데이터 로드 함수
+// 게시판 데이터 로드 함수
 function freeBoardAllData() {
     $.ajax({
         type: 'GET',

@@ -1,6 +1,5 @@
 package fs.four.human.freeBoard.controller;
 
-import fs.four.human.address.vo.AddressVO;
 import fs.four.human.freeBoard.service.FreeBoardService;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class FreeBoardRestController {
     }
 
     // 검색 결과 반환 (JSON)
-    @GetMapping("/search")
+    @PostMapping("/search")
     public List<FreeBoardVO> searchFreeBoard(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {
