@@ -21,9 +21,11 @@ public class CommonControllerImpl implements CommonController {
     private CommonService commonService;
 
     @GetMapping
-    public ModelAndView common(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("-----common-----");
-        return new ModelAndView("common/common");
+    public ModelAndView common(HttpSession session) {
+        String e_id = (String) session.getAttribute("loginUserID"); // 세션에서 ID 가져오기
+        ModelAndView mav = new ModelAndView("common/common");
+        mav.addObject("e_id", e_id); // ID를 뷰로 전달
+        return mav;
     }
 
 //    @PostMapping("/login")
