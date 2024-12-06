@@ -1,159 +1,126 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Team Task List</title>
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/todo.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>할일 관리 </title>
+    <link rel="stylesheet" href="${contextPath}/css/todo.css">
 </head>
 <body>
-    <%@ include file="../common/common.jsp" %>
-    <div class="layout-container">
-        <main>
-            <!-- 상단 차트 -->
-            <div class="chart-section">
-                <section class="chart">
-                    <h3>부서 업무 현황</h3>
-                    <canvas id="departmentChart"></canvas>
-                    <ul class="chart-legend">
-                        <li>예정: <span>${departmentCounts.scheduled}</span>건</li>
-                        <li>진행지연: <span>${departmentCounts.delayedInProgress}</span>건</li>
-                        <li>진행중: <span>${departmentCounts.inProgress}</span>건</li>
-                        <li>완료지연: <span>${departmentCounts.delayedCompleted}</span>건</li>
-                        <li>완료: <span>${departmentCounts.completed}</span>건</li>
-                    </ul>
-                </section>
+<!-- 공통 헤더&사이드 -->
+<%@ include file="/WEB-INF/views/common/common.jsp" %>
 
-                <section class="chart">
-                    <h3>나의 업무 참여 현황</h3>
-                    <canvas id="myTaskChart"></canvas>
-                    <ul class="chart-legend">
-                        <li>예정: <span>${myTaskCounts.scheduled}</span>건</li>
-                        <li>진행지연: <span>${myTaskCounts.delayedInProgress}</span>건</li>
-                        <li>진행중: <span>${myTaskCounts.inProgress}</span>건</li>
-                        <li>완료지연: <span>${myTaskCounts.delayedCompleted}</span>건</li>
-                        <li>완료: <span>${myTaskCounts.completed}</span>건</li>
-                    </ul>
-                </section>
-            </div>
+   <div class="layout-container">
+           <main>
+               <!-- 상단 차트 -->
+               <div class="chart-section">
+                   <!-- 부서 업무 현황 -->
+                   <section class="chart">
+                       <h1 class="chart-title">부서 업무 현황</h1>
+                       <div class="chart-container">
+                           <canvas id="departmentChart"></canvas>
+                           <ul class="chart-legend" id="departmentLegend">
+                               <li>예정: <span>2건</span></li>
+                               <li>진행지연: <span>0건</span></li>
+                               <li>진행중: <span>1건</span></li>
+                               <li>완료지연: <span>0건</span></li>
+                               <li>완료: <span>1건</span></li>
+                           </ul>
+                       </div>
+                   </section>
 
-            <!-- TEAM 업무 등록 및 검색 조건 -->
-            <div class="task-and-search-container">
-                <section class="task-registration">
-                    <button>TEAM 업무 등록하기</button>
-                    <div class="filters">
-                        <button onclick="resetFilters()">검색/정렬 초기화</button>
-                        <button onclick="hideSelectedTasks()">선택 업무 숨기기</button>
-                        <button onclick="restoreHiddenTasks()">숨긴 업무 다시 보기</button>
-                    </div>
-                </section>
+                   <!-- 나의 업무 참여 현황 -->
+                   <section class="chart">
+                       <h1 class="chart-title">나의 업무 참여 현황</h1> <!-- 수정 -->
+                       <div class="chart-container">
+                           <canvas id="myTaskChart"></canvas>
+                           <ul class="chart-legend" id="myTaskLegend">
+                               <li>예정: <span>2건</span></li>
+                               <li>진행지연: <span>0건</span></li>
+                               <li>진행중: <span>1건</span></li>
+                               <li>완료지연: <span>0건</span></li>
+                               <li>완료: <span>1건</span></li>
+                           </ul>
+                       </div>
+                   </section>
+               </div>
 
-                <section class="search-filters">
-                    <form method="GET" action="/todo">
-                        <label for="taskType">구분:</label>
-                        <select id="taskType" name="type">
-                            <option value="all">전체</option>
-                            <option value="personal">개인</option>
-                            <option value="team">팀</option>
-                            <option value="title">제목</option>
-                        </select>
 
-                        <label for="taskTextInput">내용:</label>
-                        <input type="text" id="taskTextInput" name="query" placeholder="내용을 입력하세요">
+               <!-- 5번~10번 -->
+               <div class="actions-section">
+                   <div class="actions-buttons">
+                       <button class="large-button" >TEAM 업무 등록하기</button>
+                       <div class="inline-buttons">
+                           <button>검색/정렬 초기화</button>
+                           <button>선택 업무 숨기기</button>
+                           <button>숨긴 업무 다시보기</button>
+                       </div>
+                   </div>
+                   <div class="filters">
+                       <!-- 구분과 검색 필드 -->
+                       <div class="filter-row">
+                           <i class="fas fa-search"></i> <!-- 돋보기 아이콘 추가 -->
+                           <label for="taskType">구분</label>
+                           <select id="taskType" name="type">
+                               <option value="personal">제목</option>
+                               <option value="all">전체</option>
+                               <option value="team">팀</option>
+                           </select>
+                           <input type="text" id="searchInput" name="search" placeholder="검색 내용을 입력하세요">
+                           <button type="submit" class="search-button">조회하기</button>
+                       </div>
 
-                        <label for="startDate">시작일:</label>
-                        <input type="date" id="startDate" name="startDate">
+                       <!-- 정렬 옵션 -->
+                       <div class="sort-options">
+                           <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
+                           <button><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
+                           <button><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
+                           <button><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
+                       </div>
 
-                        <label for="endDate">종료일:</label>
-                        <input type="date" id="endDate" name="endDate">
+                   </div>
+               </div>
 
-                        <button type="submit">조회</button>
-                    </form>
-                </section>
-            </div>
 
-            <!-- 정렬 버튼 -->
-            <div class="sort-options">
-                <span class="sort-label">정렬:</span>
-                <button class="sort-button active" onclick="sortTasks('priority')">우선순위순</button>
-                <button class="sort-button" onclick="sortTasks('status')">진행상황순</button>
-                <button class="sort-button" onclick="sortTasks('startDate')">시작일순</button>
-                <button class="sort-button" onclick="sortTasks('endDate')">종료일순</button>
-            </div>
 
-            <!-- 업무 리스트 -->
-            <section class="task-list">
-                <h2>업무 리스트</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>선택</th>
-                            <th>우선순위</th>
-                            <th>진행상황</th>
-                            <th>제목</th>
-                            <th>시작일</th>
-                            <th>종료일</th>
-                            <th>담당자</th>
-                            <th>수정</th>
-                            <th>숨기기</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- `tasks` 리스트를 반복하면서 각 업무 데이터 출력 -->
-                        <c:forEach var="task" items="${tasks}">
-                            <tr>
-                                <td><input type="checkbox" name="selectedTasks" value="${task.id}"></td>
-                                <td>${task.priority}</td>
-                                <td>${task.status}</td>
-                                <td>${task.title}</td>
-                                <td>${task.startDate}</td>
-                                <td>${task.endDate}</td>
-                                <td>${task.assignee}</td>
-                                <td><a href="/todo/edit/${task.id}">수정</a></td>
-                                <td>
-                                    <form method="POST" action="/todo/hide/${task.id}">
-                                        <button type="submit">숨기기</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
+               <!-- 업무 리스트 -->
+               <section class="task-list">
+                   <table>
+                       <thead>
+                           <tr>
+                               <th>선택</th>
+                               <th>우선순위</th>
+                               <th>진행상황</th>
+                               <th>제목</th>
+                               <th>시작일</th>
+                               <th>종료일</th>
+                               <th>담당자</th>
+                               <th>수정</th>
+                               <th>숨기기</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td><input type="checkbox" name="selectedTasks" value="1"></td>
+                               <td>중요</td>
+                               <td>예정</td>
+                               <td>[토스] 홈페이지 외주</td>
+                               <td>24.02.11 14:00</td>
+                               <td>24.02.11 14:00</td>
+                               <td>김혜민</td>
+                               <td><button class="edit">수정</button></td>
+                               <td><button class="delete">숨기기</button></td>
+                           </tr>
+                       </tbody>
+                   </table>
+               </section>
+           </main>
+       </div>
 
-    <!-- Chart.js 스크립트 -->
-    <script>
-        const departmentCtx = document.getElementById('departmentChart').getContext('2d');
-        const departmentChart = new Chart(departmentCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['예정', '진행지연', '진행중', '완료지연', '완료'],
-                datasets: [{
-                    data: [${departmentCounts.scheduled}, ${departmentCounts.delayedInProgress}, ${departmentCounts.inProgress}, ${departmentCounts.delayedCompleted}, ${departmentCounts.completed}],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
-                }]
-            }
-        });
-
-        const myTaskCtx = document.getElementById('myTaskChart').getContext('2d');
-        const myTaskChart = new Chart(myTaskCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['예정', '진행지연', '진행중', '완료지연', '완료'],
-                datasets: [{
-                    data: [${myTaskCounts.scheduled}, ${myTaskCounts.delayedInProgress}, ${myTaskCounts.inProgress}, ${myTaskCounts.delayedCompleted}, ${myTaskCounts.completed}],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
-                }]
-            }
-        });
-
-        function sortTasks(criteria) {
-            alert(criteria + " 기준으로 정렬합니다.");
-        }
-    </script>
+    <script src="${contextPath}/js/todo.js"></script>
 </body>
 </html>
