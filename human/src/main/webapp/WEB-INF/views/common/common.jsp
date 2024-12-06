@@ -22,7 +22,7 @@
           <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
         </div>
         <div class="user-info">
-              <span>로그인 사람(테스트) : ${e_id}</span>
+              <span>로그인(테스트)중입니다 : ${e_id}</span>
               <span>${sessionScope.user.e_dept}</span> <!-- 부서명 -->
               <span>${sessionScope.user.e_name}</span> <!-- 이름 -->
               <span>${sessionScope.user.e_position}</span> <!-- 직위 -->
