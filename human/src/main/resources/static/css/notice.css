@@ -1,4 +1,3 @@
-
 .notice {
     padding: 20px;
     background-color: #fff;
@@ -23,15 +22,11 @@
     margin-bottom: 20px;
 }
 
-.search-register .filter {
-    display: flex;
-}
-
 .search-register .filter-group {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-right:10px;
+    margin-right: 10px;
 }
 
 .search-register select,
@@ -86,33 +81,6 @@
     background-color: #f1f1f1;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
-
-.pagination a {
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #007bff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.pagination a.active {
-    background-color: #007bff;
-    color: #fff;
-    pointer-events: none;
-}
-
-.pagination a:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
-
-
-/* 팝업 및 오버레이 스타일 */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -137,7 +105,6 @@
     z-index: 1000;
 }
 
-/* 활성화 상태 */
 .hidden {
     display: none;
 }
@@ -153,21 +120,11 @@
     cursor: pointer;
 }
 
-.popup #registerForm {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 350px;
-    position: relative;
-}
-
-/* 폼 스타일 */
 .popup form {
     display: flex;
     flex-direction: column;
 }
 
-/* 팝업 제목 */
 .popup h2 {
     font-size: 20px;
     color: #333;
@@ -184,28 +141,17 @@
     margin-bottom: 5px;
 }
 
-.popup form input {
+.popup form input,
+.popup form textarea {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 15px;
 }
 
-.popup form input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
-
-.popup form textarea {
-    rows="10";
-    cols="30";
-}
-
-
-/* 등록 버튼 스타일 */
 .popup form .submit-btn {
     padding: 10px;
     background: #007bff;
@@ -214,7 +160,6 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.2s ease;
 }
 
 .popup form .submit-btn:hover {
