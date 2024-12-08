@@ -23,7 +23,6 @@ public class FreeBoardController {
     public String freeBoard(Model model) {
         try {
             List<FreeBoardVO> freeBoardList = freeBoardService.getAllFreeBoard();
-            System.out.println(freeBoardList.toString());
             model.addAttribute("freeBoardList", freeBoardList);
             System.out.println("-----freeBoard-----");
             return "freeBoard/freeBoard"; // JSP 파일 경로

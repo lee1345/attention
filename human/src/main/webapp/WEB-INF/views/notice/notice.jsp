@@ -26,14 +26,16 @@
     <div class="search-register">
         <form id="searchForm">
             <div class="filter-group">
+                <!-- 검색 카테고리 -->
                 <select id="category" name="category">
                     <option value="B_ID" selected>번호</option>
                     <option value="B_TITLE">제목</option>
                     <option value="B_CONTENT">내용</option>
                     <option value="B_WRITER">작성자</option>
                 </select>
-                <input type="text" id="query" name="query" placeholder="검색어를 입력하세요" />
-                <button type="submit" class="btn-search" id="searchBtn">조회</button>
+                <!-- 검색어 입력 -->
+                <input type="text" id="query" name="query" placeholder="검색어를 입력하세요">
+                <button type="button" class="btn-search" id="searchBtn">조회</button>
                 <button type="button" class="btn-register">등록하기</button>
             </div>
         </form>
@@ -57,17 +59,23 @@
 </div>
 
 <!-- 팝업 배경 오버레이 -->
-<div class="popup-overlay" id="popupOverlay"></div>
+<div class="popup-overlay hidden" id="popupOverlay"></div>
 
 <!-- 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
     <h2>공지사항 등록</h2>
     <form id="registerForm">
-        <label for="title">제목</label>
-        <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required /><br>
+        <div class="form-row">
+            <!-- 제목 입력 -->
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+            </div>
+        </div>
+        <!-- 내용 입력 -->
         <label for="content">내용</label>
-        <div id="summernote"></div><br>
+        <div id="summernote"></div>
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>

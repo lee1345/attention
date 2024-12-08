@@ -44,18 +44,18 @@ $(document).ready(function () {
                 renderTable(data);
             },
             error: function () {
-                alert("검색어를 확인해주세요!");
+                alert("검색어를 확인해주세요 !");
             }
         });
     });
 
     // 팝업 열기
-    $(".btn-register").on("click", function () {
+    $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
     });
 
     // 팝업 닫기
-    $("#closePopup").on("click", function () {
+    $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
     });
 
@@ -74,7 +74,7 @@ $(document).ready(function () {
             data: formData,
             success: function () {
                 alert('등록 성공!');
-                $("#popupOverlay, #popup").fadeOut(); // 팝업 닫기
+                $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
                 noticeAllData(); // 전체 데이터 다시 로드
             },
             error: function () {
@@ -84,7 +84,7 @@ $(document).ready(function () {
     });
 });
 
-// 공지사항 전체 데이터 로드 함수
+// 게시판 데이터 로드 함수
 function noticeAllData() {
     $.ajax({
         type: 'GET',
@@ -92,8 +92,8 @@ function noticeAllData() {
         success: function (data) {
             renderTable(data); // 성공 시 테이블 렌더링
         },
-        error: function (xhr) {
-            console.error("데이터 요청 실패:", xhr.responseText);
+        error: function () {
+            console.error("데이터 요청 실패");
         }
     });
 }
@@ -103,9 +103,9 @@ function renderTable(data) {
     const noticeTable = $('#noticeTable');
     noticeTable.empty(); // 기존 테이블 내용 초기화
 
-    if (!data || data.length === 0) {
+    if (data.length === 0) {
         // 데이터가 없을 경우 메시지 출력
-        noticeTable.append(`<tr><td colspan="5" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        noticeTable.append(`<tr><td colspan="4" style="text-align: center;">데이터가 없습니다.</td></tr>`);
         return;
     }
 

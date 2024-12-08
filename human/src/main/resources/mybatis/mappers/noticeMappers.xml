@@ -31,13 +31,13 @@
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
     </select>
 
-<!--    &lt;!&ndash; 새로운 공지사항 데이터 등록 &ndash;&gt;-->
-<!--    <insert id="createNotice">-->
-<!--        INSERT INTO BOARD (b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date )-->
-<!--        VALUES ( notice_seq.NEXTVAL, #{b_Title}, #{b_Content}, #{b_Writer}, #{b_Group}, #{b_Category}, #{b_CreatedDate} )-->
+    <!-- 새로운 공지사항 데이터 등록 -->
+    <insert id="createNotice">
+        INSERT INTO BOARD (b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date )
+        VALUES ( notice_seq.NEXTVAL, #{b_Title}, #{b_Content}, #{b_Writer}, #{b_Group}, #{b_Category}, #{b_CreatedDate} )
 
-<!--        &lt;!&ndash;        INSERT INTO ADDRESS (ad_id, ad_empl_id, ad_name, ad_phone, ad_email, ad_dept_name, ad_group)&ndash;&gt;-->
-<!--        &lt;!&ndash;        VALUES (address_seq.NEXTVAL, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup});&ndash;&gt;-->
-<!--    </insert>-->
+        <!--        INSERT INTO ADDRESS (ad_id, ad_empl_id, ad_name, ad_phone, ad_email, ad_dept_name, ad_group)-->
+        <!--        VALUES (address_seq.NEXTVAL, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup});-->
+    </insert>
 
 </mapper>
