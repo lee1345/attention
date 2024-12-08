@@ -35,7 +35,7 @@
         ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
     </select>
 
-        <!-- 새로운 게시판 데이터 등록 -->
+    <!-- 새로운 게시판 데이터 등록 -->
     <insert id="createFreeboard">
         INSERT INTO BOARD (
         b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date
@@ -47,6 +47,9 @@
         'F',
         #{b_Category}, -- 자유게시판 카테고리
         SYSDATE
+        NULL, -- b_created_id
+        NULL, -- b_updated_date
+        NULL  -- b_updated_id
         )
     </insert>
 
