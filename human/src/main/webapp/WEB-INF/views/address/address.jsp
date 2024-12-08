@@ -27,7 +27,7 @@
                         <option value="AD_DEPT_NAME">부서명</option>
                         <option value="AD_GROUP">그룹(별칭)</option>
                     </select>
-                    <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
+                    <input type="text" id="query" name="query" placeholder="검색어를 입력하세요" />
                     <button type="button" class="btn-search" id="searchBtn">조회</button>
                     <button type="button" class="btn-register btn btn-primary">등록하기</button>
                 </div>

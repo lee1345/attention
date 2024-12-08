@@ -13,6 +13,7 @@
         AD_DEPT_NAME AS adDeptName,
         AD_GROUP AS adGroup
         FROM ADDRESS
+        ORDER BY adId DESC -- 번호를 기준으로 내림차순 정렬
     </select>
 
     <!-- 필터와 검색어 기반 검색 -->
@@ -27,15 +28,13 @@
         AD_GROUP AS adGroup
         FROM ADDRESS
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
+        ORDER BY adId DESC -- 번호를 기준으로 내림차순 정렬
     </select>
 
     <!-- 새로운 주소 데이터 등록 -->
     <insert id="createAddress">
         INSERT INTO ADDRESS (ad_id, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP )
         VALUES ( address_seq.NEXTVAL, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup} )
-
-<!--        INSERT INTO ADDRESS (ad_id, ad_empl_id, ad_name, ad_phone, ad_email, ad_dept_name, ad_group)-->
-<!--        VALUES (address_seq.NEXTVAL, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup});-->
     </insert>
 
 </mapper>

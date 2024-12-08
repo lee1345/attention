@@ -103,7 +103,10 @@ $(document).ready(function () {
             }
         });
     });
+});
 
+// 팝업창
+$(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
