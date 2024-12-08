@@ -40,12 +40,12 @@
         INSERT INTO BOARD (
         b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_created_id, b_updated_date, b_updated_id
         ) VALUES (
-        board_seq.NEXTVAL,
+        notice_seq.NEXTVAL,
         #{b_Title},
         #{b_Content},
         #{b_Writer},
-        #{b_Group},
-        CASE WHEN #{b_Group} = 'F' THEN #{b_Category,jdbcType=VARCHAR} ELSE NULL END,
+        'N',
+        NULL, -- 카테고리는 공지사항에서는 사용하지 않음
         SYSDATE,
         NULL, -- b_created_id
         NULL, -- b_updated_date

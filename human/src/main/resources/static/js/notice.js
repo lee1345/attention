@@ -30,7 +30,7 @@ $(document).ready(function () {
             return;
         }
 
-        // AJAX POST 요청
+        // 검색어 AJAX POST 요청
         $.ajax({
             type: 'POST',
             url: '/api/notice/search',
@@ -62,22 +62,29 @@ $(document).ready(function () {
     // 등록 폼 제출
     $('#registerForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
+
+        // Summernote 값 가져오기 (HTML 태그 포함)
+        let content = $('#summernote').summernote('code');
+
+        // HTML 태그 제거
+        content = $('<div>').html(content).text();
+
+//        $('#summernote').val(),
         const formData = {
-            title: $('#title').val(),
-            category: $('#categorySelect').val(),
-            content: $('#summernote').val() // Summernote 내용 명시적으로 포함
+            b_Title: $('#title').val(), // 제목 입력값
+            b_Content: content,// Summernote 내용 (본문)
+            b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
+            b_Group: 'N' // 공지사항 그룹 고정
         };
+
+        // 전송 전에 데이터 디버깅
+        console.log("보내는 데이터:", formData);
 
         $.ajax({
             type: 'POST',
             url: '/api/notice/register',
             contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify({
-                b_Title: '공지사항 제목',
-                b_Content: '공지사항 내용',
-                b_Writer: '작성자',
-                b_Group: 'N' // 공지사항 그룹
-            }),
+            data: JSON.stringify(formData),
             success: function () {
                 alert('등록 성공!');
                 $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기

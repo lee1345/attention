@@ -32,12 +32,18 @@
     </select>
 
         <!-- 새로운 게시판 데이터 등록 -->
-        <insert id="createFreeBoard">
-            INSERT INTO BOARD (b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date )
-            VALUES ( #{b_Title} , #{b_Title}, #{b_Content}, #{b_Writer}, #{b_Group}, #{b_Category}, #{b_CreatedDate} )
-
-            <!--        INSERT INTO ADDRESS (ad_id, ad_empl_id, ad_name, ad_phone, ad_email, ad_dept_name, ad_group)-->
-            <!--        VALUES (address_seq.NEXTVAL, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup});-->
-        </insert>
+    <insert id="createFreeboard">
+        INSERT INTO BOARD (
+        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date
+        ) VALUES (
+        freeboard_seq.NEXTVAL, -- 자유게시판 시퀀스
+        #{b_Title},
+        #{b_Content},
+        #{b_Writer},
+        'F',
+        #{b_Category}, -- 자유게시판 카테고리
+        SYSDATE
+        )
+    </insert>
 
 </mapper>

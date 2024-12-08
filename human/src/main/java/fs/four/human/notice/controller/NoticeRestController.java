@@ -62,9 +62,9 @@ public class NoticeRestController {
             System.out.println("제목: " + notice.getB_Title());
             System.out.println("내용: " + notice.getB_Content());
 
-            // 공지사항일 때 b_category는 NULL로 설정
-            if ("N".equals(notice.getB_Group())) {
-                notice.setB_Category(null);
+            // 내용이 null 또는 비어있으면 예외 처리
+            if (notice.getB_Content() == null || notice.getB_Content().trim().isEmpty()) {
+                throw new IllegalArgumentException("내용은 필수 입력 항목입니다.");
             }
 
             // 서비스 호출
