@@ -58,10 +58,19 @@ public class NoticeRestController {
     @ResponseBody
     public String createNotice(@RequestBody NoticeVO notice) {
         try {
-            // 디버깅 로그
-            System.out.println("받은 데이터: " + notice);
+            // 디버깅: 전달받은 데이터 확인
+            System.out.println("제목: " + notice.getB_Title());
+            System.out.println("내용: " + notice.getB_Content());
+
+            // 공지사항일 때 b_category는 NULL로 설정
+            if ("N".equals(notice.getB_Group())) {
+                notice.setB_Category(null);
+            }
+
+            // 서비스 호출
             noticeService.createNotice(notice);
             return "등록 성공!";
+
         } catch (Exception e) {
             e.printStackTrace();
             return "등록 실패: " + e.getMessage();

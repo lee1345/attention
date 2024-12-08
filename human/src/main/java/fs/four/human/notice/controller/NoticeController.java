@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,7 +19,7 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    // JSP 페이지 렌더링 ( 전체 데이터 )
+    // 공지사항 전체 조회
     @GetMapping
     public String notice(Model model) {
         try {
@@ -34,7 +35,7 @@ public class NoticeController {
         }
     }
 
-    // JSP 페이지 렌더링 (검색 데이터)
+    // 검색 결과 조회
     @GetMapping("/search")
     public String searchNotice(
             @RequestParam("category") String category,

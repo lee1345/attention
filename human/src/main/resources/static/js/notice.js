@@ -71,7 +71,13 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/api/notice/register',
-            data: formData,
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify({
+                b_Title: '공지사항 제목',
+                b_Content: '공지사항 내용',
+                b_Writer: '작성자',
+                b_Group: 'N' // 공지사항 그룹
+            }),
             success: function () {
                 alert('등록 성공!');
                 $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
