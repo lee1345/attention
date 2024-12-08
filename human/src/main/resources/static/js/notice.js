@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
 
     // 엔터 키를 누르면 검색 버튼 클릭
-    $('#searchQuery').on('keypress', function (event) {
+    $('#query').on('keypress', function (event) {
         if (event.key === 'Enter') { // 엔터 키 감지
             event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
             $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
@@ -23,7 +23,7 @@ $(document).ready(function () {
     // 검색 버튼 클릭 이벤트
     $('#searchBtn').on('click', function () {
         const category = $('#category').val(); // 선택된 카테고리
-        const query = $('#searchQuery').val().trim(); // 입력된 검색어
+        const query = $('#query').val().trim(); // 입력된 검색어
 
         if (!query) {
             alert("검색어를 입력하세요!");
@@ -51,20 +51,22 @@ $(document).ready(function () {
 
     // 팝업 열기
     $(".btn-register").on("click", function () {
-        $("#popupOverlay").fadeIn();
-        $("#popup").fadeIn();
+        $('#popupOverlay, #popup').fadeIn();
     });
 
     // 팝업 닫기
-    $("#closePopup, #popupOverlay").on("click", function () {
-        $("#popupOverlay").fadeOut();
-        $("#popup").fadeOut();
+    $("#closePopup").on("click", function () {
+        $('#popupOverlay, #popup').fadeOut();
     });
 
     // 등록 폼 제출
     $('#registerForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
-        const formData = $(this).serialize();
+        const formData = {
+            title: $('#title').val(),
+            category: $('#categorySelect').val(),
+            content: $('#summernote').val() // Summernote 내용 명시적으로 포함
+        };
 
         $.ajax({
             type: 'POST',

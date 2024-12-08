@@ -7,10 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항</title>
+    <title>공지사항 등록</title>
     <link rel="stylesheet" href="${contextPath}/css/notice.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script> <!-- Summernote CDN -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Summernote CSS/JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
     <script src="${contextPath}/js/notice.js" defer></script>
 </head>
 <body>
@@ -29,7 +32,7 @@
                     <option value="B_CONTENT">내용</option>
                     <option value="B_WRITER">작성자</option>
                 </select>
-                <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
+                <input type="text" id="query" name="query" placeholder="검색어를 입력하세요" />
                 <button type="submit" class="btn-search" id="searchBtn">조회</button>
                 <button type="button" class="btn-register">등록하기</button>
             </div>
@@ -59,14 +62,12 @@
 <!-- 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
-    <h2>주소 등록</h2>
-    <form id="registerForm" method="post" action="${contextPath}/registerAddress">
+    <h2>공지사항 등록</h2>
+    <form id="registerForm">
         <label for="title">제목</label>
         <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required /><br>
         <label for="content">내용</label>
-        <textarea id="content" name="content" placeholder="내용을 입력하세요" rows="10" required></textarea><br>
-        <label for="name">작성자</label>
-        <input type="text" id="name" name="name" placeholder="작성자를 입력하세요" required /><br>
+        <div id="summernote"></div><br>
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>

@@ -40,6 +40,7 @@ public class FreeBoardRestController {
                 throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
             }
 
+            // 검색 결과 반환
             return freeBoardService.searchFreeBoard(category, query);
 
         } catch (IllegalArgumentException e) {

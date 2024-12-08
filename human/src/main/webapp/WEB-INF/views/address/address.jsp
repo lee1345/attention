@@ -59,7 +59,7 @@
 <!-- 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
-    <h2>공지사항 등록</h2>
+    <h2>주소록 등록</h2>
     <form id="registerForm">
         <label for="name">이름</label>
         <input type="text" id="name" name="name" required /><br>

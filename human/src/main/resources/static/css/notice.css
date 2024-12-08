@@ -1,3 +1,5 @@
+
+/* 공지사항 컨테이너 스타일 */
 .notice {
     padding: 20px;
     background-color: #fff;
@@ -8,6 +10,7 @@
     flex: 1;
 }
 
+/* 공지사항 제목 스타일 */
 .notice h2 {
     font-size: 24px;
     font-weight: bold;
@@ -15,6 +18,7 @@
     color: #333;
 }
 
+/* 검색 및 등록 섹션 스타일 */
 .search-register {
     display: flex;
     align-items: center;
@@ -22,6 +26,7 @@
     margin-bottom: 20px;
 }
 
+/* 검색 필터 및 입력 그룹 */
 .search-register .filter-group {
     display: flex;
     align-items: center;
@@ -29,6 +34,7 @@
     margin-right: 10px;
 }
 
+/* 검색 필터 드롭다운과 입력 필드 스타일 */
 .search-register select,
 .search-register input {
     padding: 5px 10px;
@@ -37,6 +43,7 @@
     border-radius: 4px;
 }
 
+/* 검색 및 등록 버튼 스타일 */
 .search-register .btn-search,
 .search-register .btn-register {
     padding: 5px 15px;
@@ -48,17 +55,20 @@
     cursor: pointer;
 }
 
+/* 검색 및 등록 버튼 호버 스타일 */
 .search-register .btn-search:hover,
 .search-register .btn-register:hover {
     background-color: #0056b3;
 }
 
+/* 공지사항 테이블 스타일 */
 .notice-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
+/* 테이블 헤더 및 데이터 셀 스타일 */
 .notice-table th,
 .notice-table td {
     border-top: 1px solid #ddd;
@@ -67,20 +77,25 @@
     text-align: center;
 }
 
+/* 테이블 헤더 스타일 */
 .notice-table th {
     background-color: #f8f9fa;
     font-weight: bold;
     color: #333;
 }
 
+/* 테이블 짝수 행 배경색 */
 .notice-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+/* 테이블 행 호버 효과 */
 .notice-table tr:hover {
     background-color: #f1f1f1;
 }
 
+
+/* 팝업 오버레이 스타일 */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -92,23 +107,80 @@
     z-index: 999;
 }
 
+/* 팝업 내부 스타일 */
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px 30px;
-    display: none;
-    z-index: 1000;
+  width: 750px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px 30px;
+  z-index: 1000;
 }
 
+/* 숨김 */
 .hidden {
     display: none;
 }
 
+/* 팝업 제목 스타일 */
+.popup h2 {
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 팝업 폼 라벨 스타일 */
+.popup form label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* 팝업 폼 입력 필드 스타일 */
+.popup form input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+/* 팝업 서머노트 스타일 */
+.popup form #summernote {
+  height: 200px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  overflow-y: auto;
+  resize: none;
+}
+
+/* 팝업 등록 버튼 스타일 */
+.popup form .submit-btn {
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+/* 팝업 등록 버튼 호버 스타일 */
+.popup form .submit-btn:hover {
+  background: #0056b3;
+}
+
+/* 팝업 닫기 버튼 스타일 */
 .popup .close-btn {
     position: absolute;
     top: 10px;
@@ -116,52 +188,14 @@
     background: red;
     color: white;
     border: none;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.popup form {
-    display: flex;
-    flex-direction: column;
-}
-
-.popup h2 {
-    font-size: 20px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
-}
-
-.popup form label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-.popup form input,
-.popup form textarea {
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ddd;
+    padding: 5px 10px;
     border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-}
-
-.popup form .submit-btn {
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
     font-size: 16px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.popup form .submit-btn:hover {
-    background: #0056b3;
+/* 팝업 닫기 버튼 호버 스타일 */
+.popup .close-btn:hover {
+    background: darkred;
 }

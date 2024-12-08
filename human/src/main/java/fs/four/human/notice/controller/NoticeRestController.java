@@ -40,9 +40,11 @@ public class NoticeRestController {
             }
             // 검색 결과 반환
             return noticeService.searchNotice(category, query);
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             throw e;
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("검색 중 문제가 발생했습니다.");
