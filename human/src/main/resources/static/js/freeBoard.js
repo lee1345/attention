@@ -38,6 +38,11 @@ function renderTable(data) {
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(freeBoard => {
         const formattedDate = formatDate(freeBoard.b_CreatedDate);
+
+        // 카테고리 변환
+        const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
+        const categoryName = categoryMap[freeBoard.b_Category] || "알 수 없음";
+
         const row = `
             <tr>
                 <td>${freeBoard.b_Id}</td>
@@ -124,7 +129,6 @@ $(document).ready(function () {
 
     // Summernote 값 가져오기 (HTML 태그 포함)
     let content = $('#summernote').summernote('code');
-
     // HTML 태그 제거
     content = $('<div>').html(content).text();
 
@@ -132,7 +136,8 @@ $(document).ready(function () {
         b_Title: $('#title').val(), // 제목 입력값
         b_Content: content,// Summernote 내용 (본문)
         b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
-        b_Group: 'F' // 공지사항 그룹 고정
+        b_Category: $('#categorySelect').val(), // 선택된 카테고리 추가
+        b_Group: 'F' // 자유게시판 그룹 고정
     };
 
         $.ajax({
@@ -151,5 +156,7 @@ $(document).ready(function () {
         });
     });
 });
+
+
 
 
