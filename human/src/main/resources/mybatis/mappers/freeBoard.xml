@@ -35,6 +35,22 @@
         ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
     </select>
 
+    <select id="getFreeBoardByCategory" resultType="FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate
+        FROM BOARD
+        WHERE b_group = 'F' -- 자유게시판만 조회
+        AND b_category = #{category} -- 카테고리 필터링
+        ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
+    </select>
+
     <!-- 새로운 게시판 데이터 등록 -->
     <insert id="createFreeBoard">
         INSERT INTO BOARD (

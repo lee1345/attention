@@ -46,6 +46,7 @@ function renderTable(data) {
         const row = `
             <tr>
                 <td>${freeBoard.b_Id}</td>
+                <td>${categoryName}</td>
                 <td>${freeBoard.b_Title}</td>
                 <td>${freeBoard.b_Content}</td>
                 <td>${freeBoard.b_Writer}</td>
@@ -156,6 +157,29 @@ $(document).ready(function () {
         });
     });
 });
+
+// 카테고리 클릭 시 해당 데이터 조회
+$(document).ready(function () {
+    // 네비게이션 카테고리 클릭 이벤트
+    $('.category-link').on('click', function (event) {
+        event.preventDefault(); // 기본 클릭 동작 방지
+
+        const category = $(this).data('category'); // 클릭한 카테고리 값 가져오기
+
+        // AJAX로 데이터 조회 요청
+        $.ajax({
+            type: 'GET',
+            url: `/api/freeBoard/category/${category}`, // 카테고리를 URL에 포함
+            success: function (data) {
+                renderTable(data); // 성공 시 테이블 렌더링
+            },
+            error: function () {
+                alert("데이터 조회 실패!");
+            }
+        });
+    });
+});
+
 
 
 

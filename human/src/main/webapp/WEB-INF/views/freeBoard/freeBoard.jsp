@@ -44,9 +44,9 @@
     <!-- 네비게이션 바 -->
     <div class="navbar">
         <ul>
-            <li><a href="#">QnA</a></li>
-            <li><a href="#">꿀팁</a></li>
-            <li><a href="#">자유이야기</a></li>
+            <li><a href="#" class="category-link" data-category="Q">QnA</a></li>
+            <li><a href="#" class="category-link" data-category="T">꿀팁</a></li>
+            <li><a href="#" class="category-link" data-category="F">자유이야기</a></li>
         </ul>
     </div>
 
@@ -55,6 +55,7 @@
         <thead>
         <tr>
             <th>번호</th>
+            <th>분류</th>
             <th>제목</th>
             <th>내용</th>
             <th>작성자</th>

@@ -24,6 +24,12 @@ public class FreeBoardRestController {
         }
     }
 
+    // 카테고리별 조회
+    @GetMapping("/category/{category}")
+    public List<FreeBoardVO> getFreeBoardByCategory(@PathVariable String category) {
+        return freeBoardService.getFreeBoardByCategory(category);
+    }
+
     // 검색 결과 반환 (JSON)
     @PostMapping("/search")
     public List<FreeBoardVO> searchFreeBoard(
