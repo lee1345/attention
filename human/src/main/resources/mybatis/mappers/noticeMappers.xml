@@ -31,7 +31,7 @@
         B_UPDATED_DATE as b_UpdatedDate
         FROM BOARD
         WHERE b_group = 'N' -- 공지사항만 검색
-        WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' <!-- 대소문자 구분 X -->
+        AND LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' -- 대소문자 구분 없이 검색
         ORDER BY b_created_date DESC
     </select>
 
