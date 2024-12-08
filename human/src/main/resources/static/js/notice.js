@@ -1,3 +1,58 @@
+
+// 게시판 데이터 로드 함수
+function noticeAllData() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/notice', // 전체 데이터를 가져오는 URL
+        success: function (data) {
+            renderTable(data); // 성공 시 테이블 렌더링
+        },
+        error: function () {
+            console.error("데이터 요청 실패");
+        }
+    });
+}
+
+//========================================================
+
+// 테이블 렌더링 함수
+function renderTable(data) {
+    const noticeTable = $('#noticeTable');
+    noticeTable.empty(); // 기존 테이블 내용 초기화
+
+    if (data.length === 0) {
+        // 데이터가 없을 경우 메시지 출력
+        noticeTable.append(`<tr><td colspan="4" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        return;
+    }
+
+    // 날짜 포맷 변환 함수
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // 데이터를 반복하며 테이블 행 생성
+    data.forEach(notice => {
+        const formattedDate = formatDate(notice.b_CreatedDate);
+        const row = `
+            <tr>
+                <td>${notice.b_Id}</td>
+                <td>${notice.b_Title}</td>
+                <td>${notice.b_Content}</td>
+                <td>${notice.b_Writer}</td>
+                <td>${formattedDate}</td>
+            </tr>
+        `;
+        noticeTable.append(row);
+    });
+}
+
+//========================================================
+
 $(document).ready(function () {
     // 전체 데이터 로드 (GET)
     noticeAllData();
@@ -15,8 +70,8 @@ $(document).ready(function () {
     // 엔터 키를 누르면 검색 버튼 클릭
     $('#query').on('keypress', function (event) {
         if (event.key === 'Enter') { // 엔터 키 감지
-            event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
-            $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
+             vent.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
+             ('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
         }
     });
 
@@ -63,22 +118,18 @@ $(document).ready(function () {
     $('#registerForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
 
-        // Summernote 값 가져오기 (HTML 태그 포함)
-        let content = $('#summernote').summernote('code');
+    // Summernote 값 가져오기 (HTML 태그 포함)
+    let content = $('#summernote').summernote('code');
 
-        // HTML 태그 제거
-        content = $('<div>').html(content).text();
+    // HTML 태그 제거
+    content = $('<div>').html(content).text();
 
-//        $('#summernote').val(),
-        const formData = {
-            b_Title: $('#title').val(), // 제목 입력값
-            b_Content: content,// Summernote 내용 (본문)
-            b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
-            b_Group: 'N' // 공지사항 그룹 고정
-        };
-
-        // 전송 전에 데이터 디버깅
-        console.log("보내는 데이터:", formData);
+    const formData = {
+        b_Title: $('#title').val(), // 제목 입력값
+        b_Content: content,// Summernote 내용 (본문)
+        b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
+        b_Group: 'N' // 공지사항 그룹 고정
+    };
 
         $.ajax({
             type: 'POST',
@@ -97,52 +148,4 @@ $(document).ready(function () {
     });
 });
 
-// 게시판 데이터 로드 함수
-function noticeAllData() {
-    $.ajax({
-        type: 'GET',
-        url: '/api/notice', // 전체 데이터를 가져오는 URL
-        success: function (data) {
-            renderTable(data); // 성공 시 테이블 렌더링
-        },
-        error: function () {
-            console.error("데이터 요청 실패");
-        }
-    });
-}
 
-// 테이블 렌더링 함수
-function renderTable(data) {
-    const noticeTable = $('#noticeTable');
-    noticeTable.empty(); // 기존 테이블 내용 초기화
-
-    if (data.length === 0) {
-        // 데이터가 없을 경우 메시지 출력
-        noticeTable.append(`<tr><td colspan="4" style="text-align: center;">데이터가 없습니다.</td></tr>`);
-        return;
-    }
-
-    // 날짜 포맷 변환 함수
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
-
-    // 데이터를 반복하며 테이블 행 생성
-    data.forEach(notice => {
-        const formattedDate = formatDate(notice.b_CreatedDate);
-        const row = `
-            <tr>
-                <td>${notice.b_Id}</td>
-                <td>${notice.b_Title}</td>
-                <td>${notice.b_Content}</td>
-                <td>${notice.b_Writer}</td>
-                <td>${formattedDate}</td>
-            </tr>
-        `;
-        noticeTable.append(row);
-    });
-}

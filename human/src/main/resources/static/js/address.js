@@ -25,7 +25,7 @@ $(document).ready(function () {
             query: query
         };
 
-        // AJAX POST 요청
+        // 검색어 AJAX POST 요청
         $.ajax({
             type: 'POST',
             url: '/api/address/search',
