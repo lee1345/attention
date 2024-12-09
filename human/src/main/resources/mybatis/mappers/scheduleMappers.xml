@@ -7,9 +7,9 @@
     <select id="getSchedules" resultType="fs.four.human.schedule.vo.ScheduleVO">
         SELECT
         t_title, t_stage, t_priority, t_content,
-        t_start_date, t_start_time, t_end_date, t_end_time
+        t_start_date, t_start_time, t_end_date, t_end_time, t_group
         FROM TODO
-<!--        WHERE t_hide = 'N'-->
+        WHERE t_hide = 'N'
     </select>
 
 </mapper>
