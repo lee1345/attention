@@ -36,8 +36,7 @@ header .logo {
 
 header .user-info {
   display: flex;
-  margin-right:10px;
-  gap: 50px;
+  gap: 20px;
 }
 
 header .user-info span {
