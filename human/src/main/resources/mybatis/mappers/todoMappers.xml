@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fs.four.human.todo.dao.TodoDAO">
+
+    <!-- 전체 Todo 조회 -->
+<!--    dao 에서 호출시 getALLTodo 사용 입력된 파라미터는 TodoVO객체 결과매핑-->
+    <select id="getAllTodo" parameterType="TodoVO" resultType="TodoVO">
+        SELECT
+        t_id,
+        t_group,
+        t_dept,
+        t_stage,
+        t_priority,
+        t_content,
+        t_start_date,
+        t_start_time,
+        t_end_date,
+        t_hide,
+        t_created_date,
+        t_updated_date,
+        t_updated_id,
+        t_created_id
+        FROM
+        TODO
+        <where>
+            <if test="type != null and type == 'team'">
+           AND t_group = #{search}     <!--t_group 컬럼이 입력 파라미터 search와 동일한 데이터만 조회.-->
+            </if>
+            <if test="type != null and type == 'title'">
+                AND t_content LIKE CONCAT(CONCAT('%', #{search}), '%')  <!--t_content 컬럼에 search 문자열이 포함된 데이터만 조회-->
+            </if>
+            <if test="type != null and type == 'all'">
+                AND (t_group = #{search} OR t_content LIKE CONCAT(CONCAT('%', #{search}), '%'))
+            </if>
+        </where>
+    </select>
+
+    <!--  todo 진행상태별 갯수  -->
+   <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">-->
+       select t_stage, count(t_id) as count from TODO where t_dept = #{dept} group by t_stage-->
+    </select>
+    <!--  todo 진행상태별 EX)P,PD,..  -->
+
+</mapper>

@@ -91,12 +91,12 @@
             console.log(`${label}에서 ${value}건 클릭`);
         }
 
-        // 부서 업무 현황 차트 생성
+        // 부서 업무 현황 차트 생성 stageCount에 따라 값이 변함
         createChart(
             'departmentChart',
             'departmentLegend',
             ['예정', '진행지연', '진행중', '완료지연', '완료'],
-            [2, 0, 1, 0, 1],
+            stageCounts,
             ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
         );
 

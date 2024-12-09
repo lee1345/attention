@@ -4,15 +4,13 @@ body {
     background-color: #f9f9f9;
 }
 
-
 .layout-container {
-      padding: 20px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin-left: 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1{
@@ -30,19 +28,19 @@ h2 {
 .chart-section {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* 섹션 간 간격 줄이기 */
-    margin-bottom: 20px;
+    gap: 30px; /* 두 섹션 사이 간격 */
+    margin-bottom: 30px;
 }
 
 .chart {
-    width: 45%; /* 차트 섹션 크기 축소 */
-    padding: 15px; /* 내부 여백 줄임 */
+    width: 48%;
+    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* 섹션 내부를 가로 중앙 정렬 */
 }
 
 .chart-title {
@@ -53,16 +51,12 @@ h2 {
     text-align: center; /* 제목을 가운데 정렬 */
     width: 100%; /* 제목의 가로폭을 섹션 전체에 맞춤 */
 }
-
+ 
 .chart-container {
-    width: 150px; /* 차트 크기를 줄임 */
-    height: 150px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 270px; /* 부모 컨테이너의 너비를 제한 */
+    height: 270px; /* 부모 컨테이너의 높이를 제한 */
+    overflow: hidden; /* 컨테이너를 넘어가는 차트 내용은 숨김 */
 }
-
 
 
 
@@ -77,13 +71,13 @@ h2 {
 }
 
 #departmentChart, #myTaskChart {
-    width: 150px; /* 차트 크기 고정 */
-    height: 150px;
+    width: 270px; /* 차트 크기 고정 */
+    height: 270px;
 }
 
 .chart canvas {
-    width: 150px; /* 차트 크기를 부모에 맞춤 */
-    height: 150px; /* 고정 높이 설정 */
+    width: 100%; /* 차트 크기를 부모에 맞춤 */
+    height: 300px; /* 고정 높이 설정 */
     margin: 0 auto; /* 차트를 가로 중앙에 정렬 */
     display: block; /* 캔버스 요소의 디폴트 정렬 문제 해결 */
 }
@@ -114,17 +108,19 @@ h2 {
 
 /* TEAM 업무 등록하기 버튼 */
 .large-button {
-    font-size: 18px; /* 글자 크기 줄임 */
-    padding: 15px 20px; /* 버튼 크기 줄임 */
+    font-size: 40px;
+    margin-left: 50px;
+    padding: 80px 80px; /* 크기를 키우기 위한 패딩 */
+    font-weight: bold;
     border: none;
     border-radius: 8px;
-    background-color: #b6d4eb;
+    background-color: #c0ced8;
     color: white;
     cursor: pointer;
-    width: 150px; /* 버튼 너비 축소 */
-    height: 145px; /* 버튼 높이 축소 */
-    text-align: center;
-    display: inline-block;
+    flex-shrink: 0; /* 크기를 고정 */
+    width: 300px; /* 버튼 너비 고정 */
+    height: 140px; /* 버튼 높이 고정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .large-button {
@@ -189,13 +185,16 @@ h2 {
 }
 
 .filters {
+    background-color: #ffffff; /* 섹션 배경색 */
+    padding: 20px; /* 내부 여백 */
+    border: 1px solid #eaeaea; /* 테두리 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 4px 6px rgba(226, 226, 226, 0.1); /* 그림자 효과 */
+    margin-bottom: 20px; /* 아래 요소와 간격 */
     display: flex;
-    flex-wrap: wrap;
-    padding: 15px; /* 내부 여백 축소 */
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .filter-row{
@@ -237,7 +236,7 @@ h2 {
 .filters label {
     font-size: 14px;
     font-weight: bold;
-
+    margin-right: 10px; /* 레이블과 입력 필드 간 간격 */
 }
 
 .filters select, 
@@ -264,11 +263,11 @@ h2 {
 } */
 
 .sort-options {
-
+    margin-right: 90px;
     gap: 15px; /* 버튼 간 간격 */
     display: flex;
     justify-content: flex-start; /* 왼쪽 정렬 */
-    margin-left: 30px;
+    margin-left: -10px;
 }
 
 .sort-options button {
@@ -301,7 +300,7 @@ h2 {
 }
 
 .task-list th, .task-list td {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
 }
@@ -312,7 +311,7 @@ h2 {
 }
 
 .task-list button {
-    padding: 5px 8px;
+    padding: 5px 10px;
     border: none;
     border-radius: 5px;
     font-size: 12px;
@@ -363,11 +362,11 @@ h2 {
     background-color: #b6d4eb;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 14px; /* 글자 크기를 키움 */
+    font-size: 50px; /* 글자 크기를 키움 */
     margin-bottom: 20px;
     color: #afb7c0;
     margin-left: 10px; /* 검색 필드와 버튼 사이에 간격을 줍니다 */
-    width: 120px;
+    width: 150px;
     height: 40px;
 }
 
