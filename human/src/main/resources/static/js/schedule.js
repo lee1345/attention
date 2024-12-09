@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         success: function (data) {
             console.log('AJAX 응답 데이터:', data);
 
+            // 이벤트 데이터 매핑
             const events = data.map(event => ({
                 title: event.t_title || '제목 없음',
                 start: event.t_start_date.replace(' ', 'T'),
@@ -32,14 +33,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 extendedProps: {
                     priority: transferPriority(event.t_priority) || 'N/A',
                     stage: transferStage(event.t_stage) || '미정',
+                    group: event.t_group || '기타',
                     startDate: event.t_start_date,
                     endDate: event.t_end_date,
                 }
             }));
 
+            // FullCalendar 생성
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'ko',
+                headerToolbar: {
+                  left: '',
+                  center: 'prev title next',
+                  right: 'today'
+                },
+                buttonText: {
+                  today: '오늘로 이동하기'
+                },
                 events: events,
                 eventClick: function (info) {
                     // 팝업 내용 설정
@@ -56,6 +67,56 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             calendar.render();
+
+            // 뷰 변경 버튼 동작
+            document.getElementById('view-month').addEventListener('click', function () {
+                calendar.changeView('dayGridMonth');
+            });
+
+            document.getElementById('view-week').addEventListener('click', function () {
+                calendar.changeView('timeGridWeek');
+            });
+
+            document.getElementById('view-day').addEventListener('click', function () {
+                calendar.changeView('timeGridDay');
+            });
+
+            // 필터 버튼 동작
+            document.getElementById('filter-my-events').addEventListener('click', function () {
+                filterEvents('M'); // 개인 일정만 보기
+                activateButton(this);
+            });
+
+            document.getElementById('filter-team-events').addEventListener('click', function () {
+                filterEvents('T'); // 팀 일정만 보기
+                activateButton(this);
+            });
+
+            document.getElementById('filter-all-events').addEventListener('click', function () {
+                filterEvents(null); // 모든 일정 보기
+                activateButton(this);
+            });
+
+            // 일정 필터링 함수
+            function filterEvents(groupType) {
+                // 기존 일정 제거
+                const allEvents = calendar.getEvents();
+                allEvents.forEach(event => event.remove());
+
+                // 필터링된 일정만 추가
+                const filteredEvents = events.filter(event => {
+                    return !groupType || event.extendedProps.group === groupType;
+                });
+
+                filteredEvents.forEach(event => calendar.addEvent(event));
+            }
+
+            // 활성화 버튼 스타일 변경 함수
+            function activateButton(button) {
+                const buttons = document.querySelectorAll('.left-buttons .btn');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            }
         },
         error: function (error) {
             console.error('AJAX 오류:', error);
