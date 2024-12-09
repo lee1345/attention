@@ -24,6 +24,14 @@
 
     <!-- 검색 및 등록 섹션 -->
     <div class="search-register">
+        <!-- 네비게이션 바 -->
+        <div class="navbar">
+            <ul>
+                <li><a href="#" class="category-link" data-category="Q">QnA</a></li>
+                <li><a href="#" class="category-link" data-category="T">꿀팁</a></li>
+                <li><a href="#" class="category-link" data-category="F">자유이야기</a></li>
+            </ul>
+        </div>
         <form id="searchForm">
             <div class="filter-group">
                 <!-- 검색 카테고리 -->
@@ -33,21 +41,13 @@
                     <option value="B_CONTENT">내용</option>
                     <option value="B_WRITER">작성자</option>
                 </select>
+
                 <!-- 검색어 입력 -->
                 <input type="text" id="query" name="query" placeholder="검색어를 입력하세요">
                 <button type="button" class="btn-search" id="searchBtn">조회</button>
                 <button type="button" class="btn-register">등록하기</button>
             </div>
         </form>
-    </div>
-
-    <!-- 네비게이션 바 -->
-    <div class="navbar">
-        <ul>
-            <li><a href="#" class="category-link" data-category="Q">QnA</a></li>
-            <li><a href="#" class="category-link" data-category="T">꿀팁</a></li>
-            <li><a href="#" class="category-link" data-category="F">자유이야기</a></li>
-        </ul>
     </div>
 
     <!-- 게시판 리스트 -->

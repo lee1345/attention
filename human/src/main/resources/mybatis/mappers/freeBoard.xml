@@ -54,8 +54,8 @@
     <!-- 새로운 게시판 데이터 등록 -->
     <insert id="createFreeBoard">
         INSERT INTO BOARD (
-        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_created_id, b_updated_date, b_updated_id
-        ) VALUES (
+        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date)
+        VALUES (
         freeboard_seq.NEXTVAL, -- 자유게시판 시퀀스
         #{b_Title},
         #{b_Content},
@@ -68,9 +68,7 @@
             ELSE NULL -- 예외 처리
         END,
         SYSDATE,
-        NULL, -- b_created_id
-        NULL, -- b_updated_date
-        NULL  -- b_updated_id
+        SYSDATE
         )
     </insert>
 

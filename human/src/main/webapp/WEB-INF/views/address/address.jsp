@@ -21,8 +21,7 @@
             <form id="searchForm">
                 <div class="filter-group">
                     <select id="category" name="category">
-                        <option value="AD_ID" selected>번호</option>
-                        <option value="AD_NAME">이름</option>
+                        <option value="AD_NAME" selected>이름</option>
                         <option value="AD_PHONE">휴대폰</option>
                         <option value="AD_EMAIL">이메일</option>
                         <option value="AD_DEPT_NAME">부서명</option>
@@ -39,7 +38,7 @@
         <table class="address-table">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>번호</th>
                 <th>이름</th>
                 <th>휴대폰</th>
                 <th>이메일</th>

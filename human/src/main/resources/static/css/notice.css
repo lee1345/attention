@@ -109,13 +109,9 @@
 }
 
 .notice-table th {
-    background-color: #f8f9fa;
+    background-color: #c5d9ed;;
     font-weight: bold;
     color: #333;
-}
-
-.notice-table tr:nth-child(even) {
-    background-color: #f9f9f9;
 }
 
 .notice-table tr:hover {
