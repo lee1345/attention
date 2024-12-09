@@ -18,12 +18,11 @@ public class FreeBoardController {
     @Autowired
     private FreeBoardService freeBoardService;
 
-    // JSP 페이지 렌더링 ( 전체 데이터 )
+    // 자유게시판 전체 조회
     @GetMapping
     public String freeBoard(Model model) {
         try {
             List<FreeBoardVO> freeBoardList = freeBoardService.getAllFreeBoard();
-            System.out.println(freeBoardList.toString());
             model.addAttribute("freeBoardList", freeBoardList);
             System.out.println("-----freeBoard-----");
             return "freeBoard/freeBoard"; // JSP 파일 경로
@@ -35,7 +34,7 @@ public class FreeBoardController {
         }
     }
 
-    // JSP 페이지 렌더링 (검색 데이터)
+    // 검색 결과 조회
     @GetMapping("/search")
     public String searchFreeBoard(
             @RequestParam("category") String category,

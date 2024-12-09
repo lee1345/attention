@@ -17,6 +17,9 @@ public interface FreeBoardDAO {
     List<FreeBoardVO> searchFreeBoard(
             @Param("category") String category,
             @Param("query") String query);
+    
+    // 카테고리별 조회
+    List<FreeBoardVO> getFreeBoardByCategory(@Param("category") String category);
 
     // 새로운 주소 데이터 등록
     void createFreeBoard(FreeBoardVO freeBoard);

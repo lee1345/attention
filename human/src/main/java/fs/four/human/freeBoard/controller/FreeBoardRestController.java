@@ -24,6 +24,12 @@ public class FreeBoardRestController {
         }
     }
 
+    // 카테고리별 조회
+    @GetMapping("/category/{category}")
+    public List<FreeBoardVO> getFreeBoardByCategory(@PathVariable String category) {
+        return freeBoardService.getFreeBoardByCategory(category);
+    }
+
     // 검색 결과 반환 (JSON)
     @PostMapping("/search")
     public List<FreeBoardVO> searchFreeBoard(
@@ -40,6 +46,7 @@ public class FreeBoardRestController {
                 throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
             }
 
+            // 검색 결과 반환
             return freeBoardService.searchFreeBoard(category, query);
 
         } catch (IllegalArgumentException e) {
@@ -57,10 +64,19 @@ public class FreeBoardRestController {
     @ResponseBody
     public String createFreeBoard(@RequestBody FreeBoardVO freeBoard) {
         try {
-            // 디버깅 로그
-            System.out.println("받은 데이터: " + freeBoard);
+            // 디버깅: 전달받은 데이터 확인
+            System.out.println("제목: " + freeBoard.getB_Title());
+            System.out.println("내용: " + freeBoard.getB_Content());
+
+            // 내용이 null 또는 비어있으면 예외 처리
+            if (freeBoard.getB_Content() == null || freeBoard.getB_Content().trim().isEmpty()) {
+                throw new IllegalArgumentException("내용은 필수 입력 항목입니다.");
+            }
+
+            // 서비스 호출
             freeBoardService.createFreeBoard(freeBoard);
             return "등록 성공!";
+
         } catch (Exception e) {
             e.printStackTrace();
             return "등록 실패: " + e.getMessage();

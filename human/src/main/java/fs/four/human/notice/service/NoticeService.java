@@ -13,7 +13,7 @@ public class NoticeService {
     @Autowired
     private NoticeDAO noticeDAO;
 
-    // 전체 게시물 데이터 조회
+    // 공지사항 조회
     public List<NoticeVO> getAllNotice() {
         return noticeDAO.getAllNotice();
     }
@@ -23,7 +23,7 @@ public class NoticeService {
         return noticeDAO.searchNotice(category, query);
     }
 
-    // 새로운 주소 데이터 등록
+    // 공지사항 등록
     public void createNotice(NoticeVO notice) {
         noticeDAO.createNotice(notice);
     }

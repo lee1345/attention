@@ -21,13 +21,14 @@
             <form id="searchForm">
                 <div class="filter-group">
                     <select id="category" name="category">
-                        <option value="AD_NAME" selected>이름</option>
+                        <option value="AD_ID" selected>번호</option>
+                        <option value="AD_NAME">이름</option>
                         <option value="AD_PHONE">휴대폰</option>
                         <option value="AD_EMAIL">이메일</option>
                         <option value="AD_DEPT_NAME">부서명</option>
                         <option value="AD_GROUP">그룹(별칭)</option>
                     </select>
-                    <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요" />
+                    <input type="text" id="query" name="query" placeholder="검색어를 입력하세요" />
                     <button type="button" class="btn-search" id="searchBtn">조회</button>
                     <button type="button" class="btn-register btn btn-primary">등록하기</button>
                 </div>
@@ -40,7 +41,7 @@
             <tr>
                 <th>ID</th>
                 <th>이름</th>
-                <th>핸드폰</th>
+                <th>휴대폰</th>
                 <th>이메일</th>
                 <th>부서명</th>
                 <th>그룹(별칭)</th>
@@ -59,7 +60,7 @@
 <!-- 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
-    <h2>공지사항 등록</h2>
+    <h2>주소록 등록</h2>
     <form id="registerForm">
         <label for="name">이름</label>
         <input type="text" id="name" name="name" required /><br>

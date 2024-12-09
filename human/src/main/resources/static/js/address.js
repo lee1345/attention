@@ -1,49 +1,3 @@
-$(document).ready(function () {
-    // 전체 데이터 로드 (GET)
-    addressAllData();
-
-    // 엔터 키를 누르면 검색 버튼 클릭
-    $('#searchQuery').on('keypress', function (event) {
-        if (event.key === 'Enter') { // 엔터 키 감지
-            event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
-            $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
-        }
-    });
-
-    // 검색 버튼 클릭 이벤트
-    $('#searchBtn').on('click', function () {
-        const category = $('#category').val();
-        const query = $('#searchQuery').val().trim();
-
-        if (!query) {
-            alert("검색어를 입력하세요 !");
-            return;
-        }
-
-        const searchData = {
-            category: category,
-            query: query
-        };
-
-        // AJAX POST 요청
-        $.ajax({
-            type: 'POST',
-            url: '/api/address/search',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: {
-                 category: $('#category').val(),
-                 query: $('#searchQuery').val().trim()
-            },
-            success: function (data) {
-            console.log("AJAX Success Data:", data); // 성공 데이터 확인
-            renderTable(data);
-            },
-            error: function (xhr) {
-                alert("검색어를 확인해주세요 !");
-            }
-        });
-    });
-});
 
 // 주소록 전체 데이터 로드 함수
 function addressAllData() {
@@ -84,8 +38,54 @@ function renderTable(data) {
     });
 }
 
+//========================================================
+
+$(document).ready(function () {
+    // 전체 데이터 로드 (GET)
+    addressAllData();
+
+    // 엔터 키를 누르면 검색 버튼 클릭
+    $('#query').on('keypress', function (event) {
+        if (event.key === 'Enter') { // 엔터 키 감지
+            event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
+            $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
+        }
+    });
+
+    // 검색 버튼 클릭 이벤트
+    $('#searchBtn').on('click', function () {
+        const category = $('#category').val();
+        const query = $('#query').val().trim();
+
+        if (!query) {
+            alert("검색어를 입력하세요 !");
+            return;
+        }
+
+        // 검색어 AJAX POST 요청
+        $.ajax({
+            type: 'POST',
+            url: '/api/address/search',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                category: category,
+                query: query
+            },
+            success: function (data) {
+                console.log("AJAX Success Data:", data); // 성공 데이터 확인
+                renderTable(data);
+            },
+            error: function (xhr) {
+                alert("검색어를 확인해주세요 !");
+            }
+        });
+    });
+});
+
+
 // 팝업창
 $(document).ready(function () {
+    // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
     });
@@ -93,102 +93,37 @@ $(document).ready(function () {
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 폼 제출
     $('#registerForm').on('submit', function (event) {
-       event.preventDefault();
-       const formData = $(this).serialize();
+        event.preventDefault(); // 기본 폼 제출 방지
 
-    $.ajax({
-       type: 'POST',
-       url: '/api/address/register',
-       data: formData,
-       success: function () {
-                 alert('등록 성공!');
-       $('#popupOverlay, #popup').fadeOut();
-           addressAllData();
-       },
-       error: function () {
-              alert('등록 실패!');
-           }
-       });
-   });
-});
+        const formData = {
+            adName: $('#name').val(),
+            adPhone: $('#phone').val(),
+            adEmail: $('#email').val(),
+            adDeptName: $('#dept').val(),
+            adGroup: $('#group').val()
+        };
 
-
-// 주소록 등록하기
-$('#registerForm').on('submit', function (event) {
-    event.preventDefault(); // 기본 폼 제출 방지
-
-    const formData = {
-        adName: $('#name').val(),
-        adPhone: $('#phone').val(),
-        adEmail: $('#email').val(),
-        adDeptName: $('#dept').val(),
-        adGroup: $('#group').val()
-    };
-
-    $.ajax({
-        type: 'POST',
-        url: '/api/address/register',
-        contentType: 'application/json', // JSON 타입으로 전송
-        data: JSON.stringify(formData), // JSON 데이터로 변환
-        success: function () {
-            alert('등록 성공!');
-            $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
-            addressAllData(); // 데이터 다시 로드
-        },
-        error: function () {
-            alert('등록 실패!');
-        }
+        $.ajax({
+            type: 'POST',
+            url: '/api/address/register',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify(formData), // JSON 데이터로 변환
+            success: function () {
+                alert('등록 성공!');
+                $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
+                $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+                addressAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('등록 실패!');
+            }
+        });
     });
 });
 
 
-
-
-
-
-
-//    // 등록하기 버튼 클릭 이벤트
-//    $('.btn-register').on('click', function (event) {
-//        // 기본 동작 방지
-//        event.preventDefault()
-//
-//        // 기존 모든 모달 제거
-//            $('.modal').remove(); // 모든 기존 모달 제거
-//
-//        // Ajax로 모달 HTML 가져오기
-//        $.ajax({
-//            url: '/address/addressModal', // 컨트롤러에서 반환하는 JSP 경로
-//            method: 'GET',
-//            success: function (data) {
-//                // 동적으로 모달 HTML 추가
-//                $('body').append(data);
-//
-//                // Bootstrap 모달 띄우기
-//                $('#registerModal').modal('show');
-//
-//                // 모달 닫힐 때 HTML 제거
-//                $('#registerModal').on('hidden.bs.modal', function () {
-//                    $(this).remove();
-//                });
-//            },
-//            error: function (xhr) {
-//                alert('모달 로드 실패: ' + xhr.statusText);
-//            }
-//        });
-//    });
-//});
-
-
-// // Bootstrap 모달 열기
-//const modalElement = document.querySelector('#registerModal');
-//const modal = new bootstrap.Modal(modalElement);
-//modal.show();
-//
-//// 모달 닫힐 때 DOM 제거
-//modalElement.addEventListener('hidden.bs.modal', function () {
-//modalElement.remove();
-//});

@@ -6,7 +6,6 @@
     <settings>
         <setting name="jdbcTypeForNull" value="NULL"/> <!-- NULL 처리 설정 -->
     </settings>
-
     <mappers>
         <mapper resource="mybatis/mappers/*.xml"/>
     </mappers>

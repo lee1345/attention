@@ -5,10 +5,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 등록</title>
     <link rel="stylesheet" href="${contextPath}/css/notice.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Summernote CSS/JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
     <script src="${contextPath}/js/notice.js" defer></script>
-    <title>공지사항</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
@@ -20,14 +26,16 @@
     <div class="search-register">
         <form id="searchForm">
             <div class="filter-group">
+                <!-- 검색 카테고리 -->
                 <select id="category" name="category">
                     <option value="B_ID" selected>번호</option>
                     <option value="B_TITLE">제목</option>
                     <option value="B_CONTENT">내용</option>
                     <option value="B_WRITER">작성자</option>
                 </select>
-                <input type="text" id="searchQuery" name="query" placeholder="검색어를 입력하세요"/>
-                <button type="submit" class="btn-search" id="searchBtn">조회</button>
+                <!-- 검색어 입력 -->
+                <input type="text" id="query" name="query" placeholder="검색어를 입력하세요">
+                <button type="button" class="btn-search" id="searchBtn">조회</button>
                 <button type="button" class="btn-register">등록하기</button>
             </div>
         </form>
@@ -49,22 +57,25 @@
         </tbody>
     </table>
 </div>
-</div> <!-- common.jsp에 container의 닫는부분 -->
 
 <!-- 팝업 배경 오버레이 -->
-<div class="popup-overlay" id="popupOverlay"></div>
+<div class="popup-overlay hidden" id="popupOverlay"></div>
 
 <!-- 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
-    <h2>주소 등록</h2>
+    <h2>공지사항 등록</h2>
     <form id="registerForm">
-        <label for="title">제목</label>
-        <input type="text" id="title" name="title" required /><br>
+        <div class="form-row">
+            <!-- 제목 입력 -->
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+            </div>
+        </div>
+        <!-- 내용 입력 -->
         <label for="content">내용</label>
-        <input type="textarea" id="content" name="content" required /><br>
-        <label for="name">작성자</label>
-        <input type="text" id="name" name="name" required /><br>
+        <div id="summernote"></div>
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>

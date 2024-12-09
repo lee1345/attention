@@ -23,7 +23,11 @@ public class FreeBoardService {
         return freeBoardDAO.searchFreeBoard(category, query);
     }
 
-    // 새로운 주소 데이터 등록
+    public List<FreeBoardVO> getFreeBoardByCategory(String category) {
+        return freeBoardDAO.getFreeBoardByCategory(category);
+    }
+
+    // 새로운 게시물 데이터 등록
     public void createFreeBoard(FreeBoardVO freeBoard) {
         freeBoardDAO.createFreeBoard(freeBoard);
     }

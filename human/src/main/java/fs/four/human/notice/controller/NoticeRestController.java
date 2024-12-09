@@ -14,7 +14,7 @@ public class NoticeRestController {
     @Autowired
     private NoticeService noticeService;
 
-    // 전체 데이터 반환 (JSON)
+    // 전체 주소 데이터 반환 (JSON)
     @GetMapping
     public List<NoticeVO> getAllNotice() {
         try {
@@ -29,20 +29,24 @@ public class NoticeRestController {
     public List<NoticeVO> searchNotice(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {
+
         try {
             // 디버깅 로그
-            System.out.println("받은 카테고리: " + category);
-            System.out.println("받은 검색어: " + query);
+            System.out.println("검색 필터 category: " + category);
+            System.out.println("검색어 query: " + query);
 
             // 검색 조건 검증
             if (category == null || category.isEmpty() || query == null || query.isEmpty()) {
                 throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
             }
+
             // 검색 결과 반환
             return noticeService.searchNotice(category, query);
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            throw e;
+            throw e; // 클라이언트에 예외 전달
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("검색 중 문제가 발생했습니다.");
@@ -54,10 +58,19 @@ public class NoticeRestController {
     @ResponseBody
     public String createNotice(@RequestBody NoticeVO notice) {
         try {
-            // 디버깅 로그
-            System.out.println("받은 데이터: " + notice);
+            // 디버깅: 전달받은 데이터 확인
+            System.out.println("제목: " + notice.getB_Title());
+            System.out.println("내용: " + notice.getB_Content());
+
+            // 내용이 null 또는 비어있으면 예외 처리
+            if (notice.getB_Content() == null || notice.getB_Content().trim().isEmpty()) {
+                throw new IllegalArgumentException("내용은 필수 입력 항목입니다.");
+            }
+
+            // 서비스 호출
             noticeService.createNotice(notice);
             return "등록 성공!";
+
         } catch (Exception e) {
             e.printStackTrace();
             return "등록 실패: " + e.getMessage();
