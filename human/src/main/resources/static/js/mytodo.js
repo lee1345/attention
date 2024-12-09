@@ -1,83 +1,49 @@
-// 나의 업무 참여 현황 차트 생성
-        const chartColors = ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A'];
-        const chartLabels = ['예정', '진행중', '지연', '완료'];
-        const chartData = [2, 1, 0, 1];
+// 공통 함수: 차트 생성 및 범례 동적 생성
+function createChart(canvasId, legendId, labels, data, colors) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) {
+        console.error(`Canvas with id "${canvasId}" not found!`);
+        return;
+    }
 
-        // 범례 동적 생성
-        const legendContainer = document.querySelector('.chart-legend');
-        legendContainer.innerHTML = chartLabels.map((label, index) => `
-            <li style="display: flex; align-items: center; font-size: 16px; margin-bottom: 8px; color: ${chartColors[index]};">
-                <span style="
-                    background-color: ${chartColors[index]};
-                    display: inline-block;
-                    width: 10px;
-                    height: 10px;
-                    border-radius: 50%;
-                    margin-right: 8px;
-                "></span>
-                <span>${label}:</span>
-                <button
-                    style="
-                        font-size: 18px; /* 텍스트 크기 키우기 */
-                        background: none;
-                        border: none;
-                        padding: 0;
-                        margin-left: 5px;
-                        font-weight: bold;
-                        text-decoration: underline;
-                        color: ${chartColors[index]};
-                        cursor: pointer;
-                    "
-                    onclick="onButtonClick('${label}', ${chartData[index]})"
-                >
-                    ${chartData[index]}건
-                </button>
-            </li>
-        `).join('');
+    const ctx = canvas.getContext('2d');
 
-        // 버튼 클릭 핸들러
-        function onButtonClick(label, value) {
-            console.log(`${label}: ${value}건 버튼이 클릭되었습니다.`);
-            // 필요한 추가 작업 정의 가능
-        }
+    // 캔버스 크기 설정
+    canvas.width = 400;  // 차트 너비
+    canvas.height = 400; // 차트 높이
 
-        // 캔버스 크기 고정
-        const canvas = document.getElementById('myChart');
-        canvas.style.width = '150px';  // 원하는 너비
-        canvas.style.height = '150px'; // 원하는 높이
-
-        // 차트 생성
-        const ctx = canvas.getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: chartLabels,
-                datasets: [{
-                    data: chartData,
-                    backgroundColor: chartColors,
-                }]
+    const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    data: data,
+                    backgroundColor: colors,
+                },
+            ],
+        },
+        options: {
+            responsive: true, // 반응형 활성화
+            maintainAspectRatio: true, // 비율 유지
+            plugins: {
+                legend: {
+                    display: false, // 기본 범례 비활성화
+                },
+                tooltip: {
+                    enabled: true, // 툴팁 활성화
+                },
             },
-            options: {
-                responsive: false, // 반응형 비활성화
-                maintainAspectRatio: false, // 비율 유지 비활성화
-                plugins: {
-                    legend: {
-                        display: false // 기본 범례 비활성화
-                    },
-                    tooltip: {
-                        enabled: false // 툴팁 비활성화
-                    }
-
-                }
-            },
-            plugins: [{
+        },
+        plugins: [
+            {
                 id: 'textOverlay',
                 afterDraw: (chart) => {
                     const ctx = chart.ctx;
                     const dataset = chart.data.datasets[0];
 
                     dataset.data.forEach((value, index) => {
-                        if (value === 0) return; // 건수가 0이면 렌더링하지 않음
+                        if (value === 0) return; // 값이 0이면 렌더링하지 않음
 
                         const meta = chart.getDatasetMeta(0).data[index];
                         const { x, y } = meta.tooltipPosition();
@@ -93,6 +59,62 @@
                         ctx.fillText(`${value}건`, x, y);
                         ctx.restore();
                     });
-                }
-            }]
-        });
+                },
+            },
+        ],
+    });
+
+    // 범례 동적 생성
+    const legendContainer = document.getElementById(legendId);
+    if (!legendContainer) {
+        console.error(`Legend container with id "${legendId}" not found!`);
+        return;
+    }
+
+    legendContainer.innerHTML = labels
+        .map(
+            (label, index) => `
+            <li style="display: flex; align-items: center; margin-bottom: 5px;">
+                <span style="
+                    display: inline-block;
+                    width: 20px
+                    height: 20px;
+                    background-color: ${colors[index]};
+                    margin-right: 8px;
+                    border-radius: 50%;"></span>
+                <span style="font-size: 15px; font-weight: bold; color: #333;">
+                    ${label}:
+                </span>
+                <button
+                    style="
+                        margin-left: 10px;
+                        font-size: 18px; /* 텍스트 크기 키우기 */
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        color: ${colors[index]};
+                        text-decoration: underline;
+                        cursor: pointer;"
+                    onclick="onButtonClick('${label}', ${data[index]})"
+                >
+                    ${data[index]}건
+                </button>
+            </li>
+        `
+        )
+        .join('');
+}
+
+// 버튼 클릭 핸들러 (현재는 동작 없음)
+function onButtonClick(label, value) {
+    console.log(`${label}에서 ${value}건 클릭`);
+}
+
+// "나의 업무 현황" 차트 생성 호출
+createChart(
+    'myChart', // JSP 파일의 캔버스 ID와 동일하게 수정
+    'myLegend', // JSP 파일의 범례 컨테이너 ID
+    ['예정', '진행지연', '진행중', '완료지연', '완료'], // 범례 라벨
+    [2, 0, 1, 0, 1], // 데이터
+    ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90'] // 색상 배열
+);

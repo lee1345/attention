@@ -25,11 +25,11 @@
                        <div class="chart-container">
                            <canvas id="departmentChart"></canvas>
                            <ul class="chart-legend" id="departmentLegend">
-                               <li>예정: <span>2건</span></li>
-                               <li>진행지연: <span>0건</span></li>
-                               <li>진행중: <span>1건</span></li>
-                               <li>완료지연: <span>0건</span></li>
-                               <li>완료: <span>1건</span></li>
+                                <li>예정: <span>2건</span></li>
+                                <li>진행지연: <span>0건</span></li>
+                                <li>진행중: <span>1건</span></li>
+                                <li>완료지연: <span>0건</span></li>
+                                <li>완료: <span>1건</span></li>
                            </ul>
                        </div>
                    </section>
@@ -62,19 +62,20 @@
                        </div>
                    </div>
                    <div class="filters">
-                       <!-- 구분과 검색 필드 -->
-                       <div class="filter-row">
-                           <i class="fas fa-search"></i> <!-- 돋보기 아이콘 추가 -->
-                           <label for="taskType">구분</label>
-                           <select id="taskType" name="type">
-                               <option value="personal">제목</option>
-                               <option value="all">전체</option>
-                               <option value="team">팀</option>
-                           </select>
-                           <input type="text" id="searchInput" name="search" placeholder="검색 내용을 입력하세요">
-                           <button type="submit" class="search-button">조회하기</button>
-                       </div>
-
+                        <form action="/todo">
+                           <!-- 구분과 검색 필드 -->
+                           <div class="filter-row">
+                               <i class="fas fa-search"></i> <!-- 돋보기 아이콘 추가 -->
+                               <label for="taskType">구분</label>
+                               <select id="taskType" name="type">
+                                   <option value="title">제목</option>
+                                   <option value="all">전체</option>
+                                   <option value="team">팀</option>
+                               </select>
+                               <input type="text" id="searchInput" name="search" placeholder="검색 내용을 입력하세요">
+                               <button type="submit" class="search-button">조회하기</button>
+                           </div>
+                        </form>
                        <!-- 정렬 옵션 -->
                        <div class="sort-options">
                            <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
@@ -105,7 +106,7 @@
                            </tr>
                        </thead>
                        <tbody>
-                           <tr>
+                           <!-- <tr>
                                <td><input type="checkbox" name="selectedTasks" value="1"></td>
                                <td>중요</td>
                                <td>예정</td>
@@ -115,13 +116,69 @@
                                <td>김혜민</td>
                                <td><button class="edit">수정</button></td>
                                <td><button class="delete">숨기기</button></td>
-                           </tr>
+                           </tr> -->
+                           <c:forEach var="todo" items="${todos}">
+                                <tr>
+                                    <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}"></td>
+                                    <td>${todo.t_priority}</td>
+                                    <td> 
+                                        <c:choose>
+                                            <c:when test="${todo.t_stage == 'P'}">예정</c:when>
+                                            <c:when test="${todo.t_stage == 'D'}">진행지연</c:when>
+                                            <c:when test="${todo.t_stage == 'I'}">진행중</c:when>
+                                            <c:when test="${todo.t_stage == 'L'}">완료지연</c:when>
+                                            <c:when test="${todo.t_stage == 'C'}">완료</c:when>
+                                            <c:otherwise>${todo.t_stage}</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>${todo.t_content}</td>
+                                    <td><fmt:formatDate value="${todo.t_start_date}" pattern="yy.MM.dd HH:mm" /></td>
+                                    <td><fmt:formatDate value="${todo.t_end_date}" pattern="yy.MM.dd HH:mm" /></td>
+                                    <td>${todo.t_writer}</td>
+                                    <td><button class="edit">수정</button></td>
+                                    <td><button class="delete">숨기기</button></td>
+                                </tr>
+                            </c:forEach>
                        </tbody>
                    </table>
                </section>
            </main>
        </div>
 
-    <script src="${contextPath}/js/todo.js"></script>
+
 </body>
 </html>
+
+<script>
+let todoStageCounts = JSON.parse('${todoStageCountsJson}');
+// console.log(todoStageCounts);
+
+// 상태별 카운트 배열 초기화 (예정, 진행지연, 진행중, 완료지연, 완료)
+let stageCounts = [0, 0, 0, 0, 0];
+
+// todoStageCounts를 순회하면서 각 상태의 카운트를 stageCounts 배열에 할당
+todoStageCounts.forEach(item => {
+    switch(item.t_stage) {
+        case 'P': // 예정
+            stageCounts[0] = parseInt(item.count); // 인덱스 0에 값 할당
+            break;
+        case 'D': // 진행지연
+            stageCounts[1] = parseInt(item.count); // 인덱스 1에 값 할당
+            break;
+        case 'I': // 진행중
+            stageCounts[2] = parseInt(item.count); // 인덱스 2에 값 할당
+            break;
+        case 'L': // 완료지연 (데이터 없으면 0으로 유지)
+            stageCounts[3] = 0;
+            break;
+        case 'C': // 완료 (데이터 없으면 0으로 유지)
+            stageCounts[4] = 0;
+            break;
+    }
+});
+
+console.log(stageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
+
+</script>
+
+<script src="${contextPath}/js/todo.js"></script>

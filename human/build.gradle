@@ -59,6 +59,8 @@ dependencies {
 
 	// JUnit 플랫폼 런처. JUnit 테스트 실행 시 사용
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 
