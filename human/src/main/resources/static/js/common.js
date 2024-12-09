@@ -25,3 +25,45 @@ function setupNavigation() {
 document.addEventListener("DOMContentLoaded", setupNavigation);
 
 // ====================================================================
+
+// 팝업창
+$(document).ready(function () {
+    // 팝업 열기
+    $('#mypage').on('click', function () {
+        $('#popupOverlay, #comPopup').fadeIn();
+    });
+
+    // 팝업 닫기
+    $('#closePopup').on('click', function () {
+        $('#popupOverlay, #comPopup').fadeOut();
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+    });
+
+    // 폼 제출
+    $('#registerForm').on('submit', function (event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+
+        const formData = {
+            adName: $('#name').val(),
+            adPhone: $('#phone').val(),
+            adEmail: $('#email').val(),
+            adDeptName: $('#dept').val(),
+            adGroup: $('#group').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/common/register',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify(formData), // JSON 데이터로 변환
+            success: function () {
+                alert('등록 성공!');
+                $('#popupOverlay, #comPopup').fadeOut(); // 팝업 닫기
+                addressAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('등록 실패!');
+            }
+        });
+    });
+});
