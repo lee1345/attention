@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일정 관리</title>
     <link rel="stylesheet" href="${contextPath}/css/schedule.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
 <!-- 공통 헤더&사이드 -->
@@ -36,52 +38,35 @@
     <div id="calendar"></div>
   </div>
 
-  <!-- 모달 -->
-  <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-title">[제목] 일정 제목</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <table class="table table-borderless">
-            <tbody>
+  <!-- 팝업 -->
+  <div id="popup" class="hidden">
+      <div class="popup-content">
+          <button id="closePopup" class="close-btn">X</button>
+          <h1 id="popup-title">일정 제목</h1>
+          <table>
               <tr>
-                <th scope="row">제목</th>
-                <td id="modal-title"></td>
+                  <th><i class="fa-solid fa-circle-exclamation"></i>&nbsp;&nbsp;중요도</th>
+                  <td id="popup-priority"></td>
               </tr>
               <tr>
-                <th scope="row">중요도</th>
-                <td id="modal-priority"></td>
+                  <th><i class="fa-solid fa-spinner"></i>&nbsp;&nbsp;진행상황</th>
+                  <td id="popup-stage"></td>
               </tr>
               <tr>
-                <th scope="row">진행상황</th>
-                <td id="modal-stage"></td>
+                  <th><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;시작일</th>
+                  <td id="popup-startDate"></td>
               </tr>
               <tr>
-                <th scope="row">일시</th>
-                <td id="modal-date"></td>
+                  <th><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;종료일</th>
+                  ~<td id="popup-endDate"></td>
               </tr>
               <tr>
-                <th scope="row">담당자</th>
-                <td id="modal-owner"></td>
+                  <th><i class="fa-regular fa-clipboard"></i>&nbsp;&nbsp;내용</th>
+                  <td id="popup-description"></td>
               </tr>
-              <tr>
-                <th scope="row">참여자</th>
-                <td id="modal-participants"></td>
-              </tr>
-              <tr>
-                <th scope="row">내용</th>
-                <td id="modal-description"></td>
-              </tr>
-            </tbody>
           </table>
-        </div>
       </div>
-    </div>
   </div>
-
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -91,4 +76,3 @@
   <script src="${contextPath}/js/schedule.js"></script>
 </body>
 </html>
-
