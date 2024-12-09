@@ -10,4 +10,7 @@ public class CommonVO {
     private String e_name;
     private String e_position;
     private String e_dept;
+
+    public CommonVO(){
+    }
 }
