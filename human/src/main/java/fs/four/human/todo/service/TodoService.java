@@ -19,7 +19,8 @@ public class TodoService {
         return todoDAO.getAllTodo(todoVO);
     }
 
-    public List<TodoStageCountVO> getTodoStageCount(String group){
-        return todoDAO.getTodoStageCount(group);
+    public List<TodoStageCountVO> getTodoStageCount(String dept){
+        System.out.println("Dept: " + dept); // 로그 출력
+        return todoDAO.getTodoStageCount(dept);
     }
 }

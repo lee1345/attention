@@ -124,9 +124,9 @@
                                     <td> 
                                         <c:choose>
                                             <c:when test="${todo.t_stage == 'P'}">예정</c:when>
-                                            <c:when test="${todo.t_stage == 'D'}">진행지연</c:when>
-                                            <c:when test="${todo.t_stage == 'I'}">진행중</c:when>
-                                            <c:when test="${todo.t_stage == 'L'}">완료지연</c:when>
+                                            <c:when test="${todo.t_stage == 'PD'}">진행지연</c:when>
+                                            <c:when test="${todo.t_stage == 'IP'}">진행중</c:when>
+                                            <c:when test="${todo.t_stage == 'CD'}">완료지연</c:when>
                                             <c:when test="${todo.t_stage == 'C'}">완료</c:when>
                                             <c:otherwise>${todo.t_stage}</c:otherwise>
                                         </c:choose>
@@ -134,7 +134,7 @@
                                     <td>${todo.t_content}</td>
                                     <td><fmt:formatDate value="${todo.t_start_date}" pattern="yy.MM.dd HH:mm" /></td>
                                     <td><fmt:formatDate value="${todo.t_end_date}" pattern="yy.MM.dd HH:mm" /></td>
-                                    <td>${todo.t_writer}</td>
+                                    <td>${todo.t_updated_id}</td>
                                     <td><button class="edit">수정</button></td>
                                     <td><button class="delete">숨기기</button></td>
                                 </tr>
@@ -160,20 +160,20 @@ let stageCounts = [0, 0, 0, 0, 0];
 todoStageCounts.forEach(item => {
     switch(item.t_stage) {
         case 'P': // 예정
-            stageCounts[0] = parseInt(item.count); // 인덱스 0에 값 할당
-            break;
-        case 'D': // 진행지연
-            stageCounts[1] = parseInt(item.count); // 인덱스 1에 값 할당
-            break;
-        case 'I': // 진행중
-            stageCounts[2] = parseInt(item.count); // 인덱스 2에 값 할당
-            break;
-        case 'L': // 완료지연 (데이터 없으면 0으로 유지)
-            stageCounts[3] = 0;
-            break;
-        case 'C': // 완료 (데이터 없으면 0으로 유지)
-            stageCounts[4] = 0;
-            break;
+                   stageCounts[0] = parseInt(item.count) || 0; // 데이터 없으면 0
+                   break;
+               case 'PD': // 진행지연
+                   stageCounts[1] = parseInt(item.count) || 0;
+                   break;
+               case 'IP': // 진행중
+                   stageCounts[2] = parseInt(item.count) || 0;
+                   break;
+               case 'CD': // 완료지연
+                   stageCounts[3] = parseInt(item.count) || 0;
+                   break;
+               case 'C': // 완료
+                   stageCounts[4] = parseInt(item.count) || 0;
+                   break;
     }
 });
 

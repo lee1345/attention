@@ -25,7 +25,6 @@ public class TodoVO {
 //    T_CREATED_ID VARCHAR2(20)
 
     private String t_id;
-    private String t_writer;
     private String t_group;
     private String t_dept;
     private String t_stage;

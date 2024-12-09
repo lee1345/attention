@@ -7,7 +7,6 @@
     <select id="getAllTodo" parameterType="TodoVO" resultType="TodoVO">
         SELECT
         t_id,
-        t_writer,
         t_group,
         t_dept,
         t_stage,
@@ -37,8 +36,8 @@
     </select>
 
     <!--  todo 진행상태별 갯수  -->
-    <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">
-        select t_stage, count(t_id) as count from TODO where t_group = #{group} group by t_stage
+   <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">-->
+       select t_stage, count(t_id) as count from TODO where t_dept = #{dept} group by t_stage-->
     </select>
     <!--  todo 진행상태별 EX)P,PD,..  -->
 

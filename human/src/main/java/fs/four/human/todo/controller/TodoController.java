@@ -32,12 +32,12 @@ public class TodoController {
         // DB에서 로그인한유저의 부서(팀)정보를 가져와야한다.나중에 로그인된 사용자의 정보를 DB에서 가져와 group 값을 설정할 예정
 
 //        String group = "Marketing";
-        String group = "Development";
+        String dept = "M";
 
         List<TodoVO> todoVOList = todoService.getAllTodo(todoVO);
         model.addAttribute("todos", todoVOList);
 
-        List<TodoStageCountVO> todoStageCountVOList = todoService.getTodoStageCount(group);
+        List<TodoStageCountVO> todoStageCountVOList = todoService.getTodoStageCount(dept);
         // ObjectMapper를 사용하여 todoStageCounts를 JSON 문자열로 변환
         ObjectMapper objectMapper = new ObjectMapper();
         String todoStageCountsJson = objectMapper.writeValueAsString(todoStageCountVOList);
