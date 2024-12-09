@@ -22,10 +22,11 @@
           <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
         </div>
         <div class="user-info">
-              <span>${employee.e_dept}팀</span>
-              <span>${employee.e_name} ${employee.e_position}</span>
-              <span><a id="comMyPage">MyPage</a><span>
-              <span><a id="login">Logout</a><span>
+          <span>${employee.e_dept}팀</span>
+          <span>${employee.e_name} ${employee.e_position}</span>
+          <span><i class="fa-solid fa-bell"></i></span>
+          <span><a id="comMyPage">MyPage</a><span>
+          <span><a id="login">Logout</a><span>
         </div>
       </header>
 
