@@ -147,7 +147,7 @@ strong {
 
 .comPopup #comRegisterForm {
     background: white;
-    padding: 20px;
+    padding: 0px 20px, 20px, 20px;
     border-radius: 10px;
     width: 300px;
     position: relative;
@@ -192,6 +192,7 @@ strong {
 
 /* 등록 버튼 스타일 */
 .comPopup form .submit-btn {
+    margin-top: 20px;
     padding: 10px;
     background: #007bff;
     color: #fff;

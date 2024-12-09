@@ -29,7 +29,6 @@ public class CommonServiceImpl implements CommonService{
             "S", "영업마케팅"
     );
 
-
     public CommonVO getEmployeeInfo(String e_id) {
         CommonVO employee = commonDAO.getEmployeeById(e_id);
         if (employee != null) {

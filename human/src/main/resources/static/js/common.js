@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", setupNavigation);
 // 팝업창
 $(document).ready(function () {
     // 팝업 열기
-    $('#mypage').on('click', function () {
+    $('#comMyPage').on('click', function () {
         $('#comPopupOverlay, #comPopup').fadeIn();
     });
 

@@ -24,7 +24,7 @@
         <div class="user-info">
               <span>${employee.e_dept}팀</span>
               <span>${employee.e_name} ${employee.e_position}</span>
-              <span><a id="mypage">MyPage</a><span>
+              <span><a id="comMyPage">MyPage</a><span>
               <span><a id="login">Logout</a><span>
         </div>
       </header>
@@ -63,9 +63,9 @@
         <div class="comPopup hidden" id="comPopup">
             <button class="close-btn" id="comClosePopup">X</button>
             <h2>정보 수정</h2>
-            <h4>원하는 회원 정보를 수정할 수 있습니다</h4>
+            <p>원하는 회원 정보를 수정할 수 있습니다</p>
             <form id="comRegisterForm">
-                <span>${employee.e_dept}팀 ${employee.e_name} ${employee.e_position}</span>
+                <p>${employee.e_dept}팀 ${employee.e_name} ${employee.e_position}</p></br>
                 <label for="phone">전화번호</label>
                 <input type="number" id="phone" name="phone" /><br>
                 <label for="email">이메일</label>
