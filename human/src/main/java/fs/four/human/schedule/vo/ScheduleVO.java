@@ -9,6 +9,7 @@ public class ScheduleVO {
     private String t_start_time;
     private String t_end_date;
     private String t_end_time;
+    private String t_group;
 
     public String getT_title() {
         return t_title;
@@ -72,5 +73,13 @@ public class ScheduleVO {
 
     public void setT_end_time(String t_end_time) {
         this.t_end_time = t_end_time;
+    }
+
+    public String getT_group() {
+        return t_group;
+    }
+
+    public void setT_group(String t_group) {
+        this.t_group = t_group;
     }
 }

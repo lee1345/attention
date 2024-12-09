@@ -3,51 +3,74 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 서버에서 일정 데이터 가져오기 (AJAX 사용)
   $.ajax({
-    type: 'GET',  // 요청 방식 (GET)
-    url: '/api/schedule',  // 서버 요청 URL
+    type: 'GET',
+    url: '/api/schedule',
     success: function (data) {
       console.log('AJAX 응답 데이터:', data);
 
-      // 응답 데이터가 없거나 잘못된 경우를 처리
-      if (!data || !Array.isArray(data)) {
-        console.error('응답 데이터가 배열이 아니거나 비어 있습니다:', data);
-        data = []; // 빈 배열로 초기화
-      }
-
       // 서버에서 가져온 데이터를 FullCalendar의 events 형식으로 변환
-      var events = data.map(event => ({
-        title: event.t_title,
-        start: `${event.t_start_date}T${event.t_start_time || '00:00'}`,
-        end: `${event.t_end_date}T${event.t_end_time || '23:59'}`,
-        description: event.t_content,
-        color: event.t_stage === 'T' ? 'green' : 'blue', // T: 팀 일정 (녹색), M: 개인 일정 (파란색)
-        extendedProps: { type: event.t_stage }
-      }));
+      var events = data.map(event => {
+        // 날짜 형식 검증 및 변환
+        let startDate = event.t_start_date ? event.t_start_date.replace(' ', 'T') : null;
+        let endDate = event.t_end_date ? event.t_end_date.replace(' ', 'T') : null;
+
+        // 종료 날짜가 시작 날짜와 동일하다면 null로 설정 (종일 일정 처리)
+        if (startDate === endDate) {
+          endDate = null;
+        }
+
+        // 기본 값 처리
+        return {
+          title: event.t_title || '제목 없음', // 제목이 없으면 기본값 설정
+          start: startDate,
+          end: endDate,
+          description: event.t_content || '설명 없음', // 설명이 없으면 기본값 설정
+          color: getColorByGroup(event.t_group), // t_group에 따른 색상 설정
+          extendedProps: {
+            stage: event.t_stage || '미정', // 단계가 없으면 기본값 설정
+            priority: event.t_priority || 'N/A', // 우선순위 기본값
+            group: event.t_group || '기타' // 그룹 기본값
+          }
+        };
+      });
+
+
+      console.log('FullCalendar 이벤트 데이터:', events);
 
       // FullCalendar 생성
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'ko',
         headerToolbar: {
-          left: '', // 왼쪽에 아무것도 배치하지 않음
-          center: 'prev title next', // 중앙에 prev, title, next 배치
+          left: '',
+          center: 'prev title next',
           right: 'today'
         },
         buttonText: {
           today: '오늘로 이동하기'
         },
-        events: events, // 서버에서 가져온 일정 데이터 추가
+        events: events, // FullCalendar에 변환된 이벤트 데이터 추가
 
         eventClick: function (info) {
           // 모달창에 데이터 표시
           document.getElementById('modal-title').innerText = info.event.title;
-          document.getElementById('modal-body').innerText =
-            info.event.extendedProps.description || '설명 없음';
+          document.getElementById('modal-priority').innerText = info.event.extendedProps.priority;
+          document.getElementById('modal-stage').innerText = info.event.extendedProps.stage;
+          document.getElementById('modal-date').innerText =
+            `${info.event.start.toLocaleString()} ~ ${info.event.end ? info.event.end.toLocaleString() : '종료 시간 없음'}`;
+          document.getElementById('modal-owner').innerText = info.event.extendedProps.owner;
+          document.getElementById('modal-participants').innerText = info.event.extendedProps.participants;
+          document.getElementById('modal-description').innerText = info.event.extendedProps.description;
 
           // 모달 열기
           var modalEl = document.getElementById('eventModal');
           var modal = new bootstrap.Modal(modalEl);
           modal.show();
+        },
+
+        // 이벤트 추가 시 로그 확인
+        eventAdd: function(info) {
+          console.log('Event 추가됨:', info.event);
         }
       });
 
@@ -90,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 필터링된 일정만 추가
         events.forEach(event => {
-          if (!type || event.extendedProps.type === type) {
+          if (!type || event.extendedProps.group === type) {
             calendar.addEvent(event);
           }
         });
@@ -130,4 +153,12 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('AJAX 오류:', error);
     }
   });
+
+  // 그룹(t_group)에 따른 색상 결정 함수
+  function getColorByGroup(group) {
+    switch (group) {
+      case 'T': return '#28a745';  // 팀 일정
+      case 'M': return '#007bff';   // 개인 일정
+    }
+  }
 });

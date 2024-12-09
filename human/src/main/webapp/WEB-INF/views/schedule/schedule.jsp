@@ -38,16 +38,50 @@
 
   <!-- 모달 -->
   <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modal-title">일정 제목</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+          <h5 class="modal-title" id="modal-title">[제목] 일정 제목</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="modal-body">일정 내용이 여기에 표시됩니다.</div>
+        <div class="modal-body">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <th scope="row">제목</th>
+                <td id="modal-title"></td>
+              </tr>
+              <tr>
+                <th scope="row">중요도</th>
+                <td id="modal-priority"></td>
+              </tr>
+              <tr>
+                <th scope="row">진행상황</th>
+                <td id="modal-stage"></td>
+              </tr>
+              <tr>
+                <th scope="row">일시</th>
+                <td id="modal-date"></td>
+              </tr>
+              <tr>
+                <th scope="row">담당자</th>
+                <td id="modal-owner"></td>
+              </tr>
+              <tr>
+                <th scope="row">참여자</th>
+                <td id="modal-participants"></td>
+              </tr>
+              <tr>
+                <th scope="row">내용</th>
+                <td id="modal-description"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
+
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
