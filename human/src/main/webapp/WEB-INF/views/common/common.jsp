@@ -63,20 +63,15 @@
         <div class="comPopup hidden" id="comPopup">
             <button class="close-btn" id="comClosePopup">X</button>
             <h2>정보 수정</h2>
+            <h4>원하는 회원 정보를 수정할 수 있습니다</h4>
             <form id="comRegisterForm">
-
-                <label for="password">기존 비밀번호</label>
-                <input type="password" id="password" name="password" /><br>
-                <label for="password">새 비밀번호</label>
-                <input type="password" id="password" name="password" /><br>
-                <label for="email">기존 이메일</label>
-                <input type="email" id="email" name="email" required /><br>
-                <label for="email">새 이메일</label>
-                <input type="email" id="email" name="email" required /><br>
-                <label for="phone">기존 전화번호</label>
+                <span>${employee.e_dept}팀 ${employee.e_name} ${employee.e_position}</span>
+                <label for="phone">전화번호</label>
                 <input type="number" id="phone" name="phone" /><br>
-                <label for="phone">새 전화번호</label>
-                <input type="number" id="phone" name="phone" /><br>
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" required /><br>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" /><br>
                 <button type="submit" class="submit-btn">등록</button>
             </form>
         </div>
