@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class CommonServiceImpl {
+public class CommonServiceImpl implements CommonService{
 
     @Autowired
     private CommonDAO commonDAO;
