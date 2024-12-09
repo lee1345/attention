@@ -54,8 +54,13 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClick: function (info) {
           // 모달창에 데이터 표시
           document.getElementById('modal-title').innerText = info.event.title;
-          document.getElementById('modal-body').innerText =
-            info.event.extendedProps.description || '설명 없음';
+          document.getElementById('modal-priority').innerText = info.event.extendedProps.priority;
+          document.getElementById('modal-stage').innerText = info.event.extendedProps.stage;
+          document.getElementById('modal-date').innerText =
+            `${info.event.start.toLocaleString()} ~ ${info.event.end ? info.event.end.toLocaleString() : '종료 시간 없음'}`;
+          document.getElementById('modal-owner').innerText = info.event.extendedProps.owner;
+          document.getElementById('modal-participants').innerText = info.event.extendedProps.participants;
+          document.getElementById('modal-description').innerText = info.event.extendedProps.description;
 
           // 모달 열기
           var modalEl = document.getElementById('eventModal');
