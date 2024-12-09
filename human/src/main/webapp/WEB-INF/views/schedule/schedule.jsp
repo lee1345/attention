@@ -58,7 +58,7 @@
               </tr>
               <tr>
                   <th><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;종료일</th>
-                  ~<td id="popup-endDate"></td>
+                  <td id="popup-endDate"></td>
               </tr>
               <tr>
                   <th><i class="fa-regular fa-clipboard"></i>&nbsp;&nbsp;내용</th>
