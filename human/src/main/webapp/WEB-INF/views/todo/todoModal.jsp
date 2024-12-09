@@ -17,35 +17,35 @@
                     <h5 class="modal-title" id="registerModalLabel">TEAM업무 등록하기</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <!-- 제목 -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label"><i class="fa-regular fa-clipboard"></i>제목</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <!-- 중요도 -->
-                    <div class="mb-3">
-                        <label for="importance" class="form-label"><i class="fa-solid fa-triangle-exclamation"></i>중요도</label>
-                        <select name="importance" class="form-control" required>
-                            <option name="select">중요도 선택</option>
-                            <option name="very-urgent">매우 긴급</option>
-                            <option name="urgent">긴급</option>
-                            <option name="common">보통</option>
-                            <option name="slowly">천천히</option>
-                        </select>
-                    </div>
-                    <!-- 진행상황 -->
-                    <div class="mb-3">
-                        <label for="progress" class="form-label"><i class="fa-solid fa-spinner"></i>진행상황</label>
-                        <select name="progress" class="form-control" required>
-                            <option name="select">진행상황 선택</option>
-                            <option name="expected">예정</option>
-                            <option name="progress-delayed">진행 지연</option>
-                            <option name="in-progress">진행중</option>
-                            <option name="complete-delayed">완료 지연</option>
-                            <option name="complete">완료</option>
-                        </select>
-                    </div>
+               <div class="modal-body">
+                   <!-- 제목 -->
+                   <div class="mb-3">
+                       <label for="t_content" class="form-label"><i class="fa-regular fa-clipboard"></i> 내용</label>
+                       <input type="text" class="form-control" id="t_content" name="t_content" required>
+                   </div>
+
+                   <!-- 중요도 -->
+                   <div class="mb-3">
+                       <label for="t_priority" class="form-label"><i class="fa-solid fa-triangle-exclamation"></i> 중요도</label>
+                       <select id="t_priority" name="t_priority" class="form-select" required>
+                           <option value="VU">매우 긴급 (Very Urgent)</option>
+                           <option value="U">긴급 (Urgent)</option>
+                           <option value="N">보통 (Normal)</option>
+                           <option value="NU">천천히 (Non-Urgent)</option>
+                       </select>
+                   </div>
+
+                   <!-- 진행상황 -->
+                   <div class="mb-3">
+                       <label for="t_stage" class="form-label"><i class="fa-solid fa-spinner"></i> 진행상황</label>
+                       <select id="t_stage" name="t_stage" class="form-select" required>
+                           <option value="P">예정 (Planned)</option>
+                           <option value="PD">진행지연 (Progress Delayed)</option>
+                           <option value="IP">진행중 (In Progress)</option>
+                           <option value="CD">완료지연 (Completion Delayed)</option>
+                           <option value="C">완료 (Completed)</option>
+                       </select>
+                   </div>
                     <!-- 일시 -->
                     <div class="mb-3">
                         <label for="date" class="form-label" display="inline-block"><i class="fa-regular fa-clock"></i>일시</label>

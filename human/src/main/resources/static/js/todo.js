@@ -108,3 +108,48 @@
             [1, 2, 1, 1, 1],
             ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
         );
+
+
+        $(document).ready(function () {
+            // 팝업 열기
+            $('.btn-register').on('click', function () {
+                $('#popupOverlay, #taskPopup').fadeIn();
+            });
+
+            // 팝업 닫기
+            $('#closePopup, #closePopupBtn, #popupOverlay').on('click', function () {
+                $('#popupOverlay, #taskPopup').fadeOut();
+                $('#registerForm')[0].reset(); // 폼 초기화
+            });
+
+            // 폼 제출
+            $('#registerForm').on('submit', function (event) {
+                event.preventDefault(); // 기본 폼 제출 방지
+
+                const formData = {
+                    title: $('#title').val(),
+                    priority: $('#priority').val(),
+                    status: $('#status').val(),
+                    startDate: $('#startDate').val(),
+                    endDate: $('#endDate').val(),
+                    participants: $('#participants').val(),
+                    description: $('#description').val()
+                };
+
+                // AJAX 요청 (필요 시 API 경로 수정)
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/task/register',
+                    contentType: 'application/json; charset=UTF-8',
+                    data: JSON.stringify(formData),
+                    success: function () {
+                        alert('등록 성공!');
+                        $('#popupOverlay, #taskPopup').fadeOut();
+                        $('#registerForm')[0].reset(); // 폼 초기화
+                    },
+                    error: function () {
+                        alert('등록 실패!');
+                    }
+                });
+            });
+        });
