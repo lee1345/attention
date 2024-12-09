@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const popupStartDate = document.getElementById('popup-startDate');
     const popupEndDate = document.getElementById('popup-endDate');
     const popupDescription = document.getElementById('popup-description');
-    const closePopupButton = document.getElementById('closePopup');
+    const closePopupButton = document.getElementById('close-Popup');
 
     // 닫기 버튼 클릭 이벤트
     closePopupButton.addEventListener('click', function () {

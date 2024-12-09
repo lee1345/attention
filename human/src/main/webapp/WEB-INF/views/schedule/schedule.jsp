@@ -41,7 +41,7 @@
   <!-- 팝업 -->
   <div id="popup" class="hidden">
       <div class="popup-content">
-          <button id="closePopup" class="close-btn">X</button>
+          <button id="close-Popup" class="close-btn">X</button>
           <h1 id="popup-title">일정 제목</h1>
           <table>
               <tr>
