@@ -67,9 +67,9 @@
             <form id="comRegisterForm">
                 <p>${employee.e_dept}팀 ${employee.e_name} ${employee.e_position}</p></br>
                 <label for="phone">전화번호</label>
-                <input type="number" id="phone" name="phone" /><br>
+                <input type="text" id="phone" name="phone" value="${employee.e_phone}" /><br>
                 <label for="email">이메일</label>
-                <input type="email" id="email" name="email" required /><br>
+                <input type="email" id="email" name="email" value="${employee.e_email}" required /><br>
                 <label for="password">비밀번호</label>
                 <input type="password" id="password" name="password" /><br>
                 <button type="submit" class="submit-btn">등록</button>

@@ -44,25 +44,23 @@ $(document).ready(function () {
         event.preventDefault(); // 기본 폼 제출 방지
 
         const formData = {
-            adName: $('#name').val(),
-            adPhone: $('#phone').val(),
-            adEmail: $('#email').val(),
-            adDeptName: $('#dept').val(),
-            adGroup: $('#group').val()
+            e_phone: $('#phone').val().trim(),
+            e_email: $('#email').val().trim(),
+            e_pwd: $('#password').val().trim()
         };
 
         $.ajax({
             type: 'POST',
-            url: '/api/common/register',
+            url: '/api/common/update',
             contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify(formData), // JSON 데이터로 변환
+            data: JSON.stringify(formData),
             success: function () {
-                alert('등록 성공!');
+                alert('정보가 성공적으로 업데이트되었습니다!');
                 $('#comPopupOverlay, #comPopup').fadeOut(); // 팝업 닫기
-                addressAllData(); // 데이터 다시 로드
+                location.reload(); // 페이지 새로고침
             },
             error: function () {
-                alert('등록 실패!');
+                alert('정보 업데이트 중 오류가 발생했습니다.');
             }
         });
     });

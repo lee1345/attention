@@ -29,6 +29,7 @@ public class CommonServiceImpl implements CommonService{
             "S", "영업마케팅"
     );
 
+    @Override
     public CommonVO getEmployeeInfo(String e_id) {
         CommonVO employee = commonDAO.getEmployeeById(e_id);
         if (employee != null) {
@@ -37,5 +38,10 @@ public class CommonServiceImpl implements CommonService{
             employee.setE_dept(DEPT_MAP.get(employee.getE_dept()));
         }
         return employee;
+    }
+
+    @Override
+    public boolean updateEmployeeInfo(CommonVO employee) {
+        return commonDAO.updateEmployee(employee) > 0; // 업데이트 성공 여부 반환
     }
 }
