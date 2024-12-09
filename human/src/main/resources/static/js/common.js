@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", setupNavigation);
 $(document).ready(function () {
     // 팝업 열기
     $('#mypage').on('click', function () {
-        $('#popupOverlay, #comPopup').fadeIn();
+        $('#comPopupOverlay, #comPopup').fadeIn();
     });
 
     // 팝업 닫기
     $('#comClosePopup').on('click', function () {
-        $('#popupOverlay, #comPopup').fadeOut();
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#comPopupOverlay, #comPopup').fadeOut();
+        $('#comRegisterForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 폼 제출
@@ -58,7 +58,7 @@ $(document).ready(function () {
             data: JSON.stringify(formData), // JSON 데이터로 변환
             success: function () {
                 alert('등록 성공!');
-                $('#popupOverlay, #comPopup').fadeOut(); // 팝업 닫기
+                $('#comPopupOverlay, #comPopup').fadeOut(); // 팝업 닫기
                 addressAllData(); // 데이터 다시 로드
             },
             error: function () {

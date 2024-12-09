@@ -57,7 +57,7 @@
         </nav>
 
         <!-- 팝업 배경 오버레이 -->
-        <div class="popup-overlay" id="popupOverlay"></div>
+        <div class="comPopup-overlay" id="comPopupOverlay"></div>
 
         <!-- 팝업 -->
         <div class="comPopup hidden" id="comPopup">

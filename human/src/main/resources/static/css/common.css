@@ -104,7 +104,7 @@ strong {
 
 
 /* 팝업 및 오버레이 스타일 */
-.popup-overlay {
+.comPopup-overlay {
     position: fixed;
     top: 0;
     left: 0;
