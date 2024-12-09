@@ -89,13 +89,20 @@
 <!-- 내용 팝업 -->
 <div class="popup hidden" id="noticePopup">
     <button class="close-btn" id="closeNoticePopup">X</button>
-    <h2 id="popupTitle">공지사항</h2>
-    <ul>
-        <li><strong>제목:</strong> <span id="popupNoticeTitle"></span></li>
-        <li><strong>내용:</strong> <span id="popupNoticeContent"></span></li>
-        <li><strong>작성자:</strong> <span id="popupNoticeWriter"></span></li>
-        <li><strong>날짜:</strong> <span id="popupNoticeDate"></span></li>
-    </ul>
+    <div class="title"><h2 id="popupTitle">공지사항</h2></div>
+    <div class="contentPopup">
+        <div class="sub">
+            <div>날짜   <span id="popupNoticeDate"></span></div>
+            <div>작성자 <span id="popupNoticeWriter"></span></div>
+        </div>
+        <div class="content">
+            <div id="popupNoticeTitle"></div><br>
+            <p>상세 내용</p>
+            <div id="popupNoticeContent">
+                <c:out value="${notice.b_Content}" escapeXml="false" />
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

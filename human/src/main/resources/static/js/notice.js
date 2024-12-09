@@ -62,9 +62,10 @@ $(document).ready(function () {
         height: 300,
         placeholder: "내용을 입력하세요",
         toolbar: [
-            ["style", ["bold", "italic", "underline", "clear"]],
-            ["para", ["ul", "ol", "paragraph"]],
-        ],
+            ["style", ["bold", "italic", "underline", "clear"]], // 굵게, 기울임, 밑줄
+            ["para", ["ul", "ol", "paragraph"]], // 목록, 정렬
+            ["insert", ["link", "picture", "video"]] // 삽입 옵션
+        ]
     });
 
     // 엔터 키를 누르면 검색 버튼 클릭
@@ -124,8 +125,6 @@ $(document).ready(function () {
 
     // Summernote 값 가져오기 (HTML 태그 포함)
     let content = $('#summernote').summernote('code');
-    // HTML 태그 제거
-    content = $('<div>').html(content).text();
 
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
@@ -168,7 +167,7 @@ $(document).on('click', '.notice-row', function () {
         success: function (data) {
             // 데이터 팝업에 표시
             $('#popupNoticeTitle').text(data.b_Title);
-            $('#popupNoticeContent').text(data.b_Content);
+            $('#popupNoticeContent').html(data.b_Content);
             $('#popupNoticeWriter').text(data.b_Writer);
             $('#popupNoticeDate').text(data.b_CreatedDate);
 
