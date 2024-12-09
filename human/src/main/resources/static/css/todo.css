@@ -105,9 +105,7 @@ h2 {
     margin-left: 5px; /* 텍스트와 숫자 간 간격 */
 }
 
-.hidden {
-    display: none;
-}
+
 /* TEAM 업무 등록하기 버튼 */
 .large-button {
     font-size: 40px;
@@ -379,4 +377,119 @@ h2 {
 .date-filters {
     display: flex;
     gap: 10px;
+}
+
+
+/*팝업*/
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+.popup, .participant-popup {
+    display: none; /* 기본적으로 숨김 */
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+    border-radius: 10px;
+    width: 400px;
+    position: fixed; /* 화면에 고정 */
+    top: 50%; /* 화면 중앙 정렬 */
+    left: 50%; /* 화면 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 정렬 보정 */
+    z-index: 1001; /* 오버레이 위에 표시 */
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 어두운 배경 */
+    z-index: 1000; /* 팝업보다 낮은 z-index */
+}
+
+.btn-modal-close {
+    position: absolute;
+    top: 10px;
+    width: 40px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.popup h2, .participant-popup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="text"], select, textarea {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.date-time input, .date-time select {
+    width: calc(33% - 10px);
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838; /* 버튼 호버 효과 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th, td {
+    padding: 8px;
+}
+
+#selected-participants {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
 }

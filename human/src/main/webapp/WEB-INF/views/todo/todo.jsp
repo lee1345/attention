@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta charset="UTF-8">
@@ -53,7 +54,7 @@
                <!-- 5번~10번 -->
                <div class="actions-section">
                    <div class="actions-buttons">
-                       <button type="button" class="btn btn-primary btn-register">
+                       <button type="button"class="btn-open-register-modal">
                            TEAM 업무 등록하기
                        </button>
                        <div class="inline-buttons">
@@ -142,61 +143,76 @@
                </section>
            </main>
        </div>
-       <!-- TEAM 업무 등록 팝업 -->
-       <div id="taskPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:500px; background-color:white; z-index:1000; padding:20px; box-shadow:0px 4px 6px rgba(0, 0, 0, 0.1); border-radius:8px;">
-           <div class="popup-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-               <h5>TEAM 업무 등록하기</h5>
-               <button id="closePopup" style="background:none; border:none; font-size:18px;">&times;</button>
+<!-- Modal -->
+   <div class="popup">
+           <button class="btn-modal-close">x</button>
+           <h2>TEAM 업무 등록하기</h2>
+           <label>제목</label>
+           <input type="text" placeholder="제목을 입력하세요">
+
+           <label>중요도</label>
+           <select>
+               <option>중요도를 선택</option>
+               <option>낮음</option>
+               <option>보통</option>
+               <option>높음</option>
+           </select>
+
+           <label>진행상황</label>
+           <select>
+               <option>진행상황을 선택</option>
+               <option>진행 전</option>
+               <option>진행 중</option>
+               <option>완료</option>
+           </select>
+
+           <label>일시</label>
+           <div class="date-time">
+               <input type="date">
+               <select>
+                   <option>00시</option>
+                   <option>01시</option>
+                   <!-- ... -->
+                   <option>23시</option>
+               </select>
+               <select>
+                   <option>00분</option>
+                   <option>30분</option>
+               </select>
            </div>
-           <form id="registerForm">
-               <div class="mb-3">
-                   <label for="title" class="form-label">제목</label>
-                   <input type="text" class="form-control" id="title" name="title" placeholder="제목 입력" required>
-               </div>
-               <div class="mb-3">
-                   <label for="priority" class="form-label">중요도</label>
-                   <select class="form-select" id="priority" name="priority" required>
-                       <option value="">중요도 선택</option>
-                       <option value="HIGH">높음</option>
-                       <option value="MEDIUM">보통</option>
-                       <option value="LOW">낮음</option>
-                   </select>
-               </div>
-               <div class="mb-3">
-                   <label for="status" class="form-label">진행상황</label>
-                   <select class="form-select" id="status" name="status" required>
-                       <option value="">진행상황 선택</option>
-                       <option value="NOT_STARTED">시작 전</option>
-                       <option value="IN_PROGRESS">진행 중</option>
-                       <option value="COMPLETED">완료</option>
-                   </select>
-               </div>
-               <div class="mb-3">
-                   <label for="startDate" class="form-label">시작일</label>
-                   <input type="date" class="form-control" id="startDate" name="startDate" required>
-               </div>
-               <div class="mb-3">
-                   <label for="endDate" class="form-label">종료일</label>
-                   <input type="date" class="form-control" id="endDate" name="endDate" required>
-               </div>
-               <div class="mb-3">
-                   <label for="participants" class="form-label">참여자</label>
-                   <input type="text" class="form-control" id="participants" name="participants" placeholder="참여자 입력" required>
-               </div>
-               <div class="mb-3">
-                   <label for="description" class="form-label">내용</label>
-                   <textarea class="form-control" id="description" name="description" rows="3" placeholder="내용 입력"></textarea>
-               </div>
-               <div class="d-flex justify-content-end">
-                   <button type="button" id="closePopupBtn" class="btn btn-secondary me-2">닫기</button>
-                   <button type="submit" class="btn btn-primary">등록</button>
-               </div>
-           </form>
+
+           <label>참여자</label>
+           <button id="open-participant-popup hidden">참여자 선택</button>
+           <div id="selected-participants"></div>
+
+           <label>내용</label>
+           <textarea maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+
+           <button>추가하기</button>
        </div>
 
-       <!-- 팝업 오버레이 -->
-       <div id="popupOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;"></div>
+       <div class="participant-popup hidden">
+           <button class="btn-modal-close">x</button>
+           <h2>참여자 선택</h2>
+           <table>
+               <thead>
+                   <tr>
+                       <th>선택</th>
+                       <th>부서</th>
+                       <th>이름</th>
+                       <th>직위</th>
+                   </tr>
+               </thead>
+               <tbody id="participant-list">
+                   <!-- JavaScript로 추가 -->
+               </tbody>
+           </table>
+           <button id="close-participant-popup">선택완료</button>
+       </div>
+
+
 </body>
+<script src="${contextPath}/js/todo.js"></script>
 </html>
 
 <script>
@@ -231,4 +247,3 @@ console.log(stageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
 
 </script>
 
-<script src="${contextPath}/js/todo.js"></script>
