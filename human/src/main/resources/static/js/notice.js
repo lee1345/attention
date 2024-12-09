@@ -39,7 +39,7 @@ function renderTable(data) {
     data.forEach(notice => {
         const formattedDate = formatDate(notice.b_CreatedDate);
         const row = `
-            <tr>
+            <tr class="notice-row" data-id="${notice.b_Id}">
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
                 <td>${notice.b_Content}</td>
@@ -105,7 +105,7 @@ $(document).ready(function () {
     });
 });
 
-// 팝업창
+// 등록 팝업창
 $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
@@ -115,7 +115,7 @@ $(document).ready(function () {
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#summernote').summernote('reset'); // Summernote 초기화
     });
 
     // 등록 폼 제출
@@ -124,14 +124,13 @@ $(document).ready(function () {
 
     // Summernote 값 가져오기 (HTML 태그 포함)
     let content = $('#summernote').summernote('code');
-
     // HTML 태그 제거
     content = $('<div>').html(content).text();
 
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
         b_Content: content,// Summernote 내용 (본문)
-        b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
+        b_Writer: loggedInUser, // 작성자 (동적으로 설정)
         b_Group: 'N' // 공지사항 그룹 고정
     };
 
@@ -149,5 +148,35 @@ $(document).ready(function () {
                 alert('등록 실패!');
             }
         });
+    });
+});
+
+// 테이블 데이터를 클릭하면 팝업 표시
+$(document).on('click', '.notice-row', function () {
+    const noticeId = $(this).data('id'); // 공지사항 ID 가져오기
+    $('#popupOverlay').fadeIn();
+
+    // 팝업 닫기
+    $('#closeNoticePopup').on('click', function () {
+        $('#popupOverlay, #noticePopup').fadeOut();
+    });
+
+    // AJAX 요청으로 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/notice/${noticeId}`, // 공지사항 상세 데이터 가져오는 API
+        success: function (data) {
+            // 데이터 팝업에 표시
+            $('#popupNoticeTitle').text(data.b_Title);
+            $('#popupNoticeContent').text(data.b_Content);
+            $('#popupNoticeWriter').text(data.b_Writer);
+            $('#popupNoticeDate').text(data.b_CreatedDate);
+
+            // 팝업 열기
+            $('#noticePopupOverlay, #noticePopup').fadeIn();
+        },
+        error: function () {
+            alert('데이터를 가져오지 못했습니다.');
+        }
     });
 });

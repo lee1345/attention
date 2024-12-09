@@ -16,7 +16,6 @@ public class CommonVO {
     private String e_created_date;
     private String e_updated_date;
 
-
     public CommonVO(){
     }
 }

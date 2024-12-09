@@ -22,10 +22,11 @@
           <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
         </div>
         <div class="user-info">
-              <span>${employee.e_dept}팀</span>
-              <span>${employee.e_name} ${employee.e_position}</span>
-              <span><a id="mypage">MyPage</a><span>
-              <span><a id="login">Logout</a><span>
+          <span>${employee.e_dept}팀</span>
+          <span>${employee.e_name} ${employee.e_position}</span>
+          <span><i class="fa-solid fa-bell"></i></span>
+          <span><a id="comMyPage">MyPage</a><span>
+          <span><a id="login">Logout</a><span>
         </div>
       </header>
 
@@ -56,5 +57,24 @@
           </ul>
         </nav>
 
+        <!-- 팝업 배경 오버레이 -->
+        <div class="comPopup-overlay" id="comPopupOverlay"></div>
+
+        <!-- 팝업 -->
+        <div class="comPopup hidden" id="comPopup">
+            <button class="close-btn" id="comClosePopup">X</button>
+            <h2>정보 수정</h2>
+            <p>원하는 회원 정보를 수정할 수 있습니다</p>
+            <form id="comRegisterForm">
+                <p>${employee.e_dept}팀 ${employee.e_name} ${employee.e_position}</p></br>
+                <label for="phone">전화번호</label>
+                <input type="text" id="phone" name="phone" value="${employee.e_phone}" /><br>
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" value="${employee.e_email}" required /><br>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" /><br>
+                <button type="submit" class="submit-btn">등록</button>
+            </form>
+        </div>
   </body>
 </html>

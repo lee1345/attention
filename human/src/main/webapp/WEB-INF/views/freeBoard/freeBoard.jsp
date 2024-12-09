@@ -15,8 +15,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
     <script src="${contextPath}/js/freeBoard.js" defer></script>
+    <script>
+        const loggedInUser = "${employee.e_name}"; // 로그인한 사용자 이름을 JavaScript 변수로 전달
+    </script>
 </head>
+
 <body>
+
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
 <div class="freeBoard">

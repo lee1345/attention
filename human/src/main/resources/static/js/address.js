@@ -116,7 +116,6 @@ $(document).ready(function () {
             success: function () {
                 alert('등록 성공!');
                 $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
-                $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
                 addressAllData(); // 데이터 다시 로드
             },
             error: function () {
@@ -125,5 +124,3 @@ $(document).ready(function () {
         });
     });
 });
-
-

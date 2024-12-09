@@ -15,4 +15,14 @@
         FROM employee
         WHERE e_id = #{e_id}
     </select>
+
+    <update id="updateEmployee" parameterType="CommonVO">
+        UPDATE employee
+        SET
+        e_phone = #{e_phone},
+        e_email = #{e_email},
+        e_pwd = #{e_pwd},
+        e_updated_date = SYSDATE
+        WHERE e_id = #{e_id}
+    </update>
 </mapper>

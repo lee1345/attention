@@ -25,3 +25,43 @@ function setupNavigation() {
 document.addEventListener("DOMContentLoaded", setupNavigation);
 
 // ====================================================================
+
+// 팝업창
+$(document).ready(function () {
+    // 팝업 열기
+    $('#comMyPage').on('click', function () {
+        $('#comPopupOverlay, #comPopup').fadeIn();
+    });
+
+    // 팝업 닫기
+    $('#comClosePopup').on('click', function () {
+        $('#comPopupOverlay, #comPopup').fadeOut();
+        $('#comRegisterForm')[0].reset(); // 💡 폼 데이터 초기화
+    });
+
+    // 폼 제출
+    $('#comRegisterForm').on('submit', function (event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+
+        const formData = {
+            e_phone: $('#phone').val().trim(),
+            e_email: $('#email').val().trim(),
+            e_pwd: $('#password').val().trim()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/common/update',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify(formData),
+            success: function () {
+                alert('정보가 성공적으로 업데이트되었습니다!');
+                $('#comPopupOverlay, #comPopup').fadeOut(); // 팝업 닫기
+                location.reload(); // 페이지 새로고침
+            },
+            error: function () {
+                alert('정보 업데이트 중 오류가 발생했습니다.');
+            }
+        });
+    });
+});
