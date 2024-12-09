@@ -105,7 +105,9 @@ h2 {
     margin-left: 5px; /* 텍스트와 숫자 간 간격 */
 }
 
-
+.hidden {
+    display: none;
+}
 /* TEAM 업무 등록하기 버튼 */
 .large-button {
     font-size: 40px;

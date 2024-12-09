@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,12 +50,12 @@
                        </div>
                    </section>
                </div>
-
-
                <!-- 5번~10번 -->
                <div class="actions-section">
                    <div class="actions-buttons">
-                       <button class="large-button" >TEAM 업무<br> 등록하기</br></button>
+                       <button type="button" class="btn btn-primary btn-register">
+                           TEAM 업무 등록하기
+                       </button>
                        <div class="inline-buttons">
                            <button>검색/정렬 초기화</button>
                            <button>선택 업무 숨기기</button>
@@ -86,9 +87,6 @@
 
                    </div>
                </div>
-
-
-
                <!-- 업무 리스트 -->
                <section class="task-list">
                    <table>
@@ -144,8 +142,60 @@
                </section>
            </main>
        </div>
+       <!-- TEAM 업무 등록 팝업 -->
+       <div id="taskPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:500px; background-color:white; z-index:1000; padding:20px; box-shadow:0px 4px 6px rgba(0, 0, 0, 0.1); border-radius:8px;">
+           <div class="popup-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+               <h5>TEAM 업무 등록하기</h5>
+               <button id="closePopup" style="background:none; border:none; font-size:18px;">&times;</button>
+           </div>
+           <form id="registerForm">
+               <div class="mb-3">
+                   <label for="title" class="form-label">제목</label>
+                   <input type="text" class="form-control" id="title" name="title" placeholder="제목 입력" required>
+               </div>
+               <div class="mb-3">
+                   <label for="priority" class="form-label">중요도</label>
+                   <select class="form-select" id="priority" name="priority" required>
+                       <option value="">중요도 선택</option>
+                       <option value="HIGH">높음</option>
+                       <option value="MEDIUM">보통</option>
+                       <option value="LOW">낮음</option>
+                   </select>
+               </div>
+               <div class="mb-3">
+                   <label for="status" class="form-label">진행상황</label>
+                   <select class="form-select" id="status" name="status" required>
+                       <option value="">진행상황 선택</option>
+                       <option value="NOT_STARTED">시작 전</option>
+                       <option value="IN_PROGRESS">진행 중</option>
+                       <option value="COMPLETED">완료</option>
+                   </select>
+               </div>
+               <div class="mb-3">
+                   <label for="startDate" class="form-label">시작일</label>
+                   <input type="date" class="form-control" id="startDate" name="startDate" required>
+               </div>
+               <div class="mb-3">
+                   <label for="endDate" class="form-label">종료일</label>
+                   <input type="date" class="form-control" id="endDate" name="endDate" required>
+               </div>
+               <div class="mb-3">
+                   <label for="participants" class="form-label">참여자</label>
+                   <input type="text" class="form-control" id="participants" name="participants" placeholder="참여자 입력" required>
+               </div>
+               <div class="mb-3">
+                   <label for="description" class="form-label">내용</label>
+                   <textarea class="form-control" id="description" name="description" rows="3" placeholder="내용 입력"></textarea>
+               </div>
+               <div class="d-flex justify-content-end">
+                   <button type="button" id="closePopupBtn" class="btn btn-secondary me-2">닫기</button>
+                   <button type="submit" class="btn btn-primary">등록</button>
+               </div>
+           </form>
+       </div>
 
-
+       <!-- 팝업 오버레이 -->
+       <div id="popupOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;"></div>
 </body>
 </html>
 
