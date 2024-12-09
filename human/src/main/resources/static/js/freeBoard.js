@@ -22,7 +22,7 @@ function renderTable(data) {
 
     if (data.length === 0) {
         // 데이터가 없을 경우 메시지 출력
-        freeBoardTable.append(`<tr><td colspan="4" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        freeBoardTable.append(`<tr><td colspan="7" style="text-align: center;">데이터가 없습니다.</td></tr>`);
         return;
     }
 
@@ -122,6 +122,7 @@ $(document).ready(function () {
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 등록 폼 제출
@@ -179,8 +180,3 @@ $(document).ready(function () {
         });
     });
 });
-
-
-
-
-

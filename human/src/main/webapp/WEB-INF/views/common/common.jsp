@@ -22,9 +22,9 @@
           <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
         </div>
         <div class="user-info">
-              <span>${e_id}님 안녕하세요 </span>
-
-              <span><a id="#">MyPage</a><span>
+              <span>${employee.e_dept}팀</span>
+              <span>${employee.e_name} ${employee.e_position}</span>
+              <span><a id="mypage">MyPage</a><span>
               <span><a id="login">Logout</a><span>
         </div>
       </header>

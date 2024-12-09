@@ -115,6 +115,7 @@ $(document).ready(function () {
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 등록 폼 제출
@@ -150,5 +151,3 @@ $(document).ready(function () {
         });
     });
 });
-
-

@@ -17,21 +17,20 @@
 
 .search-register {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
 }
 
 .search-register .filter-group {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-right: 10px;
 }
 
 /* 자유게시판 카테고리 스타일 */
 .navbar {
-    margin: 30px;
+    margin: 20px;
 }
 
 .navbar ul {
@@ -109,13 +108,9 @@
 }
 
 .freeBoard-table th {
-    background-color: #f8f9fa;
+    background-color: #c5d9ed;;
     font-weight: bold;
     color: #333;
-}
-
-.freeBoard-table tr:nth-child(even) {
-    background-color: #f9f9f9;
 }
 
 .freeBoard-table tr:hover {
