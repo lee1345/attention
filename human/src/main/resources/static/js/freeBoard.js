@@ -137,7 +137,7 @@ $(document).ready(function () {
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
         b_Content: content,// Summernote 내용 (본문)
-        b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
+        b_Writer: loggedInUser, // 작성자 (동적으로 설정)
         b_Category: $('#categorySelect').val(), // 선택된 카테고리 추가
         b_Group: 'F' // 자유게시판 그룹 고정
     };

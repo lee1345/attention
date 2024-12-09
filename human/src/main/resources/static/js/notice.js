@@ -116,6 +116,7 @@ $(document).ready(function () {
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
         $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#summernote').summernote('reset'); // Summernote 초기화
     });
 
     // 등록 폼 제출
@@ -124,14 +125,13 @@ $(document).ready(function () {
 
     // Summernote 값 가져오기 (HTML 태그 포함)
     let content = $('#summernote').summernote('code');
-
     // HTML 태그 제거
     content = $('<div>').html(content).text();
 
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
         b_Content: content,// Summernote 내용 (본문)
-        b_Writer: '작성자', // 작성자 (동적으로 설정하거나 하드코딩 가능)
+        b_Writer: loggedInUser, // 작성자 (동적으로 설정)
         b_Group: 'N' // 공지사항 그룹 고정
     };
 
