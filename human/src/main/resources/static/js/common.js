@@ -34,13 +34,13 @@ $(document).ready(function () {
     });
 
     // 팝업 닫기
-    $('#closePopup').on('click', function () {
+    $('#comClosePopup').on('click', function () {
         $('#popupOverlay, #comPopup').fadeOut();
         $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 폼 제출
-    $('#registerForm').on('submit', function (event) {
+    $('#comRegisterForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
 
         const formData = {

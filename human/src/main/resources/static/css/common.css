@@ -9,6 +9,7 @@
 .common a {
   text-decoration: none; /* 밑줄 제거 */
   color: inherit; /* 부모 요소의 색상 상속 */
+  cursor:pointer;
 }
 
 /* hover 상태에서도 밑줄 제거 강제 적용 */
@@ -144,7 +145,7 @@ strong {
     font-size:16px;
 }
 
-.comPopup #registerForm {
+.comPopup #comRegisterForm {
     background: white;
     padding: 20px;
     border-radius: 10px;

@@ -61,10 +61,10 @@
 
         <!-- 팝업 -->
         <div class="comPopup hidden" id="comPopup">
-            <button class="close-btn" id="closePopup">X</button>
+            <button class="close-btn" id="comClosePopup">X</button>
             <h2>정보 수정</h2>
-            <form id="registerForm">
-                <h4>해당 항목 입력 시 수정</h4>
+            <form id="comRegisterForm">
+
                 <label for="password">기존 비밀번호</label>
                 <input type="password" id="password" name="password" /><br>
                 <label for="password">새 비밀번호</label>
