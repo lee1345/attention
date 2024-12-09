@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fs.four.human.schedule.dao.ScheduleDAO">
+
+    <select id="getSchedules" resultType="fs.four.human.schedule.vo.ScheduleVO">
+        SELECT
+        t_title, t_stage, t_priority, t_content,
+        t_start_date, t_start_time, t_end_date, t_end_time
+        FROM TODO
+<!--        WHERE t_hide = 'N'-->
+    </select>
+
+</mapper>
