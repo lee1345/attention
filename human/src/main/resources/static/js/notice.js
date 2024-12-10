@@ -37,7 +37,9 @@ function renderTable(data) {
 
     // HTML 태그 제거 함수
     function stripHtmlTags(str) { // [수정] HTML 태그 제거 함수 추가
-        return str.replace(/<\/?[^>]+(>|$)/g, "");
+        return str
+            .replace(/<\/?[^>]+(>|$)/g, "") // HTML 태그 제거
+            .replace(/ /g, "&nbsp;"); // 띄어쓰기를 &nbsp;로 변환
     }
 
     // 데이터를 반복하며 테이블 행 생성
