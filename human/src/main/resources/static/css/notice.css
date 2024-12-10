@@ -181,7 +181,7 @@
 
 /* 팝업 제목 스타일 */
 .popup h2 {
-  font-size: 22px;
+  font-size: 25px;
   color: #333;
   text-align: center;
   margin-bottom: 20px;
@@ -279,6 +279,7 @@
 }
 
 .contentPopup .sub div {
+    margin-right: 5px;
     margin-bottom: 5px;
 }
 
@@ -286,9 +287,8 @@
     margin-top: 70px;
 }
 
-.contentPopup .content span {
-    margin-bottom: 30px;
-    line-height: 1.5;
+.contentPopup .content #popupNoticeTitle {
+    border-bottom: 1px solid #ddd;
 }
 
 .contentPopup .content #popupNoticeTitle {
