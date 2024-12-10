@@ -56,23 +56,41 @@
 <!-- 팝업 배경 오버레이 -->
 <div class="popup-overlay" id="popupOverlay"></div>
 
-<!-- 팝업 -->
+<!-- 팝업 등록 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
     <h2>주소록 등록</h2>
     <form id="registerForm">
-        <label for="name">이름</label>
-        <input type="text" id="name" name="name" required /><br>
-        <label for="phone">핸드폰</label>
-        <input type="text" id="phone" name="phone" required /><br>
-        <label for="email">이메일</label>
-        <input type="email" id="email" name="email" required /><br>
-        <label for="dept">부서명</label>
-        <input type="text" id="dept" name="dept" /><br>
-        <label for="group">그룹(별칭)</label>
-        <input type="text" id="group" name="group" /><br>
+        <label for="formName">이름</label>
+        <input type="text" id="formName" name="formName" required /><br>
+        <label for="formPhone">핸드폰</label>
+        <input type="text" id="formPhone" name="formPhone" required /><br>
+        <label for="formEmail">이메일</label>
+        <input type="email" id="formEmail" name="formEmail" required /><br>
+        <label for="formDept">부서명</label>
+        <input type="text" id="formDept" name="formDept" /><br>
+        <label for="formGroup">그룹(별칭)</label>
+        <input type="text" id="formGroup" name="formGroup" /><br>
         <button type="submit" class="submit-btn">등록</button>
     </form>
+</div>
+
+<!-- 내용 팝업 -->
+<div class="popup hidden" id="addressPopup">
+    <button class="close-btn" id="closeAddressPopup">X</button>
+    <h2>주소록</h2>
+    <div id="registerForm">
+        <label for="popupAddressName">이름</label>
+        <div id="popupAddressName"/></div>
+        <label for="popupAddressPhone">핸드폰</label>
+        <div id="popupAddressPhone"/></div>
+        <label for="popupAddressEmail">이메일</label>
+        <div id="popupAddressEmail"/></div>
+        <label for="popupAddressDeptName">부서명</label>
+        <div id="popupAddressDeptName"/></div>
+        <label for="popupAddressGroup">그룹(별칭)</label>
+        <div id="popupAddressGroup"/></div>
+    </div>
 </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package fs.four.human.address.dao;
 
 import fs.four.human.address.vo.AddressVO;
+import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,6 +17,9 @@ public interface AddressDAO {
     List<AddressVO> searchAddress(
             @Param("category") String category,
             @Param("query") String query);
+
+    // 특정 공지사항 조회
+    AddressVO getAddressById(int id);
 
     // 새로운 주소 데이터 등록
     void createAddress(AddressVO address);

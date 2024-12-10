@@ -2,6 +2,7 @@ package fs.four.human.address.controller;
 
 import fs.four.human.address.service.AddressService;
 import fs.four.human.address.vo.AddressVO;
+import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -67,4 +68,16 @@ public class AddressRestController {
             return "등록 실패: " + e.getMessage();
         }
     }
+
+    // 특정 게시판 데이터 반환
+    @GetMapping("/{id}")
+    public AddressVO getAddressById(@PathVariable("id") int id) {
+        AddressVO address = addressService.getAddressById(id);
+        if (address == null) {
+            throw new IllegalArgumentException("해당 게시판을 찾을 수 없습니다.");
+        }
+        return address;
+    }
+
+
 }
