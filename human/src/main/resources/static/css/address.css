@@ -136,11 +136,6 @@
     z-index: 1000;
 }
 
-/* 활성화 상태 */
-.hidden {
-    display: none;
-}
-
 .popup .close-btn {
     position: absolute;
     top: 10px;
@@ -169,12 +164,12 @@
 
 /* 팝업 제목 */
 .popup h2 {
-    font-size: 20px;
+    font-size: 30px;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
     border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
 .popup form label {
@@ -211,6 +206,31 @@
     transition: background 0.2s ease;
 }
 
+/* 팝업 닫기 버튼 호버 스타일 */
 .popup form .submit-btn:hover {
     background: #0056b3;
+}
+
+/* 내용 팝업 */
+.popup #registerForm label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.popup #registerForm div {
+    padding: 10px;
+    margin:10px 0px 20px 0px;
+    font-size: 14px;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.popup #registerForm div:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }

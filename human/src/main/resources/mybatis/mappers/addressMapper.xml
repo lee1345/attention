@@ -31,6 +31,20 @@
         ORDER BY adId DESC -- 번호를 기준으로 내림차순 정렬
     </select>
 
+    <!-- 특정 공지사항 조회 -->
+    <select id="getAddressById" resultType="AddressVO">
+        SELECT
+        AD_ID AS adId,
+        AD_EMPL_ID AS adEmplId,
+        AD_NAME AS adName,
+        AD_PHONE AS adPhone,
+        AD_EMAIL AS adEmail,
+        AD_DEPT_NAME AS adDeptName,
+        AD_GROUP AS adGroup
+        FROM ADDRESS
+        WHERE AD_ID = #{id}
+    </select>
+
     <!-- 새로운 주소 데이터 등록 -->
     <insert id="createAddress">
         INSERT INTO ADDRESS (ad_id, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP, AD_CREATED_DATE, AD_UPDATED_DATE )

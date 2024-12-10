@@ -15,6 +15,44 @@ function freeBoardAllData() {
 
 //========================================================
 
+// 날짜 포맷 변환 함수
+function formatDate(dateString) {
+    if (!dateString) {
+            return "날짜 없음"; // 기본 메시지
+    }
+
+    const parsedDate  = new Date(dateString);
+    if (isNaN(parsedDate )) {
+        return "유효하지 않은 날짜"; // 날짜 형식이 잘못된 경우
+    }
+
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+//======================================================================================================
+
+
+// Summernote 에디터 초기화
+function initializeSummernote(selector) {
+    $(selector).summernote({
+        height: 300,
+        placeholder: "내용을 입력하세요",
+        toolbar: [
+            ["style", ["bold", "italic", "underline", "clear"]],
+            ["fontsize", ["fontsize"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["table", ["table"]]
+        ]
+    });
+}
+
+//======================================================================================================
+
 // 테이블 렌더링 함수
 function renderTable(data) {
     const freeBoardTable = $('#freeBoardTable');
@@ -26,29 +64,28 @@ function renderTable(data) {
         return;
     }
 
-    // 날짜 포맷 변환 함수
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+    // HTML 태그 제거 함수
+    function stripHtmlTags(str) { // [수정] HTML 태그 제거 함수 추가
+        return str
+            .replace(/<\/?[^>]+(>|$)/g, "") // HTML 태그 제거
+            .replace(/ /g, "&nbsp;"); // 띄어쓰기를 &nbsp;로 변환
     }
 
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(freeBoard => {
         const formattedDate = formatDate(freeBoard.b_CreatedDate);
+        const contentPreview = stripHtmlTags(freeBoard.b_Content).substring(0, 50); // [수정] 내용 글자수 제한
 
         // 카테고리 변환
         const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
         const categoryName = categoryMap[freeBoard.b_Category] || "알 수 없음";
 
         const row = `
-            <tr>
+            <tr class="freeBoard-row" data-id="${freeBoard.b_Id}">
                 <td>${freeBoard.b_Id}</td>
                 <td>${categoryName}</td>
                 <td>${freeBoard.b_Title}</td>
-                <td>${freeBoard.b_Content}</td>
+                <td>${contentPreview}</td>
                 <td>${freeBoard.b_Writer}</td>
                 <td>${formattedDate}</td>
             </tr>
@@ -62,16 +99,6 @@ function renderTable(data) {
 $(document).ready(function () {
     // 전체 데이터 로드 (GET)
     freeBoardAllData();
-
-    // Summernote 에디터 초기화
-    $("#summernote").summernote({
-        height: 300,
-        placeholder: "내용을 입력하세요",
-        toolbar: [
-            ["style", ["bold", "italic", "underline", "clear"]],
-            ["para", ["ul", "ol", "paragraph"]],
-        ],
-    });
 
     // 엔터 키를 누르면 검색 버튼 클릭
     $('#query').on('keypress', function (event) {
@@ -111,17 +138,21 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
 
-// 팝업창
+// 등록 팝업창
 $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
+        initializeSummernote('#summernote'); // Summernote 초기화
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
+        $('#summernote').summernote('reset'); // Summernote 초기화
         $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
@@ -130,9 +161,9 @@ $(document).ready(function () {
         event.preventDefault(); // 기본 폼 제출 방지
 
     // Summernote 값 가져오기 (HTML 태그 포함)
-    let content = $('#summernote').summernote('code');
+    const content = $('#summernote').summernote('code');
     // HTML 태그 제거
-    content = $('<div>').html(content).text();
+//    content = $('<div>').html(content).text();
 
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
@@ -159,6 +190,8 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
+
 // 카테고리 클릭 시 해당 데이터 조회
 $(document).ready(function () {
     // 네비게이션 카테고리 클릭 이벤트
@@ -179,4 +212,137 @@ $(document).ready(function () {
             }
         });
     });
+});
+
+//======================================================================================================
+
+// 테이블 데이터를 클릭하면 팝업 표시
+$(document).on('click', '.freeBoard-row', function () {
+    const freeBoardId = $(this).data('id'); // 공지사항 ID 가져오기
+    $('#popupOverlay').fadeIn();
+
+    // 팝업 닫기
+    $('#closeFreeBoardPopup').on('click', function () {
+        $('#popupOverlay, #freeBoardPopup').fadeOut();
+    });
+
+    // AJAX 요청으로 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/freeBoard/${freeBoardId}`,
+        success: function (data) {
+            console.log("Fetched Data:", data);
+
+            const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
+            const categoryName = categoryMap[data.b_Category] || "알 수 없음";
+
+            $('#popupCategory').text(categoryName);
+            $('#popupFreeBoardTitle').text(data.b_Title);
+            $('#popupFreeBoardContent').html(data.b_Content);
+            $('#popupFreeBoardWriter').text(data.b_Writer);
+            $('#popupFreeBoardDate').text(formatDate(data.b_CreatedDate));
+            $('#FreeBoardePopupOverlay, #freeBoardPopup').fadeIn();
+
+            // 수정/삭제 버튼 렌더링
+            const popupActions = $('.action-buttons');
+            popupActions.empty(); // 기존 버튼 제거
+
+            // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
+            if (loggedInUser === data.b_Writer) {
+                popupActions.append(`
+                    <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+                    <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+                `);
+            }
+
+            $('#popupOverlay, #freeBoardPopup').fadeIn();
+
+        },
+        error: function () {
+            alert('데이터를 가져오지 못했습니다.');
+        }
+    });
+});
+
+// 수정 버튼 클릭
+$(document).on('click', '.edit-btn', function () {
+    const freeBoardId = $(this).data('id'); // 수정할 게시글 ID 가져오기
+    $('#freeBoardPopup').fadeOut();
+
+    // 팝업 닫기
+    $('#closeEditPopup').on('click', function () {
+        $('#popupOverlay, #editPopup').fadeOut();
+    });
+
+    // 서버에서 해당 글의 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/freeBoard/${freeBoardId}`,
+        success: function (data) {
+
+            $('#editTitle').val(data.b_Title); // 제목 로드
+            $('#editCategory').val(data.b_Category); // 카테고리 로드
+            $('#editSummernote').summernote('code', data.b_Content); // 내용 로드
+            $('#editFreeBoardId').val(data.b_Id); // 게시글 ID 저장
+
+            // Summernote 초기화 및 데이터 로드
+            initializeSummernote('#editSummernote');
+            $('#editSummernote').summernote('code', data.b_Content);
+
+            $('#popupOverlay, #editPopup').fadeIn();
+        },
+        error: function () {
+            alert('수정 데이터를 불러오지 못했습니다.');
+        }
+    });
+});
+
+// 수정 데이터 저장
+$('#editForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+
+    // Summernote의 내용을 가져옵니다.
+    const content = $('#editSummernote').summernote('code');
+
+    const formData = {
+        b_Id: $('#editFreeBoardId').val(),
+        b_Title: $('#editTitle').val(),
+        b_Content: $('#editSummernote').summernote('code'),
+        b_Writer: loggedInUser, // 현재 로그인 사용자
+        b_Category: $('#editCategory').val() // 수정된 카테고리
+    };
+
+    $.ajax({
+        type: 'PUT',
+        url: `/api/freeBoard/${formData.b_Id}`,
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(formData),
+        success: function () {
+            alert('수정 성공!');
+            $('#popupOverlay, #editPopup').fadeOut();
+            freeBoardAllData(); // 데이터 다시 로드
+        },
+        error: function () {
+            alert('수정 실패!');
+        }
+    });
+});
+
+// 삭제 버튼 클릭
+$(document).on('click', '.delete-btn', function () {
+    const freeBoardId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/api/freeBoard/${freeBoardId}?user=${loggedInUser}`,
+            success: function () {
+                alert('삭제 성공!');
+                $('#popupOverlay, #freeBoardPopup').fadeOut(); // 팝업 닫기
+                freeBoardAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('삭제 실패!');
+            }
+        });
+    }
 });

@@ -22,6 +22,5 @@ public interface NoticeDAO {
     void createNotice(NoticeVO notice);
 
     // 특정 공지사항 조회
-    @Select("SELECT * FROM board WHERE b_Id = #{id}")
     NoticeVO getNoticeById(int id);
 }
