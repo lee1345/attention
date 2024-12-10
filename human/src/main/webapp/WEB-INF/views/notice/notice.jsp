@@ -75,12 +75,12 @@
         <div class="form-row">
             <!-- 제목 입력 -->
             <div class="form-group">
-                <label for="title">제목</label>
+                <label for="title"></label>
                 <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
             </div>
         </div>
         <!-- 내용 입력 -->
-        <label for="content">내용</label>
+        <label for="content"></label>
         <div id="summernote"></div>
         <button type="submit" class="submit-btn">등록</button>
     </form>

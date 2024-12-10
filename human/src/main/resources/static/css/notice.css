@@ -181,10 +181,10 @@
 
 /* 팝업 제목 스타일 */
 .popup h2 {
-  font-size: 25px;
+  font-size: 30px;
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
+  margin: 50px 0px;
 }
 
 
@@ -272,7 +272,7 @@
 .contentPopup .sub{
     position: absolute;
     right: 80px;
-    top: 100px;
+    top: 150px;
     text-align: left;
     font-size: 16px;
     color: #555;
