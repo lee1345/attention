@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="${contextPath}/css/address.css" />
     <script src="${contextPath}/js/address.js" defer></script>
     <title>주소록</title>
+    <script>
+        const loggedInUser = "${employee.e_name}"; // 로그인한 사용자 이름을 JavaScript 변수로 전달
+    </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
@@ -90,6 +93,15 @@
         <div id="popupAddressDeptName"/></div>
         <label for="popupAddressGroup">그룹(별칭)</label>
         <div id="popupAddressGroup"/></div>
+
+        <!-- 수정/삭제 버튼 -->
+        <div class="actions" id="popupActions">
+        <!-- 조건부 렌더링 -->
+        </div>
+        <div class="action-buttons">
+            <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+            <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+        </div>
     </div>
 </div>
 </body>

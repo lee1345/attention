@@ -104,6 +104,7 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
 
 // 등록 팝업창
 $(document).ready(function () {
@@ -164,7 +165,6 @@ $(document).on('click', '.address-row', function () {
         type: 'GET',
         url: `/api/address/${addressId}`,
         success: function (data) {
-
             $('#popupAddressName').text(data.adName);
             $('#popupAddressPhone').text(data.adPhone);
             $('#popupAddressEmail').text(data.adEmail);
@@ -176,4 +176,85 @@ $(document).on('click', '.address-row', function () {
             alert('데이터를 가져오지 못했습니다.');
         }
     });
+});
+
+//======================================================================================================
+
+// 수정 버튼 클릭
+$(document).on('click', '.edit-btn', function () {
+    const addressId = $(this).data('id'); // 수정할 게시글 ID 가져오기
+    $('#addressPopup').fadeOut();
+
+    // 팝업 닫기
+    $('#closeEditPopup').on('click', function () {
+        $('#popupOverlay, #editPopup').fadeOut();
+    });
+
+    // 서버에서 해당 글의 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/address/${addressId}`,
+        success: function (data) {
+
+            $('#editName').val(data.adName); // 제목 로드
+            $('#editPhone').val(data.adPhone); // 핸드폰 로드
+            $('#editEmail').val(data.adEmail); // 이메일 로드
+            $('#editDeptName').val(data.adDeptName); // 부서명 로드
+            $('#editGroup').val(data.adGroup); // 그룹(별칭) 로드
+            $('#editAddressId').val(data.adId); // 게시글 ID 저장
+
+            $('#popupOverlay, #editPopup').fadeIn();
+        },
+        error: function () {
+            alert('수정 데이터를 불러오지 못했습니다.');
+        }
+    });
+});
+
+// 수정 데이터 저장
+$('#editForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+
+    const formData = {
+        AD_Id: $('#editAddressId').val(),
+        AD_NAME: $('#editName').val(),
+        AD_PHONE: $('#editPhone').val(),
+        AD_EMAIL: $('#editEmail').val(),
+        AD_DEPT_NAME: $('#editDeptName').val(),
+        AD_GROUP: $('#editGroup').val(),
+    };
+
+    $.ajax({
+        type: 'PUT',
+        url: `/api/address/${formData.adId}`,
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(formData),
+        success: function () {
+            alert('수정 성공!');
+            $('#popupOverlay, #editPopup').fadeOut();
+            addressAllData(); // 데이터 다시 로드
+        },
+        error: function () {
+            alert('수정 실패!');
+        }
+    });
+});
+
+// 삭제 버튼 클릭
+$(document).on('click', '.delete-btn', function () {
+    const addressId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/api/address/${addressId}?user=${loggedInUser}`,
+            success: function () {
+                alert('삭제 성공!');
+                $('#popupOverlay, #addressPopup').fadeOut(); // 팝업 닫기
+                addressAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('삭제 실패!');
+            }
+        });
+    }
 });

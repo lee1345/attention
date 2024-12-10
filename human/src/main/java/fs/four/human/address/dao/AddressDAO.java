@@ -24,10 +24,10 @@ public interface AddressDAO {
     // 새로운 주소 데이터 등록
     void createAddress(AddressVO address);
 
-//    // 주소 데이터 수정
-//    void updateAddress(AddressVO address);
-//
-//    // 주소 데이터 삭제
-//    void deleteAddress(String id);
+    // 주소 데이터 수정
+    void updateAddress(AddressVO address);
+
+    // 주소 데이터 삭제
+    void deleteAddress(int id);
 
 }

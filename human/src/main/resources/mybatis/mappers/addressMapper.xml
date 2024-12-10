@@ -51,4 +51,25 @@
         VALUES ( address_seq.NEXTVAL, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup}, SYSDATE, SYSDATE )
     </insert>
 
+    <!-- 주소록 수정 -->
+    <select id="updateAddress">
+        SELECT
+        AD_ID AS adId,
+        AD_EMPL_ID AS adEmplId,
+        AD_NAME AS adName,
+        AD_PHONE AS adPhone,
+        AD_EMAIL AS adEmail,
+        AD_DEPT_NAME AS adDeptName,
+        AD_GROUP AS adGroup
+        FROM ADDRESS
+        WHERE AD_ID = #{id}
+    </select>
+
+    <!-- 주소록 삭제 -->
+    <delete id="deleteAddress">
+        DELETE FROM ADDRESS
+        WHERE AD_ID = #{id}
+    </delete>
+
+
 </mapper>
