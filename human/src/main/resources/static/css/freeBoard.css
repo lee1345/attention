@@ -358,3 +358,17 @@
 .popup .action-buttons .delete-btn:hover {
     background-color: #b02a37;
 }
+
+/* 저장 버튼 스타일 */
+.popup form .editBtn {
+    margin-top: 80px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

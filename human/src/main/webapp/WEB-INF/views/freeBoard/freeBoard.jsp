@@ -76,7 +76,7 @@
 <!-- 팝업 배경 오버레이 -->
 <div class="popup-overlay hidden" id="popupOverlay"></div>
 
-<!-- 팝업 -->
+<!-- 등록하기 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
     <h2>자유게시판 등록</h2>
@@ -139,19 +139,31 @@
     <button class="close-btn" id="closeEditPopup">X</button>
     <h2>게시글 수정</h2>
     <form id="editForm">
-        <input type="hidden" id="editFreeBoardId" />
-        <label for="editTitle">제목</label>
-        <input type="text" id="editTitle" name="title" required />
-        <label for="editCategory">카테고리</label>
-        <select id="editCategory" name="category" required>
-            <option value="QnA">QnA</option>
-            <option value="Tips">꿀팁</option>
-            <option value="Free">자유이야기</option>
-        </select>
-        <label for="editSummernote">내용</label>
+        <div class="form-row">
+            <!-- 제목 입력 -->
+            <div class="form-group">
+                <input type="hidden" id="editFreeBoardId" />
+                <label for="editTitle">제목</label>
+                <input type="text" id="editTitle" name="title" placeholder="제목을 입력하세요" required>
+            </div>
+            <!-- 카테고리 선택 -->
+            <div class="form-group">
+                <label for="editCategory">카테고리</label>
+                <select id="editCategory" name="category" required>
+                    <option value="" disabled selected>카테고리를 선택하세요</option>
+                    <option value="QnA">QnA</option>
+                    <option value="Tips">꿀팁</option>
+                    <option value="Free">자유이야기</option>
+                </select>
+            </div>
+        </div>
+        <!-- 내용 입력 -->
+        <label for="editSummernote"></label>
         <div id="editSummernote"></div>
-        <button type="submit" >저장</button>
+        <button type="editBtn" class="submit-btn">저장</button>
     </form>
 </div>
+
+
 </body>
 </html>
