@@ -22,7 +22,7 @@ function renderTable(data) {
 
     if (data.length === 0) {
         // 데이터가 없을 경우 메시지 출력
-        noticeTable.append(`<tr><td colspan="4" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        noticeTable.append(`<tr><td colspan="5" style="text-align: center;">데이터가 없습니다.</td></tr>`);
         return;
     }
 
@@ -48,7 +48,7 @@ function renderTable(data) {
             <tr class="notice-row" data-id="${notice.b_Id}">
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
-                <td>${contentPreview}...</td>
+                <td>${contentPreview}</td>
                 <td>${notice.b_Writer}</td>
                 <td>${formattedDate}</td>
             </tr>

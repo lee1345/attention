@@ -99,7 +99,6 @@
             <div id="popupNoticeTitle"></div><br>
             <p>상세 내용</p>
             <div id="popupNoticeContent">
-
             </div>
         </div>
     </div>
