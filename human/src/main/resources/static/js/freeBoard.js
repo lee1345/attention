@@ -161,7 +161,7 @@ $(document).ready(function () {
         event.preventDefault(); // 기본 폼 제출 방지
 
     // Summernote 값 가져오기 (HTML 태그 포함)
-//    let content = $('#summernote').summernote('code');
+    const content = $('#summernote').summernote('code');
     // HTML 태그 제거
 //    content = $('<div>').html(content).text();
 
@@ -300,6 +300,9 @@ $(document).on('click', '.edit-btn', function () {
 // 수정 데이터 저장
 $('#editForm').on('submit', function (event) {
     event.preventDefault(); // 기본 동작 방지
+
+    // Summernote의 내용을 가져옵니다.
+    const content = $('#editSummernote').summernote('code');
 
     const formData = {
         b_Id: $('#editFreeBoardId').val(),
