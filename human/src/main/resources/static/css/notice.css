@@ -267,13 +267,13 @@
 
 /* 내용 팝업 */
 .contentPopup {
-    padding: 20px 50px 50px 50px;
+    padding: 0px 50px 50px 50px;
 }
 
 .contentPopup .sub{
     position: absolute;
     right: 80px;
-    top: 150px;
+    top: 125px;
     text-align: left;
     font-size: 16px;
     color: #555;
@@ -285,7 +285,7 @@
 }
 
 .contentPopup .content {
-    margin-top: 70px;
+    margin-top: 60px;
 }
 
 .contentPopup .content #popupNoticeTitle {
