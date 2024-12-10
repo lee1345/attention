@@ -15,9 +15,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
     <script src="${contextPath}/js/notice.js" defer></script>
+    <script>
+        const loggedInUser = "${employee.e_name}"; // 로그인한 사용자 이름을 JavaScript 변수로 전달
+    </script>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
+
+
 
 <div class="notice">
     <h2>공지사항</h2><br>
@@ -61,7 +67,7 @@
 <!-- 팝업 배경 오버레이 -->
 <div class="popup-overlay hidden" id="popupOverlay"></div>
 
-<!-- 팝업 -->
+<!-- 등록 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
     <h2>공지사항 등록</h2>
@@ -78,6 +84,25 @@
         <div id="summernote"></div>
         <button type="submit" class="submit-btn">등록</button>
     </form>
+</div>
+
+<!-- 내용 팝업 -->
+<div class="popup hidden" id="noticePopup">
+    <button class="close-btn" id="closeNoticePopup">X</button>
+    <div class="title"><h2 id="popupTitle">공지사항</h2></div>
+    <div class="contentPopup">
+        <div class="sub">
+            <div>날짜   <span id="popupNoticeDate"></span></div>
+            <div>작성자 <span id="popupNoticeWriter"></span></div>
+        </div>
+        <div class="content">
+            <div id="popupNoticeTitle"></div><br>
+            <p>상세 내용</p>
+            <div id="popupNoticeContent">
+                <c:out value="${notice.b_Content}" escapeXml="false" />
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,12 +51,12 @@
                        </div>
                    </section>
                </div>
-
-
                <!-- 5번~10번 -->
                <div class="actions-section">
                    <div class="actions-buttons">
-                       <button class="large-button" >TEAM 업무<br> 등록하기</br></button>
+                       <button type="button"class="btn-open-register-modal">
+                           TEAM 업무 등록하기
+                       </button>
                        <div class="inline-buttons">
                            <button>검색/정렬 초기화</button>
                            <button>선택 업무 숨기기</button>
@@ -86,9 +88,6 @@
 
                    </div>
                </div>
-
-
-
                <!-- 업무 리스트 -->
                <section class="task-list">
                    <table>
@@ -144,9 +143,76 @@
                </section>
            </main>
        </div>
+<!-- Modal -->
+   <div class="popup">
+           <button class="btn-modal-close">x</button>
+           <h2>TEAM 업무 등록하기</h2>
+           <label>제목</label>
+           <input type="text" placeholder="제목을 입력하세요">
+
+           <label>중요도</label>
+           <select>
+               <option>중요도를 선택</option>
+               <option>낮음</option>
+               <option>보통</option>
+               <option>높음</option>
+           </select>
+
+           <label>진행상황</label>
+           <select>
+               <option>진행상황을 선택</option>
+               <option>진행 전</option>
+               <option>진행 중</option>
+               <option>완료</option>
+           </select>
+
+           <label>일시</label>
+           <div class="date-time">
+               <input type="date">
+               <select>
+                   <option>00시</option>
+                   <option>01시</option>
+                   <!-- ... -->
+                   <option>23시</option>
+               </select>
+               <select>
+                   <option>00분</option>
+                   <option>30분</option>
+               </select>
+           </div>
+
+           <label>참여자</label>
+           <button id="open-participant-popup hidden">참여자 선택</button>
+           <div id="selected-participants"></div>
+
+           <label>내용</label>
+           <textarea maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+
+           <button>추가하기</button>
+       </div>
+
+       <div class="participant-popup hidden">
+           <button class="btn-modal-close">x</button>
+           <h2>참여자 선택</h2>
+           <table>
+               <thead>
+                   <tr>
+                       <th>선택</th>
+                       <th>부서</th>
+                       <th>이름</th>
+                       <th>직위</th>
+                   </tr>
+               </thead>
+               <tbody id="participant-list">
+                   <!-- JavaScript로 추가 -->
+               </tbody>
+           </table>
+           <button id="close-participant-popup">선택완료</button>
+       </div>
 
 
 </body>
+<script src="${contextPath}/js/todo.js"></script>
 </html>
 
 <script>
@@ -181,4 +247,3 @@ console.log(stageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
 
 </script>
 
-<script src="${contextPath}/js/todo.js"></script>

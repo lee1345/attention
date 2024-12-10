@@ -97,6 +97,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    table-layout: fixed; /* 열 너비 고정 */
 }
 
 .freeBoard-table th,
@@ -105,6 +106,40 @@
     border-bottom: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+    overflow: hidden; /* 내용이 길면 잘리게 설정 */
+    text-overflow: ellipsis; /* 생략 표시 (...) 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+/* 열 너비 고정 */
+.freeBoard-table th:nth-child(1), /* 번호 */
+.freeBoard-table td:nth-child(1) {
+    width: 5%; /* 번호 열 크기 */
+}
+
+.freeBoard-table th:nth-child(2), /* 분류 */
+.freeBoard-table td:nth-child(2) {
+    width: 10%; /* 분류 열 크기 */
+}
+
+.freeBoard-table th:nth-child(3), /* 제목 */
+.freeBoard-table td:nth-child(3) {
+    width: 23%; /* 제목 열 크기 */
+}
+
+.freeBoard-table th:nth-child(4), /* 내용 */
+.freeBoard-table td:nth-child(4) {
+    width: 42%; /* 내용 열 크기 */
+}
+
+.freeBoard-table th:nth-child(5), /* 작성자 */
+.freeBoard-table td:nth-child(5) {
+    width: 6%; /* 작성자 열 크기 */
+}
+
+.freeBoard-table th:nth-child(6), /* 날짜 */
+.freeBoard-table td:nth-child(6) {
+    width: 10%; /* 날짜 열 크기 */
 }
 
 .freeBoard-table th {

@@ -25,11 +25,11 @@ public class TodoVO {
 //    T_CREATED_ID VARCHAR2(20)
 
     private String t_id;
-    private String t_group;
-    private String t_dept;
-    private String t_stage;
-    private String t_priority;
-    private String t_content;
+    private String t_group;     //그룹
+    private String t_dept;      //부서
+    private String t_stage;    //진행상황
+    private String t_priority; //중요도
+    private String t_content;  //내용
     private String t_start_date;
     private String t_start_time;
     private String t_end_date;
