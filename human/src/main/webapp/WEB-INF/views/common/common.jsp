@@ -11,7 +11,10 @@
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/common.css" />
     <!-- JS 파일 로드 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="${contextPath}/js/common.js" defer></script>
+    <script src="${contextPath}/js/alarm.js" defer></script>
+
 
     <title>ATTENTION</title>
   </head>
@@ -24,7 +27,7 @@
         <div class="user-info">
           <span>${employee.e_dept}팀</span>
           <span>${employee.e_name} ${employee.e_position}</span>
-          <span><i class="fa-solid fa-bell"></i></span>
+          <span><i class="fa-solid fa-bell" id="show-alarm-popup" style="cursor: pointer;"></i></span>
           <span><a id="comMyPage">MyPage</a><span>
           <span><a id="login">Logout</a><span>
         </div>
@@ -75,6 +78,24 @@
                 <input type="password" id="password" name="password" /><br>
                 <button type="submit" class="submit-btn">등록</button>
             </form>
+        </div>
+
+        <!-- 알림 팝업 -->
+        <div id="alarm-popup" class="hidden">
+            <div class="A-popup-content">
+                <button class="A-close-btn" onclick="closeAlarmPopup()">X</button>
+                <h2 id="A-popup-title">알림 기록</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>시간</th>
+                            <th>내용</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alarm-table-body"></tbody>
+                </table>
+            </div>
         </div>
   </body>
 </html>
