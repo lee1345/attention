@@ -2,7 +2,6 @@ package fs.four.human.address.controller;
 
 import fs.four.human.address.service.AddressService;
 import fs.four.human.address.vo.AddressVO;
-import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;

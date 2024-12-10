@@ -95,8 +95,6 @@
         <div id="popupAddressGroup"/></div>
 
         <!-- 수정/삭제 버튼 -->
-        <div class="actions" id="popupActions">
-        <!-- 조건부 렌더링 -->
         </div>
         <div class="action-buttons">
             <button class="edit-btn" data-id="${data.b_Id}">수정</button>

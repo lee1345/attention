@@ -1,7 +1,6 @@
 package fs.four.human.address.dao;
 
 import fs.four.human.address.vo.AddressVO;
-import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
