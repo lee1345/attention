@@ -1,11 +1,13 @@
 package fs.four.human.common.controller;
-
 import fs.four.human.common.service.CommonService;
 import fs.four.human.common.vo.CommonVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/common") // REST API의 기본 경로 설정
@@ -33,4 +35,16 @@ public class CommonRestController {
             return ResponseEntity.status(500).body("업데이트 실패");
         }
     }
+    //알림
+    @GetMapping("/alarms")
+    public List<String> getAlarms(HttpSession session) {
+        String sessionId = (String) session.getAttribute("sessionId");
+        if (sessionId == null) {
+            return Collections.emptyList(); // 세션 ID가 없을 경우 빈 리스트 반환
+        }
+        return commonService.getAlertMessages(sessionId);
+    }
+
+
+
 }

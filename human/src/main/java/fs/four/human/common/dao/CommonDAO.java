@@ -10,4 +10,6 @@ public interface CommonDAO {
     CommonVO getEmployeeById(String e_id);
 
     int updateEmployee(CommonVO employee); // 사용자 정보 업데이트 메서드
+
 }
+
