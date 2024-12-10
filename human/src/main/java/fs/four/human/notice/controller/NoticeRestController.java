@@ -25,9 +25,15 @@ public class NoticeRestController {
     public List<NoticeVO> searchNotice(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {
+
+        // 디버깅 로그
+        System.out.println("검색 필터 category: " + category);
+        System.out.println("검색어 query: " + query);
+
         if (category == null || category.isEmpty() || query == null || query.isEmpty()) {
             throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
         }
+
         return noticeService.searchNotice(category, query);
     }
 
@@ -35,6 +41,7 @@ public class NoticeRestController {
     @PostMapping("/register")
     @ResponseBody
     public String createNotice(@RequestBody NoticeVO notice) {
+
         if (notice.getB_Content() == null || notice.getB_Content().trim().isEmpty()) {
             throw new IllegalArgumentException("내용은 필수 입력 항목입니다.");
         }

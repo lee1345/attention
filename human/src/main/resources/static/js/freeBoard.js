@@ -15,6 +15,26 @@ function freeBoardAllData() {
 
 //========================================================
 
+// 날짜 포맷 변환 함수
+function formatDate(dateString) {
+    if (!dateString) {
+            return "날짜 없음"; // 기본 메시지
+    }
+
+    const parsedDate  = new Date(dateString);
+    if (isNaN(parsedDate )) {
+        return "유효하지 않은 날짜"; // 날짜 형식이 잘못된 경우
+    }
+
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+//======================================================================================================
+
 // 테이블 렌더링 함수
 function renderTable(data) {
     const freeBoardTable = $('#freeBoardTable');
@@ -26,29 +46,28 @@ function renderTable(data) {
         return;
     }
 
-    // 날짜 포맷 변환 함수
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+    // HTML 태그 제거 함수
+    function stripHtmlTags(str) { // [수정] HTML 태그 제거 함수 추가
+        return str
+            .replace(/<\/?[^>]+(>|$)/g, "") // HTML 태그 제거
+            .replace(/ /g, "&nbsp;"); // 띄어쓰기를 &nbsp;로 변환
     }
 
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(freeBoard => {
         const formattedDate = formatDate(freeBoard.b_CreatedDate);
+        const contentPreview = stripHtmlTags(freeBoard.b_Content).substring(0, 50); // [수정] 내용 글자수 제한
 
         // 카테고리 변환
         const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
         const categoryName = categoryMap[freeBoard.b_Category] || "알 수 없음";
 
         const row = `
-            <tr>
+            <tr class="freeBoard-row" data-id="${freeBoard.b_Id}">
                 <td>${freeBoard.b_Id}</td>
                 <td>${categoryName}</td>
                 <td>${freeBoard.b_Title}</td>
-                <td>${freeBoard.b_Content}</td>
+                <td>${contentPreview}</td>
                 <td>${freeBoard.b_Writer}</td>
                 <td>${formattedDate}</td>
             </tr>
@@ -111,8 +130,9 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
 
-// 팝업창
+// 등록 팝업창
 $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
@@ -131,8 +151,8 @@ $(document).ready(function () {
 
     // Summernote 값 가져오기 (HTML 태그 포함)
     let content = $('#summernote').summernote('code');
-    // HTML 태그 제거
-    content = $('<div>').html(content).text();
+//    // HTML 태그 제거
+//    content = $('<div>').html(content).text();
 
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
@@ -159,6 +179,8 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
+
 // 카테고리 클릭 시 해당 데이터 조회
 $(document).ready(function () {
     // 네비게이션 카테고리 클릭 이벤트
@@ -178,5 +200,36 @@ $(document).ready(function () {
                 alert("데이터 조회 실패!");
             }
         });
+    });
+});
+
+//======================================================================================================
+
+// 테이블 데이터를 클릭하면 팝업 표시
+$(document).on('click', '.freeBoard-row', function () {
+    const freeBoardId = $(this).data('id'); // 공지사항 ID 가져오기
+    $('#popupOverlay').fadeIn();
+
+    // 팝업 닫기
+    $('#closeFreeBoardPopup').on('click', function () {
+        $('#popupOverlay, #freeBoardPopup').fadeOut();
+    });
+
+    // AJAX 요청으로 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/freeBoard/${freeBoardId}`,
+        success: function (data) {
+            console.log("Fetched Data:", data);
+
+            $('#popupFreeBoardTitle').text(data.b_Title);
+            $('#popupFreeBoardContent').html(data.b_Content);
+            $('#popupFreeBoardWriter').text(data.b_Writer);
+            $('#popupFreeBoardDate').text(formatDate(data.b_CreatedDate));
+            $('#FreeBoardePopupOverlay, #freeBoardPopup').fadeIn();
+        },
+        error: function () {
+            alert('데이터를 가져오지 못했습니다.');
+        }
     });
 });

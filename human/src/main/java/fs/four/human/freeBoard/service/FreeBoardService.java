@@ -27,6 +27,11 @@ public class FreeBoardService {
         return freeBoardDAO.getFreeBoardByCategory(category);
     }
 
+    // 특정 공지사항 조회
+    public FreeBoardVO getFreeBoardById(int id) {
+        return freeBoardDAO.getFreeBoardById(id);
+    }
+
     // 새로운 게시물 데이터 등록
     public void createFreeBoard(FreeBoardVO freeBoard) {
         freeBoardDAO.createFreeBoard(freeBoard);

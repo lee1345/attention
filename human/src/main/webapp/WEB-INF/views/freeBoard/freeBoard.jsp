@@ -104,5 +104,23 @@
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>
+
+<!-- 내용 팝업 -->
+<div class="popup hidden" id="freeBoardPopup">
+    <button class="close-btn" id="closeFreeBoardPopup">X</button>
+    <div class="title"><h2 id="popupTitle">자유게시판</h2></div>
+    <div class="contentPopup">
+        <div class="sub">
+            <div>날짜   <span id="popupFreeBoardDate"></span></div>
+            <div>작성자 <span id="popupFreeBoardWriter"></span></div>
+        </div>
+        <div class="content">
+            <div id="popupFreeBoardTitle"></div><br>
+            <p>상세 내용</p>
+            <div id="popupFreeBoardContent">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

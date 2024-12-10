@@ -21,9 +21,8 @@
 
 </head>
 <body>
+
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
-
-
 
 <div class="notice">
     <h2>공지사항</h2><br>

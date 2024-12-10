@@ -42,7 +42,7 @@ function renderTable(data) {
 
     if (data.length === 0) {
         // 데이터가 없을 경우 메시지 출력
-        noticeTable.append(`<tr><td colspan="5" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        noticeTable.append(`<tr><td colspan="7" style="text-align: center;">데이터가 없습니다.</td></tr>`);
         return;
     }
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
         toolbar: [
             ["style", ["bold", "italic", "underline", "clear"]], // 굵게, 기울임, 밑줄
             ["para", ["ul", "ol", "paragraph"]], // 목록, 정렬
-            ["insert", ["link", "picture", "video"]] // 삽입 옵션
+//            ["insert", ["link", "picture", "video"]] // 삽입 옵션
         ]
     });
 
@@ -138,7 +138,8 @@ $(document).ready(function () {
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
-        $('#summernote').summernote('reset'); // Summernote 초기화
+//        $('#summernote').summernote('reset'); // Summernote 초기화
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 등록 폼 제출

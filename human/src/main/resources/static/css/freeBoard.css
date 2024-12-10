@@ -20,17 +20,19 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
 .search-register .filter-group {
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-right: 10px;
 }
 
 /* 자유게시판 카테고리 스타일 */
 .navbar {
-    margin: 20px;
+    margin: 30px;
 }
 
 .navbar ul {
@@ -64,9 +66,9 @@
     top: 50%;
     right: -15px;
     transform: translateY(-50%);
-    width: 2px; /* 선의 두께 */
+    width: 2px;
     height: 80%;
-    background-color: black; /* 선의 색상 */
+    background-color: black;
 }
 
 .search-register select,
@@ -97,7 +99,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    table-layout: fixed; /* 열 너비 고정 */
+    table-layout: fixed;
 }
 
 .freeBoard-table th,
@@ -109,6 +111,7 @@
     overflow: hidden; /* 내용이 길면 잘리게 설정 */
     text-overflow: ellipsis; /* 생략 표시 (...) 추가 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    cursor: pointer;
 }
 
 /* 열 너비 고정 */
@@ -185,10 +188,10 @@
 
 /* 팝업 제목 스타일 */
 .popup h2 {
-  font-size: 22px;
+  font-size: 30px;
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 /* 제목과 카테고리 병렬 배치 */
@@ -278,4 +281,37 @@
 /* 팝업 닫기 버튼 호버 스타일 */
 .popup .close-btn:hover {
     background: darkred;
+}
+
+/* 내용 팝업 */
+.contentPopup {
+    padding: 20px 50px 50px 50px;
+}
+
+.contentPopup .sub{
+    position: absolute;
+    right: 80px;
+    top: 150px;
+    text-align: left;
+    font-size: 16px;
+    color: #555;
+}
+
+.contentPopup .sub div {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.contentPopup .content {
+    margin-top: 70px;
+}
+
+.contentPopup .content #popupFreeBoardTitle {
+    border-bottom: 1px solid #ddd;
+}
+
+.contentPopup .content #popupFreeBoardTitle {
+    font-size: 18px;
+    line-height: 1.5;
+    padding-bottom: 10px;
 }

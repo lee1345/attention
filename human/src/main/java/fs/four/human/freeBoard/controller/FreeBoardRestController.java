@@ -14,7 +14,7 @@ public class FreeBoardRestController {
     @Autowired
     private FreeBoardService freeBoardService;
 
-    // 전체 주소 데이터 반환 (JSON)
+    // 전체 데이터 반환 (JSON)
     @GetMapping
     public List<FreeBoardVO> getAllFreeBoard() {
         try {
@@ -59,7 +59,7 @@ public class FreeBoardRestController {
         }
     }
 
-    // 새로운 주소 데이터 등록 API
+    // 게시판 데이터 등록 API
     @PostMapping("/register")
     @ResponseBody
     public String createFreeBoard(@RequestBody FreeBoardVO freeBoard) {
@@ -82,4 +82,15 @@ public class FreeBoardRestController {
             return "등록 실패: " + e.getMessage();
         }
     }
+
+    // 특정 게시판 데이터 반환
+    @GetMapping("/{id}")
+    public FreeBoardVO getFreeBoardById(@PathVariable("id") int id) {
+        FreeBoardVO freeBoard = freeBoardService.getFreeBoardById(id);
+        if (freeBoard == null) {
+            throw new IllegalArgumentException("해당 게시판을 찾을 수 없습니다.");
+        }
+        return freeBoard;
+    }
+
 }
