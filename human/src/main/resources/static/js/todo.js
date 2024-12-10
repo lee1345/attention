@@ -135,11 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 오버레이 클릭 시 모달 닫기
-    overlay.addEventListener('click', () => {
-        modal.style.display = 'none';
-        overlay.style.display = 'none';
-    });
+
 
     // "추가하기" 버튼 클릭 시 이벤트 처리
     const addButton = modal.querySelector('button:last-of-type'); // '추가하기' 버튼
@@ -173,4 +169,74 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+// 참여자 팝업 열기 버튼
+document.getElementById('open-participant-popup').addEventListener('click', () => {
+        console.log('버튼 클릭됨');
+        const popup = document.getElementById('participant-popup');
+        popup.classList.remove('hidden');
+        popup.classList.add('visible');
+
+});
+
+// 닫기 버튼으로 팝업 숨기기
+document.querySelectorAll('.btn-modal-close').forEach(button => {
+    button.addEventListener('click', () => {
+           const popup = button.closest('#participant-popup');
+           popup.classList.add('hidden');
+           popup.classList.remove('visible');
+    });
+});
+
+// 참여자 선택 완료 버튼
+document.getElementById('close-participant-popup').addEventListener('click', () => {
+    const checkboxes = document.querySelectorAll('#participant-list input[type="checkbox"]');
+    let selectedParticipants = [];
+    checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+            selectedParticipants.push(participants[index].name);
+        }
+    });
+
+    if (selectedParticipants.length > 5) {
+        alert('최대 5명까지만 선택할 수 있습니다.');
+        return;
+    }
+
+    document.querySelector('.participant-popup').classList.add('hidden');
+    updateSelectedParticipantsDisplay(selectedParticipants);
+});
+
+// 선택된 참여자 표시 업데이트
+function updateSelectedParticipantsDisplay(selectedParticipants) {
+    const participantDisplay = document.getElementById('selected-participants');
+    participantDisplay.textContent = selectedParticipants.join(', ') || '선택된 참여자가 없습니다.';
+}
+
+// 샘플 참여자 데이터
+const participants = [
+    { department: '인사팀', name: '김혜민', position: '이사' },
+    { department: '인사팀', name: '이정규', position: '부장' },
+    { department: '인사팀', name: '이태웅', position: '과장' },
+    { department: '인사팀', name: '전지훈', position: '대리' },
+    { department: '인사팀', name: '강순구', position: '사원' },
+    { department: '인사팀', name: '김길동', position: '인턴' },
+];
+
+const participantList = document.getElementById('participant-list');
+
+// 참여자 목록 채우기
+participants.forEach(participant => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td><input type="checkbox"></td>
+        <td>${participant.department}</td>
+        <td>${participant.name}</td>
+        <td>${participant.position}</td>
+    `;
+    participantList.appendChild(row);
+});
+
 });

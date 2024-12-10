@@ -5,12 +5,13 @@ body {
 }
 
 .layout-container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
 }
 
 h1{
@@ -53,8 +54,8 @@ h2 {
 }
  
 .chart-container {
-    width: 270px; /* 부모 컨테이너의 너비를 제한 */
-    height: 270px; /* 부모 컨테이너의 높이를 제한 */
+    width: 180px; /* 부모 컨테이너의 너비를 제한 */
+    height: 180px; /* 부모 컨테이너의 높이를 제한 */
     overflow: hidden; /* 컨테이너를 넘어가는 차트 내용은 숨김 */
 }
 
@@ -71,8 +72,8 @@ h2 {
 }
 
 #departmentChart, #myTaskChart {
-    width: 270px; /* 차트 크기 고정 */
-    height: 270px;
+    width: 180px; /* 차트 크기 고정 */
+    height: 180px;
 }
 
 .chart canvas {
@@ -185,26 +186,28 @@ h2 {
 }
 
 .filters {
+    max-width: 450px; /* 크기 줄이기 */
     background-color: #ffffff; /* 섹션 배경색 */
-    padding: 20px; /* 내부 여백 */
+    padding: 15px; /* 내부 여백 줄이기 */
     border: 1px solid #eaeaea; /* 테두리 */
     border-radius: 8px; /* 둥근 모서리 */
     box-shadow: 0 4px 6px rgba(226, 226, 226, 0.1); /* 그림자 효과 */
-    margin-bottom: 20px; /* 아래 요소와 간격 */
+    margin-bottom: 15px; /* 아래 요소와 간격 */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px; /* 요소 간 간격 줄이기 */
 }
 
-.filter-row{
+.filter-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 10px; /* 필터 내부 간격 줄이기 */
 }
 
 .filter-row i {
-    font-size: 16px; /* 아이콘 크기 */
+    margin-top:10px
+    font-size: 14px; /* 아이콘 크기 */
     color: #333; /* 아이콘 색상 */
 }
 
@@ -212,21 +215,19 @@ h2 {
 
 
 .filter-row label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     margin-right: 5px; /* 레이블과 드롭다운 간 간격 */
 }
 
 .filter-row select,
 .filter-row input[type="text"] {
-    padding: 5px 10px;
-    font-size: 14px;
+    padding: 4px 8px; /* 패딩 줄이기 */
+    font-size: 13px; /* 글자 크기 조정 */
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 200px; /* 필드 너비 */
+    width: 100px; /* 필드 너비 줄이기 */
 }
-
-
 .filter-row input {
     flex-grow: 1; /* 검색 필드가 넓게 늘어나도록 설정 */
 }
@@ -234,7 +235,7 @@ h2 {
 
 
 .filters label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     margin-right: 10px; /* 레이블과 입력 필드 간 간격 */
 }
@@ -245,32 +246,36 @@ h2 {
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 150px; /* 구분 및 검색 필드 너비 */
+    width: 115px; /* 구분 및 검색 필드 너비 */
+    height: 35px;
 }
 
 .filters button {
     background-color: none;
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px 12px;
+    font-size: 15px;
     color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 17px;
 }
 
-/* .filters button:hover {
+ .filters button:hover {
     background-color: #e4dcdc;
-} */
+}
 
 .sort-options {
-    margin-right: 90px;
-    gap: 15px; /* 버튼 간 간격 */
+    gap: 10px; /* 버튼 간 간격 */
     display: flex;
     justify-content: flex-start; /* 왼쪽 정렬 */
     margin-left: -10px;
 }
 
 .sort-options button {
+   text-align: center; /* 텍스트 가운데 정렬 */
+    width: auto; /* 버튼 너비를 내용에 맞게 자동 조정 */
+    min-width: 80px; /* 버튼 최소 너비 설정 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     background: none; /* 배경 제거 */
     border: none; /* 테두리 제거 */
     color: inherit; /* 텍스트 기본 색상 사용 */
@@ -366,7 +371,7 @@ h2 {
     margin-bottom: 20px;
     color: #afb7c0;
     margin-left: 10px; /* 검색 필드와 버튼 사이에 간격을 줍니다 */
-    width: 150px;
+    width: 110px;
     height: 40px;
 }
 
@@ -388,7 +393,15 @@ body {
     background-color: #f4f4f9;
 }
 
-.popup, .participant-popup {
+.task-popup-wrapper {
+    display: flex; /* 팝업을 가로로 정렬 */
+    gap: 20px; /* 두 팝업 사이의 간격 */
+    position: relative; /* 컨테이너 기준 위치 설정 */
+    justify-content: flex-start; /* 팝업들을 왼쪽 정렬 */
+    align-items: flex-start; /* 팝업 상단 정렬 */
+}
+
+.popup {
     display: none; /* 기본적으로 숨김 */
     border: 1px solid #ddd;
     padding: 20px;
@@ -398,9 +411,26 @@ body {
     width: 400px;
     position: fixed; /* 화면에 고정 */
     top: 50%; /* 화면 중앙 정렬 */
-    left: 50%; /* 화면 중앙 정렬 */
+    left: calc(50% - 220px); /* 업무 등록 창 오른쪽에 배치 (너비에 따라 조정 가능) */
     transform: translate(-50%, -50%); /* 정렬 보정 */
     z-index: 1001; /* 오버레이 위에 표시 */
+}
+
+#participant-popup {
+
+    display: none; /* 기본적으로 숨김 */
+    width: 400px;
+    padding: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute; /* 부모 기준 상대 위치 */
+    z-index: 1100; /* 오버레이 위에 표시 */
+}
+
+#participant-popup.visible {
+    display: block; /* 팝업 보이기 */
 }
 
 .hidden {
@@ -418,6 +448,25 @@ body {
     z-index: 1000; /* 팝업보다 낮은 z-index */
 }
 
+
+.btn-open-register-modal {
+    font-weight:bold;
+    padding: 12px 24px; /* 버튼 내부 여백 (세로, 가로) */
+    font-size: 20px; /* 글자 크기 */
+    width: 180px; /* 버튼의 고정 너비 */
+    height: 160px; /* 버튼의 고정 높이 */
+    border-radius: 10px; /* 둥근 모서리 */
+    background-color: #4CAF50; /* 배경색 (예: 녹색) */
+    color: #fff; /* 글자 색상 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 마우스를 올렸을 때 포인터 표시 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.btn-open-register-modal:hover {
+    background-color: #45a049; /* 호버 시 배경색 */
+}
+
 .btn-modal-close {
     position: absolute;
     top: 10px;
@@ -430,7 +479,9 @@ body {
     cursor: pointer;
 }
 
-.popup h2, .participant-popup h2 {
+
+
+.popup h2, #participant-popup h2 {
     text-align: center;
     margin-bottom: 20px;
 }
