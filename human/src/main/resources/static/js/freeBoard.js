@@ -236,7 +236,7 @@ $(document).on('click', '.freeBoard-row', function () {
             $('#FreeBoardePopupOverlay, #freeBoardPopup').fadeIn();
 
             // 수정/삭제 버튼 렌더링
-            const popupActions = $('#popupActions');
+            const popupActions = $('.action-buttons');
             popupActions.empty(); // 기존 버튼 제거
 
             // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
@@ -313,8 +313,8 @@ $('#editForm').on('submit', function (event) {
         b_Id: $('#editFreeBoardId').val(),
         b_Title: $('#editTitle').val(),
         b_Content: $('#editSummernote').summernote('code'),
-        b_Writer: loggedInUser,
-        b_Category: $('#editCategory').val()
+        b_Writer: loggedInUser, // 현재 로그인 사용자
+        b_Category: $('#editCategory').val() // 수정된 카테고리
     };
 
     $.ajax({

@@ -127,7 +127,10 @@
         <div class="actions" id="popupActions">
             <!-- 조건부 렌더링 -->
         </div>
-
+        <div class="action-buttons">
+            <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+            <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+        </div>
     </div>
 </div>
 
