@@ -38,7 +38,7 @@
             </section>
            <div class="my-buttons-container">
                <!-- 큰 버튼 -->
-               <button class="my-large-button">나의 할일 <br>등록하기</br></button>
+               <button class="my-large-button" id="openPopup">나의 할일 <br>등록하기</br></button>
 
                <!-- 작은 버튼 그룹 -->
                <div class="my-inline-buttons">
@@ -111,7 +111,59 @@
         </section>
     </main>
 </div>
+<!-- 팝업 배경 오버레이 -->
+    <div class="popup-overlay" id="popupOverlay"></div>
 
+    <!-- 팝업 -->
+    <div class="popup hidden" id="popup">
+        <button class="close-btn" id="closePopup">X</button>
+        <h2>나의 할일 등록하기</h2>
+        <form id="registerForm">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" required /><br>
+            <label for="priority">우선순위</label>
+            <select class="priority">
+                <option value="select">중요도 선택</option>
+                <option value="very-urgent">매우 긴급</option>
+                <option value="urgent">긴급</option>
+                <option value="normal">보통</option>
+                <option value="slowly">천천히</option>
+            </select>
+            <div class="time">
+                <label for="time">일시</label><br>
+                <input type="date" id="date" name="date" required></input>
+                <select name="hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <option selected>시</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                </select>
+                <select name="minute">
+                    <option selected>분</option>
+                    <option>0</option>
+                    <option>30</option>
+                </select>
+            </div>
+            <label for="context">내용</label>
+            <textarea name="context" cols="50" rows="10" required></textarea>
+            <button type="submit" class="submit-btn">등록</button>
+        </form>
+    </div>
 <script src="${contextPath}/js/mytodo.js"></script>
 </body>
 </html>

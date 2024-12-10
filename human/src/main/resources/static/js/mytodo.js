@@ -118,3 +118,26 @@ createChart(
     [2, 0, 1, 0, 1], // 데이터
     ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90'] // 색상 배열
 );
+// 요소 선택
+const openPopupBtn = document.getElementById('openPopup');
+const closePopupBtn = document.getElementById('closePopup');
+const popupOverlay = document.getElementById('popupOverlay');
+const popup = document.getElementById('popup');
+
+// 팝업 열기
+openPopupBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'block';
+    popup.style.display = 'block';
+});
+
+// 팝업 닫기
+closePopupBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+});
+
+// 팝업 외부 클릭 시 닫기
+popupOverlay.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+});
