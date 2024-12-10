@@ -110,6 +110,9 @@
     <button class="close-btn" id="closeFreeBoardPopup">X</button>
     <div class="title"><h2 id="popupTitle">자유게시판</h2></div>
     <div class="contentPopup">
+        <div class="title-category">
+            <h3 id="popupCategory"></h3>
+        </div>
         <div class="sub">
             <div>날짜   <span id="popupFreeBoardDate"></span></div>
             <div>작성자 <span id="popupFreeBoardWriter"></span></div>

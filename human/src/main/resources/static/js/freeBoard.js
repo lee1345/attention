@@ -222,6 +222,10 @@ $(document).on('click', '.freeBoard-row', function () {
         success: function (data) {
             console.log("Fetched Data:", data);
 
+            const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
+            const categoryName = categoryMap[data.b_Category] || "알 수 없음";
+
+            $('#popupCategory').text(categoryName);
             $('#popupFreeBoardTitle').text(data.b_Title);
             $('#popupFreeBoardContent').html(data.b_Content);
             $('#popupFreeBoardWriter').text(data.b_Writer);
