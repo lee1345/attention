@@ -99,7 +99,7 @@
             <div id="popupNoticeTitle"></div><br>
             <p>상세 내용</p>
             <div id="popupNoticeContent">
-                <c:out value="${notice.b_Content}" escapeXml="false" />
+
             </div>
         </div>
     </div>

@@ -35,14 +35,20 @@ function renderTable(data) {
         return `${year}-${month}-${day}`;
     }
 
+    // HTML 태그 제거 함수
+    function stripHtmlTags(str) { // [수정] HTML 태그 제거 함수 추가
+        return str.replace(/<\/?[^>]+(>|$)/g, "");
+    }
+
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(notice => {
         const formattedDate = formatDate(notice.b_CreatedDate);
+        const contentPreview = stripHtmlTags(notice.b_Content).substring(0, 50); // [수정] 내용 글자수 제한
         const row = `
             <tr class="notice-row" data-id="${notice.b_Id}">
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
-                <td>${notice.b_Content}</td>
+                <td>${contentPreview}...</td>
                 <td>${notice.b_Writer}</td>
                 <td>${formattedDate}</td>
             </tr>
