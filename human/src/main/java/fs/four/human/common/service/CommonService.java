@@ -12,6 +12,6 @@ public interface CommonService {
     boolean updateEmployeeInfo(CommonVO employee);
 
     // 알림
-    List<String> getAlertMessages(String sessionId); // 알림 메시지 목록 반환
+//    List<String> getAlertMessages(String sessionId); // 알림 메시지 목록 반환
 
 }

@@ -50,29 +50,29 @@ public class CommonServiceImpl implements CommonService{
     }
 
     //알림
-    @Override
-    public List<String> getAlertMessages(String sessionId) {
-        List<TodoVO> alertTodos = commonDAO.getAlertTodos(sessionId);
-        List<String> alertMessages = new ArrayList<>();
-        LocalDateTime now = LocalDateTime.now();
-
-        for (TodoVO todo : alertTodos) {
-            LocalDateTime startTime = todo.getT_start_date;
-            String message = null;
-
-            // 30분 전 또는 정각 조건에 따라 메시지 생성
-            if (now.isEqual(startTime.minusMinutes(30))) {
-                message = String.format("[30분 전 알림] '%s' 할 일이 곧 시작됩니다.", todo.getT_title());
-            } else if (now.isEqual(startTime)) {
-                message = String.format("[정각 알림] '%s' 할 일이 시작됩니다.", todo.getT_title());
-            }
-
-            if (message != null) {
-                alertMessages.add(message);
-            }
-        }
-
-        return alertMessages;
-    }
+//    @Override
+//    public List<String> getAlertMessages(String sessionId) {
+//        List<TodoVO> alertTodos = commonDAO.getAlertTodos(sessionId);
+//        List<String> alertMessages = new ArrayList<>();
+//        LocalDateTime now = LocalDateTime.now();
+//
+//        for (TodoVO todo : alertTodos) {
+//            LocalDateTime startTime = todo.getT_start_date;
+//            String message = null;
+//
+//            // 30분 전 또는 정각 조건에 따라 메시지 생성
+//            if (now.isEqual(startTime.minusMinutes(30))) {
+//                message = String.format("[30분 전 알림] '%s' 할 일이 곧 시작됩니다.", todo.getT_title());
+//            } else if (now.isEqual(startTime)) {
+//                message = String.format("[정각 알림] '%s' 할 일이 시작됩니다.", todo.getT_title());
+//            }
+//
+//            if (message != null) {
+//                alertMessages.add(message);
+//            }
+//        }
+//
+//        return alertMessages;
+//    }
 
 }

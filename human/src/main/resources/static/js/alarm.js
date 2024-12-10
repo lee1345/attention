@@ -65,27 +65,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 });
-
-// 알림 데이터를 주기적으로 가져오는 함수
-function fetchAlerts() {
-    $.ajax({
-        url: '/common/alarms', // 알림 API 호출
-        method: 'GET',
-        success: function (data) {
-            if (data && data.length > 0) {
-                data.forEach(alertMessage => {
-                    alert(alertMessage); // 알림 표시
-                });
-            }
-        },
-        error: function (error) {
-            console.error('알림 데이터를 가져오는데 실패했습니다:', error);
-        }
-    });
-}
-
-// 페이지 로드 시 알림 확인 및 주기적인 알림 호출 설정
-$(document).ready(function () {
-    setInterval(fetchAlerts, 60000); // 1분마다 알림 확인
-    fetchAlerts(); // 페이지 로드 시 한 번 호출
-});
+//
+//// 알림 데이터를 주기적으로 가져오는 함수
+//function fetchAlerts() {
+//    $.ajax({
+//        url: '/common/alarms', // 알림 API 호출
+//        method: 'GET',
+//        success: function (data) {
+//            if (data && data.length > 0) {
+//                data.forEach(alertMessage => {
+//                    alert(alertMessage); // 알림 표시
+//                });
+//            }
+//        },
+//        error: function (error) {
+//            console.error('알림 데이터를 가져오는데 실패했습니다:', error);
+//        }
+//    });
+//}
+//
+//// 페이지 로드 시 알림 확인 및 주기적인 알림 호출 설정
+//$(document).ready(function () {
+//    setInterval(fetchAlerts, 60000); // 1분마다 알림 확인
+//    fetchAlerts(); // 페이지 로드 시 한 번 호출
+//});

@@ -36,15 +36,13 @@ public class CommonRestController {
         }
     }
     //알림
-    @GetMapping("/alarms")
-    public List<String> getAlarms(HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
-        if (sessionId == null) {
-            return Collections.emptyList(); // 세션 ID가 없을 경우 빈 리스트 반환
-        }
-        return commonService.getAlertMessages(sessionId);
-    }
-
-
+//    @GetMapping("/alarms")
+//    public List<String> getAlarms(HttpSession session) {
+//        String sessionId = (String) session.getAttribute("sessionId");
+//        if (sessionId == null) {
+//            return Collections.emptyList(); // 세션 ID가 없을 경우 빈 리스트 반환
+//        }
+//        return commonService.getAlertMessages(sessionId);
+//    }
 
 }
