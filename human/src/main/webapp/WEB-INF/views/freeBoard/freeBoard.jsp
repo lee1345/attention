@@ -150,7 +150,7 @@
         </select>
         <label for="editSummernote">내용</label>
         <div id="editSummernote"></div>
-        <button type="submit">저장</button>
+        <button type="submit" >저장</button>
     </form>
 </div>
 </body>

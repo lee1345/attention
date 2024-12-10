@@ -35,6 +35,24 @@ function formatDate(dateString) {
 
 //======================================================================================================
 
+
+// Summernote 에디터 초기화
+function initializeSummernote(selector) {
+    $(selector).summernote({
+        height: 300,
+        placeholder: "내용을 입력하세요",
+        toolbar: [
+            ["style", ["bold", "italic", "underline", "clear"]],
+            ["fontsize", ["fontsize"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["table", ["table"]]
+        ]
+    });
+}
+
+//======================================================================================================
+
 // 테이블 렌더링 함수
 function renderTable(data) {
     const freeBoardTable = $('#freeBoardTable');
@@ -82,16 +100,6 @@ $(document).ready(function () {
     // 전체 데이터 로드 (GET)
     freeBoardAllData();
 
-    // Summernote 에디터 초기화
-    $("#summernote").summernote({
-        height: 300,
-        placeholder: "내용을 입력하세요",
-        toolbar: [
-            ["style", ["bold", "italic", "underline", "clear"]],
-            ["para", ["ul", "ol", "paragraph"]],
-        ],
-    });
-
     // 엔터 키를 누르면 검색 버튼 클릭
     $('#query').on('keypress', function (event) {
         if (event.key === 'Enter') { // 엔터 키 감지
@@ -137,7 +145,7 @@ $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
-        $('#summernote').summernote('reset'); // Summernote 초기화
+        initializeSummernote('#summernote'); // Summernote 초기화
         $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
@@ -153,8 +161,8 @@ $(document).ready(function () {
         event.preventDefault(); // 기본 폼 제출 방지
 
     // Summernote 값 가져오기 (HTML 태그 포함)
-    let content = $('#summernote').summernote('code');
-//    // HTML 태그 제거
+//    let content = $('#summernote').summernote('code');
+    // HTML 태그 제거
 //    content = $('<div>').html(content).text();
 
     const formData = {
@@ -256,25 +264,6 @@ $(document).on('click', '.freeBoard-row', function () {
     });
 });
 
-// 삭제 버튼 클릭
-$(document).on('click', '.delete-btn', function () {
-    const freeBoardId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
-    if (confirm("정말 삭제하시겠습니까?")) {
-        $.ajax({
-            type: 'DELETE',
-            url: `/api/freeBoard/${freeBoardId}?user=${loggedInUser}`,
-            success: function () {
-                alert('삭제 성공!');
-                $('#popupOverlay, #freeBoardPopup').fadeOut(); // 팝업 닫기
-                freeBoardAllData(); // 데이터 다시 로드
-            },
-            error: function () {
-                alert('삭제 실패!');
-            }
-        });
-    }
-});
-
 // 수정 버튼 클릭
 $(document).on('click', '.edit-btn', function () {
     const freeBoardId = $(this).data('id'); // 수정할 게시글 ID 가져오기
@@ -290,12 +279,15 @@ $(document).on('click', '.edit-btn', function () {
         type: 'GET',
         url: `/api/freeBoard/${freeBoardId}`,
         success: function (data) {
-            console.log("Fetched Data for Edit:", data);
 
             $('#editTitle').val(data.b_Title); // 제목 로드
             $('#editCategory').val(data.b_Category); // 카테고리 로드
             $('#editSummernote').summernote('code', data.b_Content); // 내용 로드
             $('#editFreeBoardId').val(data.b_Id); // 게시글 ID 저장
+
+            // Summernote 초기화 및 데이터 로드
+            initializeSummernote('#editSummernote');
+            $('#editSummernote').summernote('code', data.b_Content);
 
             $('#popupOverlay, #editPopup').fadeIn();
         },
@@ -331,4 +323,23 @@ $('#editForm').on('submit', function (event) {
             alert('수정 실패!');
         }
     });
+});
+
+// 삭제 버튼 클릭
+$(document).on('click', '.delete-btn', function () {
+    const freeBoardId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/api/freeBoard/${freeBoardId}?user=${loggedInUser}`,
+            success: function () {
+                alert('삭제 성공!');
+                $('#popupOverlay, #freeBoardPopup').fadeOut(); // 팝업 닫기
+                freeBoardAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('삭제 실패!');
+            }
+        });
+    }
 });
