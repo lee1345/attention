@@ -137,11 +137,14 @@ $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
+        $('#summernote').summernote('reset'); // Summernote 초기화
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
+        $('#summernote').summernote('reset'); // Summernote 초기화
         $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
