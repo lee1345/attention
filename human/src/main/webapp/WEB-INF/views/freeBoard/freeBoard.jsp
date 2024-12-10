@@ -119,11 +119,36 @@
         </div>
         <div class="content">
             <div id="popupFreeBoardTitle"></div><br>
-            <p>상세 내용</p>
             <div id="popupFreeBoardContent">
             </div>
         </div>
+
+        <!-- 수정/삭제 버튼 -->
+        <div class="actions" id="popupActions">
+            <!-- 조건부 렌더링 -->
+        </div>
+
     </div>
+</div>
+
+<!-- 수정 팝업 -->
+<div class="popup hidden" id="editPopup">
+    <button class="close-btn" id="closeEditPopup">X</button>
+    <h2>게시글 수정</h2>
+    <form id="editForm">
+        <input type="hidden" id="editFreeBoardId" />
+        <label for="editTitle">제목</label>
+        <input type="text" id="editTitle" name="title" required />
+        <label for="editCategory">카테고리</label>
+        <select id="editCategory" name="category" required>
+            <option value="QnA">QnA</option>
+            <option value="Tips">꿀팁</option>
+            <option value="Free">자유이야기</option>
+        </select>
+        <label for="editSummernote">내용</label>
+        <div id="editSummernote"></div>
+        <button type="submit">저장</button>
+    </form>
 </div>
 </body>
 </html>

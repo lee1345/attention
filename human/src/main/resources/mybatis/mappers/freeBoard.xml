@@ -88,4 +88,26 @@
         )
     </insert>
 
+    <!-- 게시글 수정 -->
+    <update id="updateFreeBoard">
+        UPDATE BOARD
+        SET
+        B_TITLE = #{b_Title},
+        B_CONTENT = #{b_Content},
+        B_CATEGORY = CASE
+            WHEN #{b_Category} = 'QnA' THEN 'Q'
+            WHEN #{b_Category} = 'Tips' THEN 'T'
+            WHEN #{b_Category} = 'Free' THEN 'F'
+            ELSE NULL
+        END,
+        B_UPDATED_DATE = SYSDATE
+        WHERE B_ID = #{b_Id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteFreeBoard">
+        DELETE FROM BOARD
+        WHERE B_ID = #{id}
+    </delete>
+
 </mapper>

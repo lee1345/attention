@@ -234,9 +234,101 @@ $(document).on('click', '.freeBoard-row', function () {
             $('#popupFreeBoardWriter').text(data.b_Writer);
             $('#popupFreeBoardDate').text(formatDate(data.b_CreatedDate));
             $('#FreeBoardePopupOverlay, #freeBoardPopup').fadeIn();
+
+            // 수정/삭제 버튼 렌더링
+            const popupActions = $('#popupActions');
+            popupActions.empty(); // 기존 버튼 제거
+
+            // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
+            if (loggedInUser === data.b_Writer) {
+                popupActions.append(`
+                    <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+                    <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+                `);
+            }
+
+            $('#popupOverlay, #freeBoardPopup').fadeIn();
+
         },
         error: function () {
             alert('데이터를 가져오지 못했습니다.');
+        }
+    });
+});
+
+// 삭제 버튼 클릭
+$(document).on('click', '.delete-btn', function () {
+    const freeBoardId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/api/freeBoard/${freeBoardId}?user=${loggedInUser}`,
+            success: function () {
+                alert('삭제 성공!');
+                $('#popupOverlay, #freeBoardPopup').fadeOut(); // 팝업 닫기
+                freeBoardAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('삭제 실패!');
+            }
+        });
+    }
+});
+
+// 수정 버튼 클릭
+$(document).on('click', '.edit-btn', function () {
+    const freeBoardId = $(this).data('id'); // 수정할 게시글 ID 가져오기
+    $('#freeBoardPopup').fadeOut();
+
+    // 팝업 닫기
+    $('#closeEditPopup').on('click', function () {
+        $('#popupOverlay, #editPopup').fadeOut();
+    });
+
+    // 서버에서 해당 글의 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/freeBoard/${freeBoardId}`,
+        success: function (data) {
+            console.log("Fetched Data for Edit:", data);
+
+            $('#editTitle').val(data.b_Title); // 제목 로드
+            $('#editCategory').val(data.b_Category); // 카테고리 로드
+            $('#editSummernote').summernote('code', data.b_Content); // 내용 로드
+            $('#editFreeBoardId').val(data.b_Id); // 게시글 ID 저장
+
+            $('#popupOverlay, #editPopup').fadeIn();
+        },
+        error: function () {
+            alert('수정 데이터를 불러오지 못했습니다.');
+        }
+    });
+});
+
+// 수정 데이터 저장
+$('#editForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+
+    const formData = {
+        b_Id: $('#editFreeBoardId').val(),
+        b_Title: $('#editTitle').val(),
+        b_Content: $('#editSummernote').summernote('code'),
+        b_Writer: loggedInUser,
+        b_Category: $('#editCategory').val()
+    };
+
+    $.ajax({
+        type: 'PUT',
+        url: `/api/freeBoard/${formData.b_Id}`,
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(formData),
+        success: function () {
+            alert('수정 성공!');
+            $('#popupOverlay, #editPopup').fadeOut();
+            freeBoardAllData(); // 데이터 다시 로드
+        },
+        error: function () {
+            alert('수정 실패!');
         }
     });
 });

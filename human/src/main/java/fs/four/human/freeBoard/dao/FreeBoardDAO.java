@@ -23,6 +23,12 @@ public interface FreeBoardDAO {
     // 특정 공지사항 조회
     FreeBoardVO getFreeBoardById(int id);
 
-    // 새로운 주소 데이터 등록
+    // 새로운 게시판 데이터 등록
     void createFreeBoard(FreeBoardVO freeBoard);
+
+    // 게시판 데이터 삭제
+    void deleteFreeBoard(int id);
+
+    // 게시판 데이터 수정
+    void updateFreeBoard(FreeBoardVO freeBoard);
 }

@@ -92,5 +92,45 @@ public class FreeBoardRestController {
         }
         return freeBoard;
     }
+    
+    // 게시판 수정
+    @PutMapping("/{id}")
+    public String updateFreeBoard(@PathVariable("id") int id, @RequestBody FreeBoardVO freeBoard) {
+        FreeBoardVO existingBoard = freeBoardService.getFreeBoardById(id);
+
+        if (existingBoard == null) {
+            return "해당 게시글이 존재하지 않습니다.";
+        }
+
+        if (!existingBoard.getB_Writer().equals(freeBoard.getB_Writer())) {
+            return "수정 권한이 없습니다.";
+        }
+
+        freeBoardService.updateFreeBoard(freeBoard);
+        return "수정 성공!";
+    }
+
+    // 게시판 삭제
+    @DeleteMapping("/{id}")
+    public String deleteFreeBoard(@PathVariable("id") int id, @RequestParam("user") String user) {
+        FreeBoardVO freeBoard = freeBoardService.getFreeBoardById(id);
+
+        if (user == null || user.isEmpty()) {
+            return "삭제 요청에서 사용자 정보가 누락되었습니다.";
+        }
+
+        if (freeBoard == null) {
+            return "해당 게시글이 존재하지 않습니다.";
+        }
+
+        if (!freeBoard.getB_Writer().equals(user)) {
+            return "삭제 권한이 없습니다.";
+        }
+
+        freeBoardService.deleteFreeBoard(id);
+        return "삭제 성공!";
+    }
+
+
 
 }

@@ -37,4 +37,14 @@ public class FreeBoardService {
         freeBoardDAO.createFreeBoard(freeBoard);
     }
 
+    // 게시글 수정
+    public void updateFreeBoard(FreeBoardVO freeBoard) {
+        freeBoardDAO.updateFreeBoard(freeBoard);
+    }
+
+    // 게시글 삭제
+    public void deleteFreeBoard(int id) {
+        freeBoardDAO.deleteFreeBoard(id);
+    }
+
 }
