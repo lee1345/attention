@@ -4,7 +4,10 @@
     margin-bottom: 20px;
 }
 
-
+.btn-open-register-modal{
+ width: 150px; /* 버튼의 고정 너비 */
+ height: 50px; /* 버튼의 고정 높이 */
+}
 
 .my-layout-container {
     max-width: 1200px;

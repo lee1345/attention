@@ -54,9 +54,11 @@
                <!-- 5번~10번 -->
                <div class="actions-section">
                    <div class="actions-buttons">
+                   <div>
                        <button type="button"class="btn-open-register-modal">
-                           TEAM 업무 등록하기
+                           TEAM 업무 <br>등록하기</br>
                        </button>
+                   </div>
                        <div class="inline-buttons">
                            <button>검색/정렬 초기화</button>
                            <button>선택 업무 숨기기</button>
@@ -74,7 +76,7 @@
                                    <option value="all">전체</option>
                                    <option value="team">팀</option>
                                </select>
-                               <input type="text" id="searchInput" name="search" placeholder="검색 내용을 입력하세요">
+                               <input type="text" id="searchInput" name="search" placeholder="검색내용 입력">
                                <button type="submit" class="search-button">조회하기</button>
                            </div>
                         </form>
@@ -144,7 +146,10 @@
            </main>
        </div>
 <!-- Modal -->
-   <div class="popup">
+<!-- 팝업 컨테이너 -->
+<div class="task-popup-wrapper">
+    <!-- 업무등록 팝업  -->
+   <div class="popup" id="task-popup">
            <button class="btn-modal-close">x</button>
            <h2>TEAM 업무 등록하기</h2>
            <label>제목</label>
@@ -182,7 +187,7 @@
            </div>
 
            <label>참여자</label>
-           <button id="open-participant-popup hidden">참여자 선택</button>
+           <button id="open-participant-popup">참여자 선택</button>
            <div id="selected-participants"></div>
 
            <label>내용</label>
@@ -191,26 +196,26 @@
            <button>추가하기</button>
        </div>
 
-       <div class="participant-popup hidden">
-           <button class="btn-modal-close">x</button>
-           <h2>참여자 선택</h2>
-           <table>
-               <thead>
-                   <tr>
-                       <th>선택</th>
-                       <th>부서</th>
-                       <th>이름</th>
-                       <th>직위</th>
-                   </tr>
-               </thead>
-               <tbody id="participant-list">
-                   <!-- JavaScript로 추가 -->
-               </tbody>
-           </table>
-           <button id="close-participant-popup">선택완료</button>
-       </div>
-
-
+       <!-- 참여자 선택 팝업 -->
+      <div id="participant-popup" class="hidden">
+                          <button class="btn-modal-close">x</button>
+                          <h2>참여자 선택</h2>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>선택</th>
+                                      <th>부서</th>
+                                      <th>이름</th>
+                                      <th>직위</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="participant-list">
+                                  <!-- JavaScript로 추가 -->
+                              </tbody>
+                          </table>
+                          <button id="close-participant-popup">선택완료</button>
+                      </div>
+                   </div>
 </body>
 <script src="${contextPath}/js/todo.js"></script>
 </html>

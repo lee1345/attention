@@ -30,9 +30,9 @@ public class TodoVO {
     private String t_stage;    //진행상황
     private String t_priority; //중요도
     private String t_content;  //내용
-    private String t_start_date;
+    private Date t_start_date;
     private String t_start_time;
-    private String t_end_date;
+    private Date t_end_date;
     private String t_hide;
     private Date t_created_date;
     private Date t_updated_date;
