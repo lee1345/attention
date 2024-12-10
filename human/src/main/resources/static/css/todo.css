@@ -5,12 +5,13 @@ body {
 }
 
 .layout-container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
 }
 
 h1{
@@ -53,8 +54,8 @@ h2 {
 }
  
 .chart-container {
-    width: 270px; /* 부모 컨테이너의 너비를 제한 */
-    height: 270px; /* 부모 컨테이너의 높이를 제한 */
+    width: 180px; /* 부모 컨테이너의 너비를 제한 */
+    height: 180px; /* 부모 컨테이너의 높이를 제한 */
     overflow: hidden; /* 컨테이너를 넘어가는 차트 내용은 숨김 */
 }
 
@@ -71,8 +72,8 @@ h2 {
 }
 
 #departmentChart, #myTaskChart {
-    width: 270px; /* 차트 크기 고정 */
-    height: 270px;
+    width: 180px; /* 차트 크기 고정 */
+    height: 180px;
 }
 
 .chart canvas {
