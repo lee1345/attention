@@ -13,7 +13,27 @@ function noticeAllData() {
     });
 }
 
-//========================================================
+//======================================================================================================
+
+// 날짜 포맷 변환 함수
+function formatDate(dateString) {
+    if (!dateString) {
+            return "날짜 없음"; // 기본 메시지
+    }
+
+    const parsedDate  = new Date(dateString);
+    if (isNaN(parsedDate )) {
+        return "유효하지 않은 날짜"; // 날짜 형식이 잘못된 경우
+    }
+
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+//======================================================================================================
 
 // 테이블 렌더링 함수
 function renderTable(data) {
@@ -22,27 +42,26 @@ function renderTable(data) {
 
     if (data.length === 0) {
         // 데이터가 없을 경우 메시지 출력
-        noticeTable.append(`<tr><td colspan="4" style="text-align: center;">데이터가 없습니다.</td></tr>`);
+        noticeTable.append(`<tr><td colspan="7" style="text-align: center;">데이터가 없습니다.</td></tr>`);
         return;
     }
 
-    // 날짜 포맷 변환 함수
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+    // HTML 태그 제거 함수
+    function stripHtmlTags(str) { // [수정] HTML 태그 제거 함수 추가
+        return str
+            .replace(/<\/?[^>]+(>|$)/g, "") // HTML 태그 제거
+            .replace(/ /g, "&nbsp;"); // 띄어쓰기를 &nbsp;로 변환
     }
 
     // 데이터를 반복하며 테이블 행 생성
     data.forEach(notice => {
         const formattedDate = formatDate(notice.b_CreatedDate);
+        const contentPreview = stripHtmlTags(notice.b_Content).substring(0, 50); // [수정] 내용 글자수 제한
         const row = `
             <tr class="notice-row" data-id="${notice.b_Id}">
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
-                <td>${notice.b_Content}</td>
+                <td>${contentPreview}</td>
                 <td>${notice.b_Writer}</td>
                 <td>${formattedDate}</td>
             </tr>
@@ -51,7 +70,8 @@ function renderTable(data) {
     });
 }
 
-//========================================================
+//======================================================================================================
+
 
 $(document).ready(function () {
     // 전체 데이터 로드 (GET)
@@ -64,7 +84,7 @@ $(document).ready(function () {
         toolbar: [
             ["style", ["bold", "italic", "underline", "clear"]], // 굵게, 기울임, 밑줄
             ["para", ["ul", "ol", "paragraph"]], // 목록, 정렬
-            ["insert", ["link", "picture", "video"]] // 삽입 옵션
+//            ["insert", ["link", "picture", "video"]] // 삽입 옵션
         ]
     });
 
@@ -90,7 +110,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/api/notice/search',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType:'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 category: category,
                 query: query
@@ -106,17 +126,22 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
+
 // 등록 팝업창
 $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
+        $('#summernote').summernote('reset'); // Summernote 초기화
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
         $('#summernote').summernote('reset'); // Summernote 초기화
+        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // 등록 폼 제출
@@ -150,6 +175,8 @@ $(document).ready(function () {
     });
 });
 
+//======================================================================================================
+
 // 테이블 데이터를 클릭하면 팝업 표시
 $(document).on('click', '.notice-row', function () {
     const noticeId = $(this).data('id'); // 공지사항 ID 가져오기
@@ -163,15 +190,15 @@ $(document).on('click', '.notice-row', function () {
     // AJAX 요청으로 데이터 가져오기
     $.ajax({
         type: 'GET',
-        url: `/api/notice/${noticeId}`, // 공지사항 상세 데이터 가져오는 API
+        url: `/api/notice/${noticeId}`,
         success: function (data) {
-            // 데이터 팝업에 표시
+            console.log("Fetched Data:", data);
+            console.log("Created Date:", data.b_CreatedDate);
+
             $('#popupNoticeTitle').text(data.b_Title);
             $('#popupNoticeContent').html(data.b_Content);
             $('#popupNoticeWriter').text(data.b_Writer);
-            $('#popupNoticeDate').text(data.b_CreatedDate);
-
-            // 팝업 열기
+            $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
             $('#noticePopupOverlay, #noticePopup').fadeIn();
         },
         error: function () {

@@ -14,7 +14,7 @@ public class FreeBoardRestController {
     @Autowired
     private FreeBoardService freeBoardService;
 
-    // 전체 주소 데이터 반환 (JSON)
+    // 전체 데이터 반환 (JSON)
     @GetMapping
     public List<FreeBoardVO> getAllFreeBoard() {
         try {
@@ -59,7 +59,7 @@ public class FreeBoardRestController {
         }
     }
 
-    // 새로운 주소 데이터 등록 API
+    // 게시판 데이터 등록 API
     @PostMapping("/register")
     @ResponseBody
     public String createFreeBoard(@RequestBody FreeBoardVO freeBoard) {
@@ -82,4 +82,55 @@ public class FreeBoardRestController {
             return "등록 실패: " + e.getMessage();
         }
     }
+
+    // 특정 게시판 데이터 반환
+    @GetMapping("/{id}")
+    public FreeBoardVO getFreeBoardById(@PathVariable("id") int id) {
+        FreeBoardVO freeBoard = freeBoardService.getFreeBoardById(id);
+        if (freeBoard == null) {
+            throw new IllegalArgumentException("해당 게시판을 찾을 수 없습니다.");
+        }
+        return freeBoard;
+    }
+    
+    // 게시판 수정
+    @PutMapping("/{id}")
+    public String updateFreeBoard(@PathVariable("id") int id, @RequestBody FreeBoardVO freeBoard) {
+        FreeBoardVO existingBoard = freeBoardService.getFreeBoardById(id);
+
+        if (existingBoard == null) {
+            return "해당 게시글이 존재하지 않습니다.";
+        }
+
+        if (!existingBoard.getB_Writer().equals(freeBoard.getB_Writer())) {
+            return "수정 권한이 없습니다.";
+        }
+
+        freeBoardService.updateFreeBoard(freeBoard);
+        return "수정 성공!";
+    }
+
+    // 게시판 삭제
+    @DeleteMapping("/{id}")
+    public String deleteFreeBoard(@PathVariable("id") int id, @RequestParam("user") String user) {
+        FreeBoardVO freeBoard = freeBoardService.getFreeBoardById(id);
+
+        if (user == null || user.isEmpty()) {
+            return "삭제 요청에서 사용자 정보가 누락되었습니다.";
+        }
+
+        if (freeBoard == null) {
+            return "해당 게시글이 존재하지 않습니다.";
+        }
+
+        if (!freeBoard.getB_Writer().equals(user)) {
+            return "삭제 권한이 없습니다.";
+        }
+
+        freeBoardService.deleteFreeBoard(id);
+        return "삭제 성공!";
+    }
+
+
+
 }

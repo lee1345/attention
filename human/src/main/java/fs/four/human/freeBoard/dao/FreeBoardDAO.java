@@ -1,6 +1,5 @@
 package fs.four.human.freeBoard.dao;
 
-import fs.four.human.address.vo.AddressVO;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,6 +20,15 @@ public interface FreeBoardDAO {
     // 카테고리별 조회
     List<FreeBoardVO> getFreeBoardByCategory(@Param("category") String category);
 
-    // 새로운 주소 데이터 등록
+    // 특정 공지사항 조회
+    FreeBoardVO getFreeBoardById(int id);
+
+    // 새로운 게시판 데이터 등록
     void createFreeBoard(FreeBoardVO freeBoard);
+
+    // 게시판 데이터 삭제
+    void deleteFreeBoard(int id);
+
+    // 게시판 데이터 수정
+    void updateFreeBoard(FreeBoardVO freeBoard);
 }

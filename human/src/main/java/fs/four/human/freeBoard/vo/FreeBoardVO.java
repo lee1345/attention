@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class FreeBoardVO {
-    private String b_Id;            // 게시글 ID
+    private int b_Id;            // 게시글 ID
     private String b_Title;       // 게시글 제목
     private String b_Content;     // 게시글 내용
     private String b_Writer;      // 작성자

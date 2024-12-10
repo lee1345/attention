@@ -76,7 +76,7 @@
 <!-- 팝업 배경 오버레이 -->
 <div class="popup-overlay hidden" id="popupOverlay"></div>
 
-<!-- 팝업 -->
+<!-- 등록하기 팝업 -->
 <div class="popup hidden" id="popup">
     <button class="close-btn" id="closePopup">X</button>
     <h2>자유게시판 등록</h2>
@@ -104,5 +104,66 @@
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>
+
+<!-- 내용 팝업 -->
+<div class="popup hidden" id="freeBoardPopup">
+    <button class="close-btn" id="closeFreeBoardPopup">X</button>
+    <div class="title"><h2 id="popupTitle">자유게시판</h2></div>
+    <div class="contentPopup">
+        <div class="title-category">
+            <h3 id="popupCategory"></h3>
+        </div>
+        <div class="sub">
+            <div>날짜   <span id="popupFreeBoardDate"></span></div>
+            <div>작성자 <span id="popupFreeBoardWriter"></span></div>
+        </div>
+        <div class="content">
+            <div id="popupFreeBoardTitle"></div><br>
+            <div id="popupFreeBoardContent">
+            </div>
+        </div>
+
+        <!-- 수정/삭제 버튼 -->
+        <div class="actions" id="popupActions">
+            <!-- 조건부 렌더링 -->
+        </div>
+        <div class="action-buttons">
+            <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+            <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+        </div>
+    </div>
+</div>
+
+<!-- 수정 팝업 -->
+<div class="popup hidden" id="editPopup">
+    <button class="close-btn" id="closeEditPopup">X</button>
+    <h2>게시글 수정</h2>
+    <form id="editForm">
+        <div class="form-row">
+            <!-- 제목 입력 -->
+            <div class="form-group">
+                <input type="hidden" id="editFreeBoardId" />
+                <label for="editTitle">제목</label>
+                <input type="text" id="editTitle" name="title" placeholder="제목을 입력하세요" required>
+            </div>
+            <!-- 카테고리 선택 -->
+            <div class="form-group">
+                <label for="editCategory">카테고리</label>
+                <select id="editCategory" name="category" required>
+                    <option value="" disabled selected>카테고리를 선택하세요</option>
+                    <option value="QnA">QnA</option>
+                    <option value="Tips">꿀팁</option>
+                    <option value="Free">자유이야기</option>
+                </select>
+            </div>
+        </div>
+        <!-- 내용 입력 -->
+        <label for="editSummernote"></label>
+        <div id="editSummernote"></div>
+        <button type="editBtn" class="submit-btn">저장</button>
+    </form>
+</div>
+
+
 </body>
 </html>

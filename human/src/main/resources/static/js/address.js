@@ -13,6 +13,28 @@ function addressAllData() {
     });
 }
 
+//======================================================================================================
+
+//// 날짜 포맷 변환 함수
+//function formatDate(dateString) {
+//    if (!dateString) {
+//            return "날짜 없음"; // 기본 메시지
+//    }
+//
+//    const parsedDate  = new Date(dateString);
+//    if (isNaN(parsedDate )) {
+//        return "유효하지 않은 날짜"; // 날짜 형식이 잘못된 경우
+//    }
+//
+//    const date = new Date(dateString);
+//    const year = date.getFullYear();
+//    const month = String(date.getMonth() + 1).padStart(2, '0');
+//    const day = String(date.getDate()).padStart(2, '0');
+//    return `${year}-${month}-${day}`;
+//}
+
+//======================================================================================================
+
 // 테이블 렌더링 함수
 function renderTable(data) {
     const addressTable = $('#addressTable');
@@ -25,7 +47,7 @@ function renderTable(data) {
 
     data.forEach(address => {
         const row = `
-            <tr>
+            <tr class="address-row" data-id="${address.adId}">
                 <td>${address.adId}</td>
                 <td>${address.adName}</td>
                 <td>${address.adPhone}</td>
@@ -83,7 +105,7 @@ $(document).ready(function () {
 });
 
 
-// 팝업창
+// 등록 팝업창
 $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
@@ -122,5 +144,36 @@ $(document).ready(function () {
                 alert('등록 실패!');
             }
         });
+    });
+});
+
+//======================================================================================================
+
+// 테이블 데이터를 클릭하면 팝업 표시
+$(document).on('click', '.address-row', function () {
+    const addressId = $(this).data('id'); // 공지사항 ID 가져오기
+    $('#popupOverlay, #addressPopup').fadeIn();
+
+    // 팝업 닫기
+    $('#closeAddressPopup').on('click', function () {
+        $('#popupOverlay, #addressPopup').fadeOut();
+    });
+
+    // AJAX 요청으로 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/address/${addressId}`,
+        success: function (data) {
+
+            $('#popupAddressName').text(data.adName);
+            $('#popupAddressPhone').text(data.adPhone);
+            $('#popupAddressEmail').text(data.adEmail);
+            $('#popupAddressDeptName').text(data.adDeptName);
+            $('#popupAddressGroup').text(data.adGroup);
+            $('#AddressPopupOverlay, #AddressPopup').fadeIn();
+        },
+        error: function () {
+            alert('데이터를 가져오지 못했습니다.');
+        }
     });
 });
