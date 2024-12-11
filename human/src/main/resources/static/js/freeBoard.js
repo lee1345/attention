@@ -36,18 +36,15 @@ function formatDate(dateString) {
 //======================================================================================================
 
 
-// Summernote 에디터 초기화
-function initializeSummernote(selector) {
-    $(selector).summernote({
+// TinyMCE 에디터 초기화 함수
+function initializeTinyMCE(selector) {
+    tinymce.init({
+        selector: selector,
         height: 300,
-        placeholder: "내용을 입력하세요",
-        toolbar: [
-            ["style", ["bold", "italic", "underline", "clear"]],
-            ["fontsize", ["fontsize"]],
-            ["color", ["color"]],
-            ["para", ["ul", "ol", "paragraph"]],
-            ["table", ["table"]]
-        ]
+        menubar: false,
+        plugins: 'lists link image code',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link image | code',
+        placeholder: '내용을 입력하세요',
     });
 }
 
@@ -142,30 +139,32 @@ $(document).ready(function () {
 
 // 등록 팝업창
 $(document).ready(function () {
-    // 팝업 열기
+    freeBoardAllData();
+
+    // TinyMCE 등록 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
-        initializeSummernote('#summernote'); // Summernote 초기화
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        initializeTinyMCE('#content'); // TinyMCE 초기화
+        $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
-    // 팝업 닫기
+    // 등록 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
-        $('#summernote').summernote('reset'); // Summernote 초기화
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        tinymce.remove('#content'); // TinyMCE 초기화 제거
+        $('#registerForm')[0].reset();
     });
 
     // 등록 폼 제출
     $('#registerForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
 
-    // Summernote 값 가져오기 (HTML 태그 포함)
-    const content = $('#summernote').summernote('code');
 
+    // TinyMCE 내용 가져오기
+    const content = tinymce.get('content').getContent();
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
-        b_Content: content,// Summernote 내용 (본문)
+        b_Content: content, // TinyMCE 내용 (본문)
         b_Writer: loggedInUser, // 작성자 (동적으로 설정)
         b_Category: $('#categorySelect').val(), // 선택된 카테고리 추가
         b_Group: 'F' // 자유게시판 그룹 고정
@@ -265,11 +264,12 @@ $(document).on('click', '.freeBoard-row', function () {
 // 수정 버튼 클릭
 $(document).on('click', '.edit-btn', function () {
     const freeBoardId = $(this).data('id'); // 수정할 게시글 ID 가져오기
-    $('#freeBoardPopup').fadeOut();
+    $('#freeBoardPopup').fadeOut(); // 기존 팝업 닫기
 
     // 팝업 닫기
     $('#closeEditPopup').on('click', function () {
         $('#popupOverlay, #editPopup').fadeOut();
+        tinymce.remove('#editContent'); // TinyMCE 초기화 제거
     });
 
     // 서버에서 해당 글의 데이터 가져오기
@@ -283,9 +283,9 @@ $(document).on('click', '.edit-btn', function () {
             $('#editSummernote').summernote('code', data.b_Content); // 내용 로드
             $('#editFreeBoardId').val(data.b_Id); // 게시글 ID 저장
 
-            // Summernote 초기화 및 데이터 로드
-            initializeSummernote('#editSummernote');
-            $('#editSummernote').summernote('code', data.b_Content);
+        // TinyMCE 초기화 및 데이터 로드
+            initializeTinyMCE('#editContent'); // TinyMCE 초기화
+            tinymce.get('editContent').setContent(data.b_Content); // 내용 로드
 
             $('#popupOverlay, #editPopup').fadeIn();
         },
@@ -299,13 +299,13 @@ $(document).on('click', '.edit-btn', function () {
 $('#editForm').on('submit', function (event) {
     event.preventDefault(); // 기본 동작 방지
 
-    // Summernote의 내용을 가져옵니다.
-    const content = $('#editSummernote').summernote('code');
+    // TinyMCE에서 수정된 내용을 가져옵니다.
+    const content = tinymce.get('editContent').getContent();
 
     const formData = {
         b_Id: $('#editFreeBoardId').val(),
         b_Title: $('#editTitle').val(),
-        b_Content: $('#editSummernote').summernote('code'),
+        b_Content: content, // TinyMCE 내용
         b_Writer: loggedInUser, // 현재 로그인 사용자
         b_Category: $('#editCategory').val() // 수정된 카테고리
     };

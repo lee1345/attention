@@ -35,6 +35,21 @@ function formatDate(dateString) {
 
 //======================================================================================================
 
+
+// TinyMCE 에디터 초기화 함수
+function initializeTinyMCE(selector) {
+    tinymce.init({
+        selector: selector,
+        height: 300,
+        menubar: false,
+        plugins: 'lists link image code',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link image | code',
+        placeholder: '내용을 입력하세요',
+    });
+}
+
+//======================================================================================================
+
 // 테이블 렌더링 함수
 function renderTable(data) {
     const noticeTable = $('#noticeTable');
@@ -57,6 +72,7 @@ function renderTable(data) {
     data.forEach(notice => {
         const formattedDate = formatDate(notice.b_CreatedDate);
         const contentPreview = stripHtmlTags(notice.b_Content).substring(0, 50); // [수정] 내용 글자수 제한
+
         const row = `
             <tr class="notice-row" data-id="${notice.b_Id}">
                 <td>${notice.b_Id}</td>
@@ -77,27 +93,16 @@ $(document).ready(function () {
     // 전체 데이터 로드 (GET)
     noticeAllData();
 
-    // Summernote 에디터 초기화
-    $("#summernote").summernote({
-        height: 300,
-        placeholder: "내용을 입력하세요",
-        toolbar: [
-            ["style", ["bold", "italic", "underline", "clear"]], // 굵게, 기울임, 밑줄
-            ["para", ["ul", "ol", "paragraph"]], // 목록, 정렬
-//            ["insert", ["link", "picture", "video"]] // 삽입 옵션
-        ]
-    });
-
     // 엔터 키를 누르면 검색 버튼 클릭
     $('#query').on('keypress', function (event) {
         if (event.key === 'Enter') { // 엔터 키 감지
             event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
-            $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
+            $('#noticeSearchBtn').click(); // 검색 버튼 클릭 이벤트 실행
         }
     });
 
     // 검색 버튼 클릭 이벤트
-    $('#searchBtn').on('click', function () {
+    $('#noticeSearchBtn').on('click', function () {
         const category = $('#category').val(); // 선택된 카테고리
         const query = $('#query').val().trim(); // 입력된 검색어
 
@@ -130,17 +135,18 @@ $(document).ready(function () {
 
 // 등록 팝업창
 $(document).ready(function () {
+
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
-        $('#summernote').summernote('reset'); // Summernote 초기화
+        initializeTinyMCE('#content'); // TinyMCE 초기화
         $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
-        $('#summernote').summernote('reset'); // Summernote 초기화
+        tinymce.remove('#content'); // TinyMCE 초기화 제거
         $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
@@ -148,12 +154,11 @@ $(document).ready(function () {
     $('#registerForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
 
-    // Summernote 값 가져오기 (HTML 태그 포함)
-    let content = $('#summernote').summernote('code');
-
+    // TinyMCE 내용 가져오기
+    const content = tinymce.get('content').getContent();
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
-        b_Content: content,// Summernote 내용 (본문)
+        b_Content: content, // TinyMCE 내용 (본문)
         b_Writer: loggedInUser, // 작성자 (동적으로 설정)
         b_Group: 'N' // 공지사항 그룹 고정
     };
