@@ -158,7 +158,7 @@ $(document).on('click', '.address-row', function () {
     // 팝업 닫기
     $('#closeAddressPopup').on('click', function () {
         $('#popupOverlay, #addressPopup').fadeOut();
-        $('#editForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#editForm')[0].reset(); // 폼 데이터 초기화
     });
 
     // AJAX 요청으로 데이터 가져오기
@@ -176,8 +176,6 @@ $(document).on('click', '.address-row', function () {
             // 팝업에 ID 저장
             $('#addressPopup').data('id', addressId);
 
-
-
         },
         error: function () {
             alert('데이터를 가져오지 못했습니다.');
@@ -187,6 +185,20 @@ $(document).on('click', '.address-row', function () {
 
 //======================================================================================================
 
+// 초기상태 리셋
+function resetPopup(data) {
+    $('#popupAddressName').text(data.adName);
+    $('#popupAddressPhone').text(data.adPhone);
+    $('#popupAddressEmail').text(data.adEmail);
+    $('#popupAddressDeptName').text(data.adDeptName);
+    $('#popupAddressGroup').text(data.adGroup);
+
+    // 버튼 복구
+    $('.action-buttons').html(`
+        <button class="edit-btn" data-id="${data.adId}">수정</button>
+        <button class="delete-btn" data-id="${data.adId}">삭제</button>
+    `);
+}
 
 $(document).ready(function () {
     // 수정 버튼 클릭
@@ -226,6 +238,9 @@ $(document).ready(function () {
                     alert('수정 성공!');
                     $('#popupOverlay, #addressPopup').fadeOut();
                     addressAllData(); // 테이블 다시 로드
+
+                    // 팝업을 보기 모드로 초기화
+                    resetPopup(updatedData);
                 },
                 error: function (xhr) {
                     console.error('수정 실패:', xhr.responseText);
