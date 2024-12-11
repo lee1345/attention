@@ -47,11 +47,11 @@
         INSERT INTO ADDRESS (ad_id, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP, AD_CREATED_DATE, AD_UPDATED_DATE )
         VALUES (
             address_seq.NEXTVAL,
-            #{adName, jdbcType=VARCHAR},
-            #{adPhone, jdbcType=VARCHAR},
-            #{adEmail, jdbcType=VARCHAR},
-            #{adDeptName, jdbcType=VARCHAR},
-            #{adGroup, jdbcType=VARCHAR},
+            #{adName},
+            #{adPhone},
+            #{adEmail},
+            #{adDeptName},
+            #{adGroup},
             SYSDATE,
             SYSDATE
         )
