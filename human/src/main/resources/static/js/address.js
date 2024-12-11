@@ -28,14 +28,14 @@ function renderTable(data) {
 
     data.forEach(address => {
         const row = `
-                    <tr class="address-row" data-id="${address.adId}">
-                        <td>${address.adId}</td>
-                        <td>${address.adName}</td>
-                        <td>${address.adPhone}</td>
-                        <td>${address.adEmail}</td>
-                        <td>${address.adDeptName}</td>
-                        <td>${address.adGroup}</td>
-                    </tr>
+            <tr class="address-row" data-id="${address.adId}">
+                <td>${address.adId}</td>
+                <td>${address.adName}</td>
+                <td>${address.adPhone}</td>
+                <td>${address.adEmail}</td>
+                <td>${address.adDeptName}</td>
+                <td>${address.adGroup}</td>
+            </tr>
         `;
         addressTable.append(row);
     });

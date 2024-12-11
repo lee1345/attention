@@ -19,16 +19,15 @@ public class AddressRestController {
 
     // 전체 주소 데이터 반환 (JSON)
     @GetMapping
-    public String address(HttpSession session, Model model) {
-        String emplId = (String) session.getAttribute("loggedInUserId"); // 세션에서 로그인 ID 가져오기
+    public List<AddressVO> address(HttpSession session) {
+        String emplId = (String) session.getAttribute("loginUserID"); // 세션에서 로그인 ID 가져오기
 
         if (emplId == null || emplId.isEmpty()) {
             throw new IllegalArgumentException("로그인된 사용자 ID가 없습니다.");
         }
 
-        List<AddressVO> addressList = addressService.getAddressByEmployeeId(emplId);
-        model.addAttribute("addressList", addressList);
-        return "address/address";
+        // 로그인된 사용자의 데이터만 조회
+        return addressService.getAddressByEmployeeId(emplId);
     }
 
     // 검색 결과 반환 (JSON)
@@ -36,12 +35,14 @@ public class AddressRestController {
     public List<AddressVO> searchAddress(
             @RequestParam("category") String category,
             @RequestParam("query") String query,
-            @RequestParam("emplId") String emplId) {
-        try {
-            return addressService.searchAddressByEmployeeId(category, query, emplId);
-        } catch (Exception e) {
-            throw new RuntimeException("검색 중 문제가 발생했습니다.");
+            HttpSession session) {
+        String emplId = (String) session.getAttribute("loginUserID");
+
+        if (emplId == null || emplId.isEmpty()) {
+            throw new IllegalArgumentException("로그인된 사용자 ID가 없습니다.");
         }
+
+        return addressService.searchAddressByEmployeeId(emplId, category, query);
     }
 
     // 새로운 주소 데이터 등록 API
@@ -52,9 +53,10 @@ public class AddressRestController {
             return "로그인된 사용자 ID가 없습니다.";
         }
         address.setAdEmplId(loggedInUserId);
-        addressService.createAddress(address, loggedInUserId);
+        addressService.createAddress(address);
         return "등록 성공!";
     }
+
     // 특정 주소록 데이터 반환
     @GetMapping("/{id}")
     public AddressVO getAddressById(@PathVariable("id") int id) {

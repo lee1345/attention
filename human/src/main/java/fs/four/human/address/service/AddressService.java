@@ -29,9 +29,7 @@ public class AddressService {
     }
 
     // 새로운 주소 데이터 등록
-    public void createAddress(AddressVO address, String loggedInUserId) {
-        // 로그인한 사용자 ID를 설정
-        address.setAdEmplId(loggedInUserId);
+    public void createAddress(AddressVO address) {
         addressDAO.createAddress(address);
     }
 
