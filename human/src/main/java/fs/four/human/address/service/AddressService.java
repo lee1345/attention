@@ -2,7 +2,6 @@ package fs.four.human.address.service;
 
 import fs.four.human.address.dao.AddressDAO;
 import fs.four.human.address.vo.AddressVO;
-import fs.four.human.freeBoard.vo.FreeBoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +31,15 @@ public class AddressService {
     // 새로운 주소 데이터 등록
     public void createAddress(AddressVO address) {
         addressDAO.createAddress(address);
+    }
+
+    // 게시글 수정
+    public void updateAddress(AddressVO address) {
+        addressDAO.updateAddress(address);
+    }
+
+    // 게시글 삭제
+    public void deleteAddress(int id) {
+        addressDAO.deleteAddress(id);
     }
 }

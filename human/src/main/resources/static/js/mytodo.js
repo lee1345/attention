@@ -118,3 +118,105 @@ createChart(
     [2, 0, 1, 0, 1], // 데이터
     ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90'] // 색상 배열
 );
+// 요소 선택
+const openPopupBtn = document.getElementById('openPopup');
+const closePopupBtn = document.getElementById('closePopup');
+const popupOverlay = document.getElementById('popupOverlay');
+const popup = document.getElementById('popup');
+
+// 팝업 열기
+openPopupBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'block';
+    popup.style.display = 'block';
+});
+
+// 팝업 닫기
+closePopupBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+});
+
+// 팝업 외부 클릭 시 닫기
+popupOverlay.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+});
+
+
+//할일등록 ajax
+$('#registerForm').submit(function (event) {
+    event.preventDefault();
+
+    const formData = {
+        t_group: 'M',
+        t_title: $('#title').val(),
+        t_priority: $('.priority').val(),
+        t_content: $('textarea[name="context"]').val(),
+        t_start_date: $('#start-date').val() + ' ' + $('select[name="start-hour"]').val() + ':' + $('select[name="start-minute"]').val(),
+        t_end_date: $('#end-date').val() + ' ' + $('select[name="end-hour"]').val() + ':' + $('select[name="end-minute"]').val(),
+        t_hide: 'N',
+        t_created_id: sessionStorage.getItem('user_id') || null // Session에서 가져오기
+    };
+
+    $.ajax({
+        url: '/mytodo/addTodo',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (response) {
+            alert('등록 성공!');
+            location.reload();
+        },
+        error: function () {
+            alert('등록 실패');
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 기본 날짜 설정
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("start-date").value = today;
+    document.getElementById("end-date").value = today;
+
+    // 할일 조회 AJAX
+    $.ajax({
+        url: '/mytodo/list',
+        method: 'GET',
+        success: function (todos) {
+            const taskList = document.querySelector(".my-task-list");
+            taskList.innerHTML = ''; // 기존 내용 제거
+
+            todos.forEach((todo, index) => {
+                const taskItem = `
+                    <div class="my-task-item">
+                        <div class="my-task-checkbox">
+                            <input type="checkbox" name="selectedTasks" value="${todo.t_title}" id="task-${index}">
+                            <label for="task-${index}"></label>
+                        </div>
+                        <div class="my-task-content">
+                            <h3 class="my-task-title">${todo.t_priority} ${todo.t_title}</h3>
+                            <p class="my-task-details">
+                                ${todo.t_content}<br>
+                                (기간) ${todo.t_start_date} ~ ${todo.t_end_date}
+                            </p>
+                        </div>
+                        <div class="my-task-status-buttons">
+                            <button class="my-status in-progress">진행</button>
+                            <button class="my-status delayed">지연</button>
+                            <button class="my-status completed">완료</button>
+                        </div>
+                        <div class="my-task-actions">
+                            <button class="my-edit">수정</button>
+                            <button class="my-delete">삭제</button>
+                        </div>
+                    </div>`;
+                taskList.innerHTML += taskItem;
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("할일 조회 에러:", error);
+            alert("할일 데이터를 가져오는 중 문제가 발생했습니다.");
+        }
+    });
+});

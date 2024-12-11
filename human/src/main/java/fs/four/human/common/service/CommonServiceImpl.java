@@ -2,13 +2,17 @@ package fs.four.human.common.service;
 
 import fs.four.human.common.dao.CommonDAO;
 import fs.four.human.common.vo.CommonVO;
+import fs.four.human.todo.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
-public class CommonServiceImpl implements CommonService{
+public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private CommonDAO commonDAO;
@@ -44,4 +48,38 @@ public class CommonServiceImpl implements CommonService{
     public boolean updateEmployeeInfo(CommonVO employee) {
         return commonDAO.updateEmployee(employee) > 0; // 업데이트 성공 여부 반환
     }
+
+    //알림
+    @Override
+    public List<String> getAlertMessages(String sessionId) {
+        List<TodoVO> alertTodos = commonDAO.getAlertTodos(sessionId);
+        List<String> alertMessages = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+
+        for (TodoVO todo : alertTodos) {
+            LocalDateTime startTime = todo.getT_start_date();
+            String message = null;
+
+            // 30분 전 또는 정각 조건에 따라 메시지 생성
+            if (now.isEqual(startTime.minusMinutes(30))) {
+                message = String.format("[30분 전 알림] '%s' 할 일이 곧 시작됩니다.", todo.getT_title());
+            } else if (now.isEqual(startTime)) {
+                message = String.format("[정각 알림] '%s' 할 일이 시작됩니다.", todo.getT_title());
+            }
+
+            if (message != null) {
+                alertMessages.add(message);
+            }
+
+            // 다음 알림 예정 시간 출력
+            if (startTime.isAfter(now)) {
+                System.out.println(String.format("다음 알림 예정: '%s' (%s)",
+                        todo.getT_title(),
+                        startTime.minusMinutes(30)));
+            }
+        }
+
+        return alertMessages;
+    }
+
 }

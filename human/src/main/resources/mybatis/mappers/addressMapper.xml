@@ -6,7 +6,6 @@
     <select id="getAllAddress" resultType="AddressVO">
         SELECT
         AD_ID AS adId,
-        AD_EMPL_ID AS adEmplId,
         AD_NAME AS adName,
         AD_PHONE AS adPhone,
         AD_EMAIL AS adEmail,
@@ -20,7 +19,6 @@
     <select id="searchAddress" resultType="AddressVO">
         SELECT
         AD_ID AS adId,
-        AD_EMPL_ID AS adEmplId,
         AD_NAME AS adName,
         AD_PHONE AS adPhone,
         AD_EMAIL AS adEmail,
@@ -35,7 +33,6 @@
     <select id="getAddressById" resultType="AddressVO">
         SELECT
         AD_ID AS adId,
-        AD_EMPL_ID AS adEmplId,
         AD_NAME AS adName,
         AD_PHONE AS adPhone,
         AD_EMAIL AS adEmail,
@@ -48,7 +45,34 @@
     <!-- 새로운 주소 데이터 등록 -->
     <insert id="createAddress">
         INSERT INTO ADDRESS (ad_id, AD_NAME, AD_PHONE, AD_EMAIL, AD_DEPT_NAME, AD_GROUP, AD_CREATED_DATE, AD_UPDATED_DATE )
-        VALUES ( address_seq.NEXTVAL, #{adName}, #{adPhone}, #{adEmail}, #{adDeptName}, #{adGroup}, SYSDATE, SYSDATE )
+        VALUES (
+            address_seq.NEXTVAL,
+            #{adName},
+            #{adPhone},
+            #{adEmail},
+            #{adDeptName},
+            #{adGroup},
+            SYSDATE,
+            SYSDATE
+        )
     </insert>
+
+    <!-- 주소록 수정 -->
+    <update id="updateAddress">
+        UPDATE ADDRESS
+        SET AD_NAME = #{adName},
+        AD_PHONE = #{adPhone},
+        AD_EMAIL = #{adEmail},
+        AD_DEPT_NAME = #{adDeptName},
+        AD_GROUP = #{adGroup}
+        WHERE AD_ID = #{adId}
+    </update>
+
+    <!-- 주소록 삭제 -->
+    <delete id="deleteAddress">
+        DELETE FROM ADDRESS
+        WHERE AD_ID = #{id}
+    </delete>
+
 
 </mapper>
