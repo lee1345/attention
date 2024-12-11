@@ -141,3 +141,51 @@ popupOverlay.addEventListener('click', () => {
     popupOverlay.style.display = 'none';
     popup.style.display = 'none';
 });
+
+
+//할일등록 ajax
+$('#registerForm').submit(function (event) {
+    event.preventDefault();
+
+    const formData = {
+        t_group: 'M',
+        t_title: $('#title').val(),
+        t_priority: $('.priority').val(),
+        t_content: $('textarea[name="context"]').val(),
+        t_start_date: $('#start-date').val() + ' ' + $('select[name="start-hour"]').val() + ':' + $('select[name="start-minute"]').val(),
+        t_end_date: $('#end-date').val() + ' ' + $('select[name="end-hour"]').val() + ':' + $('select[name="end-minute"]').val(),
+        t_hide: 'N',
+        t_created_id: sessionStorage.getItem('user_id') || null // Session에서 가져오기
+    };
+
+    $.ajax({
+        url: '/mytodo/addTodo',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (response) {
+            alert('등록 성공!');
+            location.reload();
+        },
+        error: function () {
+            alert('등록 실패');
+        }
+    });
+});
+
+//기본 날짜로 설정
+// 오늘 날짜를 yyyy-MM-dd 형식으로 반환하는 함수
+function getTodayDate() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+}
+
+// DOM이 로드된 후 기본값 설정
+document.addEventListener("DOMContentLoaded", function () {
+    const today = getTodayDate();
+    document.getElementById("start-date").value = today;
+    document.getElementById("end-date").value = today;
+});
