@@ -184,14 +184,24 @@ document.addEventListener("DOMContentLoaded", function () {
         url: '/mytodo/list',
         method: 'GET',
         success: function (todos) {
+            console.log(todos);
             const taskList = document.querySelector(".my-task-list");
             taskList.innerHTML = ''; // 기존 내용 제거
 
             todos.forEach((todo, index) => {
+                // 상태에 따른 버튼 활성화
+                const planActive = todo.t_stage === "P" ? "active" : "";
+                const inProgressActive = todo.t_stage === "IP" ? "active" : "";
+                const completeActive = todo.t_stage === "C" ? "active" : "";
+
+                // NULL 상태 처리: 버튼 모두 비활성화 (흰색 배경)
+                const nullState = !todo.t_stage ? "not-selected" : "";
+
+                // 할일 항목 생성
                 const taskItem = `
                     <div class="my-task-item">
                         <div class="my-task-checkbox">
-                            <input type="checkbox" name="selectedTasks" value="${todo.t_title}" id="task-${index}">
+                            <input type="checkbox" name="selectedTasks" value="${todo.t_id}" id="task-${index}">
                             <label for="task-${index}"></label>
                         </div>
                         <div class="my-task-content">
@@ -201,10 +211,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                 (기간) ${todo.t_start_date} ~ ${todo.t_end_date}
                             </p>
                         </div>
-                        <div class="my-task-status-buttons">
-                            <button class="my-status in-progress">진행</button>
-                            <button class="my-status delayed">지연</button>
-                            <button class="my-status completed">완료</button>
+                        <div class="my-task-status-buttons ${nullState}">
+                            <button class="my-status Plan ${planActive}" value="P" onclick="updateStage(this, '${todo.t_id}')">예정</button>
+                            <button class="my-status InProgress ${inProgressActive}" value="IP" onclick="updateStage(this, '${todo.t_id}')">진행</button>
+                            <button class="my-status Complete ${completeActive}" value="C" onclick="updateStage(this, '${todo.t_id}')">완료</button>
                         </div>
                         <div class="my-task-actions">
                             <button class="my-edit">수정</button>
@@ -216,7 +226,38 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         error: function (xhr, status, error) {
             console.error("할일 조회 에러:", error);
-            alert("할일 데이터를 가져오는 중 문제가 발생했습니다.");
+            alert("로그인을 해야지만 데이터 조회가 가능합니다.");
         }
     });
 });
+
+//버튼으로 status 수정
+// 상태 변경 버튼 클릭 이벤트
+function updateStage(button, todoId) {
+    const stageValue = button.value;
+
+    // 모든 버튼의 active 클래스를 제거
+    const buttons = button.parentElement.querySelectorAll('.my-status');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // 선택된 버튼에 active 클래스 추가
+    button.classList.add('active');
+
+    // AJAX 요청으로 상태 업데이트
+    $.ajax({
+        url: '/mytodo/updateStage',
+        method: 'POST',
+        data: {
+            t_id: todoId,
+            t_stage: stageValue
+        },
+        success: function () {
+            console.log('상태가 성공적으로 업데이트되었습니다!');
+            // 상태 업데이트 후 동작 필요 시 추가
+        },
+        error: function (xhr) {
+            alert('상태 업데이트에 실패했습니다.');
+            console.error(xhr.responseText);
+        }
+    });
+}

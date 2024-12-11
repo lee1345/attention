@@ -16,8 +16,10 @@ public class MytodoVO {
     private String t_hide;
     private String t_created_id;
     private String t_dept;
+    private String t_stage;
+    private long t_id;
 
-    // Getters and Setters
+        // Getters and Setters
     public String getT_group() {
         return t_group;
     }
@@ -90,4 +92,19 @@ public class MytodoVO {
         this.t_dept = t_dept;
     }
 
+    public String getT_stage() {
+        return t_stage;
+    }
+
+    public void setT_stage(String t_stage) {
+        this.t_stage = t_stage;
+    }
+
+    public long getT_id() {
+        return t_id;
+    }
+
+    public void setT_id(long t_id) {
+        this.t_id = t_id;
+    }
 }

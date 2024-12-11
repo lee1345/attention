@@ -58,4 +58,18 @@ public class MytodoRestController {
         List<MytodoVO> todos = mytodoService.getMyTodos("M", userId); // "M"은 나의 할일 그룹
         return ResponseEntity.ok(todos);
     }
+
+    //버튼으로 상태 변경
+    @PostMapping("/updateStage")
+    public ResponseEntity<String> updateStage(
+            @RequestParam("t_id") Long t_id,
+            @RequestParam("t_stage") String t_stage) {
+        try {
+            mytodoService.updateStage(t_id, t_stage);
+            return ResponseEntity.ok("상태 업데이트 성공");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("상태 업데이트 실패");
+        }
+    }
 }

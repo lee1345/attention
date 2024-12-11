@@ -64,15 +64,6 @@
                 <section class="my-task-list">
                     <!-- js에서 DB데이터 출력예정 -->
                 </section>
-                <div class="my-task-status-buttons">
-                    <button class="my-status in-progress">진행</button>
-                    <button class="my-status delayed">지연</button>
-                    <button class="my-status completed">완료</button>
-                </div>
-                <div class="my-task-actions">
-                    <button class="my-edit">수정</button>
-                    <button class="my-delete">삭제</button>
-                </div>
             </div>
         </section>
     </main>
