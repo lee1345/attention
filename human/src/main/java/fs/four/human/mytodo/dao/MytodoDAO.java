@@ -18,4 +18,7 @@ public interface MytodoDAO {
     // 할일 조회
     List<MytodoVO> getMyTodos(@Param("t_group") String t_group, @Param("t_created_id") String t_created_id);
 
+    // 버튼으로 상태 변경
+    void updateStage(@Param("t_id") Long t_id, @Param("t_stage") String t_stage);
+
 }

@@ -40,15 +40,24 @@
 <!--할일조회-->
     <select id="getMyTodos" parameterType="map" resultType="fs.four.human.mytodo.vo.MytodoVO">
         SELECT
+        T_ID,
         T_TITLE,
         T_PRIORITY,
         T_CONTENT,
         T_START_DATE,
-        T_END_DATE
+        T_END_DATE,
+        T_STAGE
         FROM TODO
         WHERE T_GROUP = #{t_group}
         AND T_CREATED_ID = #{t_created_id}
     </select>
+
+<!--    버튼으로 상태 변경하기 -->
+    <update id="updateStage">
+        UPDATE TODO
+        SET T_STAGE = #{t_stage}
+        WHERE T_ID = #{t_id}
+    </update>
 
 
 </mapper>

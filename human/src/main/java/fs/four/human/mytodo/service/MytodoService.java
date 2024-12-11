@@ -31,6 +31,11 @@ public class MytodoService {
     public List<MytodoVO> getMyTodos(String t_group, String t_created_id) {
         return mytodoDAO.getMyTodos(t_group, t_created_id);
     }
+
+    //버튼으로 상태변경
+    public void updateStage(Long t_id, String t_stage) {
+        mytodoDAO.updateStage(t_id, t_stage);
+    }
 }
 
 
