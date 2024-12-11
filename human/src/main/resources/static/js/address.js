@@ -60,7 +60,7 @@ function renderTable(data) {
     });
 }
 
-//========================================================
+//======================================================================================================
 
 $(document).ready(function () {
     // 전체 데이터 로드 (GET)
@@ -187,16 +187,10 @@ $(document).on('click', '.address-row', function () {
 
 // 초기상태 리셋
 function resetPopup(data) {
-    $('#popupAddressName').text(data.adName);
-    $('#popupAddressPhone').text(data.adPhone);
-    $('#popupAddressEmail').text(data.adEmail);
-    $('#popupAddressDeptName').text(data.adDeptName);
-    $('#popupAddressGroup').text(data.adGroup);
-
     // 버튼 복구
     $('.action-buttons').html(`
-        <button class="edit-btn" data-id="${data.adId}">수정</button>
-        <button class="delete-btn" data-id="${data.adId}">삭제</button>
+        <button class="edit-btn" data-id="${$('#addressPopup').data('id')}">수정</button>
+        <button class="delete-btn" data-id="${$('#addressPopup').data('id')}">삭제</button>
     `);
 }
 
