@@ -21,4 +21,6 @@ public interface MytodoDAO {
     // 버튼으로 상태 변경
     void updateStage(@Param("t_id") Long t_id, @Param("t_stage") String t_stage);
 
+    // 할일 삭제
+    void deleteTodoById(@Param("t_id") Long t_id);
 }

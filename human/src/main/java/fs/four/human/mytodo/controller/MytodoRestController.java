@@ -5,6 +5,7 @@ import fs.four.human.mytodo.service.MytodoService;
 import fs.four.human.mytodo.vo.MytodoVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,4 +73,18 @@ public class MytodoRestController {
             return ResponseEntity.status(500).body("상태 업데이트 실패");
         }
     }
+
+    //할일 삭제
+    @DeleteMapping("/deleteTodo")
+    public ResponseEntity<?> deleteTodoById(@RequestParam("t_id") Long t_id) {
+        try {
+            System.out.println("삭제 요청된 t_id: " + t_id); // 디버깅용
+            mytodoService.deleteTodoById(t_id);
+            return ResponseEntity.ok("삭제 완료");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("삭제 실패: " + e.getMessage());
+        }
+    }
+
 }

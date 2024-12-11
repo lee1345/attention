@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                         <div class="my-task-actions">
                             <button class="my-edit">수정</button>
-                            <button class="my-delete">삭제</button>
+                            <button class="my-delete" onclick="deleteTodo(${todo.t_id})">삭제</button>
                         </div>
                     </div>`;
                 taskList.innerHTML += taskItem;
@@ -261,3 +261,24 @@ function updateStage(button, todoId) {
         }
     });
 }
+
+// 할일 삭제
+function deleteTodo(t_id) {
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            url: '/mytodo/deleteTodo',
+            type: 'DELETE',
+            data: { t_id: t_id }, // 올바른 t_id 전달
+            success: function(response) {
+                console.log('삭제 성공!');
+                location.reload(); // 새로고침 또는 해당 항목 제거
+            },
+            error: function(xhr) {
+                console.error('삭제 실패: ' + xhr.responseText);
+            }
+        });
+    }
+}
+
+
+

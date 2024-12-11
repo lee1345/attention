@@ -36,6 +36,11 @@ public class MytodoService {
     public void updateStage(Long t_id, String t_stage) {
         mytodoDAO.updateStage(t_id, t_stage);
     }
+
+    //할일 삭제
+    public void deleteTodoById(Long t_id){
+        mytodoDAO.deleteTodoById(t_id);
+    }
 }
 
 
