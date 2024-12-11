@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/mytodo")
 public class MytodoRestController {
@@ -45,4 +47,15 @@ public class MytodoRestController {
         }
     }
 
+    //할일 조회
+    @GetMapping("/list")
+    public ResponseEntity<List<MytodoVO>> getMyTodos(HttpSession session) {
+        String userId = (String) session.getAttribute("loginUserID");
+        if (userId == null) {
+            return ResponseEntity.status(401).build(); // 로그인되지 않은 경우
+        }
+
+        List<MytodoVO> todos = mytodoService.getMyTodos("M", userId); // "M"은 나의 할일 그룹
+        return ResponseEntity.ok(todos);
+    }
 }

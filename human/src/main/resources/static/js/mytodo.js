@@ -173,19 +173,50 @@ $('#registerForm').submit(function (event) {
     });
 });
 
-//기본 날짜로 설정
-// 오늘 날짜를 yyyy-MM-dd 형식으로 반환하는 함수
-function getTodayDate() {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작
-    const dd = String(today.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-}
-
-// DOM이 로드된 후 기본값 설정
 document.addEventListener("DOMContentLoaded", function () {
-    const today = getTodayDate();
+    // 기본 날짜 설정
+    const today = new Date().toISOString().split('T')[0];
     document.getElementById("start-date").value = today;
     document.getElementById("end-date").value = today;
+
+    // 할일 조회 AJAX
+    $.ajax({
+        url: '/mytodo/list',
+        method: 'GET',
+        success: function (todos) {
+            const taskList = document.querySelector(".my-task-list");
+            taskList.innerHTML = ''; // 기존 내용 제거
+
+            todos.forEach((todo, index) => {
+                const taskItem = `
+                    <div class="my-task-item">
+                        <div class="my-task-checkbox">
+                            <input type="checkbox" name="selectedTasks" value="${todo.t_title}" id="task-${index}">
+                            <label for="task-${index}"></label>
+                        </div>
+                        <div class="my-task-content">
+                            <h3 class="my-task-title">${todo.t_priority} ${todo.t_title}</h3>
+                            <p class="my-task-details">
+                                ${todo.t_content}<br>
+                                (기간) ${todo.t_start_date} ~ ${todo.t_end_date}
+                            </p>
+                        </div>
+                        <div class="my-task-status-buttons">
+                            <button class="my-status in-progress">진행</button>
+                            <button class="my-status delayed">지연</button>
+                            <button class="my-status completed">완료</button>
+                        </div>
+                        <div class="my-task-actions">
+                            <button class="my-edit">수정</button>
+                            <button class="my-delete">삭제</button>
+                        </div>
+                    </div>`;
+                taskList.innerHTML += taskItem;
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("할일 조회 에러:", error);
+            alert("할일 데이터를 가져오는 중 문제가 발생했습니다.");
+        }
+    });
 });
