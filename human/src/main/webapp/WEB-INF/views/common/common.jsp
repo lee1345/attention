@@ -13,8 +13,9 @@
     <!-- JS 파일 로드 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="${contextPath}/js/common.js" defer></script>
+    <!--
     <script src="${contextPath}/js/alarm.js" defer></script>
-
+    -->
 
     <title>ATTENTION</title>
   </head>
@@ -80,7 +81,7 @@
             </form>
         </div>
 
-        <!-- 알림 팝업 -->
+        <!-- 알림 팝업
         <div id="alarm-popup" class="hidden">
             <div class="A-popup-content">
                 <button class="A-close-btn" onclick="closeAlarmPopup()">X</button>
@@ -96,6 +97,6 @@
                     <tbody id="alarm-table-body"></tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
   </body>
 </html>
