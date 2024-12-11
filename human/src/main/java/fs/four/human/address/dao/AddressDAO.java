@@ -9,11 +9,13 @@ import java.util.List;
 @Mapper
 public interface AddressDAO {
 
-    // 전체 주소록 데이터 조회
-    List<AddressVO> getAllAddress();
+    // 특정 사용자의 주소록 데이터 조회
+    List<AddressVO> getAddressByEmployeeId(
+            @Param("employeeId") String employeeId);
 
-    // 필터와 검색어 기반 검색
-    List<AddressVO> searchAddress(
+    // 특정 사용자의 검색 데이터 조회
+    List<AddressVO> searchAddressByEmployeeId(
+            @Param("employeeId") String employeeId,
             @Param("category") String category,
             @Param("query") String query);
 

@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AddressVO {
-    private int adId;          // 번호
-    private String adEmplId;
+    private int adId;           // 번호
+    private String adEmplId;    // 등록한 직원 ID
     private String adName;      // 이름
     private String adPhone;     // 휴대폰
     private String adEmail;     // 이메일

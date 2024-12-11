@@ -10,7 +10,7 @@
     <script src="${contextPath}/js/address.js" defer></script>
     <title>주소록</title>
     <script>
-        const loggedInUser = "${employee.e_id}"; // 로그인한 사용자 ID를 JavaScript로 전달
+        const loggedInUserId  = "${loggedInUserId}"; // 로그인한 사용자 ID를 JavaScript로 전달
     </script>
 </head>
 <body>

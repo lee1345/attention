@@ -15,28 +15,9 @@ function addressAllData() {
 
 //======================================================================================================
 
-//// 날짜 포맷 변환 함수
-//function formatDate(dateString) {
-//    if (!dateString) {
-//            return "날짜 없음"; // 기본 메시지
-//    }
-//
-//    const parsedDate  = new Date(dateString);
-//    if (isNaN(parsedDate )) {
-//        return "유효하지 않은 날짜"; // 날짜 형식이 잘못된 경우
-//    }
-//
-//    const date = new Date(dateString);
-//    const year = date.getFullYear();
-//    const month = String(date.getMonth() + 1).padStart(2, '0');
-//    const day = String(date.getDate()).padStart(2, '0');
-//    return `${year}-${month}-${day}`;
-//}
-
-//======================================================================================================
-
 // 테이블 렌더링 함수
 function renderTable(data) {
+    console.log("렌더링 데이터: ", data); // 디버깅 로그 추가
     const addressTable = $('#addressTable');
     addressTable.empty(); // 기존 내용 초기화
 
@@ -47,14 +28,14 @@ function renderTable(data) {
 
     data.forEach(address => {
         const row = `
-            <tr class="address-row" data-id="${address.adId}">
-                <td>${address.adId}</td>
-                <td>${address.adName}</td>
-                <td>${address.adPhone}</td>
-                <td>${address.adEmail}</td>
-                <td>${address.adDeptName}</td>
-                <td>${address.adGroup}</td>
-            </tr>
+                    <tr class="address-row" data-id="${address.adId}">
+                        <td>${address.adId}</td>
+                        <td>${address.adName}</td>
+                        <td>${address.adPhone}</td>
+                        <td>${address.adEmail}</td>
+                        <td>${address.adDeptName}</td>
+                        <td>${address.adGroup}</td>
+                    </tr>
         `;
         addressTable.append(row);
     });
@@ -91,7 +72,8 @@ $(document).ready(function () {
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 category: category,
-                query: query
+                query: query,
+                emplId: loggedInUser // 로그인된 사용자 ID 전달
             },
             success: function (data) {
                 console.log("AJAX Success Data:", data); // 성공 데이터 확인

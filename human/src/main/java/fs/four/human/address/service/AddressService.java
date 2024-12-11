@@ -13,14 +13,14 @@ public class AddressService {
     @Autowired
     private AddressDAO addressDAO;
 
-    // 전체 주소록 데이터 조회
-    public List<AddressVO> getAllAddress() {
-        return addressDAO.getAllAddress();
+    // 로그인 사용자의 주소록 데이터 조회
+    public List<AddressVO> getAddressByEmployeeId(String employeeId) {
+        return addressDAO.getAddressByEmployeeId(employeeId);
     }
 
-    // 필터와 검색어 기반 검색
-    public List<AddressVO> searchAddress(String category, String query) {
-        return addressDAO.searchAddress(category, query);
+    // 로그인 사용자의 검색 데이터 조회
+    public List<AddressVO> searchAddressByEmployeeId(String employeeId, String category, String query) {
+        return addressDAO.searchAddressByEmployeeId(employeeId, category, query);
     }
 
     // 특정 주소 조회
@@ -29,7 +29,9 @@ public class AddressService {
     }
 
     // 새로운 주소 데이터 등록
-    public void createAddress(AddressVO address) {
+    public void createAddress(AddressVO address, String loggedInUserId) {
+        // 로그인한 사용자 ID를 설정
+        address.setAdEmplId(loggedInUserId);
         addressDAO.createAddress(address);
     }
 
