@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--아이디조회-->
 <mapper namespace="fs.four.human.mytodo.dao.MytodoDAO">
     <select id="getDeptById" parameterType="string" resultType="string">
         SELECT E_DEPT
@@ -8,6 +8,7 @@
         WHERE E_ID = #{e_id, jdbcType=VARCHAR}
     </select>
 
+<!--  할일등록 -->
     <insert id="insertTodo" parameterType="fs.four.human.mytodo.vo.MytodoVO">
         INSERT INTO TODO (
         T_ID, -- 시퀀스 값 추가
@@ -35,6 +36,19 @@
         #{t_dept}
         )
     </insert>
+
+<!--할일조회-->
+    <select id="getMyTodos" parameterType="map" resultType="fs.four.human.mytodo.vo.MytodoVO">
+        SELECT
+        T_TITLE,
+        T_PRIORITY,
+        T_CONTENT,
+        T_START_DATE,
+        T_END_DATE
+        FROM TODO
+        WHERE T_GROUP = #{t_group}
+        AND T_CREATED_ID = #{t_created_id}
+    </select>
 
 
 </mapper>

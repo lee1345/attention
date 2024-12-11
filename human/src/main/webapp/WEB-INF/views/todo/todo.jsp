@@ -98,7 +98,7 @@
                                <th>선택</th>
                                <th>우선순위</th>
                                <th>진행상황</th>
-                               <th>제목</th>
+                               <th>내용</th>
                                <th>시작일</th>
                                <th>종료일</th>
                                <th>담당자</th>
@@ -133,8 +133,26 @@
                                         </c:choose>
                                     </td>
                                     <td>${todo.t_content}</td>
-                                    <td><fmt:formatDate value="${todo.t_start_date}" pattern="yy.MM.dd HH:mm" /></td>
-                                    <td><fmt:formatDate value="${todo.t_end_date}" pattern="yy.MM.dd HH:mm" /></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${not empty todo.t_start_date}">
+                                                <fmt:formatDate value="${todo.t_start_date}" pattern="yyyy-MM-dd" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                -
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${not empty todo.t_end_date}">
+                                                <fmt:formatDate value="${todo.t_end_date}" pattern="yyyy-MM-dd" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                -
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td>${todo.t_updated_id}</td>
                                     <td><button class="edit">수정</button></td>
                                     <td><button class="delete">숨기기</button></td>
@@ -158,17 +176,19 @@
            <label>중요도</label>
            <select>
                <option>중요도를 선택</option>
-               <option>낮음</option>
+               <option>매우긴급</option>
+               <option>긴급</option>
                <option>보통</option>
-               <option>높음</option>
+               <option>천천히</option>
            </select>
 
            <label>진행상황</label>
            <select>
                <option>진행상황을 선택</option>
-               <option>진행 전</option>
-               <option>진행 중</option>
-               <option>완료</option>
+               <option>예정</option>
+               <option>진행지연</option>
+               <option>완료지연</option>
+                <option>완료</option>
            </select>
 
            <label>일시</label>
@@ -214,6 +234,7 @@
                               </tbody>
                           </table>
                           <button id="close-participant-popup">선택완료</button>
+                          <button id="reset-participant-selection" style="background-color: red; color: white; margin-top: 10px;">선택 초기화</button>
                       </div>
                    </div>
 </body>

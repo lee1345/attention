@@ -61,43 +61,9 @@
         <!-- 업무 리스트 -->
         <section class="my-task-list">
             <div class="my-task-item">
-                <div class="my-task-checkbox">
-                    <input type="checkbox" name="selectedTasks" value="1">
-                </div>
-                <div class="my-task-content">
-                    <h3 class="my-task-title">
-                        ⚡ 커버낫 의상 협찬문의, 피팅
-                    </h3>
-                    <p class="my-task-details">
-                        의상협찬 가능여부 연락, 피팅진행<br>
-                        (기간) 2024-11-22 ~ 11-27
-                    </p>
-                </div>
-                <div class="my-task-status-buttons">
-                    <button class="my-status in-progress">진행</button>
-                    <button class="my-status delayed">지연</button>
-                    <button class="my-status completed">완료</button>
-                </div>
-                <div class="my-task-actions">
-                    <button class="my-edit">수정</button>
-                    <button class="my-delete">삭제</button>
-                </div>
-            </div>
-
-            <!-- 두 번째 업무 -->
-            <div class="my-task-item">
-                <div class="my-task-checkbox">
-                    <input type="checkbox" name="selectedTasks" value="2">
-                </div>
-                <div class="my-task-content">
-                    <h3 class="my-task-title">
-                        📝 신입사원 교육 참여
-                    </h3>
-                    <p class="my-task-details">
-                        준비물: 필기도구!<br>
-                        (기간) 2024-11-22 ~ 11-27
-                    </p>
-                </div>
+                <section class="my-task-list">
+                    <!-- js에서 DB데이터 출력예정 -->
+                </section>
                 <div class="my-task-status-buttons">
                     <button class="my-status in-progress">진행</button>
                     <button class="my-status delayed">지연</button>

@@ -7,6 +7,8 @@ import fs.four.human.mytodo.vo.MytodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MytodoService {
 
@@ -23,6 +25,11 @@ public class MytodoService {
 
         // 할일 등록
         mytodoDAO.insertTodo(mytodoVO);
+    }
+
+    // 할일 조회 메서드
+    public List<MytodoVO> getMyTodos(String t_group, String t_created_id) {
+        return mytodoDAO.getMyTodos(t_group, t_created_id);
     }
 }
 

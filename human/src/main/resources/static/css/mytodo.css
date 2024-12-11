@@ -221,10 +221,11 @@
 .my-task-actions {
     flex: 0 0 20%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .my-task-actions button {
+    margin-left: 10px;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;

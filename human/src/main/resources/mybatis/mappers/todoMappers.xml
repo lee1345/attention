@@ -13,7 +13,6 @@
         t_priority,
         t_content,
         t_start_date,
-        t_start_time,
         t_end_date,
         t_hide,
         t_created_date,
