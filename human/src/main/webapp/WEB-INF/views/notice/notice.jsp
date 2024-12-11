@@ -8,12 +8,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 등록</title>
+
     <link rel="stylesheet" href="${contextPath}/css/notice.css" />
+
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js?v=1.0"></script>
+
     <!-- Summernote CSS/JS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css?v=1.0" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js?v=1.0"></script>
+
     <script src="${contextPath}/js/notice.js" defer></script>
     <script>
         const loggedInUser = "${employee.e_name}"; // 로그인한 사용자 이름을 JavaScript 변수로 전달
@@ -40,7 +44,7 @@
                 </select>
                 <!-- 검색어 입력 -->
                 <input type="text" id="query" name="query" placeholder="검색어를 입력하세요">
-                <button type="button" class="btn-search" id="searchBtn">조회</button>
+                <button type="button" class="btn-search" id="noticeSearchBtn">조회</button>
                 <button type="button" class="btn-register">등록하기</button>
             </div>
         </form>

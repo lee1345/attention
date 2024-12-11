@@ -11,7 +11,7 @@
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/common.css" />
     <!-- JS 파일 로드 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js?v=1.0"></script>
     <script src="${contextPath}/js/common.js" defer></script>
     <!--
     <script src="${contextPath}/js/alarm.js" defer></script>

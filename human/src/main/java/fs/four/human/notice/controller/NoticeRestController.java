@@ -1,5 +1,6 @@
 package fs.four.human.notice.controller;
 
+import fs.four.human.freeBoard.vo.FreeBoardVO;
 import fs.four.human.notice.service.NoticeService;
 import fs.four.human.notice.vo.NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,31 @@ public class NoticeRestController {
 
     // 검색 결과 반환 (JSON)
     @PostMapping("/search")
-    public List<NoticeVO> searchNotice(
+    public List<NoticeVO> searchFreeBoard(
             @RequestParam("category") String category,
             @RequestParam("query") String query) {
 
-        // 디버깅 로그
-        System.out.println("검색 필터 category: " + category);
-        System.out.println("검색어 query: " + query);
+        try {
+            // 디버깅 로그
+            System.out.println("검색 필터 category: " + category);
+            System.out.println("검색어 query: " + query);
 
-        if (category == null || category.isEmpty() || query == null || query.isEmpty()) {
-            throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
+            // 검색 조건 검증
+            if (category == null || category.isEmpty() || query == null || query.isEmpty()) {
+                throw new IllegalArgumentException("검색 필터 또는 검색어가 비어 있습니다.");
+            }
+
+            // 검색 결과 반환
+            return noticeService.searchNotice(category, query);
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            throw e; // 클라이언트에 예외 전달
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("검색 중 문제가 발생했습니다.");
         }
-
-        return noticeService.searchNotice(category, query);
     }
 
     // 공지사항 등록 API

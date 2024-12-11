@@ -110,7 +110,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/api/notice/search',
-            contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 category: category,
                 query: query
@@ -134,14 +134,14 @@ $(document).ready(function () {
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
         $('#summernote').summernote('reset'); // Summernote 초기화
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
         $('#summernote').summernote('reset'); // Summernote 초기화
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
     // 등록 폼 제출

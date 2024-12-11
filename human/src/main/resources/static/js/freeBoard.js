@@ -162,8 +162,6 @@ $(document).ready(function () {
 
     // Summernote 값 가져오기 (HTML 태그 포함)
     const content = $('#summernote').summernote('code');
-    // HTML 태그 제거
-//    content = $('<div>').html(content).text();
 
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
