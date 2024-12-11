@@ -158,6 +158,7 @@ $(document).on('click', '.address-row', function () {
     // 팝업 닫기
     $('#closeAddressPopup').on('click', function () {
         $('#popupOverlay, #addressPopup').fadeOut();
+        $('#editForm')[0].reset(); // 💡 폼 데이터 초기화
     });
 
     // AJAX 요청으로 데이터 가져오기
@@ -174,6 +175,9 @@ $(document).on('click', '.address-row', function () {
 
             // 팝업에 ID 저장
             $('#addressPopup').data('id', addressId);
+
+
+
         },
         error: function () {
             alert('데이터를 가져오지 못했습니다.');
@@ -196,8 +200,8 @@ $(document).ready(function () {
 
         // 수정/삭제 버튼 숨기고 저장/취소 버튼 추가
         $('.action-buttons').html(`
-            <button class="edit-btn">저장</button>
-            <button class="delete-btn">취소</button>
+            <button class="save-btn">저장</button>
+            <button class="cancel-btn">취소</button>
         `);
 
         // 저장 버튼 클릭
