@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/mytodo")
-public class mytodoControllerImpl implements mytodoController {
+public class MytodoControllerImpl implements MytodoController {
 
 //    @Autowired
 //    private TodoService todoService;

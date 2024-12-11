@@ -123,16 +123,15 @@
             <input type="text" id="title" name="title" required /><br>
             <label for="priority">우선순위</label>
             <select class="priority">
-                <option value="select">중요도 선택</option>
-                <option value="very-urgent">매우 긴급</option>
-                <option value="urgent">긴급</option>
-                <option value="normal">보통</option>
-                <option value="slowly">천천히</option>
+                <option value="VU">매우 긴급</option>
+                <option value="U">긴급</option>
+                <option value="N" selected>보통</option>
+                <option value="NU">천천히</option>
             </select>
             <div class="time">
-                <label for="time">일시</label><br>
-                <input type="date" id="date" name="date" required></input>
-                <select name="hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                <label for="start-date">시작</label><br>
+                <input type="date" id="start-date" name="start-date" required></input>
+                <select name="start-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                     <option selected>시</option>
                     <option>6</option>
                     <option>7</option>
@@ -153,7 +152,35 @@
                     <option>22</option>
                     <option>23</option>
                 </select>
-                <select name="minute">
+                <select name="start-minute">
+                    <option>0</option>
+                    <option>30</option>
+                </select>
+                <br>
+                <label for="end-date">종료</label><br>
+                <input type="date" id="end-date" name="end-date" required></input>
+                <select name="end-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <option selected>시</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                </select>
+                <select name="end-minute">
                     <option selected>분</option>
                     <option>0</option>
                     <option>30</option>
