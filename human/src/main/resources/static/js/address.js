@@ -171,6 +171,9 @@ $(document).on('click', '.address-row', function () {
             $('#popupAddressDeptName').text(data.adDeptName);
             $('#popupAddressGroup').text(data.adGroup);
             $('#AddressPopupOverlay, #AddressPopup').fadeIn();
+
+            // 팝업에 ID 저장
+            $('#addressPopup').data('id', addressId);
         },
         error: function () {
             alert('데이터를 가져오지 못했습니다.');
@@ -180,81 +183,97 @@ $(document).on('click', '.address-row', function () {
 
 //======================================================================================================
 
-//// 수정 버튼 클릭
-//$(document).on('click', '.edit-btn', function () {
-//    const addressId = $(this).data('id'); // 수정할 게시글 ID 가져오기
-//    $('#addressPopup').fadeOut();
-//
-//    // 팝업 닫기
-//    $('#closeEditPopup').on('click', function () {
-//        $('#popupOverlay, #editPopup').fadeOut();
-//    });
-//
-//    // 서버에서 해당 글의 데이터 가져오기
-//    $.ajax({
-//        type: 'GET',
-//        url: `/api/address/${addressId}`,
-//        success: function (data) {
-//
-//            $('#editName').val(data.adName); // 제목 로드
-//            $('#editPhone').val(data.adPhone); // 핸드폰 로드
-//            $('#editEmail').val(data.adEmail); // 이메일 로드
-//            $('#editDeptName').val(data.adDeptName); // 부서명 로드
-//            $('#editGroup').val(data.adGroup); // 그룹(별칭) 로드
-//            $('#editAddressId').val(data.adId); // 게시글 ID 저장
-//
-//            $('#popupOverlay, #editPopup').fadeIn();
-//        },
-//        error: function () {
-//            alert('수정 데이터를 불러오지 못했습니다.');
-//        }
-//    });
-//});
-//
-//// 수정 데이터 저장
-//$('#editForm').on('submit', function (event) {
-//    event.preventDefault(); // 기본 동작 방지
-//
-//    const formData = {
-//        AD_Id: $('#editAddressId').val(),
-//        AD_NAME: $('#editName').val(),
-//        AD_PHONE: $('#editPhone').val(),
-//        AD_EMAIL: $('#editEmail').val(),
-//        AD_DEPT_NAME: $('#editDeptName').val(),
-//        AD_GROUP: $('#editGroup').val(),
-//    };
-//
-//    $.ajax({
-//        type: 'PUT',
-//        url: `/api/address/${formData.adId}`,
-//        contentType: 'application/json; charset=UTF-8',
-//        data: JSON.stringify(formData),
-//        success: function () {
-//            alert('수정 성공!');
-//            $('#popupOverlay, #editPopup').fadeOut();
-//            addressAllData(); // 데이터 다시 로드
-//        },
-//        error: function () {
-//            alert('수정 실패!');
-//        }
-//    });
-//});
-//
-//// 삭제 버튼 클릭
-//$(document).on('click', '.delete-btn', function () {
-//    const addressId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
-//    if (confirm("정말 삭제하시겠습니까?")) {
-//        $.ajax({
-//            type: 'DELETE',
-//            url: `/api/address/${addressId}?user=${loggedInUser}`,
-//            success: function () {
-//                alert('삭제 성공!');
-//                $('#popupOverlay, #addressPopup').fadeOut(); // 팝업 닫기
-//                addressAllData(); // 데이터 다시 로드
-//            },
-//            error: function () {
-//                alert('삭제 실패!');
-//            }
-//        });
-//    }
-//});
+
+$(document).ready(function () {
+    // 수정 버튼 클릭
+    $('#addressPopup .edit-btn').on('click', function () {
+        // 현재 데이터를 <input>으로 변경
+        $('#popupAddressName').html(`<input type="text" id="editName" value="${$('#popupAddressName').text()}">`);
+        $('#popupAddressPhone').html(`<input type="text" id="editPhone" value="${$('#popupAddressPhone').text()}">`);
+        $('#popupAddressEmail').html(`<input type="email" id="editEmail" value="${$('#popupAddressEmail').text()}">`);
+        $('#popupAddressDeptName').html(`<input type="text" id="editDeptName" value="${$('#popupAddressDeptName').text()}">`);
+        $('#popupAddressGroup').html(`<input type="text" id="editGroup" value="${$('#popupAddressGroup').text()}">`);
+
+        // 수정/삭제 버튼 숨기고 저장/취소 버튼 추가
+        $('.action-buttons').html(`
+            <button class="edit-btn">저장</button>
+            <button class="delete-btn">취소</button>
+        `);
+
+        // 저장 버튼 클릭
+        $('.save-btn').on('click', function () {
+            const addressId = $('#addressPopup').data('id'); // ID 가져오기
+            const updatedData = {
+                adId: addressId,
+                adName: $('#editName').val(),
+                adPhone: $('#editPhone').val(),
+                adEmail: $('#editEmail').val(),
+                adDeptName: $('#editDeptName').val(),
+                adGroup: $('#editGroup').val()
+            };
+
+            // 데이터 업데이트 요청
+            $.ajax({
+                type: 'PUT',
+                url: `/api/address/${addressId}`,
+                contentType: 'application/json',
+                data: JSON.stringify(updatedData),
+                success: function () {
+                    alert('수정 성공!');
+                    $('#popupOverlay, #addressPopup').fadeOut();
+                    addressAllData(); // 테이블 다시 로드
+                },
+                error: function (xhr) {
+                    console.error('수정 실패:', xhr.responseText);
+                    alert('수정 실패! 데이터를 확인해주세요.');
+                }
+            });
+        });
+
+        // 취소 버튼 클릭
+        $('.cancel-btn').on('click', function () {
+            // 원래 데이터로 되돌림
+            $('#popupAddressName').html($('#editName').val());
+            $('#popupAddressPhone').html($('#editPhone').val());
+            $('#popupAddressEmail').html($('#editEmail').val());
+            $('#popupAddressDeptName').html($('#editDeptName').val());
+            $('#popupAddressGroup').html($('#editGroup').val());
+
+            // 수정/삭제 버튼 복원
+            $('.action-buttons').html(`
+                <button class="edit-btn" data-id="${$('#addressPopup').data('id')}">수정</button>
+                <button class="delete-btn" data-id="${$('#addressPopup').data('id')}">삭제</button>
+            `);
+        });
+    });
+});
+
+
+//======================================================================================================
+
+// 팝업 삭제 버튼 클릭
+$('#addressPopup .delete-btn').on('click', function () {
+    const addressId = $('#addressPopup').data('id'); // 팝업에 저장된 ID 가져오기
+    console.log("삭제 버튼 클릭, ID:", addressId);
+
+    if (!addressId) {
+        alert("삭제할 데이터가 없습니다.");
+        return;
+    }
+
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/api/address/${addressId}`,
+            success: function () {
+                alert('삭제 성공!');
+                $('#popupOverlay, #addressPopup').fadeOut(); // 팝업 닫기
+                addressAllData(); // 데이터 다시 로드
+            },
+            error: function (xhr) {
+                console.error('삭제 요청 실패:', xhr.responseText);
+                alert('삭제 실패! 데이터를 확인해주세요.');
+            }
+        });
+    }
+});

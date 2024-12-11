@@ -331,6 +331,7 @@ $('#editForm').on('submit', function (event) {
 // 삭제 버튼 클릭
 $(document).on('click', '.delete-btn', function () {
     const freeBoardId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
+
     if (confirm("정말 삭제하시겠습니까?")) {
         $.ajax({
             type: 'DELETE',

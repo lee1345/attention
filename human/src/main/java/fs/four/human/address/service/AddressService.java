@@ -23,7 +23,7 @@ public class AddressService {
         return addressDAO.searchAddress(category, query);
     }
 
-    // 특정 공지사항 조회
+    // 특정 주소 조회
     public AddressVO getAddressById(int id) {
         return addressDAO.getAddressById(id);
     }
@@ -33,12 +33,12 @@ public class AddressService {
         addressDAO.createAddress(address);
     }
 
-    // 게시글 수정
+    // 주소 수정
     public void updateAddress(AddressVO address) {
         addressDAO.updateAddress(address);
     }
 
-    // 게시글 삭제
+    // 주소 삭제
     public void deleteAddress(int id) {
         addressDAO.deleteAddress(id);
     }

@@ -29,7 +29,7 @@
         ORDER BY adId DESC -- 번호를 기준으로 내림차순 정렬
     </select>
 
-    <!-- 특정 공지사항 조회 -->
+    <!-- 특정 주소록 조회 -->
     <select id="getAddressById" resultType="AddressVO">
         SELECT
         AD_ID AS adId,
@@ -61,10 +61,10 @@
     <update id="updateAddress">
         UPDATE ADDRESS
         SET AD_NAME = #{adName},
-        AD_PHONE = #{adPhone},
-        AD_EMAIL = #{adEmail},
-        AD_DEPT_NAME = #{adDeptName},
-        AD_GROUP = #{adGroup}
+            AD_PHONE = #{adPhone},
+            AD_EMAIL = #{adEmail},
+            AD_DEPT_NAME = #{adDeptName},
+            AD_GROUP = #{adGroup}
         WHERE AD_ID = #{adId}
     </update>
 

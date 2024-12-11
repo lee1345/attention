@@ -68,7 +68,7 @@ public class AddressRestController {
         }
     }
 
-    // 특정 게시판 데이터 반환
+    // 특정 주소록 데이터 반환
     @GetMapping("/{id}")
     public AddressVO getAddressById(@PathVariable("id") int id) {
         AddressVO address = addressService.getAddressById(id);
@@ -78,26 +78,27 @@ public class AddressRestController {
         return address;
     }
 
-    // 게시판 수정
+    // 주소록 수정
     @PutMapping("/{id}")
     public String updateAddress(@PathVariable("id") int id, @RequestBody AddressVO address) {
         AddressVO existingAddress = addressService.getAddressById(id);
 
         if (existingAddress == null) {
-            return "해당 게시글이 존재하지 않습니다.";
+            return "해당 주소가 존재하지 않습니다.";
         }
 
         addressService.updateAddress(address);
         return "수정 성공!";
     }
 
-    // 게시판 삭제
+    // 주소 데이터 삭제
     @DeleteMapping("/{id}")
-    public String deleteAddress(@PathVariable("id") int id, @RequestParam("user") String user) {
+    public String deleteAddress(@PathVariable("id") int id) {
+        System.out.println("삭제 요청 ID: " + id); // 디버깅용 로그
         AddressVO address = addressService.getAddressById(id);
 
-        if (user == null || user.isEmpty()) {
-            return "삭제 요청에서 사용자 정보가 누락되었습니다.";
+        if (address == null) {
+            return "해당 주소가 존재하지 않습니다.";
         }
 
         addressService.deleteAddress(id);

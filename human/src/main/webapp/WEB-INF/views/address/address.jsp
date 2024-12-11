@@ -97,10 +97,34 @@
         <!-- 수정/삭제 버튼 -->
         </div>
         <div class="action-buttons">
-            <button class="edit-btn" data-id="${data.b_Id}">수정</button>
-            <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+            <button class="edit-btn" data-id="${address.adId}">수정</button>
+            <button class="delete-btn" data-id="${address.adId}">삭제</button>
         </div>
     </div>
+</div>
+
+<!-- 수정 팝업 -->
+<div class="popup hidden" id="editPopup">
+    <button class="close-btn" id="closeEditPopup">X</button>
+    <h2>게시글 수정</h2>
+    <form id="editForm">
+        <div class="form-row">
+            <!-- 제목 입력 -->
+            <div class="form-group">
+                <label for="popupAddressName">이름</label>
+                <div id="popupAddressName"/></div>
+                <label for="popupAddressPhone">핸드폰</label>
+                <div id="popupAddressPhone"/></div>
+                <label for="popupAddressEmail">이메일</label>
+                <div id="popupAddressEmail"/></div>
+                <label for="popupAddressDeptName">부서명</label>
+                <div id="popupAddressDeptName"/></div>
+                <label for="popupAddressGroup">그룹(별칭)</label>
+                <div id="popupAddressGroup"/></div>
+            </div>
+        </div>
+        <button type="editBtn" class="submit-btn">저장</button>
+    </form>
 </div>
 </body>
 </html>
