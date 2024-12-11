@@ -41,7 +41,6 @@
         <table class="address-table">
             <thead>
             <tr>
-                <th>번호</th>
                 <th>이름</th>
                 <th>휴대폰</th>
                 <th>이메일</th>

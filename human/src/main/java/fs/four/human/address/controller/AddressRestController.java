@@ -35,6 +35,11 @@ public class AddressRestController {
             @RequestParam("category") String category,
             @RequestParam("query") String query,
             HttpSession session) {
+
+        // 디버깅: 입력값 확인
+        System.out.println("검색 요청 카테고리: " + category);
+        System.out.println("검색 요청 쿼리: " + query);
+
         String emplId = (String) session.getAttribute("loginUserID");
 
         if (emplId == null || emplId.isEmpty()) {

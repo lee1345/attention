@@ -19,12 +19,12 @@
     <!-- 로그인 직원의 주소록 검색 -->
     <select id="searchAddressByEmployeeId" resultType="AddressVO">
         SELECT
-        AD_ID AS adId,
-        AD_NAME AS adName,
-        AD_PHONE AS adPhone,
-        AD_EMAIL AS adEmail,
-        AD_DEPT_NAME AS adDeptName,
-        AD_GROUP AS adGroup
+            AD_ID AS adId,
+            AD_NAME AS adName,
+            AD_PHONE AS adPhone,
+            AD_EMAIL AS adEmail,
+            AD_DEPT_NAME AS adDeptName,
+            AD_GROUP AS adGroup
         FROM ADDRESS
         WHERE LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%'
         AND AD_EMPL_ID = #{employeeId}

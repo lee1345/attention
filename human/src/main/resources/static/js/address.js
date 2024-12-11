@@ -29,7 +29,6 @@ function renderTable(data) {
     data.forEach(address => {
         const row = `
             <tr class="address-row" data-id="${address.adId}">
-                <td>${address.adId}</td>
                 <td>${address.adName}</td>
                 <td>${address.adPhone}</td>
                 <td>${address.adEmail}</td>
@@ -65,6 +64,11 @@ $(document).ready(function () {
             return;
         }
 
+        // 디버깅: 입력값 확인
+        console.log("검색 요청 카테고리: ", category);
+        console.log("검색 요청 쿼리: ", query);
+        console.log("로그인된 사용자 ID: ", loggedInUserId);
+
         // 검색어 AJAX POST 요청
         $.ajax({
             type: 'POST',
@@ -73,13 +77,13 @@ $(document).ready(function () {
             data: {
                 category: category,
                 query: query,
-                emplId: loggedInUser // 로그인된 사용자 ID 전달
             },
             success: function (data) {
-                console.log("AJAX Success Data:", data); // 성공 데이터 확인
+                console.log("검색 결과 데이터: ", data); // 성공 데이터 확인
                 renderTable(data);
             },
             error: function (xhr) {
+                console.error("검색 실패: ", xhr.responseText);
                 alert("검색어를 확인해주세요 !");
             }
         });
@@ -93,12 +97,13 @@ $(document).ready(function () {
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
+        $('#registerForm')[0].reset();
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
-        $('#registerForm')[0].reset(); // 💡 폼 데이터 초기화
+        $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
     // 폼 제출
@@ -121,6 +126,7 @@ $(document).ready(function () {
             success: function () {
                 alert('등록 성공!');
                 $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
+                $('#registerForm')[0].reset();
                 addressAllData(); // 데이터 다시 로드
             },
             error: function () {
