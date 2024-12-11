@@ -194,19 +194,38 @@ document.querySelectorAll('.btn-modal-close').forEach(button => {
 document.getElementById('close-participant-popup').addEventListener('click', () => {
     const checkboxes = document.querySelectorAll('#participant-list input[type="checkbox"]');
     let selectedParticipants = [];
+
+    // 선택된 체크박스에서 참여자 이름 가져오기
     checkboxes.forEach((checkbox, index) => {
         if (checkbox.checked) {
             selectedParticipants.push(participants[index].name);
         }
     });
 
+    // 최대 선택 인원 제한 확인
     if (selectedParticipants.length > 5) {
         alert('최대 5명까지만 선택할 수 있습니다.');
         return;
     }
 
-    document.querySelector('.participant-popup').classList.add('hidden');
+    // 선택된 참여자 표시 업데이트
     updateSelectedParticipantsDisplay(selectedParticipants);
+
+    // 팝업 닫기
+    const popup = document.getElementById('participant-popup'); // 팝업 ID 가져오기
+    popup.classList.add('hidden'); // 숨김 클래스 추가
+    popup.classList.remove('visible'); // 보임 클래스 제거
+});
+
+// 선택 초기화 버튼 추가 로직
+document.getElementById('reset-participant-selection').addEventListener('click', () => {
+    const checkboxes = document.querySelectorAll('#participant-list input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = false; // 모든 체크박스 선택 해제
+    });
+
+    updateSelectedParticipantsDisplay([]); // 선택된 참여자 초기화
+    alert('선택이 초기화되었습니다.');
 });
 
 // 선택된 참여자 표시 업데이트
