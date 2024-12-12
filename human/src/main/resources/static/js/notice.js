@@ -240,6 +240,7 @@ $(document).ready(function () {
 // 공지사항 행 클릭 이벤트
 $(document).off('click', '.notice-row').on('click', '.notice-row', function () {
     const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
+    $('#popupOverlay').fadeIn();
 
     // AJAX 요청으로 조회수 증가 및 데이터 가져오기
     $.ajax({
@@ -266,7 +267,7 @@ $(document).off('click', '.notice-row').on('click', '.notice-row', function () {
             $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
 
             // 팝업 표시
-            $('#noticePopupOverlay, #noticePopup').fadeIn();
+            $('#PopupOverlay, #noticePopup').fadeIn();
         },
         error: function () {
             alert('데이터를 가져오는 데 실패했습니다.');

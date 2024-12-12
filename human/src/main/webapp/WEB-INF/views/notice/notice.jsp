@@ -65,7 +65,9 @@
         <!-- AJAX로 데이터 로드 -->
         </tbody>
     </table>
+    <div id="pagination" class="pagination"></div>
 </div>
+
 
 <!-- 팝업 배경 오버레이 -->
 <div class="popup-overlay hidden" id="popupOverlay"></div>
@@ -100,7 +102,6 @@
         </div>
         <div class="content">
             <div id="popupNoticeTitle"></div><br>
-            <p>상세 내용</p>
             <div id="popupNoticeContent">
             </div>
         </div>
