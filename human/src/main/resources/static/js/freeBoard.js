@@ -269,7 +269,7 @@ $(document).on('click', '.edit-btn', function () {
     // 팝업 닫기
     $('#closeEditPopup').on('click', function () {
         $('#popupOverlay, #editPopup').fadeOut();
-        tinymce.remove('#editContent'); // TinyMCE 초기화 제거
+        tinymce.remove('#content'); // TinyMCE 초기화 제거
     });
 
     // 서버에서 해당 글의 데이터 가져오기
@@ -280,12 +280,12 @@ $(document).on('click', '.edit-btn', function () {
 
             $('#editTitle').val(data.b_Title); // 제목 로드
             $('#editCategory').val(data.b_Category); // 카테고리 로드
-            $('#editSummernote').summernote('code', data.b_Content); // 내용 로드
+            $('#content') // 내용 로드
             $('#editFreeBoardId').val(data.b_Id); // 게시글 ID 저장
 
         // TinyMCE 초기화 및 데이터 로드
-            initializeTinyMCE('#editContent'); // TinyMCE 초기화
-            tinymce.get('editContent').setContent(data.b_Content); // 내용 로드
+            initializeTinyMCE('#Content'); // TinyMCE 초기화
+            tinymce.get('content').setContent(data.b_Content); // 내용 로드
 
             $('#popupOverlay, #editPopup').fadeIn();
         },
@@ -300,7 +300,7 @@ $('#editForm').on('submit', function (event) {
     event.preventDefault(); // 기본 동작 방지
 
     // TinyMCE에서 수정된 내용을 가져옵니다.
-    const content = tinymce.get('editContent').getContent();
+    const content = tinymce.get('content').getContent();
 
     const formData = {
         b_Id: $('#editFreeBoardId').val(),
