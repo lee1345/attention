@@ -282,3 +282,35 @@ function saveChanges() {
     // 실제 데이터 업데이트 처리는 여기에 구현
     closePopup();
 }
+
+// =====================================================
+
+
+function sortTable(column) {
+    const currentOrder = sessionStorage.getItem("sortOrder") || "ASC";
+    const newOrder = currentOrder === "ASC" ? "DESC" : "ASC";
+    sessionStorage.setItem("sortOrder", newOrder);
+
+    const url = `/todo?sortField=${column}&sortOrder=${newOrder}`;
+    window.location.href = url; // 서버에 정렬 요청
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchForm = document.querySelector('form');
+    const taskType = document.getElementById('taskType');
+    const searchInput = document.getElementById('searchInput');
+
+    // 검색 버튼 클릭 시 입력값 검증
+    searchForm.addEventListener('submit', (e) => {
+        // 'title' 또는 'master' 선택 시 검색어가 비어 있으면 알림창 표시
+        if ((taskType.value === 'title' || taskType.value === 'master') && searchInput.value.trim() === '') {
+            alert('검색 내용을 입력하세요.');
+            e.preventDefault(); // 폼 전송 중지
+        }
+
+        // 'total' 선택 시 검색어는 없어도 됨 (서버에서 전체 데이터 반환)
+        if (taskType.value === 'total') {
+            console.log('전체 검색: 검색어 없이도 요청 가능');
+        }
+    });
+});
