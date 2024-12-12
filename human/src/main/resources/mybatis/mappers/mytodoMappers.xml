@@ -50,6 +50,7 @@
         FROM TODO
         WHERE T_GROUP = #{t_group}
         AND T_CREATED_ID = #{t_created_id}
+        AND T_HIDE = 'N'
     </select>
 
 <!--    버튼으로 상태 변경하기 -->
@@ -81,13 +82,39 @@
         AND T_CREATED_ID = #{t_created_id}
         ORDER BY
         <choose>
-            <when test="sortType == 'priority'"> T_PRIORITY ASC </when>
-            <when test="sortType == 'stage'"> T_STAGE ASC </when>
+            <when test="sortType == 'priority'"> T_PRIORITY DESC </when>
+            <when test="sortType == 'stage'"> T_STAGE DESC </when>
             <when test="sortType == 'startDate'"> T_START_DATE ASC </when>
             <when test="sortType == 'endDate'"> T_END_DATE ASC </when>
             <otherwise> T_CREATED_DATE DESC </otherwise>
         </choose>
     </select>
+
+    <!-- 선택 삭제 -->
+    <delete id="deleteSelectedTodos">
+        DELETE FROM TODO WHERE T_ID IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 숨기기/ -->
+    <update id="updateHideStatus">
+        UPDATE TODO
+        SET T_HIDE = #{hideStatus}
+        WHERE T_ID IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+<!--    숨기기취소-->
+    <update id="updateHideAll">
+        UPDATE TODO
+        SET T_HIDE = 'N'
+        WHERE T_HIDE = 'Y'
+    </update>
+
 
 </mapper>
 

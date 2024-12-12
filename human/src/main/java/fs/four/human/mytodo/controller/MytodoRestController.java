@@ -102,5 +102,35 @@ public class MytodoRestController {
         return ResponseEntity.ok(sortedTodos);
     }
 
+    //선택 삭제
+    @PostMapping("/deleteSelected")
+    public ResponseEntity<?> deleteSelectedTodos(@RequestBody List<Long> ids) {
+        try {
+            mytodoService.deleteSelectedTodos(ids);
+            return ResponseEntity.ok("삭제 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패: " + e.getMessage());
+        }
+    }
+    //선택 숨기기
+    @PostMapping("/hideSelected")
+    public ResponseEntity<?> hideSelectedTodos(@RequestBody List<Long> ids) {
+        try {
+            mytodoService.updateHideStatus(ids, "Y");
+            return ResponseEntity.ok("숨기기 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숨기기 실패: " + e.getMessage());
+        }
+    }
+    //숨기기취소
+    @PostMapping("/unhideAll")
+    public ResponseEntity<?> unhideAllTodos() {
+        try {
+            mytodoService.updateHideAll();
+            return ResponseEntity.ok("숨기기 취소 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숨기기 취소 실패: " + e.getMessage());
+        }
+    }
 
 }

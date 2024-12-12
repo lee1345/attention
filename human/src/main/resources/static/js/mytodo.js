@@ -173,6 +173,22 @@ $('#registerForm').submit(function (event) {
     });
 });
 
+function mapPriorityText(priority) {
+    switch (priority) {
+        case "VU":
+            return `<i class="fa-solid fa-angles-up" style="color: red;"></i> [매우 긴급]`;
+        case "U":
+            return `<i class="fa-solid fa-angle-up" style="color: orange;"></i> [긴급]`;
+        case "N":
+            return `<i class="fa-solid fa-minus" style="color: green;"></i> [보통]`;
+        case "L":
+            return `<i class="fa-solid fa-angle-down" style="color: blue;"></i> [천천히]`;
+        default:
+            return `<i class="fa-solid fa-question" style="color: gray;"></i> [미정]`;
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // 기본 날짜 설정
     const today = new Date().toISOString().split('T')[0];
@@ -197,6 +213,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 // NULL 상태 처리: 버튼 모두 비활성화 (흰색 배경)
                 const nullState = !todo.t_stage ? "not-selected" : "";
 
+                // 우선순위 변환
+                const priorityText = mapPriorityText(todo.t_priority);
+
                 // 할일 항목 생성
                 const taskItem = `
                     <div class="my-task-item">
@@ -205,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <label for="task-${index}"></label>
                         </div>
                         <div class="my-task-content">
-                            <h3 class="my-task-title">${todo.t_priority} ${todo.t_title}</h3>
+                            <h3 class="my-task-title">${priorityText} ${todo.t_title}</h3>
                             <p class="my-task-details">
                                 ${todo.t_content}<br>
                                 (기간) ${todo.t_start_date} ~ ${todo.t_end_date}
@@ -292,6 +311,8 @@ function sortTasks(sortType) {
 
             sortedTodos.forEach((todo, index) => {
                 // 정렬된 데이터 렌더링
+                const priorityText = mapPriorityText(todo.t_priority); // 우선순위 변환
+
                 const planActive = todo.t_stage === "P" ? "active" : "";
                 const inProgressActive = todo.t_stage === "IP" ? "active" : "";
                 const completeActive = todo.t_stage === "C" ? "active" : "";
@@ -303,7 +324,7 @@ function sortTasks(sortType) {
                             <label for="task-${index}"></label>
                         </div>
                         <div class="my-task-content">
-                            <h3 class="my-task-title">${todo.t_priority} ${todo.t_title}</h3>
+                            <h3 class="my-task-title">${priorityText} ${todo.t_title}</h3>
                             <p class="my-task-details">
                                 ${todo.t_content}<br>
                                 (기간) ${todo.t_start_date} ~ ${todo.t_end_date}
@@ -325,6 +346,66 @@ function sortTasks(sortType) {
         error: function (xhr) {
             console.error("정렬 실패:", xhr.responseText);
             alert("정렬 중 문제가 발생했습니다.");
+        }
+    });
+}
+
+//선택 숨기기, 삭제, 숨기기취소
+
+// 체크된 항목의 ID 배열 가져오기
+function getSelectedIds() {
+    const checkboxes = document.querySelectorAll("input[name='selectedTasks']:checked");
+    return Array.from(checkboxes).map(checkbox => checkbox.value);
+}
+// 배치 작업 처리 함수
+function handleBatchAction(actionType) {
+    let url, successMessage, requestData;
+
+    switch (actionType) {
+        case 'delete':
+            const selectedIds = getSelectedIds();
+            if (selectedIds.length === 0) {
+                alert("항목을 선택하세요.");
+                return;
+            }
+            url = '/mytodo/deleteSelected';
+            successMessage = '선택한 항목이 삭제되었습니다.';
+            requestData = JSON.stringify(selectedIds); // 선택된 항목만 전송
+            break;
+
+        case 'hide':
+            const idsToHide = getSelectedIds();
+            if (idsToHide.length === 0) {
+                alert("항목을 선택하세요.");
+                return;
+            }
+            url = '/mytodo/hideSelected';
+            successMessage = '선택한 일정이 숨겨집니다.';
+            requestData = JSON.stringify(idsToHide); // 선택된 항목만 전송
+            break;
+
+        case 'unhide':
+            url = '/mytodo/unhideAll'; // 모든 숨기기를 취소
+            successMessage = '숨겨진 일정이 모두 복귀됩니다.';
+            requestData = null; // 선택된 항목 필요 없음
+            break;
+
+        default:
+            return;
+    }
+
+    // AJAX 요청
+    $.ajax({
+        url: url,
+        method: 'POST',
+        contentType: 'application/json',
+        data: requestData,
+        success: function () {
+            alert(successMessage);
+            location.reload(); // 페이지 새로고침
+        },
+        error: function (xhr) {
+            alert("작업에 실패했습니다: " + xhr.responseText);
         }
     });
 }

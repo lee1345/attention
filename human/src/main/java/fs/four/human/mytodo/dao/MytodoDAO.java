@@ -35,4 +35,12 @@ public interface MytodoDAO {
             @Param("t_created_id") String t_created_id,
             @Param("sortType") String sortType);
 
+    //선택 삭제,
+    void deleteSelectedTodos(@Param("ids") List<Long> ids);
+    //선택 숨기기
+    void updateHideStatus(@Param("ids") List<Long> ids, @Param("hideStatus") String hideStatus);
+    //숨기기 취소
+    void updateHideAll();
+
+
 }
