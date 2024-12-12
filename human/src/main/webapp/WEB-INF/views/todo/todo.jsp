@@ -115,7 +115,7 @@
                                <td>24.02.11 14:00</td>
                                <td>24.02.11 14:00</td>
                                <td>김혜민</td>
-                               <td><button class="edit">수정</button></td>
+                               <td><button class="edit" id="editPopup">수정</button></td>
                                <td><button class="delete">숨기기</button></td>
                            </tr> -->
                            <c:forEach var="todo" items="${todos}">
@@ -154,7 +154,7 @@
                                         </c:choose>
                                     </td>
                                     <td>${todo.t_updated_id}</td>
-                                    <td><button class="edit">수정</button></td>
+                                    <td><button type="button" class="edit" id="editPopup">수정</button></td>
                                     <td><button class="delete">숨기기</button></td>
                                 </tr>
                             </c:forEach>
@@ -237,6 +237,54 @@
                           <button id="reset-participant-selection" style="background-color: red; color: white; margin-top: 10px;">선택 초기화</button>
                       </div>
                    </div>
+                   <div id="editPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); border:1px solid #ccc; padding:20px; background-color:white; z-index:1000;">
+                   <button class="btn-modal-close">x</button>
+                       <h3>업무 수정</h3>
+                       <label>제목</label>
+                          <input type="text" placeholder="제목을 입력하세요">
+
+                          <label>중요도</label>
+                          <select>
+                              <option>중요도를 선택</option>
+                              <option>매우긴급</option>
+                              <option>긴급</option>
+                              <option>보통</option>
+                              <option>천천히</option>
+                          </select>
+
+                          <label>진행상황</label>
+                          <select>
+                              <option>진행상황을 선택</option>
+                              <option>예정</option>
+                              <option>진행지연</option>
+                              <option>완료지연</option>
+                               <option>완료</option>
+                          </select>
+
+                          <label>일시</label>
+                          <div class="date-time">
+                              <input type="date">
+                              <select>
+                                  <option>00시</option>
+                                  <option>01시</option>
+                                  <!-- ... -->
+                                  <option>23시</option>
+                              </select>
+                              <select>
+                                  <option>00분</option>
+                                  <option>30분</option>
+                              </select>
+                   </div>
+
+                                  <label>참여자</label>
+                                  <button id="open-participant-popup">참여자 선택</button>
+                                  <div id="selected-participants"></div>
+
+                                  <label>내용</label>
+                                  <textarea maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+
+                                  <button>추가하기</button>
+                              </div>
 </body>
 <script src="${contextPath}/js/todo.js"></script>
 </html>
