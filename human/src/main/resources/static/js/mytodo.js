@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <button class="my-status Complete ${completeActive}" value="C" onclick="updateStage(this, '${todo.t_id}')">완료</button>
                         </div>
                         <div class="my-task-actions">
-                            <button class="my-edit">수정</button>
+                            <button class="my-edit" onclick="openEditPopup(${todo.t_id})">수정</button>
                             <button class="my-delete" onclick="deleteTodo(${todo.t_id})">삭제</button>
                         </div>
                     </div>`;
@@ -409,3 +409,67 @@ function handleBatchAction(actionType) {
         }
     });
 }
+// 수정 팝업 열기
+function openEditPopup(t_id) {
+    $.ajax({
+        url: `/mytodo/getTodo`,
+        method: 'GET',
+        data: { t_id },
+        success: function (todo) {
+            if (!todo) {
+                alert('데이터를 불러오지 못했습니다.');
+                return;
+            }
+
+            // 기존 데이터로 팝업 채우기
+            $('#edit-t-id').val(todo.t_id || '');
+            $('#edit-title').val(todo.t_title || '');
+            $('#edit-content').val(todo.t_content || '');
+
+            // 팝업 열기
+            $('#editPopupOverlay').show();
+            $('#editPopup').show();
+        },
+        error: function () {
+            alert('데이터를 불러오지 못했습니다.');
+        },
+    });
+}
+
+// 팝업 닫기
+$('#closeEditPopup').on('click', function () {
+    $('#editPopupOverlay').hide();
+    $('#editPopup').hide();
+});
+
+// 수정 데이터 전송
+$('#editForm').submit(function (event) {
+    event.preventDefault();
+
+    const formData = {
+        t_id: $('#edit-t-id').val(),
+        t_title: $('#edit-title').val(),
+        t_priority: $('#edit-priority').val(),
+        t_content: $('#edit-content').val(),
+        t_start_date: $('#edit-start-date').val() + ' ' + $('select[name="edit-start-hour"]').val() + ':' + $('select[name="edit-start-minute"]').val(),
+        t_end_date: $('#edit-end-date').val() + ' ' + $('select[name="edit-end-hour"]').val() + ':' + $('select[name="edit-end-minute"]').val(),
+
+
+    };
+
+    $.ajax({
+        url: '/mytodo/updateTodo',
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function () {
+            alert('수정 완료!');
+            $('#editPopupOverlay').hide();
+            $('#editPopup').hide();
+            location.reload(); // 새로고침
+        },
+        error: function () {
+            alert('수정 실패.');
+        },
+    });
+});

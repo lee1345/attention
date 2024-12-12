@@ -36,11 +36,20 @@ public interface MytodoDAO {
             @Param("sortType") String sortType);
 
     //선택 삭제,
-    void deleteSelectedTodos(@Param("ids") List<Long> ids);
+    void deleteSelectedTodos(
+            @Param("ids") List<Long> ids);
     //선택 숨기기
-    void updateHideStatus(@Param("ids") List<Long> ids, @Param("hideStatus") String hideStatus);
+    void updateHideStatus(
+            @Param("ids") List<Long> ids,
+            @Param("hideStatus") String hideStatus);
     //숨기기 취소
     void updateHideAll();
-
+    
+    //수정하기    
+    void updateTodo(MytodoVO mytodoVO);
+    
+    //가져오기
+    MytodoVO getTodoById(
+            @Param("t_id") Long t_id);
 
 }

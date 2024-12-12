@@ -58,6 +58,14 @@ public class MytodoService {
     public void updateHideAll() {
         mytodoDAO.updateHideAll();
     }
+    // 수정하기
+    public void updateTodo(MytodoVO mytodoVO) {
+        mytodoDAO.updateTodo(mytodoVO);
+    }
+    //수정찾기
+    public MytodoVO getTodoById(Long t_id) {
+        return mytodoDAO.getTodoById(t_id);
+    }
 
 }
 
