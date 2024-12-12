@@ -57,7 +57,7 @@
 }
 
 .navbar ul li a:hover {
-    color: #0000ff;
+    color: #0000cd;
 }
 
 .navbar ul li:not(:last-child)::after {
