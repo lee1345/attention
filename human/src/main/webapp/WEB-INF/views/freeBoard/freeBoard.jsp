@@ -117,8 +117,8 @@
             <h3 id="popupCategory"></h3>
         </div>
         <div class="sub">
-            <div>날짜   <span id="popupFreeBoardDate"></span></div>
-            <div>작성자 <span id="popupFreeBoardWriter"></span></div>
+            <div>날짜 : <span id="popupFreeBoardDate"></span></div>
+            <div>작성자 : <span id="popupFreeBoardWriter"></span></div>
         </div>
         <div class="content">
             <div id="popupFreeBoardTitle"></div><br>

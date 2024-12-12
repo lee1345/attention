@@ -94,8 +94,8 @@
     <div class="title"><h2 id="popupTitle">공지사항</h2></div>
     <div class="contentPopup">
         <div class="sub">
-            <div>날짜   <span id="popupNoticeDate"></span></div>
-            <div>작성자 <span id="popupNoticeWriter"></span></div>
+            <div>날짜 : <span id="popupNoticeDate"></span></div>
+            <div>작성자 : <span id="popupNoticeWriter"></span></div>
         </div>
         <div class="content">
             <div id="popupNoticeTitle"></div><br>
