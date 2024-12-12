@@ -9,9 +9,11 @@
 }
 
 .freeBoard h2 {
+    width: 150px;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
     color: #333;
 }
 
@@ -19,7 +21,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
 }
 
 .search-register .filter-group {
@@ -39,7 +40,7 @@
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 30px;
+    gap: 40px;
     align-items: center;
 }
 
@@ -56,14 +57,14 @@
 }
 
 .navbar ul li a:hover {
-    color: #0044cc;
+    color: #0000ff;
 }
 
 .navbar ul li:not(:last-child)::after {
     content: "";
     position: absolute;
     top: 50%;
-    right: -15px;
+    right: -22px;
     transform: translateY(-50%);
     width: 2px;
     height: 80%;
@@ -103,7 +104,6 @@
 
 .freeBoard-table th,
 .freeBoard-table td {
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 10px;
     text-align: center;
@@ -121,22 +121,22 @@
 
 .freeBoard-table th:nth-child(2), /* 분류 */
 .freeBoard-table td:nth-child(2) {
-    width: 10%; /* 분류 열 크기 */
+    width: 15%; /* 분류 열 크기 */
 }
 
 .freeBoard-table th:nth-child(3), /* 제목 */
 .freeBoard-table td:nth-child(3) {
-    width: 23%; /* 제목 열 크기 */
+    width: 20%; /* 제목 열 크기 */
 }
 
 .freeBoard-table th:nth-child(4), /* 내용 */
 .freeBoard-table td:nth-child(4) {
-    width: 42%; /* 내용 열 크기 */
+    width: 38%; /* 내용 열 크기 */
 }
 
 .freeBoard-table th:nth-child(5), /* 작성자 */
 .freeBoard-table td:nth-child(5) {
-    width: 6%; /* 작성자 열 크기 */
+    width: 8%; /* 작성자 열 크기 */
 }
 
 .freeBoard-table th:nth-child(6), /* 날짜 */
@@ -144,10 +144,16 @@
     width: 10%; /* 날짜 열 크기 */
 }
 
+/* 제목과 내용 열 왼쪽 정렬 */
+.freeBoard-table td:nth-child(3),
+.freeBoard-table td:nth-child(4) {
+    text-align: left; /* 왼쪽 정렬 */
+}
+
 .freeBoard-table th {
-    background-color: #c5d9ed;;
     font-weight: bold;
     color: #333;
+    border-bottom: 2px solid black;
 }
 
 .freeBoard-table tr:hover {

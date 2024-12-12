@@ -45,7 +45,7 @@
               </ul>
               <br>
             </li>
-            <strong><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></strong>
+            <span><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></span>
             <br><br>
             <li>
               <span><i class="fa-solid fa-bullhorn"></i> 게시판</span>
@@ -56,7 +56,7 @@
             </li>
             <br><br>
             <li>
-              <strong><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
+              <span><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></span>
             </li>
           </ul>
         </nav>
