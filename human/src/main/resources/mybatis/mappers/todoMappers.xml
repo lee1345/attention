@@ -40,4 +40,16 @@
     </select>
     <!--  todo 진행상태별 EX)P,PD,..  -->
 
+
+
+    <!-- 정렬된 Todo 조회 -->
+    <select id="getSortedTodoList" parameterType="map" resultType="TodoVO">
+        SELECT
+        t_id, t_group, t_dept, t_stage, t_priority, t_content,
+        t_start_date, t_end_date, t_hide, t_created_date,
+        t_updated_date, t_updated_id, t_created_id
+        FROM TODO
+        ORDER BY ${sortField} ${sortOrder}
+    </select>
+
 </mapper>

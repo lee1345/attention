@@ -282,3 +282,19 @@ function saveChanges() {
     // 실제 데이터 업데이트 처리는 여기에 구현
     closePopup();
 }
+
+
+
+//=========================================================================
+
+// 정렬기능
+function sortTable(column) {
+    // 정렬 상태를 기억하기 위해 세션 스토리지 사용
+    const currentOrder = sessionStorage.getItem("sortOrder") || "ASC";
+    const newOrder = currentOrder === "ASC" ? "DESC" : "ASC";
+    sessionStorage.setItem("sortOrder", newOrder);
+
+    // 서버로 요청
+    const url = `/todo?sortField=${column}&sortOrder=${newOrder}`;
+    window.location.href = url; // 새로고침하여 정렬된 데이터 가져오기
+}

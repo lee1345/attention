@@ -81,13 +81,20 @@
                            </div>
                         </form>
                        <!-- 정렬 옵션 -->
-                       <div class="sort-options">
-                           <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
-                           <button><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
-                           <button><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
-                           <button><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
-                       </div>
-
+                        <div class="sort-options">
+                            <button onclick="sortTable('T_PRIORITY')">
+                                <span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순
+                            </button>
+                            <button onclick="sortTable('T_STAGE')">
+                                <span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순
+                            </button>
+                            <button onclick="sortTable('T_START_DATE')">
+                                <span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순
+                            </button>
+                            <button onclick="sortTable('T_END_DATE')">
+                                <span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순
+                            </button>
+                        </div>
                    </div>
                </div>
                <!-- 업무 리스트 -->
