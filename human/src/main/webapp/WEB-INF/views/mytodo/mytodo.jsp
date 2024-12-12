@@ -151,6 +151,86 @@
         </form>
     </div>
 
+    <!-- 수정 팝업 -->
+    <div class="popup hidden" id="editPopup">
+        <button class="close-btn" id="closeEditPopup">X</button>
+        <h2>나의 할일 수정하기</h2>
+        <form id="editForm">
+            <label for="edit-title">제목</label>
+            <input type="text" id="edit-title" name="edit-title" required /><br>
+            <label for="edit-priority">우선순위</label>
+            <select class="edit-priority">
+                <option value="VU">매우 긴급</option>
+                <option value="U">긴급</option>
+                <option value="N" selected>보통</option>
+                <option value="L">천천히</option>
+            </select>
+            <div class="time">
+                <label for="edit-start-date">시작일시</label><br>
+                <input type="date" id="edit-start-date" name="edit-start-date" required></input>
+                <select id="edit-start-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <option selected>시</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                </select>
+                <select id="edit-start-minute">
+                    <option selected>분</option>
+                    <option>0</option>
+                    <option>30</option>
+                </select>
+                <br>
+                <label for="edit-end-date">종료일시</label><br>
+                <input type="date" id="edit-end-date" name="edit-end-date" required></input>
+                <select id="edit-end-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <option selected>시</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                </select>
+                <select id="edit-end-minute">
+                    <option selected>분</option>
+                    <option>0</option>
+                    <option>30</option>
+                </select>
+            </div>
+            <label for="edit-context">내용</label>
+            <textarea id="edit-context" name="edit-context" cols="50" rows="10" required></textarea>
+            <button type="submit" class="submit-btn">수정</button>
+        </form>
+    </div>
+
+
 <script src="${contextPath}/js/mytodo.js"></script>
 </body>
 </html>
