@@ -235,6 +235,8 @@ $(document).ready(function () {
 //    });
 //});
 
+//======================================================================================================
+
 // 공지사항 행 클릭 이벤트
 $(document).off('click', '.notice-row').on('click', '.notice-row', function () {
     const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
@@ -277,6 +279,9 @@ $(document).off('click', '.notice-row').on('click', '.notice-row', function () {
         $('#popupOverlay, #noticePopup').fadeOut();
     });
 });
+
+//======================================================================================================
+
 
 
 

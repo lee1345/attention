@@ -3,7 +3,6 @@ package fs.four.human.notice.dao;
 import fs.four.human.notice.vo.NoticeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,3 +27,4 @@ public interface NoticeDAO {
     void incrementViewCount(@Param("id") int id);
 
 }
+
