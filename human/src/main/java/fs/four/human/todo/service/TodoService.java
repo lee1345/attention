@@ -27,11 +27,14 @@ public class TodoService {
         return todoDAO.getTodoStageCount(dept);
     }
 
-    // 정렬된 Todo 데이터 조회
-    public List<TodoVO> getSortedTodoList(String sortField, String sortOrder) {
-        Map<String, String> params = new HashMap<>();
+    // 검색 및 정렬된 Todo 데이터 조회
+    public List<TodoVO> getFilteredTodoList(TodoVO searchCriteria, String sortField, String sortOrder) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", searchCriteria.getType());
+        params.put("search", searchCriteria.getSearch());
         params.put("sortField", sortField);
         params.put("sortOrder", sortOrder);
-        return todoDAO.getSortedTodoList(params);
+
+        return todoDAO.getFilteredTodoList(params);
     }
 }

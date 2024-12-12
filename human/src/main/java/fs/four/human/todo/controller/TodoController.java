@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fs.four.human.todo.service.TodoService;
 import fs.four.human.todo.vo.TodoStageCountVO;
 import fs.four.human.todo.vo.TodoVO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 
@@ -49,6 +47,8 @@ public class TodoController {
     @GetMapping
     public String todo(@RequestParam(required = false) String sortField,
                        @RequestParam(required = false) String sortOrder,
+                       @RequestParam(required = false) String type,
+                       @RequestParam(required = false) String search,
                        Model model, @ModelAttribute TodoVO todoVO) throws JsonProcessingException {
         System.out.println("-----todo-----");
 
@@ -56,8 +56,12 @@ public class TodoController {
         String field = (sortField == null || sortField.isEmpty()) ? "T_ID" : sortField;
         String order = (sortOrder == null || sortOrder.isEmpty()) ? "ASC" : sortOrder;
 
-        // 정렬된 데이터 가져오기
-        List<TodoVO> todoVOList = todoService.getSortedTodoList(field, order);
+        // 검색 조건 설정
+        todoVO.setType(type);
+        todoVO.setSearch(search);
+
+        // 검색 및 정렬된 데이터 가져오기
+        List<TodoVO> todoVOList = todoService.getFilteredTodoList(todoVO, field, order);
         model.addAttribute("todos", todoVOList);
 
         // 진행 상태별 카운트 데이터 가져오기

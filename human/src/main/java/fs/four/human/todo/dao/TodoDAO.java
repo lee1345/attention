@@ -21,4 +21,7 @@ public interface TodoDAO {
     // 정렬된 Todo 데이터 조회
     List<TodoVO> getSortedTodoList(Map<String, String> params);
 
+    // 검색 및 정렬된 Todo 데이터 조회
+    List<TodoVO> getFilteredTodoList(Map<String, Object> params);
+
 }

@@ -41,7 +41,6 @@
     <!--  todo 진행상태별 EX)P,PD,..  -->
 
 
-
     <!-- 정렬된 Todo 조회 -->
     <select id="getSortedTodoList" parameterType="map" resultType="TodoVO">
         SELECT
@@ -51,5 +50,38 @@
         FROM TODO
         ORDER BY ${sortField} ${sortOrder}
     </select>
+
+    <!-- 검색 및 정렬된 Todo 조회 -->
+    <select id="getFilteredTodoList" parameterType="TodoVO" resultType="TodoVO">
+        SELECT
+        t_id,
+        t_title,           <!-- 제목 필드 -->
+        t_start_date,      <!-- 시작일 필드 -->
+        t_end_date,        <!-- 종료일 필드 -->
+        t_group,
+        t_dept,
+        t_stage,
+        t_priority,
+        t_content,
+        t_hide,
+        t_created_date,
+        t_updated_date,
+        t_updated_id,
+        t_created_id
+        FROM TODO
+        <where>
+            <if test="type == 'title' and search != null and search != ''">
+                AND t_title LIKE CONCAT('%', #{search}, '%')
+            </if>
+            <if test="type == 'master' and search != null and search != ''">
+                AND t_updated_id LIKE CONCAT('%', #{search}, '%')
+            </if>
+            <if test="type == 'total'">
+                <!-- 조건 없이 전체 데이터 반환 -->
+            </if>
+        </where>
+    </select>
+
+
 
 </mapper>

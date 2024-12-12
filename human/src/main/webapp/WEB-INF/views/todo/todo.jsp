@@ -72,9 +72,9 @@
                                <i class="fas fa-search"></i> <!-- 돋보기 아이콘 추가 -->
                                <label for="taskType">구분</label>
                                <select id="taskType" name="type">
+                                   <option value="total">전체</option>
                                    <option value="title">제목</option>
-                                   <option value="all">전체</option>
-                                   <option value="team">팀</option>
+                                   <option value="master">담당자</option>
                                </select>
                                <input type="text" id="searchInput" name="search" placeholder="검색내용 입력">
                                <button type="submit" class="search-button">조회하기</button>
@@ -105,7 +105,7 @@
                                <th>선택</th>
                                <th>우선순위</th>
                                <th>진행상황</th>
-                               <th>내용</th>
+                               <th>제목</th>
                                <th>시작일</th>
                                <th>종료일</th>
                                <th>담당자</th>
@@ -139,7 +139,7 @@
                                             <c:otherwise>${todo.t_stage}</c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td>${todo.t_content}</td>
+                                    <td>${todo.t_title}</td>
                                     <td>
                                         <c:choose>
                                             <c:when test="${not empty todo.t_start_date}">
