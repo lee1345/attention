@@ -161,9 +161,9 @@
             </div>
         </div>
         <!-- 내용 입력 -->
-        <label for="content">내용</label>
-        <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
-        <button type="submit" class="submit-btn">등록</button>
+        <label for="editContent">내용</label>
+        <textarea id="editContent" name="editContent" placeholder="내용을 입력하세요"></textarea>
+        <button type="submit" class="submit-btn">저장</button>
     </form>
 </div>
 
