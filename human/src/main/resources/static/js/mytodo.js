@@ -280,5 +280,51 @@ function deleteTodo(t_id) {
     }
 }
 
+// 정렬기능
+function sortTasks(sortType) {
+    $.ajax({
+        url: `/mytodo/sort`,
+        method: 'GET',
+        data: { sortType: sortType },
+        success: function (sortedTodos) {
+            const taskList = document.querySelector(".my-task-list");
+            taskList.innerHTML = ''; // 기존 데이터 제거
 
+            sortedTodos.forEach((todo, index) => {
+                // 정렬된 데이터 렌더링
+                const planActive = todo.t_stage === "P" ? "active" : "";
+                const inProgressActive = todo.t_stage === "IP" ? "active" : "";
+                const completeActive = todo.t_stage === "C" ? "active" : "";
 
+                const taskItem = `
+                    <div class="my-task-item">
+                        <div class="my-task-checkbox">
+                            <input type="checkbox" name="selectedTasks" value="${todo.t_id}" id="task-${index}">
+                            <label for="task-${index}"></label>
+                        </div>
+                        <div class="my-task-content">
+                            <h3 class="my-task-title">${todo.t_priority} ${todo.t_title}</h3>
+                            <p class="my-task-details">
+                                ${todo.t_content}<br>
+                                (기간) ${todo.t_start_date} ~ ${todo.t_end_date}
+                            </p>
+                        </div>
+                        <div class="my-task-status-buttons">
+                            <button class="my-status Plan ${planActive}" value="P" onclick="updateStage(this, '${todo.t_id}')">예정</button>
+                            <button class="my-status InProgress ${inProgressActive}" value="IP" onclick="updateStage(this, '${todo.t_id}')">진행</button>
+                            <button class="my-status Complete ${completeActive}" value="C" onclick="updateStage(this, '${todo.t_id}')">완료</button>
+                        </div>
+                        <div class="my-task-actions">
+                            <button class="my-edit" onclick="openEditPopup(${todo.t_id})">수정</button>
+                            <button class="my-delete" onclick="deleteTodo('${todo.t_id}')">삭제</button>
+                        </div>
+                    </div>`;
+                taskList.innerHTML += taskItem;
+            });
+        },
+        error: function (xhr) {
+            console.error("정렬 실패:", xhr.responseText);
+            alert("정렬 중 문제가 발생했습니다.");
+        }
+    });
+}

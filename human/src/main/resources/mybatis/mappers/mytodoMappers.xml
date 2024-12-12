@@ -65,5 +65,29 @@
         FROM TODO
         WHERE T_ID = #{t_id}
     </delete>
+
+<!--    정렬기능 -->
+    <select id="getSortedTodos" parameterType="map" resultType="fs.four.human.mytodo.vo.MytodoVO">
+        SELECT
+        T_ID,
+        T_TITLE,
+        T_PRIORITY,
+        T_CONTENT,
+        T_START_DATE,
+        T_END_DATE,
+        T_STAGE
+        FROM TODO
+        WHERE T_GROUP = #{t_group}
+        AND T_CREATED_ID = #{t_created_id}
+        ORDER BY
+        <choose>
+            <when test="sortType == 'priority'"> T_PRIORITY ASC </when>
+            <when test="sortType == 'stage'"> T_STAGE ASC </when>
+            <when test="sortType == 'startDate'"> T_START_DATE ASC </when>
+            <when test="sortType == 'endDate'"> T_END_DATE ASC </when>
+            <otherwise> T_CREATED_DATE DESC </otherwise>
+        </choose>
+    </select>
+
 </mapper>
 

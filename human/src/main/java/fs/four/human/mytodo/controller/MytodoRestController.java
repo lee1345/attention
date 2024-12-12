@@ -87,4 +87,20 @@ public class MytodoRestController {
         }
     }
 
+    //정렬기능
+    @GetMapping("/sort")
+    public ResponseEntity<List<MytodoVO>> sortTodos(
+            @RequestParam("sortType") String sortType,
+            HttpSession session) {
+        String userId = (String) session.getAttribute("loginUserID");
+        if (userId == null) {
+            return ResponseEntity.status(401).build(); // 로그인되지 않은 경우
+        }
+
+        // 정렬된 할일 목록 가져오기
+        List<MytodoVO> sortedTodos = mytodoService.getSortedTodos("M", userId, sortType);
+        return ResponseEntity.ok(sortedTodos);
+    }
+
+
 }

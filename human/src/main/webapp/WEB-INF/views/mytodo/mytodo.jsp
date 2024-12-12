@@ -52,10 +52,10 @@
 
         <!-- 정렬 옵션 -->
         <div class="my-sort-options">
-               <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
-               <button><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
-               <button><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
-               <button><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
+               <button onclick="sortTasks('priority')"><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
+               <button onclick="sortTasks('stage')"><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
+               <button onclick="sortTasks('startDate')"><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
+               <button onclick="sortTasks('endDate')"><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
         </div>
 
         <!-- 업무 리스트 -->
@@ -148,6 +148,7 @@
             <button type="submit" class="submit-btn">등록</button>
         </form>
     </div>
+
 <script src="${contextPath}/js/mytodo.js"></script>
 </body>
 </html>

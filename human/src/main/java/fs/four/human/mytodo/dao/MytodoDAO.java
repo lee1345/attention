@@ -16,11 +16,23 @@ public interface MytodoDAO {
     String getDeptById(String e_id);
 
     // 할일 조회
-    List<MytodoVO> getMyTodos(@Param("t_group") String t_group, @Param("t_created_id") String t_created_id);
+    List<MytodoVO> getMyTodos(
+            @Param("t_group") String t_group,
+            @Param("t_created_id") String t_created_id);
 
     // 버튼으로 상태 변경
-    void updateStage(@Param("t_id") Long t_id, @Param("t_stage") String t_stage);
+    void updateStage(
+            @Param("t_id") Long t_id,
+            @Param("t_stage") String t_stage);
 
     // 할일 삭제
-    void deleteTodoById(@Param("t_id") Long t_id);
+    void deleteTodoById(
+            @Param("t_id") Long t_id);
+
+    // 정렬기능
+    List<MytodoVO> getSortedTodos(
+            @Param("t_group") String t_group,
+            @Param("t_created_id") String t_created_id,
+            @Param("sortType") String sortType);
+
 }

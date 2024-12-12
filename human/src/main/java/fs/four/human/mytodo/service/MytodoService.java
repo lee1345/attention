@@ -41,6 +41,12 @@ public class MytodoService {
     public void deleteTodoById(Long t_id){
         mytodoDAO.deleteTodoById(t_id);
     }
+    //정렬
+    public List<MytodoVO> getSortedTodos(String t_group, String t_created_id, String sortType) {
+        return mytodoDAO.getSortedTodos(t_group, t_created_id, sortType);
+    }
+
+
 }
 
 
