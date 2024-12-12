@@ -16,6 +16,7 @@ public class FreeBoardVO {
     private String b_Category;    // 카테고리
     private Date b_CreatedDate;   // 생성 날짜
     private Date b_UpdatedDate;   // 수정 날짜 (옵션)
+    private int b_ViewCount; // 조회수 필드 추가
 
     public FreeBoardVO(){
 

@@ -121,33 +121,44 @@
 
 .freeBoard-table th:nth-child(2), /* 분류 */
 .freeBoard-table td:nth-child(2) {
-    width: 10%; /* 분류 열 크기 */
+    width: 7%; /* 분류 열 크기 */
 }
 
 .freeBoard-table th:nth-child(3), /* 제목 */
 .freeBoard-table td:nth-child(3) {
-    width: 35%; /* 제목 열 크기 */
+    width: 40%; /* 제목 열 크기 */
+}
+
+.freeBoard-table td:nth-child(3) {
+    text-align: left;
 }
 
 .freeBoard-table th:nth-child(4), /* 내용 */
 .freeBoard-table td:nth-child(4) {
-    width: 38%; /* 내용 열 크기 */
+    width: 50%; /* 내용 열 크기 */
 }
 
 .freeBoard-table th:nth-child(5), /* 작성자 */
 .freeBoard-table td:nth-child(5) {
-    width: 8%; /* 작성자 열 크기 */
+    width: 7%; /* 작성자 열 크기 */
 }
 
 .freeBoard-table th:nth-child(6), /* 날짜 */
 .freeBoard-table td:nth-child(6) {
-    width: 10%; /* 날짜 열 크기 */
+    width: 7%; /* 날짜 열 크기 */
+}
+
+.freeBoard-table th:nth-child(7), /* 조회수 */
+.freeBoard-table td:nth-child(7) {
+    width: 5%; /* 조회수 열 크기 */
 }
 
 .freeBoard-table th {
-    font-weight: bold;
+   font-weight: bold;
     color: #333;
-    border-bottom: 2px solid black;
+    border-top: 3px solid #747474;
+    border-bottom: 1px solid #747474;
+    background-color: #f6f6f6;
 }
 
 .freeBoard-table tr:hover {

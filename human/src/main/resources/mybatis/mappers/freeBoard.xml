@@ -4,10 +4,19 @@
 
     <!-- 전체 게시판 조회 -->
     <select id="getAllFreeBoard" resultType="FreeBoardVO">
-        SELECT *
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount
         FROM BOARD
-        WHERE b_group = 'F' -- 게시판만 조회
-        ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
+        WHERE B_GROUP = 'F'
+        ORDER BY B_ID DESC
     </select>
 
     <!-- 검색 기능 -->
@@ -20,7 +29,8 @@
         B_GROUP as b_Group,
         B_CATEGORY as b_Category,
         B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
         FROM BOARD
         WHERE b_group = 'F' -- 게시판만 검색
         AND LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' -- 대소문자 구분 없이 검색
@@ -37,7 +47,8 @@
         B_GROUP as b_Group,
         B_CATEGORY as b_Category,
         B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
         FROM BOARD
         WHERE b_group = 'F' -- 자유게시판만 조회
         AND b_category = #{category} -- 카테고리 필터링
@@ -54,7 +65,8 @@
         B_GROUP as b_Group,
         B_CATEGORY as b_Category,
         B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
         FROM BOARD
         WHERE B_ID = #{id}
     </select>
@@ -76,7 +88,8 @@
             ELSE NULL -- 예외 처리
         END,
         SYSDATE,
-        SYSDATE
+        SYSDATE,
+        0 -- 조회수 기본값 0으로 설정
         )
     </insert>
 
@@ -101,5 +114,12 @@
         DELETE FROM BOARD
         WHERE B_ID = #{id}
     </delete>
+
+    <!-- 조회수 증가 -->
+    <update id="incrementViewCount" parameterType="int">
+        UPDATE BOARD
+        SET VIEW_COUNT = NVL(VIEW_COUNT, 0) + 1
+        WHERE B_ID = #{id}
+    </update>
 
 </mapper>

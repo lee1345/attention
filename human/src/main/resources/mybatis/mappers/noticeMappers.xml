@@ -56,7 +56,7 @@
     <!-- 새로운 공지사항 데이터 등록 -->
     <insert id="createNotice">
         INSERT INTO BOARD (
-        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date
+        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date, view_count
         ) VALUES (
         notice_seq.NEXTVAL,
         #{b_Title},

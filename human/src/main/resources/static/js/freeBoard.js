@@ -86,8 +86,9 @@ function renderTable(data) {
                 <td>${categoryName}</td>
                 <td>${freeBoard.b_Title}</td>
                 <td>${contentPreview}</td>
-                <td>${freeBoard.b_Writer}</td>
+                <td>${freeBoard.b_Writer || '익명'}</td>
                 <td>${formattedDate}</td>
+                <td>${freeBoard.b_ViewCount || 0}</td> <!-- 조회수 표시 -->
             </tr>
         `;
         freeBoardTable.append(row);
@@ -216,53 +217,53 @@ $(document).ready(function () {
 
 //======================================================================================================
 
-// 테이블 데이터를 클릭하면 팝업 표시
-$(document).on('click', '.freeBoard-row', function () {
-    const freeBoardId = $(this).data('id'); // 공지사항 ID 가져오기
-    $('#popupOverlay').fadeIn();
-
-    // 팝업 닫기
-    $('#closeFreeBoardPopup').on('click', function () {
-        $('#popupOverlay, #freeBoardPopup').fadeOut();
-    });
-
-    // AJAX 요청으로 데이터 가져오기
-    $.ajax({
-        type: 'GET',
-        url: `/api/freeBoard/${freeBoardId}`,
-        success: function (data) {
-            console.log("Fetched Data:", data);
-
-            const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
-            const categoryName = categoryMap[data.b_Category] || "알 수 없음";
-
-            $('#popupCategory').text(categoryName);
-            $('#popupFreeBoardTitle').text(data.b_Title);
-            $('#popupFreeBoardContent').html(data.b_Content);
-            $('#popupFreeBoardWriter').text(data.b_Writer);
-            $('#popupFreeBoardDate').text(formatDate(data.b_CreatedDate));
-            $('#FreeBoardePopupOverlay, #freeBoardPopup').fadeIn();
-
-            // 수정/삭제 버튼 렌더링
-            const popupActions = $('.action-buttons');
-            popupActions.empty(); // 기존 버튼 제거
-
-            // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
-            if (loggedInUser === data.b_Writer) {
-                popupActions.append(`
-                    <button class="edit-btn" data-id="${data.b_Id}">수정</button>
-                    <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
-                `);
-            }
-
-            $('#popupOverlay, #freeBoardPopup').fadeIn();
-
-        },
-        error: function () {
-            alert('데이터를 가져오지 못했습니다.');
-        }
-    });
-});
+//// 테이블 데이터를 클릭하면 팝업 표시
+//$(document).on('click', '.freeBoard-row', function () {
+//    const freeBoardId = $(this).data('id'); // 공지사항 ID 가져오기
+//    $('#popupOverlay').fadeIn();
+//
+//    // 팝업 닫기
+//    $('#closeFreeBoardPopup').on('click', function () {
+//        $('#popupOverlay, #freeBoardPopup').fadeOut();
+//    });
+//
+//    // AJAX 요청으로 데이터 가져오기
+//    $.ajax({
+//        type: 'GET',
+//        url: `/api/freeBoard/${freeBoardId}`,
+//        success: function (data) {
+//            console.log("Fetched Data:", data);
+//
+//            const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
+//            const categoryName = categoryMap[data.b_Category] || "알 수 없음";
+//
+//            $('#popupCategory').text(categoryName);
+//            $('#popupFreeBoardTitle').text(data.b_Title);
+//            $('#popupFreeBoardContent').html(data.b_Content);
+//            $('#popupFreeBoardWriter').text(data.b_Writer);
+//            $('#popupFreeBoardDate').text(formatDate(data.b_CreatedDate));
+//            $('#FreeBoardePopupOverlay, #freeBoardPopup').fadeIn();
+//
+//            // 수정/삭제 버튼 렌더링
+//            const popupActions = $('.action-buttons');
+//            popupActions.empty(); // 기존 버튼 제거
+//
+//            // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
+//            if (loggedInUser === data.b_Writer) {
+//                popupActions.append(`
+//                    <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+//                    <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+//                `);
+//            }
+//
+//            $('#popupOverlay, #freeBoardPopup').fadeIn();
+//
+//        },
+//        error: function () {
+//            alert('데이터를 가져오지 못했습니다.');
+//        }
+//    });
+//});
 
 // 수정 버튼 클릭
 $(document).on('click', '.edit-btn', function () {
@@ -348,3 +349,69 @@ $(document).on('click', '.delete-btn', function () {
         });
     }
 });
+
+//======================================================================================================
+
+// 공지사항 행 클릭 이벤트
+$(document).off('click', '.freeBoard-row').on('click', '.freeBoard-row', function () {
+    const freeBoardId = $(this).data('id'); // 클릭한 게시글의 ID 가져오기
+
+    // AJAX 요청으로 조회수 증가 및 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/freeBoard/${freeBoardId}`, // 조회수 증가 및 데이터 반환 API
+        success: function (data) {
+            if (!data) {
+                alert("해당 게시글 데이터를 찾을 수 없습니다.");
+                return;
+            }
+
+            // 조회수 증가 및 데이터 확인
+            console.log(`조회수 증가 성공: ID ${freeBoardId}, 현재 조회수: ${data.b_ViewCount}`);
+            console.log("Fetched Data:", data);
+
+            // 테이블의 특정 행만 업데이트
+            const row = $(`.freeBoard-row[data-id="${freeBoardId}"]`);
+            row.find('td').eq(6).text(data.b_ViewCount || 0); // 조회수 업데이트
+
+            // 팝업 데이터 채우기
+            const categoryMap = { Q: "QnA", T: "꿀팁", F: "자유이야기" };
+            const categoryName = categoryMap[data.b_Category] || "알 수 없음";
+
+            $('#popupCategory').text(categoryName);
+            $('#popupFreeBoardTitle').text(data.b_Title || '제목 없음');
+            $('#popupFreeBoardContent').html(data.b_Content || '내용 없음');
+            $('#popupFreeBoardWriter').text(data.b_Writer || '익명');
+            $('#popupFreeBoardDate').text(formatDate(data.b_CreatedDate));
+
+            // 수정/삭제 버튼 렌더링
+            const popupActions = $('.action-buttons');
+            popupActions.empty(); // 기존 버튼 제거
+
+            // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
+            if (loggedInUser === data.b_Writer) {
+                popupActions.append(`
+                    <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+                    <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+                `);
+            }
+
+            // 팝업 표시
+            $('#popupOverlay, #freeBoardPopup').fadeIn();
+        },
+        error: function () {
+            alert('데이터를 가져오는 데 실패했습니다.');
+            console.error(`조회수 증가 및 데이터 로드 실패: ID ${freeBoardId}`);
+        }
+    });
+
+    // 팝업 닫기 이벤트
+    $('#closeFreeBoardPopup').off('click').on('click', function () {
+        $('#popupOverlay, #freeBoardPopup').fadeOut();
+    });
+});
+
+
+
+
+
