@@ -23,4 +23,8 @@ public interface NoticeDAO {
 
     // 특정 공지사항 조회
     NoticeVO getNoticeById(int id);
+
+    // 조회수 증가
+    void incrementViewCount(@Param("id") int id);
+
 }

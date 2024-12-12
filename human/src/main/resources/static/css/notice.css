@@ -122,32 +122,49 @@
 
 .notice-table th:nth-child(2), /* 제목 */
 .notice-table td:nth-child(2) {
-    width: 20%; /* 제목 열 크기 */
+    width: 40%; /* 제목 열 크기 */
+}
+
+.notice-table td:nth-child(2) {
+    text-align: left;
 }
 
 .notice-table th:nth-child(3), /* 내용 */
 .notice-table td:nth-child(3) {
-    width: 40%; /* 제목 열 크기 */
+    width: 50%; /* 내용 열 크기 */
 }
 
 .notice-table th:nth-child(4), /* 작성자 */
 .notice-table td:nth-child(4) {
-    width: 10%; /* 내용 열 크기 */
+    width: 7%; /* 작성자 크기 */
 }
 
 .notice-table th:nth-child(5), /* 날짜 */
 .notice-table td:nth-child(5) {
-    width: 10%; /* 작성자 열 크기 */
+    width: 7%; /* 날짜 열 크기 */
+}
+
+.notice-table th:nth-child(6), /* 조회수 */
+.notice-table td:nth-child(6) {
+    width: 5%; /* 조회수 열 크기 */
 }
 
 .notice-table th {
     font-weight: bold;
     color: #333;
-    border-bottom: 2px solid black;
+    border-top: 3px solid #747474;
+    border-bottom: 1px solid #747474;
+    background-color: #f6f6f6;
 }
 
 .notice-table tr:hover {
     background-color: #f1f1f1;
+}
+
+/* 테이블의 내용 열 숨기기 */
+.notice-table td:nth-child(3),
+.notice-table th:nth-child(3) {
+    display: none;
 }
 
 /* 팝업 오버레이 스타일 */

@@ -4,15 +4,7 @@
 
     <!-- 전체 게시판 조회 -->
     <select id="getAllFreeBoard" resultType="FreeBoardVO">
-        SELECT
-        B_ID as b_Id,
-        B_TITLE as b_Title,
-        B_CONTENT as b_Content,
-        B_WRITER as b_Writer,
-        B_GROUP as b_Group,
-        B_CATEGORY as b_Category,
-        B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        SELECT *
         FROM BOARD
         WHERE b_group = 'F' -- 게시판만 조회
         ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬

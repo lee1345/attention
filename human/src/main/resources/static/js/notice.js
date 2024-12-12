@@ -78,8 +78,10 @@ function renderTable(data) {
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
                 <td>${contentPreview}</td>
-                <td>${notice.b_Writer}</td>
+                <td>${notice.b_Writer || '익명'}</td>
                 <td>${formattedDate}</td>
+                <td>${notice.b_ViewCount || 0}</td> <!-- 조회수 표시 -->
+
             </tr>
         `;
         noticeTable.append(row);
@@ -211,3 +213,27 @@ $(document).on('click', '.notice-row', function () {
         }
     });
 });
+
+
+//======================================================================================================
+
+// 공지사항 행 클릭 이벤트 ( 조회수 증가 )
+$(document).off('click', '.notice-row').on('click', '.notice-row', function () {
+    const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
+
+    // 조회수 증가 및 공지사항 데이터 요청
+    $.ajax({
+        type: 'GET',
+        url: `/api/notice/${noticeId}`,
+        success: function (data) {
+            // 성공 시 조회수와 데이터 확인
+            console.log(`조회수 증가 성공: ID ${noticeId}, 현재 조회수: ${data.b_ViewCount}`);
+        },
+        error: function () {
+            console.error(`조회수 증가 실패: ID ${noticeId}`);
+        }
+    });
+});
+
+
+

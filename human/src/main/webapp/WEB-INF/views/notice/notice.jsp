@@ -58,6 +58,7 @@
             <th>내용</th>
             <th>작성자</th>
             <th>날짜</th>
+            <th>조회수</th>
         </tr>
         </thead>
         <tbody id="noticeTable">
