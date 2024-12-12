@@ -320,4 +320,3 @@ todoStageCounts.forEach(item => {
 console.log(stageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
 
 </script>
-
