@@ -259,26 +259,26 @@ participants.forEach(participant => {
 });
 
 });
+// 요소 선택
+const openPopupBtn = document.getElementById('openPopup');
+const closePopupBtn = document.getElementById('closePopup');
+const popupOverlay = document.getElementById('popupOverlay');
+const popup = document.getElementById('popup');
+
 // 팝업 열기
-function openPopup(title, status) {
-    document.getElementById('taskTitle').value = title;
-    document.getElementById('taskStatus').value = status;
-    document.getElementById('editPopup').style.display = 'block';
-}
+openPopupBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'block';
+    popup.style.display = 'block';
+});
 
 // 팝업 닫기
-function closePopup() {
-    document.getElementById('editPopup').style.display = 'none';
-}
+closePopupBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+});
 
-// 변경 저장
-function saveChanges() {
-    const updatedTitle = document.getElementById('taskTitle').value;
-    const updatedStatus = document.getElementById('taskStatus').value;
-
-    console.log('수정된 내용:', updatedTitle, updatedStatus);
-    alert('수정이 완료되었습니다!');
-
-    // 실제 데이터 업데이트 처리는 여기에 구현
-    closePopup();
-}
+// 팝업 외부 클릭 시 닫기
+popupOverlay.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+});
