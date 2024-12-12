@@ -121,12 +121,12 @@
 
 .freeBoard-table th:nth-child(2), /* 분류 */
 .freeBoard-table td:nth-child(2) {
-    width: 15%; /* 분류 열 크기 */
+    width: 10%; /* 분류 열 크기 */
 }
 
 .freeBoard-table th:nth-child(3), /* 제목 */
 .freeBoard-table td:nth-child(3) {
-    width: 20%; /* 제목 열 크기 */
+    width: 35%; /* 제목 열 크기 */
 }
 
 .freeBoard-table th:nth-child(4), /* 내용 */
@@ -144,12 +144,6 @@
     width: 10%; /* 날짜 열 크기 */
 }
 
-/* 제목과 내용 열 왼쪽 정렬 */
-.freeBoard-table td:nth-child(3),
-.freeBoard-table td:nth-child(4) {
-    text-align: left; /* 왼쪽 정렬 */
-}
-
 .freeBoard-table th {
     font-weight: bold;
     color: #333;
@@ -158,6 +152,12 @@
 
 .freeBoard-table tr:hover {
     background-color: #f1f1f1;
+}
+
+/* 테이블의 내용 열 숨기기 */
+.freeBoard-table td:nth-child(4),
+.freeBoard-table th:nth-child(4) {
+    display: none;
 }
 
 /* 팝업 오버레이 스타일 */

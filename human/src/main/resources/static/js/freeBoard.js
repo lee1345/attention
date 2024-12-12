@@ -85,7 +85,7 @@ function renderTable(data) {
                 <td>${freeBoard.b_Id}</td>
                 <td>${categoryName}</td>
                 <td>${freeBoard.b_Title}</td>
-//                <td>${contentPreview}</td>
+                <td>${contentPreview}</td>
                 <td>${freeBoard.b_Writer}</td>
                 <td>${formattedDate}</td>
             </tr>
