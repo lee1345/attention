@@ -4,11 +4,15 @@ import fs.four.human.login.vo.LoginVO;
 import fs.four.human.mytodo.vo.MytodoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
+@Repository
 @Mapper
 public interface MytodoDAO {
+
     // 할일등록
     void insertTodo(MytodoVO mytodoVO);
 
@@ -51,5 +55,6 @@ public interface MytodoDAO {
     //가져오기
     MytodoVO getTodoById(
             @Param("t_id") Long t_id);
-
+    // 상태별 진행 상황 집계
+    Map<String, Integer> getTodoStats(String group, String userId);
 }
