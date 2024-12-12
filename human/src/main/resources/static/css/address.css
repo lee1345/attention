@@ -71,6 +71,7 @@
     padding: 10px;
     text-align: center;
     white-space: nowrap; /* 빈 공간일 때 셀 높이를 유지 */
+    cursor:pointer;
 }
 
 /* 헤더 스타일 */
