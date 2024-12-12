@@ -133,4 +133,28 @@ public class MytodoRestController {
         }
     }
 
+    //수정하기
+    @PutMapping("/updateTodo")
+    public ResponseEntity<?> updateTodo(@RequestBody MytodoVO mytodoVO) {
+        try {
+            mytodoService.updateTodo(mytodoVO);
+            return ResponseEntity.ok("수정 완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정 실패");
+        }
+    }
+
+    //수정 팝업에 내용 불러오기
+    @GetMapping("/getTodo")
+    public ResponseEntity<MytodoVO> getTodoById(@RequestParam("t_id") Long t_id) {
+        try {
+            MytodoVO todo = mytodoService.getTodoById(t_id);
+            return ResponseEntity.ok(todo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

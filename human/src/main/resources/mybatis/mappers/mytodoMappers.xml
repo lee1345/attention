@@ -115,6 +115,22 @@
         WHERE T_HIDE = 'Y'
     </update>
 
+<!--수정하기 -->
+    <update id="updateTodo" parameterType="fs.four.human.mytodo.vo.MytodoVO">
+        UPDATE TODO
+        SET T_TITLE = #{t_title},
+        T_CONTENT = #{t_content},
+        T_START_DATE = #{t_start_date},
+        T_END_DATE = #{t_end_date}
+        WHERE T_ID = #{t_id}
+    </update>
+
+
+    <select id="getTodoById" parameterType="long" resultType="fs.four.human.mytodo.vo.MytodoVO">
+        SELECT T_ID, T_TITLE, T_PRIORITY, T_CONTENT, T_START_DATE, T_END_DATE
+        FROM TODO
+        WHERE T_ID = #{t_id}
+    </select>
 
 </mapper>
 
