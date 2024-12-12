@@ -424,7 +424,6 @@ function openEditPopup(t_id) {
             // 기존 데이터로 팝업 채우기
             $('#edit-t-id').val(todo.t_id || '');
             $('#edit-title').val(todo.t_title || '');
-            $('#edit-priority').val(todo.t_priority || 'N'); // 기본값: 보통
             $('#edit-content').val(todo.t_content || '');
 
             // 팝업 열기
@@ -452,8 +451,10 @@ $('#editForm').submit(function (event) {
         t_title: $('#edit-title').val(),
         t_priority: $('#edit-priority').val(),
         t_content: $('#edit-content').val(),
-        t_start_date: `${$('#edit-start-date').val()} 00:00`, // 기본값 설정
-        t_end_date: `${$('#edit-end-date').val()} 23:59`, // 기본값 설정
+        t_start_date: $('#edit-start-date').val() + ' ' + $('select[name="edit-start-hour"]').val() + ':' + $('select[name="edit-start-minute"]').val(),
+        t_end_date: $('#edit-end-date').val() + ' ' + $('select[name="edit-end-hour"]').val() + ':' + $('select[name="edit-end-minute"]').val(),
+
+
     };
 
     $.ajax({

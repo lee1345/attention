@@ -119,9 +119,8 @@
     <update id="updateTodo" parameterType="fs.four.human.mytodo.vo.MytodoVO">
         UPDATE TODO
         SET T_TITLE = #{t_title},
-        T_PRIORITY = #{t_priority}, <!-- jdbcType 명시 -->
         T_CONTENT = #{t_content},
-        T_START_DATE = #{t_start_date}, <!-- TIMESTAMP 지정 -->
+        T_START_DATE = #{t_start_date},
         T_END_DATE = #{t_end_date}
         WHERE T_ID = #{t_id}
     </update>
