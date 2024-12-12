@@ -282,39 +282,3 @@ function saveChanges() {
     // 실제 데이터 업데이트 처리는 여기에 구현
     closePopup();
 }
-
-
-
-//=========================================================================
-
-// 정렬기능
-function sortTable(column) {
-    // 정렬 상태를 기억하기 위해 세션 스토리지 사용
-    const currentOrder = sessionStorage.getItem("sortOrder") || "ASC";
-    const newOrder = currentOrder === "ASC" ? "DESC" : "ASC";
-    sessionStorage.setItem("sortOrder", newOrder);
-
-    // 서버로 요청
-    const url = `/todo?sortField=${column}&sortOrder=${newOrder}`;
-    window.location.href = url; // 새로고침하여 정렬된 데이터 가져오기
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const searchForm = document.querySelector('form');
-    const taskType = document.getElementById('taskType');
-    const searchInput = document.getElementById('searchInput');
-
-    // 검색 버튼 클릭 시 입력값 검증
-    searchForm.addEventListener('submit', (e) => {
-        // 'title' 또는 'master' 선택 시 검색어가 비어 있으면 알림창 표시
-        if ((taskType.value === 'title' || taskType.value === 'master') && searchInput.value.trim() === '') {
-            alert('검색 내용을 입력하세요.');
-            e.preventDefault(); // 폼 전송 중지
-        }
-
-        // 'total' 선택 시 검색어는 없어도 됨 (서버에서 전체 데이터 반환)
-        if (taskType.value === 'total') {
-            console.log('전체 검색: 검색어 없이도 요청 가능');
-        }
-    });
-});
