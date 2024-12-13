@@ -95,7 +95,7 @@ function checkAlarms() {
                     row.innerHTML = `
                         <td>${alarm.time}</td>
                         <td>${alarm.message}</td>
-                        <td><button onclick="comDeleteAlarm('${alarm.id}')">삭제</button></td>
+                        <td><button onclick="DeleteAlarm('${alarm.id}')">삭제</button></td>
                     `;
                     alarmTableBody.appendChild(row);
                 });
