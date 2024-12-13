@@ -3,13 +3,15 @@ package fs.four.human.common.service;
 import fs.four.human.common.dao.CommonDAO;
 import fs.four.human.common.vo.CommonVO;
 import fs.four.human.todo.vo.TodoVO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -51,35 +53,33 @@ public class CommonServiceImpl implements CommonService {
 
     //알림
     @Override
-    public List<String> getAlertMessages(String sessionId) {
+    public List<Map<String, String>> getAlertMessages(String sessionId) {
         List<TodoVO> alertTodos = commonDAO.getAlertTodos(sessionId);
-        List<String> alertMessages = new ArrayList<>();
+        List<Map<String, String>> alertMessages = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
+
+        // 시간 형식 지정
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         for (TodoVO todo : alertTodos) {
             LocalDateTime startTime = todo.getT_start_date();
-            String message = null;
+            Map<String, String> alert = new HashMap<>();
 
-            // 30분 전 또는 정각 조건에 따라 메시지 생성
-            if (now.isEqual(startTime.minusMinutes(30))) {
-                message = String.format("[30분 전 알림] '%s' 할 일이 곧 시작됩니다.", todo.getT_title());
-            } else if (now.isEqual(startTime)) {
-                message = String.format("[정각 알림] '%s' 할 일이 시작됩니다.", todo.getT_title());
+            // 남은 시간 계산
+            long minutesLeft = Duration.between(now, startTime).toMinutes();
+            if (minutesLeft > 0) {
+                alert.put("time", startTime.format(formatter));
+                alert.put("message", String.format("'%s' 할 일이 %d분 남았습니다.", todo.getT_title(), minutesLeft));
+            } else if (minutesLeft <= 0) {
+                alert.put("time", startTime.format(formatter));
+                alert.put("message", String.format("'%s' 할 일이 시작되었습니다.", todo.getT_title()));
             }
 
-            if (message != null) {
-                alertMessages.add(message);
-            }
-
-            // 다음 알림 예정 시간 출력
-            if (startTime.isAfter(now)) {
-                System.out.println(String.format("다음 알림 예정: '%s' (%s)",
-                        todo.getT_title(),
-                        startTime.minusMinutes(30)));
-            }
+            alertMessages.add(alert);
         }
 
         return alertMessages;
     }
+
 
 }

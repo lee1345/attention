@@ -21,6 +21,24 @@
         WHERE e_id = #{e_id}
     </select>
 
+    <select id="findId" parameterType="map" resultType="String">
+        SELECT E_ID
+        FROM EMPLOYEE
+        WHERE E_NAME = #{e_name}
+        AND E_EMAIL = #{e_email}
+    </select>
+
+    <select id="findEmailById" parameterType="String" resultType="String">
+        SELECT E_EMAIL
+        FROM EMPLOYEE
+        WHERE E_ID = #{e_id}
+    </select>
+
+    <update id="updatePassword" parameterType="map">
+        UPDATE EMPLOYEE
+        SET E_PWD = #{e_pwd}, E_UPDATED_DATE = SYSDATE
+        WHERE E_ID = #{e_id}
+    </update>
 
 
 </mapper>

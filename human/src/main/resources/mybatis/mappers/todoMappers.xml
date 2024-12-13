@@ -4,60 +4,65 @@
 
     <!-- 전체 Todo 조회 -->
 <!--    dao 에서 호출시 getALLTodo 사용 입력된 파라미터는 TodoVO객체 결과매핑-->
-    <select id="getAllTodo" parameterType="TodoVO" resultType="TodoVO">
+    <select id="getAllTodo" parameterType="TodoVO" resultType="Todo2VO">
         SELECT
         t_id,
         t_group,
         t_dept,
         t_stage,
         t_priority,
+        t_title,
         t_content,
-        t_start_date,
-        t_end_date,
+        TO_CHAR(t_start_date, 'YYYY-MM-DD') as t_start_date,
+        TO_CHAR(t_end_date, 'YYYY-MM-DD') as t_end_date,
         t_hide,
         t_created_date,
         t_updated_date,
         t_updated_id,
-        t_created_id
+        t_created_id,
+        t_writer,
+        e.e_name
         FROM
-        TODO
+        TODO t
+        left outer join employee e on t.t_updated_id = e.e_id
         <where>
             <if test="type != null and type == 'team'">
-           AND t_group = #{search}     <!--t_group 컬럼이 입력 파라미터 search와 동일한 데이터만 조회.-->
+           AND t.t_group = #{search}     <!--t_group 컬럼이 입력 파라미터 search와 동일한 데이터만 조회.-->
             </if>
             <if test="type != null and type == 'title'">
-                AND t_content LIKE CONCAT(CONCAT('%', #{search}), '%')  <!--t_content 컬럼에 search 문자열이 포함된 데이터만 조회-->
+                AND t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%')  <!--t_content 컬럼에 search 문자열이 포함된 데이터만 조회-->
             </if>
             <if test="type != null and type == 'all'">
-                AND (t_group = #{search} OR t_content LIKE CONCAT(CONCAT('%', #{search}), '%'))
+                AND (t.t_group = #{search} OR t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%'))
             </if>
         </where>
     </select>
 
     <!--  todo 진행상태별 갯수  -->
-   <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">-->
-       select t_stage, count(t_id) as count from TODO where t_dept = #{dept} group by t_stage-->
+   <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">
+       select t_stage, count(t_id) as count from TODO where t_dept = #{dept} group by t_stage
     </select>
     <!--  todo 진행상태별 EX)P,PD,..  -->
 
     <insert id="addTodo" parameterType="Todo2VO">
-        <selectKey keyProperty="t_id" resultType="String" order="BEFORE">
-            select TODO_SEQ.nextval FROM DUAL
-        </selectKey>
-        insert into todo (T_ID, T_WRITER, T_GROUP, T_DEPT, T_STAGE, T_PRIORITY, T_TITLE, T_CONTENT, T_START_DATE, T_START_TIME, T_END_DATE)
+        insert into todo (T_ID, T_WRITER, T_GROUP, T_DEPT, T_STAGE, T_PRIORITY, T_TITLE, T_CONTENT, T_START_DATE, T_START_TIME, T_END_DATE, T_UPDATED_ID)
         values (
         TODO_SEQ.nextval,
         'hong',
         'test group',
-        'test',
+        #{t_dept, jdbcType=VARCHAR},
         #{t_stage, jdbcType=VARCHAR},
         #{t_priority, jdbcType=VARCHAR},
         #{t_title, jdbcType=VARCHAR},
         #{t_content, jdbcType=VARCHAR},
         #{t_start_date, jdbcType=DATE},
         '2024-12-01',
-        #{t_end_date, jdbcType=DATE}
+        #{t_end_date, jdbcType=DATE},
+        #{t_updated_id, jdbcType=VARCHAR}
         )
+        <selectKey keyProperty="t_id" resultType="String" order="AFTER">
+            select TODO_SEQ.currval FROM DUAL
+        </selectKey>
     </insert>
 
 
@@ -75,6 +80,22 @@
         t_content = COALESCE(#{t_content, jdbcType=VARCHAR}, t_content),
         t_start_date = COALESCE(#{t_start_date, jdbcType=DATE}, t_start_date),
         t_end_date = COALESCE(#{t_end_date, jdbcType=DATE}, t_end_date),
+        t_updated_date = SYSDATE,
+        t_updated_id = #{t_updated_id, jdbcType=VARCHAR}
+        WHERE
+        t_id = #{t_id, jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="updateTodo2" parameterType="Todo2VO">
+        UPDATE todo
+        SET
+        t_stage = #{t_stage, jdbcType=VARCHAR},
+        t_priority = #{t_priority, jdbcType=VARCHAR},
+        t_title = #{t_title, jdbcType=VARCHAR},
+        t_content = #{t_content, jdbcType=VARCHAR},
+        t_start_date = #{t_start_date, jdbcType=DATE},
+        t_end_date = #{t_end_date, jdbcType=DATE},
         t_updated_date = SYSDATE,
         t_updated_id = #{t_updated_id, jdbcType=VARCHAR}
         WHERE

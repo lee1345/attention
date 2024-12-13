@@ -26,17 +26,17 @@
         WHERE e_id = #{e_id}
     </update>
 
-<!--    알림-->
-<!--    <select id="getAlertTodos" parameterType="string" resultType="fs.four.human.todo.vo.TodoVO">-->
-<!--        SELECT T.T_TITLE, T.T_START_TIME-->
-<!--        FROM TODO T-->
-<!--        WHERE T.T_GROUP = 'M'-->
-<!--        AND T.T_CREATED_ID = #{sessionId}-->
-<!--        AND (-->
-<!--        T.T_START_TIME BETWEEN SYSDATE AND SYSDATE + INTERVAL '30' MINUTE-->
-<!--        OR T.T_START_TIME = SYSDATE-->
-<!--        )-->
-<!--    </select>-->
+
+    <select id="getAlertTodos" parameterType="string" resultType="fs.four.human.todo.vo.TodoVO">
+        SELECT
+        T.T_ID,
+        T.T_TITLE,
+        T.T_START_DATE,
+        T.T_END_DATE
+        FROM TODO T
+        WHERE T.T_CREATED_ID = #{sessionId}
+        AND (T.T_START_DATE >= SYSDATE OR T.T_END_DATE >= SYSDATE)
+    </select>
 
 
 </mapper>

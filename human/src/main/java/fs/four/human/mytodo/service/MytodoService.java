@@ -7,6 +7,9 @@ import fs.four.human.mytodo.vo.MytodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +74,17 @@ public class MytodoService {
     public MytodoVO getTodoById(Long t_id) {
         return mytodoDAO.getTodoById(t_id);
     }
+    //알림연습
+    public List<MytodoVO> getTasksForNotification() {
+        // 현재 시간과 30분 뒤 시간 계산
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Oracle 형식
+        String now = formatter.format(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, 30);
+        String thirtyMinutesLater = formatter.format(calendar.getTime());
 
+        return mytodoDAO.getTasksForNotification(now, thirtyMinutesLater);
+    }
 }
 
 

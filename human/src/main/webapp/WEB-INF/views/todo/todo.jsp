@@ -96,6 +96,7 @@
                        <thead>
                            <tr>
                                <th>선택</th>
+                               <th class="hidden">ID</th>
                                <th>우선순위</th>
                                <th>진행상황</th>
                                <th>제목</th>
@@ -104,6 +105,7 @@
                                <th>종료일</th>
                                <th>담당자</th>
                                <th>수정</th>
+                               <th>숨기기</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -122,7 +124,15 @@
                            <c:forEach var="todo" items="${todos}">
                                 <tr>
                                     <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}"></td>
-                                    <td>${todo.t_priority}</td>
+                                    <td class="hidden">${todo.t_id}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${todo.t_priority == 'VU'}">아주높음</c:when>
+                                            <c:when test="${todo.t_priority == 'U'}">높음</c:when>
+                                            <c:when test="${todo.t_priority == 'N'}">보통</c:when>
+                                            <c:otherwise>${todo.t_priority}</c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td> 
                                         <c:choose>
                                             <c:when test="${todo.t_stage == 'P'}">예정</c:when>
@@ -133,29 +143,12 @@
                                             <c:otherwise>${todo.t_stage}</c:otherwise>
                                         </c:choose>
                                     </td>
+                                    <td>${todo.t_title}</td>
                                     <td>${todo.t_content}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${not empty todo.t_start_date}">
-                                                <fmt:formatDate value="${todo.t_start_date}" pattern="yyyy-MM-dd" />
-                                            </c:when>
-                                            <c:otherwise>
-                                                -
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${not empty todo.t_end_date}">
-                                                <fmt:formatDate value="${todo.t_end_date}" pattern="yyyy-MM-dd" />
-                                            </c:when>
-                                            <c:otherwise>
-                                                -
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>${todo.t_updated_id}</td>
-                                    <td><button class="edit">수정</button></td>
+                                    <td>${todo.t_start_date}</td>
+                                    <td>${todo.t_end_date}</td>
+                                    <td>${todo.e_name}</td>
+                                    <td><button class="edit" data-id="${todo.t_id}" onclick="editPopupOpen(${todo.t_id})">수정</button></td>
                                     <td><button class="delete">숨기기</button></td>
                                 </tr>
                             </c:forEach>
@@ -180,7 +173,7 @@
                   <option value="VU">매우 긴급</option>
                   <option value="U">긴급</option>
                   <option value="N" selected>보통</option>
-                  <option value="L">천천히</option>
+                  <option value="NU">천천히</option>
               </select>
 
               <label for="t-stage">진행상황</label>
@@ -233,7 +226,58 @@
                           <button id="close-participant-popup">선택완료</button>
                           <button id="reset-participant-selection" style="background-color: red; color: white; margin-top: 10px;">선택 초기화</button>
                       </div>
-                   </div>
+ <!--  업무수정 팝업 -->
+<div class="popup hidden" id="edit-popup">
+    <button class="btn-modal-close">x</button>
+    <h2>업무 수정하기</h2>
+    <form id="edit-task-form">
+        <!-- 숨겨진 수정 ID 필드 -->
+        <input type="hidden" id="edit-id" name="id">
+
+        <label for="edit-title">제목</label>
+        <input type="text" id="edit-title" name="title" placeholder="제목을 입력하세요">
+
+        <label for="edit-priority">중요도</label>
+        <select id="edit-priority" name="priority">
+            <option value="VU">매우 긴급</option>
+            <option value="U">긴급</option>
+            <option value="N">보통</option>
+            <option value="NU">천천히</option>
+        </select>
+
+        <label for="edit-stage">진행상황</label>
+        <select id="edit-stage" name="stage">
+            <option value="P">예정</option>
+            <option value="PD">진행지연</option>
+            <option value="CD">완료지연</option>
+            <option value="C">완료</option>
+        </select>
+
+        <label>일시</label>
+        <label>시작일</label>
+        <div class="date-time">
+            <input type="date" id="edit-start-date" name="startDate">
+        </div>
+
+        <label>종료일</label>
+        <div class="date-time">
+            <input type="date" id="edit-end-date" name="endDate">
+        </div>
+
+        <label>참여자</label>
+        <button class="open-participant-popup" type="button">참여자 선택</button>
+        <div id="selected-participants"></div>
+
+        <label>내용</label>
+        <textarea id="edit-content" name="content" maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+
+        <button id="save-changes-button" type="button">저장</button>
+    </form>
+</div>
+
+           </div>
+
+
 </body>
 <script src="${contextPath}/js/todo.js"></script>
 </html>
