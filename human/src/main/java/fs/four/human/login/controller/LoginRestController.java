@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/login")
 public class LoginRestController {
@@ -66,5 +69,37 @@ public class LoginRestController {
         }
     }
 
+    @PostMapping("/find-id")
+    public ResponseEntity<?> findId(@RequestParam String e_name, @RequestParam String e_email) {
+        try {
+            String foundId = loginRestService.findId(e_name, e_email);
+            if (foundId != null) {
+                Map<String, String> response = new HashMap<>();
+                response.put("e_id", foundId);
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(404).body("일치하는 사용자가 없습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("서버 오류가 발생했습니다.");
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestParam String e_id, @RequestParam String e_email) {
+        try {
+            String tempPassword = loginRestService.resetPassword(e_id, e_email);
+            if (tempPassword != null) {
+                //성공 메세지 보여줌
+                return ResponseEntity.ok("임시 비밀번호가 이메일로 전송되었습니다");
+            } else {
+                return ResponseEntity.status(404).body("일치하는 사용자가 없습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("비밀번호 초기화 중 오류가 발생했습니다.");
+        }
+    }
 
 }
