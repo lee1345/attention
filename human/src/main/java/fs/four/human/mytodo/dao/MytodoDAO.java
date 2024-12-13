@@ -57,4 +57,10 @@ public interface MytodoDAO {
             @Param("t_id") Long t_id);
     // 상태별 진행 상황 집계
     Map<String, Integer> getTodoStats(String group, String userId);
+
+
+    // 알림을 위한 데이터 조회
+    List<MytodoVO> getTasksForNotification(
+            @Param("startTime") String startTime,
+            @Param("endTime") String endTime);
 }

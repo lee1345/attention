@@ -104,6 +104,37 @@
           <button type="button" id="btn_submit">회원가입</button>
         </form>
       </div>
+
+      <!-- 아이디 찾기 -->
+         <div class="login-container" id="forgot-page" style="display: none;">
+             <h1>아이디 찾기</h1>
+             <form id="find-id-form" onsubmit="findId(event); return false;">
+                 <label for="input_name">이름</label>
+                 <input type="text" id="input_name" name="e_name" placeholder="이름을 입력하세요" required>
+                 <label for="input_email">이메일</label>
+                 <input type="email" id="input_email" name="e_email" placeholder="이메일을 입력하세요" required>
+                 <button type="submit">아이디 찾기</button>
+                 <div class="links" style="text-align: center;">
+                     <a id="forgot-pw-link">비밀번호 찾기</a>
+                 </div>
+             </form>
+         </div>
+
+              <!-- 비밀번호 초기화 -->
+         <div class="login-container" id="forgot-pw-page" style="display: none;">
+             <h1>비밀번호 초기화</h1>
+             <form id="reset-password-form" onsubmit="resetPassword(event); return false;">
+                 <label for="reset_id">아이디</label>
+                 <input type="text" id="reset_id" name="e_id" placeholder="아이디를 입력하세요" required>
+                 <label for="reset_email">이메일</label>
+                 <input type="email" id="reset_email" name="e_email" placeholder="이메일을 입력하세요" required>
+                 <button type="submit">비밀번호 초기화</button>
+             </form>
+             <div class="links" style="text-align: center;">
+             </div>
+         </div>
+
+
     </div>
   </div>
 

@@ -198,6 +198,9 @@ $(document).ready(function () {
             <button class="cancel-btn">취소</button>
         `);
 
+        // 커서를 이름 필드로 이동
+        $('#editName').focus();
+
         // 저장 버튼 클릭
         $('.save-btn').on('click', function () {
             const addressId = $('#addressPopup').data('id'); // ID 가져오기

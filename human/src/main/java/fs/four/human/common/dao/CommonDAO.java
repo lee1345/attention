@@ -14,9 +14,9 @@ public interface CommonDAO {
     CommonVO getEmployeeById(String e_id);
 
     int updateEmployee(CommonVO employee); // 사용자 정보 업데이트 메서드
+    
     //알림
     List<TodoVO> getAlertTodos(
             @Param("sessionId") String sessionId); // 알림 대상 할 일 가져오기
 
 }
-

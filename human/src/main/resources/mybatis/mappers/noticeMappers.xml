@@ -70,6 +70,22 @@
         )
     </insert>
 
+    <!-- 게시글 수정 -->
+    <update id="updateNotice">
+        UPDATE BOARD
+        SET
+        B_TITLE = #{b_Title},
+        B_CONTENT = #{b_Content},
+        B_UPDATED_DATE = SYSDATE
+        WHERE B_ID = #{b_Id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteNotice">
+        DELETE FROM BOARD
+        WHERE B_ID = #{id}
+    </delete>
+
     <!-- 조회수 증가 -->
     <update id="incrementViewCount" parameterType="int">
         UPDATE BOARD

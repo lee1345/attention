@@ -1,5 +1,6 @@
 package fs.four.human.notice.service;
 
+import fs.four.human.freeBoard.vo.FreeBoardVO;
 import fs.four.human.notice.dao.NoticeDAO;
 import fs.four.human.notice.vo.NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,16 @@ public class NoticeService {
     // 조회수 증가
     public void incrementViewCount(int id) {
         noticeDAO.incrementViewCount(id);
+    }
+
+    // 게시글 수정
+    public void updateNotice(NoticeVO notice) {
+        noticeDAO.updateNotice(notice);
+    }
+
+    // 게시글 삭제
+    public void deleteNotice(int id) {
+        noticeDAO.deleteNotice(id);
     }
 
 }

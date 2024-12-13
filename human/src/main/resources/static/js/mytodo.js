@@ -1,3 +1,4 @@
+
 // 공통 함수: 차트 생성 및 범례 동적 생성
 function createChart(canvasId, legendId, labels, data, colors) {
     const canvas = document.getElementById(canvasId);
@@ -8,9 +9,10 @@ function createChart(canvasId, legendId, labels, data, colors) {
 
     const ctx = canvas.getContext('2d');
 
+
     // 캔버스 크기 설정
-    canvas.width = 400;  // 차트 너비
-    canvas.height = 400; // 차트 높이
+    canvas.width = 300;  // 차트 너비
+    canvas.height = 300; // 차트 높이
 
     const chart = new Chart(ctx, {
         type: 'doughnut',
@@ -110,14 +112,6 @@ function onButtonClick(label, value) {
     console.log(`${label}에서 ${value}건 클릭`);
 }
 
-// "나의 업무 현황" 차트 생성 호출
-createChart(
-    'myChart', // JSP 파일의 캔버스 ID와 동일하게 수정
-    'myLegend', // JSP 파일의 범례 컨테이너 ID
-    ['예정', '진행지연', '진행중', '완료지연', '완료'], // 범례 라벨
-    [2, 0, 1, 0, 1], // 데이터
-    ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90'] // 색상 배열
-);
 // 요소 선택
 const openPopupBtn = document.getElementById('openPopup');
 const closePopupBtn = document.getElementById('closePopup');
@@ -190,6 +184,7 @@ function mapPriorityText(priority) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    updateChartData()
     // 기본 날짜 설정
     const today = new Date().toISOString().split('T')[0];
     document.getElementById("start-date").value = today;
@@ -272,6 +267,7 @@ function updateStage(button, todoId) {
         },
         success: function () {
             console.log('상태가 성공적으로 업데이트되었습니다!');
+            location.reload();
             // 상태 업데이트 후 동작 필요 시 추가
         },
         error: function (xhr) {
@@ -473,3 +469,34 @@ $('#editForm').submit(function (event) {
         },
     });
 });
+
+// t_stage 값 카운트 및 차트 업데이트
+function updateChartData() {
+    $.ajax({
+        url: '/mytodo/list',
+        method: 'GET',
+        success: function (todos) {
+            // t_stage 값 카운트
+            const stageCounts = { P: 0, IP: 0, C: 0 };
+            todos.forEach(todo => {
+                if (stageCounts.hasOwnProperty(todo.t_stage)) {
+                    stageCounts[todo.t_stage]++;
+                }
+            });
+
+
+            // 차트 데이터 생성
+            const chartLabels = ['예정', '진행', '완료'];
+            const chartData = [stageCounts.P, stageCounts.IP, stageCounts.C];
+            const chartColors = ['#FF6384', '#FFCE56', '#90EE90'];
+
+
+
+            // 차트 업데이트
+            createChart('myChart', 'myLegend', chartLabels, chartData, chartColors);
+        },
+        error: function () {
+            console.error("차트 데이터를 불러오는 데 실패했습니다.");
+        }
+    });
+}

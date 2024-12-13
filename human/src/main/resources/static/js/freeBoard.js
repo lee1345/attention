@@ -129,13 +129,36 @@ $(document).ready(function () {
                 query: query
             },
             success: function (data) {
-                console.log("AJAX Success Data:", data); // 성공 데이터 확인
+                console.log("검색성공 :", data); // 성공 데이터 확인
                 renderTable(data);
             },
             error: function () {
                 alert("검색어를 확인해주세요 !");
             }
         });
+    });
+
+        // 카테고리 클릭 이벤트
+        $('.category-link').on('click', function (event) {
+            event.preventDefault(); // 기본 클릭 동작 방지
+            const category = $(this).data('category'); // 클릭한 카테고리 값 가져오기
+        if (category === 'all') {
+                    // 전체 데이터를 요청
+                    freeBoardAllData();
+            } else {
+                // 특정 카테고리 데이터를 요청
+                 $.ajax({
+                        type: 'GET',
+                        url: `/api/freeBoard/category/${category}`,
+                        success: function (data) {
+                            console.log(`카테고리(${category}) 데이터:`, data);
+                            renderTable(data);
+                 },
+                 error: function () {
+                    alert("카테고리 데이터를 가져오는 데 실패했습니다.");
+                 }
+           });
+        }
     });
 });
 
@@ -410,8 +433,3 @@ $(document).off('click', '.freeBoard-row').on('click', '.freeBoard-row', functio
         $('#popupOverlay, #freeBoardPopup').fadeOut();
     });
 });
-
-
-
-
-
