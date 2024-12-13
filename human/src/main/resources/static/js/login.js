@@ -3,6 +3,16 @@ document.getElementById('signup-link').addEventListener('click', () => {
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('signup-page').style.display = 'block';
 });
+//아이디/비밀번호 찾기 페이지 클릭시 화면 전환
+document.getElementById('forgot-link').addEventListener('click', () => {
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('forgot-page').style.display = 'block';
+});
+//비밀번호 찾기 페이지 클릭시 화면 전환
+document.getElementById('forgot-pw-link').addEventListener('click', () => {
+    document.getElementById('forgot-page').style.display = 'none';
+    document.getElementById('forgot-pw-page').style.display = 'block';
+});
 
 // 개인정보 활용 동의 모달
 document.addEventListener("DOMContentLoaded", () => {
@@ -83,6 +93,7 @@ $('#btn_login').on('click', function(event) {
         },
         error: function(xhr) {
             alert("로그인 실패 "+xhr.responseText);
+            window.location.href = "/login";
         }
     });
 });
@@ -129,3 +140,58 @@ $('#pw_confirm').on('blur', function() {
             .css('font-size', '14px');
     }
 });
+
+//아이디 찾기 기능
+function findId(event) {
+    event.preventDefault(); // 폼 제출 기본 동작 방지
+
+    const e_name = document.getElementById("input_name").value;
+    const e_email = document.getElementById("input_email").value;
+
+    $.ajax({
+        type: "POST",
+        url: "/login/find-id",
+        data: {
+            e_name: e_name,
+            e_email: e_email
+        },
+        success: function(response) {
+            if (response.e_id) {
+                alert("회원님의 아이디는 " + response.e_id + " 입니다.");
+                // 로그인 페이지로 돌아가기
+                document.getElementById('forgot-page').style.display = 'none';
+                document.getElementById('login-page').style.display = 'block';
+            }
+        },
+        error: function(xhr) {
+            alert(xhr.responseText);
+        }
+    });
+}
+
+// 비밀번호 초기화 요청
+function resetPassword(event) {
+    event.preventDefault();
+
+    const e_id = document.getElementById("reset_id").value;
+    const e_email = document.getElementById("reset_email").value;
+
+    $.ajax({
+        type: "POST",
+        url: "/login/reset-password",
+        data: {
+            e_id: e_id,
+            e_email: e_email
+        },
+        success: function(response) {
+            alert("임시 비밀번호가 이메일로 전송되었습니다. 이메일을 확인하세요.");//이메일 전송 성공 메세지 표시
+            window.location.href = "/login";
+        },
+        error: function(xhr) {
+            alert(xhr.responseText);
+        }
+    });
+}
+
+
+
