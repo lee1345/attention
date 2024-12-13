@@ -256,7 +256,7 @@
 
 /* 내용 팝업 */
 .contentPopup {
-    padding: 0px 20px 50px 20px;
+    padding: 0px 20px 20px 20px;
     background-color: #fff;
     border: 5px solid #ddd;
     border-radius: 8px;
@@ -293,7 +293,7 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 80px;
+    margin-top: 120px;
 }
 
 .popup .action-buttons button {
