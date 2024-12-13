@@ -93,6 +93,7 @@ $('#btn_login').on('click', function(event) {
         },
         error: function(xhr) {
             alert("로그인 실패 "+xhr.responseText);
+            window.location.href = "/login";
         }
     });
 });
