@@ -62,8 +62,10 @@
 
 /* 테이블 스타일 */
 .address-table {
-    width: 100%; /* 테이블 너비를 100%로 설정 */
-    border-collapse: collapse; /* 테두리 간격 제거 */
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
 }
 
 .address-table th,
@@ -71,47 +73,25 @@
     border-bottom: 1px solid #ddd; /* 하단 테두리 */
     padding: 10px;
     text-align: center;
-    white-space: nowrap; /* 빈 공간일 때 셀 높이를 유지 */
-    cursor:pointer;
+    overflow: hidden; /* 내용이 길면 잘리게 설정 */
+    text-overflow: ellipsis; /* 생략 표시 (...) 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    cursor: pointer;
 }
 
 /* 헤더 스타일 */
 .address-table th {
     font-weight: bold;
     color: #333;
-    border-bottom: 2px solid black;
+    border-top: 3px solid #747474;
+    border-bottom: 1px solid #747474;
+    background-color: #f6f6f6;
 }
 
 /* 행 hover 효과 */
 .address-table tr:hover {
     background-color: #f1f1f1;
 }
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
-
-.pagination a {
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #007bff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.pagination a.active {
-    background-color: #007bff;
-    color: #fff;
-    pointer-events: none;
-}
-
-.pagination a:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
-
 
 /* 팝업 및 오버레이 스타일 */
 .popup-overlay {

@@ -73,6 +73,15 @@
     cursor: pointer;
 }
 
+/* 헤더 스타일 */
+.notice-table th {
+    font-weight: bold;
+    color: #333;
+    border-top: 3px solid #747474;
+    border-bottom: 1px solid #747474;
+    background-color: #f6f6f6;
+}
+
 /* 열 너비 고정 */
 .notice-table th:nth-child(1), /* 번호 */
 .notice-table td:nth-child(1) {
@@ -108,13 +117,6 @@
     width: 5%; /* 조회수 열 크기 */
 }
 
-.notice-table th {
-    font-weight: bold;
-    color: #333;
-    border-top: 3px solid #747474;
-    border-bottom: 1px solid #747474;
-    background-color: #f6f6f6;
-}
 
 .notice-table tr:hover {
     background-color: #f1f1f1;
