@@ -81,12 +81,12 @@
             </form>
         </div>
 
-        <!-- 알림 팝업
-        <div id="alarm-popup" class="hidden">
-            <div class="A-popup-content">
-                <button class="A-close-btn" onclick="closeAlarmPopup()">X</button>
-                <h2 id="A-popup-title">알림 기록</h2>
-                <table>
+        <!-- 알림 팝업 -->
+        <div id="comAlarm-popup" class="hidden">
+            <div class="comA-popup-content">
+                <button class="comA-close-btn" onclick="closeAlarmPopup()">X</button>
+                <h2 id="comA-popup-title">알림 기록</h2>
+                <table style="width: 100%; border-spacing: 0; border-collapse: collapse;">
                     <thead>
                         <tr>
                             <th>시간</th>
@@ -94,9 +94,9 @@
                             <th>삭제</th>
                         </tr>
                     </thead>
-                    <tbody id="alarm-table-body"></tbody>
+                    <tbody id="comAlarm-table-body"></tbody>
                 </table>
             </div>
-        </div> -->
+        </div>
   </body>
 </html>

@@ -3,6 +3,7 @@ package fs.four.human.common.service;
 import fs.four.human.common.vo.CommonVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommonService {
     // 사용자 정보를 가져오는 메서드
@@ -12,6 +13,7 @@ public interface CommonService {
     boolean updateEmployeeInfo(CommonVO employee);
 
     // 알림
-    List<String> getAlertMessages(String sessionId); // 알림 메시지 목록 반환
+    List<Map<String, String>> getAlertMessages(String sessionId);
+
 
 }
