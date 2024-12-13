@@ -134,42 +134,75 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.modal-overlay').style.display = 'none';
         });
     });
+        // *** 추가하기 버튼 이벤트 ***
+            const addButton = document.querySelector('#add-task-button');
+            addButton.addEventListener('click', () => {
+                const title = document.querySelector('#title').value.trim();
+                const priority = document.querySelector('#t-priority').value;
+                const stage = document.querySelector('#t-stage').value;
+                const startDate = document.querySelector('#start-date').value;
+                const endDate = document.querySelector('#end-date').value;
+                const content = document.querySelector('#content').value.trim();
 
+                // 데이터 검증
+                if (!title || !priority || !stage) {
+                    alert('모든 필드를 입력해주세요.');
+                    return;
+                }
 
+                const requestData = {
+                    title,
+                    priority,
+                    stage,
+                    startDate,
+                    endDate,
+                    content,
+                };
 
-    // "추가하기" 버튼 클릭 시 이벤트 처리
-    const addButton = modal.querySelector('button:last-of-type'); // '추가하기' 버튼
-    addButton.addEventListener('click', () => {
-        const title = modal.querySelector('input[type="text"]').value;
-        const importance = modal.querySelector('select:nth-of-type(1)').value;
-        const status = modal.querySelector('select:nth-of-type(2)').value;
-        const date = modal.querySelector('input[type="date"]').value;
-        const hour = modal.querySelector('select:nth-of-type(3)').value;
-        const minute = modal.querySelector('select:nth-of-type(4)').value;
-        const content = modal.querySelector('textarea').value;
+                // 서버로 데이터 전송
+                fetch('/api/todo/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.status === 'success') {
+                            alert('업무가 성공적으로 추가되었습니다!');
 
-        console.log({
-            title,
-            importance,
-            status,
-            date,
-            hour,
-            minute,
-            content,
-        });
+                            // 화면 리스트에 새 데이터 추가
+                            const tbody = document.querySelector('table tbody');
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                                <td><input type="checkbox"></td>
+                                <td>${priority}</td>
+                                <td>${stage}</td>
+                                <td>${title}</td>
+                                <td>${content}</td>
+                                <td>${startDate || '-'}</td>
+                                <td>${endDate || '-'}</td>
+                                <td>담당자</td>
+                                <td><button class="edit">수정</button></td>
+                            `;
+                            tbody.appendChild(newRow);
 
-        // 모달 닫기 및 초기화
-        modal.style.display = 'none';
-        overlay.style.display = 'none';
-        modal.querySelectorAll('input, textarea, select').forEach((input) => {
-            if (input.type === 'text' || input.type === 'date' || input.tagName === 'TEXTAREA') {
-                input.value = '';
-            } else if (input.tagName === 'SELECT') {
-                input.selectedIndex = 0;
-            }
-        });
-    });
+                            // 모달 닫기 및 초기화
+                            modal.style.display = 'none';
+                            overlay.style.display = 'none';
+                            document.querySelector('#t-registerForm').reset();
+                        } else {
+                            alert('업무 추가에 실패했습니다.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('업무 추가 오류:', error);
+                        alert('오류가 발생했습니다.');
+                    });
+            });
 });
+
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
 // 참여자 팝업 열기 버튼
