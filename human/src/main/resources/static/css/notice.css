@@ -287,3 +287,52 @@
     font-size: 18px;
     line-height: 1.5;
 }
+
+/* 수정 및 삭제 버튼 스타일 */
+.popup .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 80px;
+}
+
+.popup .action-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup .action-buttons .edit-btn {
+    background-color: #007bff;
+}
+
+.popup .action-buttons .edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.popup .action-buttons .delete-btn {
+    background-color: #dc3545;
+}
+
+.popup .action-buttons .delete-btn:hover {
+    background-color: #b02a37;
+}
+
+/* 저장 버튼 스타일 */
+.popup form .editBtn {
+    margin-top: 80px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

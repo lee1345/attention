@@ -79,4 +79,51 @@ public class NoticeRestController {
         }
         return notice;
     }
+
+    //==========================================================================
+
+    // 게시판 수정
+    @PutMapping("/{id}")
+    public String updateNotice(@PathVariable("id") int id, @RequestBody NoticeVO notice) {
+        NoticeVO existingNotice = noticeService.getNoticeById(id);
+
+        if (existingNotice == null) {
+            return "해당 게시글이 존재하지 않습니다.";
+        }
+
+        if (!existingNotice.getB_Writer().equals(notice.getB_Writer())) {
+            return "수정 권한이 없습니다.";
+        }
+
+        noticeService.updateNotice(notice);
+        return "수정 성공!";
+    }
+
+    // 게시판 삭제
+    @DeleteMapping("/{id}")
+    public String deleteNotice(@PathVariable("id") int id, @RequestParam("user") String user) {
+        NoticeVO notice = noticeService.getNoticeById(id);
+
+        if (user == null || user.isEmpty()) {
+            return "삭제 요청에서 사용자 정보가 누락되었습니다.";
+        }
+
+        if (notice == null) {
+            return "해당 게시글이 존재하지 않습니다.";
+        }
+
+        if (!notice.getB_Writer().equals(user)) {
+            return "삭제 권한이 없습니다.";
+        }
+
+        noticeService.deleteNotice(id);
+        return "삭제 성공!";
+    }
+
+
+
+
+
+
+
 }
