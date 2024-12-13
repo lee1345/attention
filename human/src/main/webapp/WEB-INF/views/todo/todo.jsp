@@ -98,12 +98,12 @@
                                <th>선택</th>
                                <th>우선순위</th>
                                <th>진행상황</th>
+                               <th>제목</th>
                                <th>내용</th>
                                <th>시작일</th>
                                <th>종료일</th>
                                <th>담당자</th>
                                <th>수정</th>
-                               <th>숨기기</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -112,6 +112,7 @@
                                <td>중요</td>
                                <td>예정</td>
                                <td>[토스] 홈페이지 외주</td>
+                                <td>[토스] 홈페이지 외주</td>
                                <td>24.02.11 14:00</td>
                                <td>24.02.11 14:00</td>
                                <td>김혜민</td>
@@ -165,55 +166,51 @@
        </div>
 <!-- Modal -->
 <!-- 팝업 컨테이너 -->
-<div class="task-popup-wrapper">
+<div class="task-popup-wrapper" >
     <!-- 업무등록 팝업  -->
    <div class="popup" id="task-popup">
            <button class="btn-modal-close">x</button>
            <h2>TEAM 업무 등록하기</h2>
-           <label>제목</label>
-           <input type="text" placeholder="제목을 입력하세요">
+          <form id="t-registerForm">
+              <label for="title">제목</label>
+              <input type="text" id="title" name="title" placeholder="제목을 입력하세요">
 
-           <label>중요도</label>
-           <select>
-               <option>중요도를 선택</option>
-               <option>매우긴급</option>
-               <option>긴급</option>
-               <option>보통</option>
-               <option>천천히</option>
-           </select>
+              <label for="t-priority">중요도</label>
+              <select id="t-priority" name="priority">
+                  <option value="VU">매우 긴급</option>
+                  <option value="U">긴급</option>
+                  <option value="N" selected>보통</option>
+                  <option value="L">천천히</option>
+              </select>
 
-           <label>진행상황</label>
-           <select>
-               <option>진행상황을 선택</option>
-               <option>예정</option>
-               <option>진행지연</option>
-               <option>완료지연</option>
-                <option>완료</option>
-           </select>
+              <label for="t-stage">진행상황</label>
+              <select id="t-stage" name="stage">
+                  <option value="P">예정</option>
+                  <option value="PD">진행지연</option>
+                  <option value="CD">완료지연</option>
+                  <option value="C">완료</option>
+              </select>
 
-           <label>일시</label>
-           <div class="date-time">
-               <input type="date">
-               <select>
-                   <option>00시</option>
-                   <option>01시</option>
-                   <!-- ... -->
-                   <option>23시</option>
-               </select>
-               <select>
-                   <option>00분</option>
-                   <option>30분</option>
-               </select>
-           </div>
+              <label>일시</label>
+              <label>시작일</label>
+              <div class="date-time">
+                  <input type="date" id="start-date" name="startDate">
+              </div>
 
-           <label>참여자</label>
-           <button id="open-participant-popup">참여자 선택</button>
-           <div id="selected-participants"></div>
+              <label>종료일</label>
+              <div class="date-time">
+                  <input type="date" id="end-date" name="endDate">
+              </div>
 
-           <label>내용</label>
-           <textarea maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+              <label>참여자</label>
+              <button id="open-participant-popup" type="button">참여자 선택</button>
+              <div id="selected-participants"></div>
 
-           <button>추가하기</button>
+              <label>내용</label>
+              <textarea id="content" name="content" maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+
+              <button id="add-task-button" type="button">추가하기</button>
+          </form>
        </div>
 
        <!-- 참여자 선택 팝업 -->

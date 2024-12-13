@@ -105,7 +105,37 @@
             <div id="popupNoticeContent">
             </div>
         </div>
+
+        <!-- 수정/삭제 버튼 -->
+        <div class="actions" id="popupActions">
+            <!-- 조건부 렌더링 -->
+        </div>
+        <div class="action-buttons">
+            <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+            <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+        </div>
     </div>
 </div>
+
+<!-- 수정 팝업 -->
+<div class="popup hidden" id="editPopup">
+    <button class="close-btn" id="closeEditPopup">X</button>
+    <h2>게시글 수정</h2>
+    <form id="editForm">
+        <div class="form-row">
+            <!-- 제목 입력 -->
+            <div class="form-group">
+                <input type="hidden" id="editNoticeId" />
+                <label for="editTitle">제목</label>
+                <input type="text" id="editTitle" name="title" placeholder="제목을 입력하세요" required>
+            </div>
+        </div>
+        <!-- 내용 입력 -->
+        <label for="editContent">내용</label>
+        <textarea id="editContent" name="editContent" placeholder="내용을 입력하세요"></textarea>
+        <button type="submit" class="submit-btn">저장</button>
+    </form>
+</div>
+
 </body>
 </html>

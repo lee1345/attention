@@ -1,5 +1,6 @@
 package fs.four.human.notice.dao;
 
+import fs.four.human.freeBoard.vo.FreeBoardVO;
 import fs.four.human.notice.vo.NoticeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -26,5 +27,10 @@ public interface NoticeDAO {
     // 조회수 증가
     void incrementViewCount(@Param("id") int id);
 
-}
+    // 게시판 데이터 삭제
+    void deleteNotice(int id);
 
+    // 게시판 데이터 수정
+    void updateNotice(NoticeVO notice);
+
+}

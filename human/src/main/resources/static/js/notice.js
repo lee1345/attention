@@ -266,6 +266,18 @@ $(document).off('click', '.notice-row').on('click', '.notice-row', function () {
             $('#popupNoticeWriter').text(data.b_Writer || '익명');
             $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
 
+            // 수정/삭제 버튼 렌더링
+            const popupActions = $('.action-buttons');
+            popupActions.empty(); // 기존 버튼 제거
+
+            // 로그인한 사용자와 작성자가 같을 때만 버튼 추가
+            if (loggedInUser === data.b_Writer) {
+                popupActions.append(`
+                    <button class="edit-btn" data-id="${data.b_Id}">수정</button>
+                    <button class="delete-btn" data-id="${data.b_Id}">삭제</button>
+                `);
+            }
+
             // 팝업 표시
             $('#PopupOverlay, #noticePopup').fadeIn();
         },
@@ -284,6 +296,101 @@ $(document).off('click', '.notice-row').on('click', '.notice-row', function () {
 //======================================================================================================
 
 
+// 수정 버튼 클릭
+$(document).on('click', '.edit-btn', function () {
+    const noticeId = $(this).data('id'); // 수정할 게시글 ID 가져오기
+    $('#noticePopup').fadeOut(); // 기존 팝업 닫기
+    console.log("수정할 게시글 ID:", noticeId); // 콘솔 출력
 
+    // AJAX 요청으로 데이터 가져오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/notice/${noticeId}`,
+        success: function (data) {
+            if (!data) {
+                alert("해당 데이터를 찾을 수 없습니다.");
+                return;
+            }
 
+            // 데이터 로드
+            $('#editTitle').val(data.b_Title || ''); // 제목
+            $('#editNoticeId').val(data.b_Id); // ID
+            $('#editContent').val(data.b_Content || ''); // TinyMCE에 내용 로드
 
+            // TinyMCE 초기화 및 데이터 로드
+            initializeTinyMCE('#editContent'); // TinyMCE 초기화
+            tinymce.get('editContent').setContent(data.b_Content || ''); // 내용 설정
+
+            $('#popupOverlay, #editPopup').fadeIn();
+        },
+        error: function () {
+            alert('수정 데이터를 불러오지 못했습니다.');
+        }
+    });
+
+    // 팝업 닫기
+    $('#closeEditPopup').on('click', function () {
+        $('#popupOverlay, #editPopup').fadeOut();
+        tinymce.remove('#editContent'); // TinyMCE 초기화 제거
+    });
+});
+
+// 수정 데이터 저장
+$('#editForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+
+    // ID 가져오기
+    const noticeId = $('#editNoticeId').val();
+    // TinyMCE에서 수정된 내용을 가져옵니다.
+    const content = tinymce.get('editContent').getContent();
+
+    if (!noticeId) {
+        alert("수정할 게시글 ID가 누락되었습니다.");
+        return;
+    }
+
+    const formData = {
+        b_Id: $('#editNoticeId').val(),
+        b_Title: $('#editTitle').val(),
+        b_Content: content, // TinyMCE 내용
+        b_Writer: loggedInUser, // 현재 로그인 사용자
+    };
+
+    console.log("FormData:", formData); // 데이터 확인
+
+    $.ajax({
+        type: 'PUT',
+        url: `/api/notice/${formData.b_Id}`,
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(formData),
+        success: function () {
+            alert('수정 성공!');
+            $('#popupOverlay, #editPopup').fadeOut();
+            noticeAllData(); // 데이터 다시 로드
+        },
+        error: function () {
+            console.error("수정 실패:", xhr.responseText || error);
+            alert('수정 실패!');
+        }
+    });
+});
+
+// 삭제 버튼 클릭
+$(document).on('click', '.delete-btn', function () {
+    const noticeId = $(this).data('id'); // 삭제할 게시글 ID 가져오기
+
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: 'DELETE',
+            url: `/api/notice/${noticeId}?user=${loggedInUser}`,
+            success: function () {
+                alert('삭제 성공!');
+                $('#popupOverlay, #noticePopup').fadeOut(); // 팝업 닫기
+                noticeAllData(); // 데이터 다시 로드
+            },
+            error: function () {
+                alert('삭제 실패!');
+            }
+        });
+    }
+});

@@ -138,5 +138,20 @@
         WHERE t_group = #{group} AND t_created_id = #{userId}
         GROUP BY t_stage
     </select>
+
+    <!-- 알림을 위한 데이터 조회 -->
+    <select id="getTasksForNotification" parameterType="map" resultType="fs.four.human.mytodo.vo.MytodoVO">
+        SELECT
+        T_ID,
+        T_TITLE,
+        T_START_DATE,
+        T_CREATED_ID
+        FROM TODO
+        WHERE T_START_DATE BETWEEN TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI:SS')
+        AND TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI:SS')
+        AND T_HIDE = 'N'
+<!--        AND T_STAGE = 'P'-->
+    </select>
+
 </mapper>
 

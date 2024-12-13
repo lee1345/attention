@@ -215,8 +215,8 @@ header .user-info a:hover {
 }
 
 
-/*알림 관련 css*/
-#alarm-popup {
+/* 알림 관련 css */
+#comAlarm-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -229,11 +229,11 @@ header .user-info a:hover {
     z-index: 1000;
 }
 
-#alarm-popup.hidden {
+#comAlarm-popup.hidden {
     display: none;
 }
 
-.A-popup-content {
+.comA-popup-content {
     background: white;
     border-radius: 12px;
     width: 450px;
@@ -243,8 +243,10 @@ header .user-info a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
     animation: fadeIn 0.3s ease-in-out;
+    overflow: hidden; /* 넘치는 내용 숨김 */
 }
-.A-close-btn {
+
+.comA-close-btn {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -258,6 +260,83 @@ header .user-info a:hover {
     cursor: pointer;
 }
 
-.A-close-btn:hover {
+.comA-close-btn:hover {
     background: darkred;
+}
+
+#comAlarm-popup table thead, #comAlarm-popup table tbody tr {
+    display: table; /* 테이블 헤더와 행은 기존 테이블 스타일 유지 */
+    width: 100%;
+    table-layout: fixed; /* 열 너비 고정 */
+}
+
+#comAlarm-popup table th,
+#comAlarm-popup table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    line-height: 1.6; /* 줄 간격 조정 */
+    word-wrap: break-word; /* 텍스트 줄바꿈 */
+}
+
+/* 각 열의 비율 */
+#comAlarm-popup table th:nth-child(1),
+#comAlarm-popup table td:nth-child(1) {
+    width: 20%; /* 시간 칸 */
+}
+
+#comAlarm-popup table th:nth-child(2),
+#comAlarm-popup table td:nth-child(2) {
+    width: 50%; /* 내용 칸 */
+}
+
+#comAlarm-popup table th:nth-child(3),
+#comAlarm-popup table td:nth-child(3) {
+    width: 15%; /* 삭제 칸 */
+}
+
+.comDelete-btn {
+    background: #f04e30;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    display: inline-block; /* 글자가 수평으로 */
+    text-align: center;
+}
+
+.comDelete-btn:hover {
+    background: #c43b24;
+}
+
+#comAlarm-popup table {
+    width: 100%; /* 테이블 너비 고정 */
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+#comAlarm-popup table tbody {
+    display: block; /* 스크롤을 tbody에 적용 */
+    max-height: 300px; /* 테이블 최대 높이 제한 */
+    overflow-y: auto; /* 수직 스크롤 활성화 */
+}
+
+#comAlarm-popup table tbody::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+}
+
+#comAlarm-popup table tbody::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* 스크롤바 색상 */
+    border-radius: 4px;
+}
+
+#comAlarm-popup table tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; /* 호버 시 색상 */
+}
+
+#comAlarm-popup table tbody::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* 스크롤 트랙 색상 */
 }

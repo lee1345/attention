@@ -27,10 +27,11 @@
         </div>
         <div class="user-info">
           <span>${employee.e_dept}팀</span>
-          <span>${employee.e_name} ${employee.e_position}</span>
+          <span>${employee.e_name} ${employee.e_position}님</span>
+          <span>안녕하세요! </span>
           <span><i class="fa-solid fa-bell" id="show-alarm-popup" style="cursor: pointer;"></i></span>
-          <span><a id="comMyPage">MyPage</a><span>
-          <span><a id="login">Logout</a><span>
+          <span><a id="comMyPage">내 정보 수정</a><span>
+          <span><a id="login">로그아웃</a><span>
         </div>
       </header>
 
@@ -81,12 +82,12 @@
             </form>
         </div>
 
-        <!-- 알림 팝업
-        <div id="alarm-popup" class="hidden">
-            <div class="A-popup-content">
-                <button class="A-close-btn" onclick="closeAlarmPopup()">X</button>
-                <h2 id="A-popup-title">알림 기록</h2>
-                <table>
+        <!-- 알림 팝업 -->
+        <div id="comAlarm-popup" class="hidden">
+            <div class="comA-popup-content">
+                <button class="comA-close-btn" onclick="closeAlarmPopup()">X</button>
+                <h2 id="comA-popup-title">알림 기록</h2>
+                <table style="width: 100%; border-spacing: 0; border-collapse: collapse;">
                     <thead>
                         <tr>
                             <th>시간</th>
@@ -94,9 +95,9 @@
                             <th>삭제</th>
                         </tr>
                     </thead>
-                    <tbody id="alarm-table-body"></tbody>
+                    <tbody id="comAlarm-table-body"></tbody>
                 </table>
             </div>
-        </div> -->
+        </div>
   </body>
 </html>
