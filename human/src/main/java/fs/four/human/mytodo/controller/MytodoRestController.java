@@ -87,4 +87,74 @@ public class MytodoRestController {
         }
     }
 
+    //정렬기능
+    @GetMapping("/sort")
+    public ResponseEntity<List<MytodoVO>> sortTodos(
+            @RequestParam("sortType") String sortType,
+            HttpSession session) {
+        String userId = (String) session.getAttribute("loginUserID");
+        if (userId == null) {
+            return ResponseEntity.status(401).build(); // 로그인되지 않은 경우
+        }
+
+        // 정렬된 할일 목록 가져오기
+        List<MytodoVO> sortedTodos = mytodoService.getSortedTodos("M", userId, sortType);
+        return ResponseEntity.ok(sortedTodos);
+    }
+
+    //선택 삭제
+    @PostMapping("/deleteSelected")
+    public ResponseEntity<?> deleteSelectedTodos(@RequestBody List<Long> ids) {
+        try {
+            mytodoService.deleteSelectedTodos(ids);
+            return ResponseEntity.ok("삭제 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패: " + e.getMessage());
+        }
+    }
+    //선택 숨기기
+    @PostMapping("/hideSelected")
+    public ResponseEntity<?> hideSelectedTodos(@RequestBody List<Long> ids) {
+        try {
+            mytodoService.updateHideStatus(ids, "Y");
+            return ResponseEntity.ok("숨기기 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숨기기 실패: " + e.getMessage());
+        }
+    }
+    //숨기기취소
+    @PostMapping("/unhideAll")
+    public ResponseEntity<?> unhideAllTodos() {
+        try {
+            mytodoService.updateHideAll();
+            return ResponseEntity.ok("숨기기 취소 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숨기기 취소 실패: " + e.getMessage());
+        }
+    }
+
+    //수정하기
+    @PutMapping("/updateTodo")
+    public ResponseEntity<?> updateTodo(@RequestBody MytodoVO mytodoVO) {
+        try {
+            mytodoService.updateTodo(mytodoVO);
+            return ResponseEntity.ok("수정 완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정 실패");
+        }
+    }
+
+    //수정 팝업에 내용 불러오기
+    @GetMapping("/getTodo")
+    public ResponseEntity<MytodoVO> getTodoById(@RequestParam("t_id") Long t_id) {
+        try {
+            MytodoVO todo = mytodoService.getTodoById(t_id);
+            return ResponseEntity.ok(todo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

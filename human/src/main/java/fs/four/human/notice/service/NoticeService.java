@@ -39,4 +39,9 @@ public class NoticeService {
         return noticeDAO.getNoticeById(id);
     }
 
+    // 조회수 증가
+    public void incrementViewCount(int id) {
+        noticeDAO.incrementViewCount(id);
+    }
+
 }

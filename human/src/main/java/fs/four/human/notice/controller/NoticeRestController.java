@@ -66,7 +66,14 @@ public class NoticeRestController {
     // 특정 공지사항 데이터 반환
     @GetMapping("/{id}")
     public NoticeVO getNoticeById(@PathVariable("id") int id) {
+        // 조회수 증가 로직 추가
+        noticeService.incrementViewCount(id); // 조회수 증가
+
+        // 공지사항 데이터 반환
         NoticeVO notice = noticeService.getNoticeById(id);
+        // 디버깅 로그로 데이터 확인
+        System.out.println("공지사항 데이터: " + notice);
+
         if (notice == null) {
             throw new IllegalArgumentException("해당 공지사항을 찾을 수 없습니다.");
         }

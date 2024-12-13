@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>MY TODO LIST</title>
     <link rel="stylesheet" href="${contextPath}/css/mytodo.css">
 </head>
@@ -42,9 +43,9 @@
 
                <!-- 작은 버튼 그룹 -->
                <div class="my-inline-buttons">
-                   <button>선택 삭제</button>
-                   <button>선택 숨기기</button>
-                   <button>숨긴 업무 모두보기</button>
+                    <button onclick="handleBatchAction('delete')">선택 삭제</button>
+                    <button onclick="handleBatchAction('hide')">선택 숨기기</button>
+                    <button onclick="handleBatchAction('unhide')">숨기기 취소</button>
                </div>
            </div>
 
@@ -52,10 +53,10 @@
 
         <!-- 정렬 옵션 -->
         <div class="my-sort-options">
-               <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
-               <button><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
-               <button><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
-               <button><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
+               <button onclick="sortTasks('priority')"><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
+               <button onclick="sortTasks('stage')"><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
+               <button onclick="sortTasks('startDate')"><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일 빠른순</button>
+               <button onclick="sortTasks('endDate')"><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일 빠른순</button>
         </div>
 
         <!-- 업무 리스트 -->
@@ -83,10 +84,10 @@
                 <option value="VU">매우 긴급</option>
                 <option value="U">긴급</option>
                 <option value="N" selected>보통</option>
-                <option value="NU">천천히</option>
+                <option value="L">천천히</option>
             </select>
             <div class="time">
-                <label for="start-date">시작</label><br>
+                <label for="start-date">시작일시</label><br>
                 <input type="date" id="start-date" name="start-date" required></input>
                 <select name="start-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                     <option selected>시</option>
@@ -110,11 +111,12 @@
                     <option>23</option>
                 </select>
                 <select name="start-minute">
+                    <option selected>분</option>
                     <option>0</option>
                     <option>30</option>
                 </select>
                 <br>
-                <label for="end-date">종료</label><br>
+                <label for="end-date">종료일시</label><br>
                 <input type="date" id="end-date" name="end-date" required></input>
                 <select name="end-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                     <option selected>시</option>
@@ -148,6 +150,80 @@
             <button type="submit" class="submit-btn">등록</button>
         </form>
     </div>
+
+    <!-- 수정 팝업 -->
+    <div class="popup hidden" id="editPopup">
+        <button class="close-btn" id="closeEditPopup">X</button>
+        <h2>나의 할일 수정하기</h2>
+        <form id="editForm">
+            <label for="edit-title">제목</label>
+            <input type="text" id="edit-title" name="edit-title" required /><br>
+            <div class="time">
+                <label for="edit-start-date">시작일시</label><br>
+                <input type="date" id="edit-start-date" name="edit-start-date" required></input>
+                <select id="edit-start-hour" name="edit-start-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <option selected>시</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                </select>
+                <select id="edit-start-minute"  name="edit-start-minute">
+                    <option selected>분</option>
+                    <option>0</option>
+                    <option>30</option>
+                </select>
+                <br>
+                <label for="edit-end-date">종료일시</label><br>
+                <input type="date" id="edit-end-date" name="edit-end-date" required></input>
+                <select id="edit-end-hour" name="edit-end-hour" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <option selected>시</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                </select>
+                <select id="edit-end-minute" name="edit-end-minute">
+                    <option selected>분</option>
+                    <option>0</option>
+                    <option>30</option>
+                </select>
+            </div>
+            <label for="edit-content">내용</label>
+            <textarea id="edit-content" name="edit-content" cols="50" rows="10" required></textarea>
+            <button type="submit" class="submit-btn">수정</button>
+        </form>
+    </div>
+
+
 <script src="${contextPath}/js/mytodo.js"></script>
 </body>
 </html>

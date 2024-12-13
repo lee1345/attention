@@ -5,14 +5,16 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-left: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
     flex: 1;
 }
 
 .address-book h2 {
+    width: 150px;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
     color: #333;
 }
 
@@ -66,18 +68,18 @@
 
 .address-table th,
 .address-table td {
-    border-top: 1px solid #ddd; /* 상단 테두리 */
     border-bottom: 1px solid #ddd; /* 하단 테두리 */
     padding: 10px;
     text-align: center;
     white-space: nowrap; /* 빈 공간일 때 셀 높이를 유지 */
+    cursor:pointer;
 }
 
 /* 헤더 스타일 */
 .address-table th {
-    background-color: #c5d9ed;
     font-weight: bold;
     color: #333;
+    border-bottom: 2px solid black;
 }
 
 /* 행 hover 효과 */

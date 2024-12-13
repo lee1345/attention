@@ -3,7 +3,6 @@ package fs.four.human.notice.dao;
 import fs.four.human.notice.vo.NoticeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -23,4 +22,9 @@ public interface NoticeDAO {
 
     // 특정 공지사항 조회
     NoticeVO getNoticeById(int id);
+
+    // 조회수 증가
+    void incrementViewCount(@Param("id") int id);
+
 }
+

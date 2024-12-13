@@ -79,7 +79,7 @@ $('#btn_login').on('click', function(event) {
         data: loginData,
         success: function(response) {
             alert("로그인 성공하였습니다.");
-            window.location.href = "/common";
+            window.location.href = "/mytodo";
         },
         error: function(xhr) {
             alert("로그인 실패 "+xhr.responseText);

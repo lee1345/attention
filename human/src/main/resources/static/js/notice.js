@@ -35,6 +35,21 @@ function formatDate(dateString) {
 
 //======================================================================================================
 
+
+// TinyMCE 에디터 초기화 함수
+function initializeTinyMCE(selector) {
+    tinymce.init({
+        selector: selector,
+        height: 300,
+        menubar: false,
+        plugins: 'lists link image code',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link image | code',
+        placeholder: '내용을 입력하세요',
+    });
+}
+
+//======================================================================================================
+
 // 테이블 렌더링 함수
 function renderTable(data) {
     const noticeTable = $('#noticeTable');
@@ -57,13 +72,16 @@ function renderTable(data) {
     data.forEach(notice => {
         const formattedDate = formatDate(notice.b_CreatedDate);
         const contentPreview = stripHtmlTags(notice.b_Content).substring(0, 50); // [수정] 내용 글자수 제한
+
         const row = `
             <tr class="notice-row" data-id="${notice.b_Id}">
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
                 <td>${contentPreview}</td>
-                <td>${notice.b_Writer}</td>
+                <td>${notice.b_Writer || '익명'}</td>
                 <td>${formattedDate}</td>
+                <td>${notice.b_ViewCount || 0}</td> <!-- 조회수 표시 -->
+
             </tr>
         `;
         noticeTable.append(row);
@@ -77,27 +95,16 @@ $(document).ready(function () {
     // 전체 데이터 로드 (GET)
     noticeAllData();
 
-    // Summernote 에디터 초기화
-    $("#summernote").summernote({
-        height: 300,
-        placeholder: "내용을 입력하세요",
-        toolbar: [
-            ["style", ["bold", "italic", "underline", "clear"]], // 굵게, 기울임, 밑줄
-            ["para", ["ul", "ol", "paragraph"]], // 목록, 정렬
-//            ["insert", ["link", "picture", "video"]] // 삽입 옵션
-        ]
-    });
-
     // 엔터 키를 누르면 검색 버튼 클릭
     $('#query').on('keypress', function (event) {
         if (event.key === 'Enter') { // 엔터 키 감지
             event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
-            $('#searchBtn').click(); // 검색 버튼 클릭 이벤트 실행
+            $('#noticeSearchBtn').click(); // 검색 버튼 클릭 이벤트 실행
         }
     });
 
     // 검색 버튼 클릭 이벤트
-    $('#searchBtn').on('click', function () {
+    $('#noticeSearchBtn').on('click', function () {
         const category = $('#category').val(); // 선택된 카테고리
         const query = $('#query').val().trim(); // 입력된 검색어
 
@@ -130,17 +137,18 @@ $(document).ready(function () {
 
 // 등록 팝업창
 $(document).ready(function () {
+
     // 팝업 열기
     $('.btn-register').on('click', function () {
         $('#popupOverlay, #popup').fadeIn();
-        $('#summernote').summernote('reset'); // Summernote 초기화
+        initializeTinyMCE('#content'); // TinyMCE 초기화
         $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
     // 팝업 닫기
     $('#closePopup').on('click', function () {
         $('#popupOverlay, #popup').fadeOut();
-        $('#summernote').summernote('reset'); // Summernote 초기화
+        tinymce.remove('#content'); // TinyMCE 초기화 제거
         $('#registerForm')[0].reset(); // 폼 데이터 초기화
     });
 
@@ -148,12 +156,11 @@ $(document).ready(function () {
     $('#registerForm').on('submit', function (event) {
         event.preventDefault(); // 기본 폼 제출 방지
 
-    // Summernote 값 가져오기 (HTML 태그 포함)
-    let content = $('#summernote').summernote('code');
-
+    // TinyMCE 내용 가져오기
+    const content = tinymce.get('content').getContent();
     const formData = {
         b_Title: $('#title').val(), // 제목 입력값
-        b_Content: content,// Summernote 내용 (본문)
+        b_Content: content, // TinyMCE 내용 (본문)
         b_Writer: loggedInUser, // 작성자 (동적으로 설정)
         b_Group: 'N' // 공지사항 그룹 고정
     };
@@ -177,32 +184,106 @@ $(document).ready(function () {
 
 //======================================================================================================
 
-// 테이블 데이터를 클릭하면 팝업 표시
-$(document).on('click', '.notice-row', function () {
-    const noticeId = $(this).data('id'); // 공지사항 ID 가져오기
+//// 테이블 데이터를 클릭하면 팝업 표시
+//$(document).on('click', '.notice-row', function () {
+//    const noticeId = $(this).data('id'); // 공지사항 ID 가져오기
+//    $('#popupOverlay').fadeIn();
+//
+//    // 팝업 닫기
+//    $('#closeNoticePopup').on('click', function () {
+//        $('#popupOverlay, #noticePopup').fadeOut();
+//    });
+//
+//    // AJAX 요청으로 데이터 가져오기
+//    $.ajax({
+//        type: 'GET',
+//        url: `/api/notice/${noticeId}`,
+//        success: function (data) {
+//            console.log("Fetched Data:", data);
+//            console.log("Created Date:", data.b_CreatedDate);
+//
+//            $('#popupNoticeTitle').text(data.b_Title);
+//            $('#popupNoticeContent').html(data.b_Content);
+//            $('#popupNoticeWriter').text(data.b_Writer);
+//            $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
+//            $('#noticePopupOverlay, #noticePopup').fadeIn();
+//        },
+//        error: function () {
+//            alert('데이터를 가져오지 못했습니다.');
+//        }
+//    });
+//});
+//
+//
+////======================================================================================================
+//
+//// 공지사항 행 클릭 이벤트 ( 조회수 증가 )
+//$(document).off('click', '.notice-row').on('click', '.notice-row', function () {
+//    const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
+//
+//    // 조회수 증가 및 공지사항 데이터 요청
+//    $.ajax({
+//        type: 'GET',
+//        url: `/api/notice/${noticeId}`,
+//        success: function (data) {
+//            // 성공 시 조회수와 데이터 확인
+//            console.log(`조회수 증가 성공: ID ${noticeId}, 현재 조회수: ${data.b_ViewCount}`);
+//        },
+//        error: function () {
+//            console.error(`조회수 증가 실패: ID ${noticeId}`);
+//        }
+//    });
+//});
+
+//======================================================================================================
+
+// 공지사항 행 클릭 이벤트
+$(document).off('click', '.notice-row').on('click', '.notice-row', function () {
+    const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
     $('#popupOverlay').fadeIn();
 
-    // 팝업 닫기
-    $('#closeNoticePopup').on('click', function () {
-        $('#popupOverlay, #noticePopup').fadeOut();
-    });
-
-    // AJAX 요청으로 데이터 가져오기
+    // AJAX 요청으로 조회수 증가 및 데이터 가져오기
     $.ajax({
         type: 'GET',
-        url: `/api/notice/${noticeId}`,
+        url: `/api/notice/${noticeId}`, // 조회수 증가 및 데이터 반환 API
         success: function (data) {
-            console.log("Fetched Data:", data);
-            console.log("Created Date:", data.b_CreatedDate);
+            if (!data) {
+                alert("해당 공지사항 데이터를 찾을 수 없습니다.");
+                return;
+            }
 
-            $('#popupNoticeTitle').text(data.b_Title);
-            $('#popupNoticeContent').html(data.b_Content);
-            $('#popupNoticeWriter').text(data.b_Writer);
+            // 조회수 증가 및 데이터 확인
+            console.log(`조회수 증가 성공: ID ${noticeId}, 현재 조회수: ${data.b_ViewCount}`);
+            console.log("Fetched Data:", data);
+
+            // 테이블의 특정 행만 업데이트
+            const row = $(`.notice-row[data-id="${noticeId}"]`);
+            row.find('td').eq(5).text(data.b_ViewCount || 0); // 조회수 업데이트
+
+            // 팝업에 데이터 채우기
+            $('#popupNoticeTitle').text(data.b_Title || '제목 없음');
+            $('#popupNoticeContent').html(data.b_Content || '내용 없음');
+            $('#popupNoticeWriter').text(data.b_Writer || '익명');
             $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
-            $('#noticePopupOverlay, #noticePopup').fadeIn();
+
+            // 팝업 표시
+            $('#PopupOverlay, #noticePopup').fadeIn();
         },
         error: function () {
-            alert('데이터를 가져오지 못했습니다.');
+            alert('데이터를 가져오는 데 실패했습니다.');
+            console.error(`조회수 증가 및 데이터 로드 실패: ID ${noticeId}`);
         }
     });
+
+    // 팝업 닫기 이벤트
+    $('#closeNoticePopup').off('click').on('click', function () {
+        $('#popupOverlay, #noticePopup').fadeOut();
+    });
 });
+
+//======================================================================================================
+
+
+
+
+

@@ -41,6 +41,32 @@ public class MytodoService {
     public void deleteTodoById(Long t_id){
         mytodoDAO.deleteTodoById(t_id);
     }
+    //정렬
+    public List<MytodoVO> getSortedTodos(String t_group, String t_created_id, String sortType) {
+        return mytodoDAO.getSortedTodos(t_group, t_created_id, sortType);
+    }
+
+    //선택 삭제
+    public void deleteSelectedTodos(List<Long> ids) {
+        mytodoDAO.deleteSelectedTodos(ids);
+    }
+    // 선택숨기기
+    public void updateHideStatus(List<Long> ids, String hideStatus) {
+        mytodoDAO.updateHideStatus(ids, hideStatus);
+    }
+    // 숨기기복귀
+    public void updateHideAll() {
+        mytodoDAO.updateHideAll();
+    }
+    // 수정하기
+    public void updateTodo(MytodoVO mytodoVO) {
+        mytodoDAO.updateTodo(mytodoVO);
+    }
+    //수정찾기
+    public MytodoVO getTodoById(Long t_id) {
+        return mytodoDAO.getTodoById(t_id);
+    }
+
 }
 
 

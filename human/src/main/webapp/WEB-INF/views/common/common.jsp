@@ -11,8 +11,8 @@
     <!-- 동적 경로로 CSS 로드 -->
     <link rel="stylesheet" href="${contextPath}/css/common.css" />
     <!-- JS 파일 로드 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js?v=1.0"></script>
-    <script src="${contextPath}/js/common.js" defer></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="${contextPath}/js/common.js" ></script>
     <!--
     <script src="${contextPath}/js/alarm.js" defer></script>
     -->
@@ -45,7 +45,7 @@
               </ul>
               <br>
             </li>
-            <strong><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></strong>
+            <span><a id="schedule"><i class="fa-solid fa-calendar-days"></i> 일정관리</a></span>
             <br><br>
             <li>
               <span><i class="fa-solid fa-bullhorn"></i> 게시판</span>
@@ -56,7 +56,7 @@
             </li>
             <br><br>
             <li>
-              <strong><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></strong>
+              <span><a id="address"><i class="fa-solid fa-address-book"></i> 주소록</a></span>
             </li>
           </ul>
         </nav>

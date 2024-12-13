@@ -12,11 +12,10 @@
     <link rel="stylesheet" href="${contextPath}/css/notice.css" />
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js?v=1.0"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Summernote CSS/JS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css?v=1.0" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js?v=1.0"></script>
+    <!-- TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/0ejo1az83u9m3gt3maghj3ird3tp4ffzos68q557dpo3seb4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script src="${contextPath}/js/notice.js" defer></script>
     <script>
@@ -59,13 +58,16 @@
             <th>내용</th>
             <th>작성자</th>
             <th>날짜</th>
+            <th>조회수</th>
         </tr>
         </thead>
         <tbody id="noticeTable">
         <!-- AJAX로 데이터 로드 -->
         </tbody>
     </table>
+    <div id="pagination" class="pagination"></div>
 </div>
+
 
 <!-- 팝업 배경 오버레이 -->
 <div class="popup-overlay hidden" id="popupOverlay"></div>
@@ -84,7 +86,7 @@
         </div>
         <!-- 내용 입력 -->
         <label for="content"></label>
-        <div id="summernote"></div>
+        <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
         <button type="submit" class="submit-btn">등록</button>
     </form>
 </div>
@@ -95,12 +97,11 @@
     <div class="title"><h2 id="popupTitle">공지사항</h2></div>
     <div class="contentPopup">
         <div class="sub">
-            <div>날짜   <span id="popupNoticeDate"></span></div>
-            <div>작성자 <span id="popupNoticeWriter"></span></div>
+            <div>날짜 : <span id="popupNoticeDate"></span></div>
+            <div>작성자 : <span id="popupNoticeWriter"></span></div>
         </div>
         <div class="content">
             <div id="popupNoticeTitle"></div><br>
-            <p>상세 내용</p>
             <div id="popupNoticeContent">
             </div>
         </div>

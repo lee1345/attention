@@ -9,9 +9,11 @@
 }
 
 .notice h2 {
+    width: 150px;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
     color: #333;
 }
 
@@ -27,47 +29,6 @@
     align-items: center;
     gap: 5px;
     margin-right: 10px;
-}
-
-/* 자유게시판 카테고리 스타일 */
-.navbar {
-    margin: 30px;
-}
-
-.navbar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 30px;
-    align-items: center;
-}
-
-.navbar ul li {
-    font-size: 18px;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.navbar ul li a:hover {
-    color: #0044cc;
-}
-
-.navbar ul li:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: -15px;
-    transform: translateY(-50%);
-    width: 2px;
-    height: 80%;
-    background-color: black;
 }
 
 .search-register select,
@@ -103,7 +64,6 @@
 
 .notice-table th,
 .notice-table td {
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 10px;
     text-align: center;
@@ -121,32 +81,49 @@
 
 .notice-table th:nth-child(2), /* 제목 */
 .notice-table td:nth-child(2) {
-    width: 20%; /* 제목 열 크기 */
+    width: 40%; /* 제목 열 크기 */
+}
+
+.notice-table td:nth-child(2) {
+    text-align: left;
 }
 
 .notice-table th:nth-child(3), /* 내용 */
 .notice-table td:nth-child(3) {
-    width: 40%; /* 제목 열 크기 */
+    width: 50%; /* 내용 열 크기 */
 }
 
 .notice-table th:nth-child(4), /* 작성자 */
 .notice-table td:nth-child(4) {
-    width: 10%; /* 내용 열 크기 */
+    width: 7%; /* 작성자 크기 */
 }
 
 .notice-table th:nth-child(5), /* 날짜 */
 .notice-table td:nth-child(5) {
-    width: 10%; /* 작성자 열 크기 */
+    width: 7%; /* 날짜 열 크기 */
+}
+
+.notice-table th:nth-child(6), /* 조회수 */
+.notice-table td:nth-child(6) {
+    width: 5%; /* 조회수 열 크기 */
 }
 
 .notice-table th {
-    background-color: #c5d9ed;;
     font-weight: bold;
     color: #333;
+    border-top: 3px solid #747474;
+    border-bottom: 1px solid #747474;
+    background-color: #f6f6f6;
 }
 
 .notice-table tr:hover {
     background-color: #f1f1f1;
+}
+
+/* 테이블의 내용 열 숨기기 */
+.notice-table td:nth-child(3),
+.notice-table th:nth-child(3) {
+    display: none;
 }
 
 /* 팝업 오버레이 스타일 */
@@ -193,7 +170,7 @@
 .form-group input {
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #ddd;
+    border: 3px solid #ddd;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
@@ -267,13 +244,18 @@
 
 /* 내용 팝업 */
 .contentPopup {
-    padding: 0px 50px 50px 50px;
+    padding: 0px 20px 50px 20px;
+    background-color: #fff;
+    border: 5px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .contentPopup .sub{
     position: absolute;
-    right: 80px;
-    top: 125px;
+    right: 60px;
+    top: 150px;
     text-align: left;
     font-size: 16px;
     color: #555;
@@ -285,15 +267,11 @@
 }
 
 .contentPopup .content {
-    margin-top: 60px;
+    margin-top: 50px;
 }
 
 .contentPopup .content #popupNoticeTitle {
-    border-bottom: 1px solid #ddd;
-}
-
-.contentPopup .content #popupNoticeTitle {
+    border-bottom: 3px solid #747474;
     font-size: 18px;
     line-height: 1.5;
-    padding-bottom: 10px;
 }
