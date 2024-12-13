@@ -56,7 +56,7 @@
     </select>
 
     <!-- 특정 게시판 조회 -->
-    <select id="getFreeBoardById" resultType="freeBoardVO">
+    <select id="getFreeBoardById" resultType="FreeBoardVO">
         SELECT
         B_ID as b_Id,
         B_TITLE as b_Title,
@@ -74,7 +74,7 @@
     <!-- 새로운 게시판 데이터 등록 -->
     <insert id="createFreeBoard">
         INSERT INTO BOARD (
-        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date)
+        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date, view_count)
         VALUES (
         freeboard_seq.NEXTVAL, -- 자유게시판 시퀀스
         #{b_Title},
