@@ -40,4 +40,47 @@
     </select>
     <!--  todo 진행상태별 EX)P,PD,..  -->
 
+    <insert id="addTodo" parameterType="Todo2VO">
+        <selectKey keyProperty="t_id" resultType="String" order="BEFORE">
+            select TODO_SEQ.nextval FROM DUAL
+        </selectKey>
+        insert into todo (T_ID, T_WRITER, T_GROUP, T_DEPT, T_STAGE, T_PRIORITY, T_TITLE, T_CONTENT, T_START_DATE, T_START_TIME, T_END_DATE)
+        values (
+        TODO_SEQ.nextval,
+        'hong',
+        'test group',
+        'test',
+        #{t_stage, jdbcType=VARCHAR},
+        #{t_priority, jdbcType=VARCHAR},
+        #{t_title, jdbcType=VARCHAR},
+        #{t_content, jdbcType=VARCHAR},
+        #{t_start_date, jdbcType=DATE},
+        '2024-12-01',
+        #{t_end_date, jdbcType=DATE}
+        )
+    </insert>
+
+
+    <insert id="addTodoDetail" parameterType="TodoDetailVO">
+        insert into todo_detail (TD_ID, TD_PARTICIPANT_1, TD_PARTICIPANT_2, TD_PARTICIPANT_3, TD_PARTICIPANT_4, TD_PARTICIPANT_5)
+        values ( #{td_id},  #{td_participant_1, jdbcType=VARCHAR}, #{td_participant_2, jdbcType=VARCHAR}, #{td_participant_3, jdbcType=VARCHAR}, #{td_participant_4, jdbcType=VARCHAR}, #{td_participant_5, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateTodo" parameterType="TodoVO">
+        UPDATE todo
+        SET
+        t_stage = COALESCE(#{t_stage, jdbcType=VARCHAR}, t_stage),
+        t_priority = COALESCE(#{t_priority, jdbcType=VARCHAR}, t_priority),
+        t_title = COALESCE(#{t_title, jdbcType=VARCHAR}, t_title),
+        t_content = COALESCE(#{t_content, jdbcType=VARCHAR}, t_content),
+        t_start_date = COALESCE(#{t_start_date, jdbcType=DATE}, t_start_date),
+        t_end_date = COALESCE(#{t_end_date, jdbcType=DATE}, t_end_date),
+        t_updated_date = SYSDATE,
+        t_updated_id = #{t_updated_id, jdbcType=VARCHAR}
+        WHERE
+        t_id = #{t_id, jdbcType=VARCHAR}
+    </update>
+
+
+
 </mapper>

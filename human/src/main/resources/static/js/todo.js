@@ -1,3 +1,6 @@
+let selectedParticipants = [];
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // *** 차트 생성 ***
     function createChart(canvasId, legendId, labels, data, colors) {
@@ -137,18 +140,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    function sendPostRequest(url, data) {
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Success:", data);
+            // 성공 시 처리
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            // 실패 시 처리
+        });
+    }
     // "추가하기" 버튼 클릭 시 이벤트 처리
     const addButton = modal.querySelector('button:last-of-type'); // '추가하기' 버튼
     addButton.addEventListener('click', () => {
-        const title = modal.querySelector('input[type="text"]').value;
+        /*const title = modal.querySelector('input[type="text"]').value;
         const importance = modal.querySelector('select:nth-of-type(1)').value;
         const status = modal.querySelector('select:nth-of-type(2)').value;
         const date = modal.querySelector('input[type="date"]').value;
         const hour = modal.querySelector('select:nth-of-type(3)').value;
         const minute = modal.querySelector('select:nth-of-type(4)').value;
-        const content = modal.querySelector('textarea').value;
+        const content = modal.querySelector('textarea').value;*/
+        const title = document.getElementById('title').value;
+        const priority = document.getElementById('priority').value;
+        const stage = document.getElementById('stage').value;
+         const startDate = document.getElementById('start-date').value;
+           const startHour = document.getElementById('start-hour').value;
+             const startMinute= document.getElementById('start-minute').value;
+               const endDate = document.getElementById('end-date').value;
+                const endHour = document.getElementById('end-hour').value;
 
-        console.log({
+        const endMinute = document.getElementById('end-minute').value;
+        const content = document.getElementById('content').value;
+
+        console.log(title, priority, stage, startDate, startHour, startMinute, endDate, endHour, endMinute, content);
+
+        console.log(selectedParticipants);
+        /*console.log({
             title,
             importance,
             status,
@@ -156,7 +196,85 @@ document.addEventListener('DOMContentLoaded', () => {
             hour,
             minute,
             content,
-        });
+        });*/
+
+        // ajax 호출
+        let sendData = {
+            t_title: title,
+            t_content: content,
+            t_stage: stage,
+            t_priority: priority,
+            t_start_date: startDate,
+            t_end_date: endDate,
+            participants: selectedParticipants
+        }
+        sendPostRequest("/api/todo/todos", sendData);
+
+        const editButtons = document.querySelectorAll('.edit'); // 수정 버튼들
+            const modal = document.querySelector('#task-popup'); // 수정 모달
+            const overlay = document.querySelector('.modal-overlay'); // 오버레이
+            const editButton = modal.querySelector('button:last-of-type'); // 모달 내 수정 버튼
+
+            // 수정 버튼 클릭 시 모달 표시 및 데이터 로드
+            editButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    const row = event.target.closest('tr'); // 클릭된 버튼의 행
+                    const todoData = {
+                        id: row.querySelector('input[type="checkbox"]').value, // ID 값
+                        title: row.cells[3].textContent,
+                        priority: row.cells[1].textContent,
+                        stage: row.cells[2].textContent,
+                        startDate: row.cells[4].textContent,
+                        endDate: row.cells[5].textContent,
+                        content: row.cells[3].textContent,
+                    };
+
+                    // 모달에 데이터 채우기
+                    document.querySelector('#title').value = todoData.title;
+                    document.querySelector('#priority').value = todoData.priority;
+                    document.querySelector('#stage').value = todoData.stage;
+                    document.querySelector('#start-date').value = todoData.startDate;
+                    document.querySelector('#end-date').value = todoData.endDate;
+                    document.querySelector('#content').value = todoData.content;
+
+                    // 모달 제목과 버튼 텍스트 변경
+                    modal.querySelector('h2').textContent = 'TEAM 업무 수정하기';
+                    editButton.textContent = '수정하기';
+
+                    // 모달 열기
+                    modal.style.display = 'block';
+                    overlay.style.display = 'block';
+
+                    // 수정 완료 버튼 클릭 시 이벤트
+                    editButton.addEventListener('click', () => {
+                        const updatedData = {
+                            id: todoData.id,
+                            title: document.querySelector('#title').value,
+                            priority: document.querySelector('#priority').value,
+                            stage: document.querySelector('#stage').value,
+                            startDate: document.querySelector('#start-date').value,
+                            endDate: document.querySelector('#end-date').value,
+                            content: document.querySelector('#content').value,
+                        };
+
+                        // 서버로 수정된 데이터 전송
+                        sendPostRequest(`/api/todo/update/${updatedData.id}`, updatedData);
+
+                        // 테이블 데이터 갱신
+                        const rowToUpdate = document.querySelector(`tr[data-id="${updatedData.id}"]`);
+                        rowToUpdate.cells[3].textContent = updatedData.title;
+                        rowToUpdate.cells[1].textContent = updatedData.priority;
+                        rowToUpdate.cells[2].textContent = updatedData.stage;
+                        rowToUpdate.cells[4].textContent = updatedData.startDate;
+                        rowToUpdate.cells[5].textContent = updatedData.endDate;
+
+                        // 모달 닫기
+                        modal.style.display = 'none';
+                        overlay.style.display = 'none';
+                    });
+                });
+            });
+
 
         // 모달 닫기 및 초기화
         modal.style.display = 'none';
@@ -190,10 +308,11 @@ document.querySelectorAll('.btn-modal-close').forEach(button => {
     });
 });
 
+
 // 참여자 선택 완료 버튼
 document.getElementById('close-participant-popup').addEventListener('click', () => {
     const checkboxes = document.querySelectorAll('#participant-list input[type="checkbox"]');
-    let selectedParticipants = [];
+//    let selectedParticipants = [];
 
     // 선택된 체크박스에서 참여자 이름 가져오기
     checkboxes.forEach((checkbox, index) => {
@@ -259,3 +378,6 @@ participants.forEach(participant => {
 });
 
 });
+
+
+
