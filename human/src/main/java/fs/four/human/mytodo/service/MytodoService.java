@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MytodoService {
@@ -30,6 +31,10 @@ public class MytodoService {
     // 할일 조회 메서드
     public List<MytodoVO> getMyTodos(String t_group, String t_created_id) {
         return mytodoDAO.getMyTodos(t_group, t_created_id);
+    }
+    // 상태별 집계 데이터 반환 메서드
+    public Map<String, Integer> getTodoStats(String group, String userId) {
+        return mytodoDAO.getTodoStats(group, userId);
     }
 
     //버튼으로 상태변경

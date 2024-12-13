@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/mytodo")
@@ -151,6 +152,25 @@ public class MytodoRestController {
         try {
             MytodoVO todo = mytodoService.getTodoById(t_id);
             return ResponseEntity.ok(todo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    // 상태 통계 API 추가
+    // 진행상황 통계 API
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Integer>> getTodoStats(HttpSession session) {
+        try {
+            // 세션에서 사용자 ID 가져오기
+            String userId = (String) session.getAttribute("loginUserID");
+            if (userId == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 로그인되지 않은 경우
+            }
+
+            // 서비스 계층 호출하여 상태별 집계 데이터 가져오기
+            Map<String, Integer> stats = mytodoService.getTodoStats("M", userId); // "M"은 그룹 코드 예시
+            return ResponseEntity.ok(stats);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

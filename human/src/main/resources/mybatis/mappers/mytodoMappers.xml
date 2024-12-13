@@ -131,6 +131,12 @@
         FROM TODO
         WHERE T_ID = #{t_id}
     </select>
-
+    <!-- 상태별 집계 쿼리 -->
+    <select id="getTodoStats" resultType="map">
+        SELECT t_stage AS stage
+        FROM mytodo
+        WHERE t_group = #{group} AND t_created_id = #{userId}
+        GROUP BY t_stage
+    </select>
 </mapper>
 
