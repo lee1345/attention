@@ -86,7 +86,13 @@ public class FreeBoardRestController {
     // 특정 게시판 데이터 반환
     @GetMapping("/{id}")
     public FreeBoardVO getFreeBoardById(@PathVariable("id") int id) {
+
+        // 조회수 증가 로직 추가
+        freeBoardService.incrementViewCount(id); // 조회수 증가
+
+        // 게시판 데이터 반환
         FreeBoardVO freeBoard = freeBoardService.getFreeBoardById(id);
+
         if (freeBoard == null) {
             throw new IllegalArgumentException("해당 게시판을 찾을 수 없습니다.");
         }

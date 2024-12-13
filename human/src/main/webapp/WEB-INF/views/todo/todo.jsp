@@ -55,7 +55,7 @@
                <div class="actions-section">
                    <div class="actions-buttons">
                    <div>
-                       <button type="button"class="btn-open-register-modal" id="createPopup">
+                       <button type="button"class="btn-open-register-modal">
                            TEAM 업무 <br>등록하기</br>
                        </button>
                    </div>
@@ -72,29 +72,22 @@
                                <i class="fas fa-search"></i> <!-- 돋보기 아이콘 추가 -->
                                <label for="taskType">구분</label>
                                <select id="taskType" name="type">
-                                   <option value="total">전체</option>
                                    <option value="title">제목</option>
-                                   <option value="master">담당자</option>
+                                   <option value="all">전체</option>
+                                   <option value="team">팀</option>
                                </select>
                                <input type="text" id="searchInput" name="search" placeholder="검색내용 입력">
                                <button type="submit" class="search-button">조회하기</button>
                            </div>
                         </form>
                        <!-- 정렬 옵션 -->
-                        <div class="sort-options">
-                            <button onclick="sortTable('T_PRIORITY')">
-                                <span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순
-                            </button>
-                            <button onclick="sortTable('T_STAGE')">
-                                <span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순
-                            </button>
-                            <button onclick="sortTable('T_START_DATE')">
-                                <span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순
-                            </button>
-                            <button onclick="sortTable('T_END_DATE')">
-                                <span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순
-                            </button>
-                        </div>
+                       <div class="sort-options">
+                           <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
+                           <button><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
+                           <button><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
+                           <button><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
+                       </div>
+
                    </div>
                </div>
                <!-- 업무 리스트 -->
@@ -105,7 +98,7 @@
                                <th>선택</th>
                                <th>우선순위</th>
                                <th>진행상황</th>
-                               <th>제목</th>
+                               <th>내용</th>
                                <th>시작일</th>
                                <th>종료일</th>
                                <th>담당자</th>
@@ -122,7 +115,7 @@
                                <td>24.02.11 14:00</td>
                                <td>24.02.11 14:00</td>
                                <td>김혜민</td>
-                               <td><button class="edit" id="editPopup">수정</button></td>
+                               <td><button class="edit">수정</button></td>
                                <td><button class="delete">숨기기</button></td>
                            </tr> -->
                            <c:forEach var="todo" items="${todos}">
@@ -139,7 +132,7 @@
                                             <c:otherwise>${todo.t_stage}</c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td>${todo.t_title}</td>
+                                    <td>${todo.t_content}</td>
                                     <td>
                                         <c:choose>
                                             <c:when test="${not empty todo.t_start_date}">
@@ -161,7 +154,7 @@
                                         </c:choose>
                                     </td>
                                     <td>${todo.t_updated_id}</td>
-                                    <td><button type="button" class="edit" id="openPopup">수정</button></td>
+                                    <td><button class="edit">수정</button></td>
                                     <td><button class="delete">숨기기</button></td>
                                 </tr>
                             </c:forEach>
@@ -225,92 +218,25 @@
 
        <!-- 참여자 선택 팝업 -->
       <div id="participant-popup" class="hidden">
-          <button class="btn-modal-close">x</button>
-          <h2>참여자 선택</h2>
-          <table>
-              <thead>
-                  <tr>
-                      <th>선택</th>
-                      <th>부서</th>
-                      <th>이름</th>
-                      <th>직위</th>
-                  </tr>
-              </thead>
-              <tbody id="participant-list">
-                  <!-- JavaScript로 추가 -->
-              </tbody>
-          </table>
-          <button id="close-participant-popup">선택완료</button>
-          <button id="reset-participant-selection" style="background-color: red; color: white; margin-top: 10px;">선택 초기화</button>
-      </div>
-           <div class="popup-overlay" id="popupOverlay"></div>
-           <!-- 수정 팝업 -->
-           <div class="popup hidden" id="popup">
-           <button class="btn-modal-close">x</button>
-               <h3>업무 수정</h3>
-               <label>제목</label>
-                  <input type="text" placeholder="제목을 입력하세요">
-
-                  <label>중요도</label>
-                  <select>
-                      <option>중요도를 선택</option>
-                      <option>매우긴급</option>
-                      <option>긴급</option>
-                      <option>보통</option>
-                      <option>천천히</option>
-                  </select>
-
-                  <label>진행상황</label>
-                  <select>
-                      <option>진행상황을 선택</option>
-                      <option>예정</option>
-                      <option>진행지연</option>
-                      <option>완료지연</option>
-                       <option>완료</option>
-                  </select>
-
-                  <label>일시</label>
-                  <div class="date-time">
-                      <input type="date">
-                      <select>
-                          <option>00시</option>
-                          <option>01시</option>
-                          <!-- ... -->
-                          <option>23시</option>
-                      </select>
-                      <select>
-                          <option>00분</option>
-                          <option>30분</option>
-                      </select>
-                </div>
-              <label>참여자</label>
-              <button id="open-participant-popup">참여자 선택</button>
-              <div id="selected-participants"></div>
-
-              <label>내용</label>
-              <textarea maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
-              <button>수정하기</button>
-           </div>
-           <!-- 팝업 구조 -->
-           <div class="popup-overlay hidden" id="popup-overlay"></div>
-           <div class="popup hidden" id="participant-popup">
-               <button class="btn-close-popup" id="close-popup">x</button>
-               <h3>참여자 선택</h3>
-               <table>
-                   <thead>
-                       <tr>
-                           <th>선택</th>
-                           <th>부서</th>
-                           <th>이름</th>
-                           <th>직위</th>
-                       </tr>
-                   </thead>
-                   <tbody id="participant-list">
-                    <!--JavaScript 추가-->
-                   </tbody>
-               </table>
-               <button id="confirm-selection">선택 완료</button>
-           </div>
+                          <button class="btn-modal-close">x</button>
+                          <h2>참여자 선택</h2>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>선택</th>
+                                      <th>부서</th>
+                                      <th>이름</th>
+                                      <th>직위</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="participant-list">
+                                  <!-- JavaScript로 추가 -->
+                              </tbody>
+                          </table>
+                          <button id="close-participant-popup">선택완료</button>
+                          <button id="reset-participant-selection" style="background-color: red; color: white; margin-top: 10px;">선택 초기화</button>
+                      </div>
+                   </div>
 </body>
 <script src="${contextPath}/js/todo.js"></script>
 </html>
@@ -346,3 +272,4 @@ todoStageCounts.forEach(item => {
 console.log(stageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
 
 </script>
+

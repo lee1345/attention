@@ -78,8 +78,10 @@ function renderTable(data) {
                 <td>${notice.b_Id}</td>
                 <td>${notice.b_Title}</td>
                 <td>${contentPreview}</td>
-                <td>${notice.b_Writer}</td>
+                <td>${notice.b_Writer || '익명'}</td>
                 <td>${formattedDate}</td>
+                <td>${notice.b_ViewCount || 0}</td> <!-- 조회수 표시 -->
+
             </tr>
         `;
         noticeTable.append(row);
@@ -182,32 +184,106 @@ $(document).ready(function () {
 
 //======================================================================================================
 
-// 테이블 데이터를 클릭하면 팝업 표시
-$(document).on('click', '.notice-row', function () {
-    const noticeId = $(this).data('id'); // 공지사항 ID 가져오기
+//// 테이블 데이터를 클릭하면 팝업 표시
+//$(document).on('click', '.notice-row', function () {
+//    const noticeId = $(this).data('id'); // 공지사항 ID 가져오기
+//    $('#popupOverlay').fadeIn();
+//
+//    // 팝업 닫기
+//    $('#closeNoticePopup').on('click', function () {
+//        $('#popupOverlay, #noticePopup').fadeOut();
+//    });
+//
+//    // AJAX 요청으로 데이터 가져오기
+//    $.ajax({
+//        type: 'GET',
+//        url: `/api/notice/${noticeId}`,
+//        success: function (data) {
+//            console.log("Fetched Data:", data);
+//            console.log("Created Date:", data.b_CreatedDate);
+//
+//            $('#popupNoticeTitle').text(data.b_Title);
+//            $('#popupNoticeContent').html(data.b_Content);
+//            $('#popupNoticeWriter').text(data.b_Writer);
+//            $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
+//            $('#noticePopupOverlay, #noticePopup').fadeIn();
+//        },
+//        error: function () {
+//            alert('데이터를 가져오지 못했습니다.');
+//        }
+//    });
+//});
+//
+//
+////======================================================================================================
+//
+//// 공지사항 행 클릭 이벤트 ( 조회수 증가 )
+//$(document).off('click', '.notice-row').on('click', '.notice-row', function () {
+//    const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
+//
+//    // 조회수 증가 및 공지사항 데이터 요청
+//    $.ajax({
+//        type: 'GET',
+//        url: `/api/notice/${noticeId}`,
+//        success: function (data) {
+//            // 성공 시 조회수와 데이터 확인
+//            console.log(`조회수 증가 성공: ID ${noticeId}, 현재 조회수: ${data.b_ViewCount}`);
+//        },
+//        error: function () {
+//            console.error(`조회수 증가 실패: ID ${noticeId}`);
+//        }
+//    });
+//});
+
+//======================================================================================================
+
+// 공지사항 행 클릭 이벤트
+$(document).off('click', '.notice-row').on('click', '.notice-row', function () {
+    const noticeId = $(this).data('id'); // 클릭한 공지사항의 ID 가져오기
     $('#popupOverlay').fadeIn();
 
-    // 팝업 닫기
-    $('#closeNoticePopup').on('click', function () {
-        $('#popupOverlay, #noticePopup').fadeOut();
-    });
-
-    // AJAX 요청으로 데이터 가져오기
+    // AJAX 요청으로 조회수 증가 및 데이터 가져오기
     $.ajax({
         type: 'GET',
-        url: `/api/notice/${noticeId}`,
+        url: `/api/notice/${noticeId}`, // 조회수 증가 및 데이터 반환 API
         success: function (data) {
-            console.log("Fetched Data:", data);
-            console.log("Created Date:", data.b_CreatedDate);
+            if (!data) {
+                alert("해당 공지사항 데이터를 찾을 수 없습니다.");
+                return;
+            }
 
-            $('#popupNoticeTitle').text(data.b_Title);
-            $('#popupNoticeContent').html(data.b_Content);
-            $('#popupNoticeWriter').text(data.b_Writer);
+            // 조회수 증가 및 데이터 확인
+            console.log(`조회수 증가 성공: ID ${noticeId}, 현재 조회수: ${data.b_ViewCount}`);
+            console.log("Fetched Data:", data);
+
+            // 테이블의 특정 행만 업데이트
+            const row = $(`.notice-row[data-id="${noticeId}"]`);
+            row.find('td').eq(5).text(data.b_ViewCount || 0); // 조회수 업데이트
+
+            // 팝업에 데이터 채우기
+            $('#popupNoticeTitle').text(data.b_Title || '제목 없음');
+            $('#popupNoticeContent').html(data.b_Content || '내용 없음');
+            $('#popupNoticeWriter').text(data.b_Writer || '익명');
             $('#popupNoticeDate').text(formatDate(data.b_CreatedDate));
-            $('#noticePopupOverlay, #noticePopup').fadeIn();
+
+            // 팝업 표시
+            $('#PopupOverlay, #noticePopup').fadeIn();
         },
         error: function () {
-            alert('데이터를 가져오지 못했습니다.');
+            alert('데이터를 가져오는 데 실패했습니다.');
+            console.error(`조회수 증가 및 데이터 로드 실패: ID ${noticeId}`);
         }
     });
+
+    // 팝업 닫기 이벤트
+    $('#closeNoticePopup').off('click').on('click', function () {
+        $('#popupOverlay, #noticePopup').fadeOut();
+    });
 });
+
+//======================================================================================================
+
+
+
+
+

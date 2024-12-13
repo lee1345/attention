@@ -32,6 +32,11 @@ public class FreeBoardService {
         return freeBoardDAO.getFreeBoardById(id);
     }
 
+    // 조회수 증가
+    public void incrementViewCount(int id) {
+        freeBoardDAO.incrementViewCount(id);
+    }
+
     // 새로운 게시물 데이터 등록
     public void createFreeBoard(FreeBoardVO freeBoard) {
         freeBoardDAO.createFreeBoard(freeBoard);

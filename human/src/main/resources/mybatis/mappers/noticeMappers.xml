@@ -12,7 +12,8 @@
         B_GROUP as b_Group,
         B_CATEGORY as b_Category,
         B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
         FROM BOARD
         WHERE b_group = 'N' -- 공지사항만 조회
         ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
@@ -28,7 +29,8 @@
         B_GROUP as b_Group,
         B_CATEGORY as b_Category,
         B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
         FROM BOARD
         WHERE b_group = 'N' -- 공지사항만 검색
         AND LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' -- 대소문자 구분 없이 검색
@@ -45,7 +47,8 @@
         B_GROUP as b_Group,
         B_CATEGORY as b_Category,
         B_CREATED_DATE as b_CreatedDate,
-        B_UPDATED_DATE as b_UpdatedDate
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
         FROM BOARD
         WHERE B_ID = #{id}
     </select>
@@ -53,7 +56,7 @@
     <!-- 새로운 공지사항 데이터 등록 -->
     <insert id="createNotice">
         INSERT INTO BOARD (
-        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date
+        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date, view_count
         ) VALUES (
         notice_seq.NEXTVAL,
         #{b_Title},
@@ -62,8 +65,16 @@
         'N',
         NULL, -- 카테고리는 공지사항에서는 사용하지 않음
         SYSDATE,
-        SYSDATE
+        SYSDATE,
+        0 -- 조회수 기본값 0으로 설정
         )
     </insert>
+
+    <!-- 조회수 증가 -->
+    <update id="incrementViewCount" parameterType="int">
+        UPDATE BOARD
+        SET VIEW_COUNT = NVL(VIEW_COUNT, 0) + 1
+        WHERE B_ID = #{id}
+    </update>
 
 </mapper>

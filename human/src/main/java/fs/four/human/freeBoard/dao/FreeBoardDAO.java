@@ -23,6 +23,9 @@ public interface FreeBoardDAO {
     // 특정 공지사항 조회
     FreeBoardVO getFreeBoardById(int id);
 
+    // 조회수 증가
+    void incrementViewCount(@Param("id") int id);
+
     // 새로운 게시판 데이터 등록
     void createFreeBoard(FreeBoardVO freeBoard);
 
