@@ -225,6 +225,5 @@
 
 
 <script src="${contextPath}/js/mytodo.js"></script>
-
 </body>
 </html>

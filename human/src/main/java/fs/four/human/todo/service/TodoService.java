@@ -15,10 +15,16 @@ public class TodoService {
     @Autowired
     private TodoDAO todoDAO;
 
-    // 전체 게시물 데이터 조회  비즈니스 로직
+    // 전체 할 일 조회
     public List<TodoVO> getAllTodo(TodoVO todoVO) {
         return todoDAO.getAllTodo(todoVO);
     }
+
+    // 전체 게시물 데이터 조회  비즈니스 로직
+    public List<TodoVO> getTodosByDept(String dept) {
+        return todoDAO.getTodosByDept(dept);
+    }
+
 
     public List<TodoStageCountVO> getTodoStageCount(String dept){
         System.out.println("Dept: " + dept); // 로그 출력

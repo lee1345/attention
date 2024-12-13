@@ -29,7 +29,7 @@ public class TodoController {
 
         // DB에서 로그인한유저의 부서(팀)정보를 가져와야한다.나중에 로그인된 사용자의 정보를 DB에서 가져와 group 값을 설정할 예정
 
-//        String group = "Marketing";
+        // 세션에서 로그인한 사용자의 부서 정보를 가져옵니다.
         String dept = "M";
 
         List<TodoVO> todoVOList = todoService.getAllTodo(todoVO);

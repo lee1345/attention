@@ -1,5 +1,6 @@
 package fs.four.human.login.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import fs.four.human.login.service.LoginRestService;
 import fs.four.human.login.service.LoginService;
@@ -101,5 +102,4 @@ public class LoginRestController {
             return ResponseEntity.status(500).body("비밀번호 초기화 중 오류가 발생했습니다.");
         }
     }
-
 }
