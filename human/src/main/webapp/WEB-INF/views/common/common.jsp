@@ -27,10 +27,11 @@
         </div>
         <div class="user-info">
           <span>${employee.e_dept}팀</span>
-          <span>${employee.e_name} ${employee.e_position}</span>
+          <span>${employee.e_name} ${employee.e_position}님</span>
+          <span>안녕하세요! </span>
           <span><i class="fa-solid fa-bell" id="show-alarm-popup" style="cursor: pointer;"></i></span>
-          <span><a id="comMyPage">MyPage</a><span>
-          <span><a id="login">Logout</a><span>
+          <span><a id="comMyPage">내 정보 수정</a><span>
+          <span><a id="login">로그아웃</a><span>
         </div>
       </header>
 
