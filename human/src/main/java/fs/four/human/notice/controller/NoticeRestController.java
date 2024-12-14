@@ -122,8 +122,11 @@ public class NoticeRestController {
 
 
 
-
-
+    // 더블클릭 정렬
+    @GetMapping("/sort")
+    public List<NoticeVO> sortNotices(@RequestParam String column, @RequestParam String order) {
+        return noticeService.sortNotices(column, order);
+    }
 
 
 }

@@ -52,14 +52,14 @@
     <!-- 공지사항 리스트 -->
     <table class="notice-table">
         <thead>
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>내용</th>
-            <th>작성자</th>
-            <th>날짜</th>
-            <th>조회수</th>
-        </tr>
+            <tr>
+                <th data-column="B_ID">번호</th>
+                <th data-column="B_TITLE">제목</th>
+                <th data-column="B_CONTENT">내용</th>
+                <th data-column="B_WRITER">작성자</th>
+                <th data-column="B_CREATEDDATE">날짜</th>
+                <th data-column="B_VIEWCOUNT">조회수</th>
+            </tr>
         </thead>
         <tbody id="noticeTable">
         <!-- AJAX로 데이터 로드 -->

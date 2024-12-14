@@ -6,7 +6,10 @@ import fs.four.human.notice.vo.NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NoticeService {
@@ -54,5 +57,28 @@ public class NoticeService {
     public void deleteNotice(int id) {
         noticeDAO.deleteNotice(id);
     }
+
+    // 더블클릭 정렬
+    public List<NoticeVO> sortNotices(String column, String order) {
+        if (!isValidColumn(column) || !isValidOrder(order)) {
+            throw new IllegalArgumentException("잘못된 정렬 요청입니다.");
+        }
+
+        Map<String, String> params = new HashMap<>();
+        params.put("column", column);
+        params.put("order", order);
+
+        return noticeDAO.sortNotices(params);
+    }
+
+    private boolean isValidColumn(String column) {
+        List<String> validColumns = Arrays.asList("B_ID", "B_TITLE", "B_CONTENT", "B_WRITER", "B_CREATEDDATE", "B_VIEWCOUNT");
+        return validColumns.contains(column);
+    }
+
+    private boolean isValidOrder(String order) {
+        return "ASC".equalsIgnoreCase(order) || "DESC".equalsIgnoreCase(order);
+    }
+
 
 }
