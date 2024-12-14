@@ -86,6 +86,13 @@
         t_id = #{t_id, jdbcType=VARCHAR}
     </update>
 
+    <!-- 부서별 할 일 가져오기 -->
+    <select id="getTodosByDept" parameterType="string" resultType="fs.four.human.todo.vo.TodoVO">
+        SELECT *
+        FROM TODO
+        WHERE T_DEPT = #{dept}
+        ORDER BY T_CREATED_DATE DESC
+    </select>
 
     <update id="updateTodo2" parameterType="Todo2VO">
         UPDATE todo

@@ -157,7 +157,7 @@ public class MytodoRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    // 상태 통계 API 추가
+
     // 진행상황 통계 API
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Integer>> getTodoStats(HttpSession session) {

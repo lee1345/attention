@@ -1,10 +1,12 @@
 package fs.four.human.address.dao;
 
 import fs.four.human.address.vo.AddressVO;
+import fs.four.human.notice.vo.NoticeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface AddressDAO {
@@ -30,5 +32,8 @@ public interface AddressDAO {
 
     // 주소 데이터 삭제
     void deleteAddress(int id);
+
+    // 제목 클릭 정렬 메서드
+    List<AddressVO> sortAddress(@Param("params") Map<String, String> params);
 
 }

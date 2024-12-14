@@ -93,4 +93,31 @@
         WHERE B_ID = #{id}
     </update>
 
+       <!-- 정렬 -->
+    <select id="sortNotices" parameterType="map" resultType="fs.four.human.notice.vo.NoticeVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount
+        FROM BOARD
+        WHERE B_GROUP = 'N' <!-- 공지사항 그룹만 가져오기 -->
+        ORDER BY
+        <choose>
+            <when test="column == 'B_ID'">B_ID</when>
+            <when test="column == 'B_TITLE'">B_TITLE</when>
+            <when test="column == 'B_CONTENT'">B_CONTENT</when>
+            <when test="column == 'B_WRITER'">B_WRITER</when>
+            <when test="column == 'B_CREATEDDATE'">B_CREATED_DATE</when>
+            <when test="column == 'B_VIEWCOUNT'">VIEW_COUNT</when>
+            <otherwise>B_ID</otherwise>
+        </choose>
+        ${order}
+    </select>
+
 </mapper>

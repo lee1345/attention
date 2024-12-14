@@ -2,10 +2,14 @@ package fs.four.human.freeBoard.service;
 
 import fs.four.human.freeBoard.dao.FreeBoardDAO;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
+import fs.four.human.notice.vo.NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FreeBoardService {
@@ -52,4 +56,25 @@ public class FreeBoardService {
         freeBoardDAO.deleteFreeBoard(id);
     }
 
+    // 제목클릭 정렬
+    public List<FreeBoardVO> sortFreeBoard(String column, String order) {
+        if (!isValidColumn(column) || !isValidOrder(order)) {
+            throw new IllegalArgumentException("잘못된 정렬 요청입니다.");
+        }
+
+        Map<String, String> params = new HashMap<>();
+        params.put("column", column);
+        params.put("order", order);
+
+        return freeBoardDAO.sortFreeBoard(params);
+    }
+
+    private boolean isValidColumn(String column) {
+        List<String> validColumns = Arrays.asList("B_ID", "B_TITLE", "B_CONTENT", "B_WRITER", "B_CREATEDDATE", "B_VIEWCOUNT", "B_CATEGORY");
+        return validColumns.contains(column);
+    }
+
+    private boolean isValidOrder(String order) {
+        return "ASC".equalsIgnoreCase(order) || "DESC".equalsIgnoreCase(order);
+    }
 }

@@ -1,9 +1,10 @@
 package fs.four.human.todo.service;
 
-import fs.four.human.common.dao.CommonDAO;
-import fs.four.human.common.vo.CommonVO;
 import fs.four.human.todo.dao.TodoDAO;
-import fs.four.human.todo.vo.*;
+import fs.four.human.todo.vo.Todo2VO;
+import fs.four.human.todo.vo.TodoDetailVO;
+import fs.four.human.todo.vo.TodoStageCountVO;
+import fs.four.human.todo.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,9 @@ import java.util.List;
 public class TodoService {
     @Autowired
     private TodoDAO todoDAO;
-    @Autowired
-    private CommonDAO commonDAO;
 
     // 전체 게시물 데이터 조회  비즈니스 로직
-    public List<Todo2VO> getAllTodo(TodoVO todoVO) {
+    public List<TodoVO> getAllTodo(TodoVO todoVO) {
         return todoDAO.getAllTodo(todoVO);
     }
 
@@ -26,10 +25,6 @@ public class TodoService {
         return todoDAO.getTodoStageCount(dept);
     }
 
-    public List<TodoStageCountVO> getTodoPriorityCount(String dept){
-        System.out.println("Dept: " + dept); // 로그 출력
-        return todoDAO.getTodoStageCount(dept);
-    }
     public int addTodo(Todo2VO todoVO) {
         todoDAO.addTodo(todoVO);
         System.out.println("시퀀스값 :" + todoVO.getT_id());
@@ -77,14 +72,5 @@ public class TodoService {
     }
     public int updateTodo(TodoVO todoVO) {
         return todoDAO.updateTodo(todoVO);
-    }
-
-    public int updateTodo2(Todo2VO todoVO) {
-        return todoDAO.updateTodo2(todoVO);
-    }
-
-    public CommonVO getEmployeeById(String e_id) {
-        CommonVO employee = commonDAO.getEmployeeById(e_id);
-        return employee;
     }
 }

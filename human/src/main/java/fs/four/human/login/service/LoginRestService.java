@@ -1,6 +1,7 @@
 package fs.four.human.login.service;
 
 import fs.four.human.login.dao.LoginDAO;
+import fs.four.human.login.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

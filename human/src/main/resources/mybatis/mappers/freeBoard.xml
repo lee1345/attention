@@ -122,4 +122,33 @@
         WHERE B_ID = #{id}
     </update>
 
+    <!-- 정렬 -->
+    <select id="sortFreeBoard" parameterType="map" resultType="fs.four.human.freeBoard.vo.FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount
+        FROM BOARD
+        WHERE B_GROUP = 'F' <!-- 자유 게시판만 가져오기 -->
+        ORDER BY
+        <choose>
+            <when test="column == 'B_ID'">B_ID</when>
+            <when test="column == 'B_TITLE'">B_TITLE</when>
+            <when test="column == 'B_WRITER'">B_WRITER</when>
+            <when test="column == 'B_CREATEDDATE'">B_CREATED_DATE</when>
+            <when test="column == 'B_VIEWCOUNT'">VIEW_COUNT</when>
+            <when test="column == 'B_CATEGORY'">B_CATEGORY</when> <!-- 카테고리 정렬 추가 -->
+            <otherwise>B_ID</otherwise>
+        </choose>
+        ${order} <!-- ASC 또는 DESC -->
+    </select>
+
+
+
 </mapper>

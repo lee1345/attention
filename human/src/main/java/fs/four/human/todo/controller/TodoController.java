@@ -37,7 +37,7 @@ public class TodoController {
         if(loginUserID == null) loginUserID = "hm";
         CommonVO commonVO = todoService.getEmployeeById(loginUserID);
 
-//        String group = "Marketing";
+        // 세션에서 로그인한 사용자의 부서 정보를 가져옵니다.
         String dept = "M";
         if(commonVO != null) dept = commonVO.getE_dept();
 
