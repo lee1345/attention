@@ -2,6 +2,7 @@ package fs.four.human.address.controller;
 
 import fs.four.human.address.service.AddressService;
 import fs.four.human.address.vo.AddressVO;
+import fs.four.human.notice.vo.NoticeVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -96,6 +97,20 @@ public class AddressRestController {
 
         addressService.deleteAddress(id);
         return "삭제 성공!";
+    }
+
+    // 제목클릭 정렬
+    @GetMapping("/sort")
+    public List<AddressVO> sortAddress(
+            @RequestParam String column,
+            @RequestParam String order,
+            HttpSession session) {
+        String employeeId = (String) session.getAttribute("loginUserID");
+        if (employeeId == null || employeeId.isEmpty()) {
+            throw new IllegalArgumentException("로그인된 사용자 ID가 없습니다.");
+        }
+
+        return addressService.sortAddress(employeeId, column, order);
     }
 
 }

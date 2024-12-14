@@ -78,5 +78,31 @@
         WHERE AD_ID = #{id}
     </delete>
 
+    <!-- 정렬 -->
+    <select id="sortAddress" parameterType="map" resultType="fs.four.human.address.vo.AddressVO">
+        SELECT
+        AD_ID AS adId,
+        AD_NAME AS adName,
+        AD_PHONE AS adPhone,
+        AD_EMAIL AS adEmail,
+        AD_DEPT_NAME AS adDeptName,
+        AD_GROUP AS adGroup
+        FROM ADDRESS
+        WHERE AD_EMPL_ID = #{params.employeeId} <!-- employeeId 조건 추가 -->
+        ORDER BY
+        <choose>
+            <when test="params.column == 'AD_NAME'">AD_NAME</when>
+            <when test="params.column == 'AD_PHONE'">AD_PHONE</when>
+            <when test="params.column == 'AD_EMAIL'">AD_EMAIL</when>
+            <when test="params.column == 'AD_DEPT_NAME'">AD_DEPT_NAME</when>
+            <when test="params.column == 'AD_GROUP'">AD_GROUP</when>
+            <otherwise>AD_ID</otherwise>
+        </choose>
+        ${params.order} <!-- ASC 또는 DESC -->
+    </select>
+
+
+
+
 
 </mapper>

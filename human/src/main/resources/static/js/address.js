@@ -281,3 +281,35 @@ $('#addressPopup .delete-btn').on('click', function () {
         });
     }
 });
+
+//======================================================================================================
+
+// 제목 클릭 정렬
+$(document).ready(function () {
+    let sortOrder = 'ASC'; // 기본 정렬 순서 (오름차순)
+
+    // 테이블 헤더 더블 클릭 이벤트
+    $('.address-table th').on('click', function () {
+        const column = $(this).data('column'); // 클릭한 헤더의 data-column 값 가져오기
+
+        if (!column) return; // 정렬 가능한 컬럼이 아니면 종료
+
+        // 정렬 요청 AJAX
+        $.ajax({
+            type: 'GET',
+            url: '/api/address/sort', // 정렬 API 엔드포인트
+            data: {
+                column: column, // 정렬 기준 컬럼명
+                order: sortOrder // 정렬 순서
+            },
+            success: function (data) {
+                renderTable(data); // 테이블 다시 렌더링
+                // 정렬 순서 토글 (ASC ↔ DESC)
+                sortOrder = sortOrder === 'ASC' ? 'DESC' : 'ASC';
+            },
+            error: function () {
+                alert('정렬 요청 실패! 다시 시도해주세요.');
+            }
+        });
+    });
+});

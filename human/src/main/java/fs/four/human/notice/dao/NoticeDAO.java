@@ -33,7 +33,7 @@ public interface NoticeDAO {
     // 게시판 데이터 수정
     void updateNotice(NoticeVO notice);
 
-    // 더블클릭 정렬
+    // 제목클릭 정렬
     List<NoticeVO> sortNotices(Map<String, String> params);
 
 }

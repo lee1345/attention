@@ -41,11 +41,11 @@
         <table class="address-table">
             <thead>
             <tr>
-                <th>이름</th>
-                <th>휴대폰</th>
-                <th>이메일</th>
-                <th>부서명</th>
-                <th>그룹(별칭)</th>
+                <th data-column="AD_NAME">이름</th>
+                <th data-column="AD_PHONE">휴대폰</th>
+                <th data-column="AD_EMAIL">이메일</th>
+                <th data-column="AD_DEPT_NAME">부서명</th>
+                <th data-column="AD_GROUP">그룹(별칭)</th>
             </tr>
             </thead>
             <tbody id="addressTable">
