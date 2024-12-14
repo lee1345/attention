@@ -2,6 +2,7 @@ package fs.four.human.freeBoard.controller;
 
 import fs.four.human.freeBoard.service.FreeBoardService;
 import fs.four.human.freeBoard.vo.FreeBoardVO;
+import fs.four.human.notice.vo.NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -137,6 +138,14 @@ public class FreeBoardRestController {
         return "삭제 성공!";
     }
 
+    // 제목클릭 정렬
+    @GetMapping("/sort")
+    public List<FreeBoardVO> sortFreeBoard(
+            @RequestParam String column,
+            @RequestParam String order)
 
+    {
+        return freeBoardService.sortFreeBoard(column, order);
+    }
 
 }

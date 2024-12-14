@@ -395,9 +395,7 @@ $(document).on('click', '.delete-btn', function () {
     }
 });
 
-
-
-// 제목 더블클릭 정렬
+// 제목 클릭 정렬
 $(document).ready(function () {
     let sortOrder = 'ASC'; // 기본 정렬 순서 (오름차순)
 

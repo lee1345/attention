@@ -120,9 +120,7 @@ public class NoticeRestController {
         return "삭제 성공!";
     }
 
-
-
-    // 더블클릭 정렬
+    // 제목클릭 정렬
     @GetMapping("/sort")
     public List<NoticeVO> sortNotices(@RequestParam String column, @RequestParam String order) {
         return noticeService.sortNotices(column, order);

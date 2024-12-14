@@ -1,10 +1,12 @@
 package fs.four.human.freeBoard.dao;
 
 import fs.four.human.freeBoard.vo.FreeBoardVO;
+import fs.four.human.notice.vo.NoticeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface FreeBoardDAO {
@@ -34,4 +36,7 @@ public interface FreeBoardDAO {
 
     // 게시판 데이터 수정
     void updateFreeBoard(FreeBoardVO freeBoard);
+
+    // 제목클릭 정렬
+    List<FreeBoardVO> sortFreeBoard(Map<String, String> params);
 }

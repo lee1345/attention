@@ -58,7 +58,7 @@ public class NoticeService {
         noticeDAO.deleteNotice(id);
     }
 
-    // 더블클릭 정렬
+    // 제목클릭 정렬
     public List<NoticeVO> sortNotices(String column, String order) {
         if (!isValidColumn(column) || !isValidOrder(order)) {
             throw new IllegalArgumentException("잘못된 정렬 요청입니다.");
