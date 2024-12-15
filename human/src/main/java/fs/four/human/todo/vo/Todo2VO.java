@@ -26,6 +26,7 @@ public class Todo2VO {
     private String t_title;
     private String t_writer;
     private String e_name;
+    private String personListString;
 
     private List<String> participants;
 }

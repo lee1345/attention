@@ -72,9 +72,9 @@
                                <i class="fas fa-search"></i> <!-- 돋보기 아이콘 추가 -->
                                <label for="taskType">구분</label>
                                <select id="taskType" name="type">
-                                   <option value="title">제목</option>
                                    <option value="all">전체</option>
-                                   <option value="team">팀</option>
+                                   <option value="title">제목</option>
+                                   <option value="content">내용</option>
                                </select>
                                <input type="text" id="searchInput" name="search" placeholder="검색내용 입력">
                                <button type="submit" class="search-button">조회하기</button>
@@ -104,23 +104,13 @@
                                <th>시작일</th>
                                <th>종료일</th>
                                <th>담당자</th>
+                               <th>참여자</th>
                                <th>수정</th>
                                <th>숨기기</th>
                            </tr>
                        </thead>
                        <tbody>
-                           <!-- <tr>
-                               <td><input type="checkbox" name="selectedTasks" value="1"></td>
-                               <td>중요</td>
-                               <td>예정</td>
-                               <td>[토스] 홈페이지 외주</td>
-                                <td>[토스] 홈페이지 외주</td>
-                               <td>24.02.11 14:00</td>
-                               <td>24.02.11 14:00</td>
-                               <td>김혜민</td>
-                               <td><button class="edit">수정</button></td>
-                               <td><button class="delete">숨기기</button></td>
-                           </tr> -->
+
                            <c:forEach var="todo" items="${todos}">
                                 <tr id="${todo.t_id}">
                                     <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}" class="row-checkbox"></td>
@@ -149,6 +139,7 @@
                                     <td>${todo.t_start_date}</td>
                                     <td>${todo.t_end_date}</td>
                                     <td>${todo.e_name}</td>
+                                    <td>${todo.personListString}</td>
                                     <td><button class="edit" data-id="${todo.t_id}" onclick="editPopupOpen(${todo.t_id})">수정</button></td>
                                     <td><button class="delete" onclick="hideRow(${todo.t_id})">숨기기</button></td>
                                 </tr>

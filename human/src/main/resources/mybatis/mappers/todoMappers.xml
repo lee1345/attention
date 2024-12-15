@@ -21,19 +21,30 @@
         t_updated_id,
         t_created_id,
         t_writer,
-        e.e_name
+        e.e_name,
+        NVL(d.td_participant_1, '') ||
+        CASE WHEN d.td_participant_1 IS NOT NULL AND d.td_participant_2 IS NOT NULL THEN ',' ELSE '' END ||
+        NVL(d.td_participant_2, '') ||
+        CASE WHEN d.td_participant_2 IS NOT NULL AND d.td_participant_3 IS NOT NULL THEN ',' ELSE '' END ||
+        NVL(d.td_participant_3, '') ||
+        CASE WHEN d.td_participant_3 IS NOT NULL AND d.td_participant_4 IS NOT NULL THEN ',' ELSE '' END ||
+        NVL(d.td_participant_4, '') ||
+        CASE WHEN d.td_participant_4 IS NOT NULL AND d.td_participant_5 IS NOT NULL THEN ',' ELSE '' END ||
+        NVL(d.td_participant_5, '') AS personListString
         FROM
         TODO t
         left outer join employee e on t.t_updated_id = e.e_id
+        LEFT OUTER JOIN todo_detail d ON t.t_id = d.td_id
         <where>
-            <if test="type != null and type == 'team'">
-           AND t.t_group = #{search}     <!--t_group 컬럼이 입력 파라미터 search와 동일한 데이터만 조회.-->
+            <if test="type != null and type == 'content'">
+           AND t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%')     <!--t_content 컬럼이 입력 파라미터 search와 동일한 데이터만 조회.-->
             </if>
             <if test="type != null and type == 'title'">
-                AND t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%')  <!--t_content 컬럼에 search 문자열이 포함된 데이터만 조회-->
+                AND t.t_title LIKE CONCAT(CONCAT('%', #{search}), '%')  <!--t_title 컬럼에 search 문자열이 포함된 데이터만 조회-->
             </if>
             <if test="type != null and type == 'all'">
-                AND (t.t_group = #{search} OR t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%'))
+                AND (t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%')
+                OR t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%'))
             </if>
         </where>
         <if test="sort != null and sort == 'priorityDesc'">
