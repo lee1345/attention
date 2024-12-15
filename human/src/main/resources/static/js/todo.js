@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                    .then((data) => {
                                        console.log('서버 응답:', data);
                                        if (data.status === 'success') {
-                                           alert('업무가 성공적으로 추가되었습니다!');
+                                           alert('업무수정이 성공적으로 완료되었습니다!');
                                            // 모달 닫기 및 폼 초기화
                                           document.getElementById('task-popup').style.display = 'none';
                                           document.querySelector('.modal-overlay').style.display = 'none';
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                           location.reload(true);
                                        } else {
-                                           alert('업무 추가에 실패했습니다.');
+                                           alert('업무 수정에 실패했습니다.');
                                        }
                                    })
                                    .catch((error) => {
