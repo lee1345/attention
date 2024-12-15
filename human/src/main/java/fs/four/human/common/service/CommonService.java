@@ -15,5 +15,4 @@ public interface CommonService {
     // 알림
     List<Map<String, String>> getAlertMessages(String sessionId);
 
-
 }

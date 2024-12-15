@@ -12,6 +12,5 @@ import java.time.LocalTime;
 public class BatchSchedulerConfig {
     @Scheduled(fixedRate=60000)
     public void logCurrentTime(){
-        System.out.println("배치잡 1분씩 잘 돌고있음, 현재시각 : "+ LocalDateTime.now());
     }
 }

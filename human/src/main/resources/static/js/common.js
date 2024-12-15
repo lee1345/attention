@@ -168,3 +168,23 @@ function closeAlarmPopup() {
 }
 
 //=======================================
+document.addEventListener("DOMContentLoaded", function () {
+    const socket = new SockJS('/ws'); // 서버 엔드포인트와 일치하도록 설정
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function () {
+        console.log('WebSocket 연결 성공');
+
+        // 서버로부터 메시지를 구독
+        stompClient.subscribe('/topic/alerts', function (message) {
+            const alertMessage = message.body;
+            alert(alertMessage); // 알림 표시
+        });
+    }, function (error) {
+        console.error('WebSocket 연결 실패:', error);
+    });
+
+    stompClient.onclose = function () {
+        console.error('WebSocket 연결 종료');
+    };
+});

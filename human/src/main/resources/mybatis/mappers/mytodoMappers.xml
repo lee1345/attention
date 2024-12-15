@@ -153,5 +153,19 @@
 <!--        AND T_STAGE = 'P'-->
     </select>
 
+
+    <select id="getTasksByGroup" parameterType="string" resultType="fs.four.human.mytodo.vo.MytodoVO">
+        SELECT
+        T_ID,
+        T_TITLE,
+        T_START_DATE,
+        T_END_DATE
+        FROM TODO
+        WHERE T_GROUP = #{tGroup}
+        AND T_START_DATE >= SYSDATE
+        ORDER BY T_START_DATE ASC
+    </select>
+
+
 </mapper>
 

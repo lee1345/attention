@@ -44,7 +44,6 @@ public class CommonRestController {
         if (sessionId == null) {
             return Collections.emptyList(); // 세션 ID가 없을 경우 빈 리스트 반환
         }
-
         // 알림 메시지와 남은 시간 정보를 반환
         return commonService.getAlertMessages(sessionId);
     }

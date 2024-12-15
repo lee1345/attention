@@ -63,4 +63,7 @@ public interface MytodoDAO {
     List<MytodoVO> getTasksForNotification(
             @Param("startTime") String startTime,
             @Param("endTime") String endTime);
+
+    List<MytodoVO> getTasksByGroup(@Param("tGroup") String tGroup);
+
 }

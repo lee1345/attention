@@ -85,6 +85,13 @@ public class MytodoService {
 
         return mytodoDAO.getTasksForNotification(now, thirtyMinutesLater);
     }
+
+        public List<MytodoVO> getTasksByGroup(String tGroup) {
+            return mytodoDAO.getTasksByGroup(tGroup);
+        }
+
+
+
 }
 
 

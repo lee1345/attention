@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fs.four.human.alarm.dao.AlarmHistoryDAO">
+
+    <!-- 알림 상태 가져오기 -->
+    <select id="getAlarmStatus" parameterType="map" resultType="string">
+        SELECT AL_STATUS
+        FROM ALARM_HISTORY
+        WHERE AL_T_ID = #{taskId}
+        AND AL_CYCLE = #{cycle}
+    </select>
+
+    <!-- 알림 기록 삽입 -->
+    <insert id="insertAlarm" parameterType="fs.four.human.alarm.vo.AlarmHistoryVO">
+        INSERT INTO ALARM_HISTORY (
+        AL_ID, AL_EMPLOYEE, AL_TIME, AL_CYCLE, AL_STATUS, AL_T_ID, AL_CREATED_DATE, AL_CREATED_ID
+        ) VALUES (
+        ALARM_SEQ.NEXTVAL, NULL, #{al_time}, #{al_cycle}, #{al_status}, #{al_t_id}, SYSDATE, NULL
+        )
+    </insert>
+
+</mapper>
