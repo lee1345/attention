@@ -36,6 +36,7 @@
         left outer join employee e on t.t_updated_id = e.e_id
         LEFT OUTER JOIN todo_detail d ON t.t_id = d.td_id
         <where>
+            AND t.t_group = 'T'
             <if test="type != null and type == 'content'">
            AND t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%')     <!--t_content 컬럼이 입력 파라미터 search와 동일한 데이터만 조회.-->
             </if>
@@ -75,7 +76,7 @@
 
     <!--  부서 todo 진행상태별 갯수  -->
    <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">
-       select t_stage, count(t_id) as count from TODO where t_dept = #{dept} group by t_stage
+       select t_stage, count(t_id) as count from TODO where t_dept = #{dept} AND t_group = 'T' group by t_stage
     </select>
 
     <!--  마이 todo 진행상태별 갯수  -->
@@ -87,6 +88,7 @@
         d.td_participant_3 = #{loginName, jdbcType=VARCHAR} or
         d.td_participant_4 = #{loginName, jdbcType=VARCHAR} or
         d.td_participant_5 = #{loginName, jdbcType=VARCHAR} )
+        AND t.t_group = 'T'
         group by t.t_stage
     </select>
 
@@ -137,7 +139,7 @@
     <select id="getTodosByDept" parameterType="string" resultType="fs.four.human.todo.vo.TodoVO">
         SELECT *
         FROM TODO
-        WHERE T_DEPT = #{dept}
+        WHERE T_DEPT = #{dept} AND t_group = 'T'
         ORDER BY T_CREATED_DATE DESC
     </select>
 
