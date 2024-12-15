@@ -60,9 +60,9 @@
                        </button>
                    </div>
                        <div class="inline-buttons">
-                           <button>검색/정렬 초기화</button>
-                           <button>선택 업무 숨기기</button>
-                           <button>숨긴 업무 다시보기</button>
+                           <button onclick="resetSearch()">검색/정렬 초기화</button>
+                           <button onclick="hideSelectedRows()">선택 업무 숨기기</button>
+                           <button onclick="showHiddenRows()">숨긴 업무 다시보기</button>
                        </div>
                    </div>
                    <div class="filters">
@@ -92,7 +92,7 @@
                </div>
                <!-- 업무 리스트 -->
                <section class="task-list">
-                   <table>
+                   <table id="todo-table">
                        <thead>
                            <tr>
                                <th>선택</th>
@@ -122,8 +122,8 @@
                                <td><button class="delete">숨기기</button></td>
                            </tr> -->
                            <c:forEach var="todo" items="${todos}">
-                                <tr>
-                                    <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}"></td>
+                                <tr id="${todo.t_id}">
+                                    <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}" class="row-checkbox"></td>
                                     <td class="hidden">${todo.t_id}</td>
                                     <td>
                                         <c:choose>
@@ -150,7 +150,7 @@
                                     <td>${todo.t_end_date}</td>
                                     <td>${todo.e_name}</td>
                                     <td><button class="edit" data-id="${todo.t_id}" onclick="editPopupOpen(${todo.t_id})">수정</button></td>
-                                    <td><button class="delete">숨기기</button></td>
+                                    <td><button class="delete" onclick="hideRow(${todo.t_id})">숨기기</button></td>
                                 </tr>
                             </c:forEach>
                        </tbody>
@@ -266,8 +266,8 @@
         </div>
 
         <label>참여자</label>
-        <button class="open-participant-popup" type="button">참여자 선택</button>
-        <div id="selected-participants"></div>
+        <button id="edit-open-participant-popup" class="open-participant-popup" type="button">참여자 선택</button>
+        <div id="edit-selected-participants"></div>
 
         <label>내용</label>
         <textarea id="edit-content" name="content" maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
@@ -284,6 +284,10 @@
 </html>
 
 <script>
+let employeeList = JSON.parse('${employeeList}');
+console.log('employeeList', employeeList);
+
+////////////////////////////////////////////
 let todoStageCounts = JSON.parse('${todoStageCountsJson}');
 // console.log(todoStageCounts);
 
@@ -312,6 +316,36 @@ todoStageCounts.forEach(item => {
 });
 
 console.log(stageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
+//////////////////////////////////
+
+let myTodoStageCounts = JSON.parse('${myTodoStageCountsJson}');
+// console.log(myTodoStageCounts);
+
+// 상태별 카운트 배열 초기화 (예정, 진행지연, 진행중, 완료지연, 완료)
+let myStageCounts = [0, 0, 0, 0, 0];
+
+// todoStageCounts를 순회하면서 각 상태의 카운트를 stageCounts 배열에 할당
+myTodoStageCounts.forEach(item => {
+    switch(item.t_stage) {
+        case 'P': // 예정
+           myStageCounts[0] = parseInt(item.count) || 0; // 데이터 없으면 0
+           break;
+       case 'PD': // 진행지연
+           myStageCounts[1] = parseInt(item.count) || 0;
+           break;
+       case 'IP': // 진행중
+           myStageCounts[2] = parseInt(item.count) || 0;
+           break;
+       case 'CD': // 완료지연
+           myStageCounts[3] = parseInt(item.count) || 0;
+           break;
+       case 'C': // 완료
+           myStageCounts[4] = parseInt(item.count) || 0;
+           break;
+    }
+});
+
+console.log('myStageCounts', myStageCounts); // [0, 1, 1, 0, 0] 상태별 카운트 배열 출력
 
 </script>
 

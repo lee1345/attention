@@ -3,6 +3,7 @@ package fs.four.human.todo.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fs.four.human.common.vo.CommonVO;
+import fs.four.human.login.vo.LoginVO;
 import fs.four.human.todo.service.TodoService;
 import fs.four.human.todo.vo.Todo2VO;
 import fs.four.human.todo.vo.TodoPriorityCountVO;
@@ -46,12 +47,25 @@ public class TodoController {
         System.out.println(todoVOList); // 디버깅
         model.addAttribute("todos", todoVOList);
 
+        // 부서 업무목록 카운트
         List<TodoStageCountVO> todoStageCountVOList = todoService.getTodoStageCount(dept);
         // ObjectMapper를 사용하여 todoStageCounts를 JSON 문자열로 변환
         ObjectMapper objectMapper = new ObjectMapper();
         String todoStageCountsJson = objectMapper.writeValueAsString(todoStageCountVOList);
         model.addAttribute("todoStageCountsJson", todoStageCountsJson);
 
+        // 내 업무목록 카운트
+        List<TodoStageCountVO> myTodoStageCountVOList = todoService.getMyTodoStageCount(commonVO.getE_name());
+        System.out.println("myTodoStageCountVOList: " + myTodoStageCountVOList);
+        // ObjectMapper를 사용하여 todoStageCounts를 JSON 문자열로 변환
+        String myTodoStageCountsJson = objectMapper.writeValueAsString(myTodoStageCountVOList);
+        model.addAttribute("myTodoStageCountsJson", myTodoStageCountsJson);
+
+        // 로그인한 사람과 같은 부서 목록 전달
+        List<LoginVO> loginVOList = todoService.getDeptEmployeeByDept(dept);
+        // ObjectMapper를 사용하여 todoStageCounts를 JSON 문자열로 변환
+        String employeeListJson = objectMapper.writeValueAsString(loginVOList);
+        model.addAttribute("employeeList", employeeListJson);
 
 
         return "todo/todo";

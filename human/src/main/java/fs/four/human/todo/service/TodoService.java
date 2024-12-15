@@ -2,6 +2,7 @@ package fs.four.human.todo.service;
 
 import fs.four.human.common.dao.CommonDAO;
 import fs.four.human.common.vo.CommonVO;
+import fs.four.human.login.vo.LoginVO;
 import fs.four.human.todo.dao.TodoDAO;
 import fs.four.human.todo.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class TodoService {
     public List<TodoStageCountVO> getTodoStageCount(String dept){
         System.out.println("Dept: " + dept); // 로그 출력
         return todoDAO.getTodoStageCount(dept);
+    }
+
+    public List<TodoStageCountVO> getMyTodoStageCount(String loginName){
+        System.out.println("loginName: " + loginName); // 로그 출력
+        return todoDAO.getMyTodoStageCount(loginName);
     }
 
     public List<TodoStageCountVO> getTodoPriorityCount(String dept){
@@ -86,5 +92,9 @@ public class TodoService {
     public CommonVO getEmployeeById(String e_id) {
         CommonVO employee = commonDAO.getEmployeeById(e_id);
         return employee;
+    }
+
+    public List<LoginVO> getDeptEmployeeByDept(String dept) {
+        return todoDAO.getDeptEmployeeByDept(dept);
     }
 }

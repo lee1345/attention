@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'myTaskChart',
         'myTaskLegend',
         ['예정', '진행지연', '진행중', '완료지연', '완료'],
-        [1, 2, 1, 1, 1],
+        myStageCounts,
         ['#FF6384', '#36A2EB', '#FFCE56', '#FFA07A', '#90EE90']
     );
 
@@ -314,6 +314,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.getElementById('edit-open-participant-popup').addEventListener('click', () => {
+                console.log('버튼 클릭됨');
+                const popup = document.getElementById('participant-popup');
+                popup.classList.remove('hidden');
+                popup.classList.add('visible');
+
+        });
+
     // 참여자 선택 완료 버튼
     document.getElementById('close-participant-popup').addEventListener('click', () => {
         const checkboxes = document.querySelectorAll('#participant-list input[type="checkbox"]');
@@ -357,17 +365,52 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateSelectedParticipantsDisplay(selectedParticipants) {
         const participantDisplay = document.getElementById('selected-participants');
         participantDisplay.textContent = selectedParticipants.join(', ') || '선택된 참여자가 없습니다.';
+
+        const editParticipantDisplay = document.getElementById('edit-selected-participants');
+        editParticipantDisplay.textContent = selectedParticipants.join(', ') || '선택된 참여자가 없습니다.';
     }
 
     // 샘플 참여자 데이터
-    const participants = [
+   /* const participants = [
         { department: '인사팀', name: '김혜민', position: '이사' },
         { department: '인사팀', name: '이정규', position: '부장' },
         { department: '인사팀', name: '이태웅', position: '과장' },
         { department: '인사팀', name: '전지훈', position: '대리' },
         { department: '인사팀', name: '강순구', position: '사원' },
         { department: '인사팀', name: '김길동', position: '인턴' },
-    ];
+    ];*/
+
+//    M 경영
+//    H 인사총무
+//    F 재무회계
+//    S 영업마케팅
+// 코드와 해당하는 값을 매핑한 객체
+const codeMapping = {
+    M: '경영',
+    H: '인사총무',
+    F: '재무회계',
+    S: '영업마케팅'
+};
+// C  대표
+//  SM 수석
+//  M 책임
+//   SA 선임
+//   JA 사원
+const positionCodeMapping = {
+    C: '대표',
+    SM: '수석',
+    M: '책임',
+    SA: '선임',
+    JA: '사원'
+};
+    let participants = employeeList.map((item) => {
+        let obj = {};
+        obj.department = codeMapping[item.e_dept] || item.e_dept // 코드값을 매핑하여 변환;
+        obj.name = item.e_name;
+        obj.position = positionCodeMapping[item.e_position] || item.e_position // 코드값을 매핑하여 변환;
+        return obj;
+    })
+    console.log('participants', participants);
 
     const participantList = document.getElementById('participant-list');
 
@@ -540,3 +583,40 @@ document.getElementById('prBtn').addEventListener('click', () => {
                      location.href="/todo?sort=endAsc"
                  }
       });
+
+ function hideRow(rowId) {
+          var row = document.getElementById(rowId);
+          row.style.display = 'none'; // 행 숨기기
+ }
+
+ // 숨겨진 행을 보이게 하는 함수
+ function showHiddenRows() {
+     // 테이블 내 모든 행을 선택
+     const rows = document.querySelectorAll('table#todo-table tbody tr');
+
+     // 각 행을 순회하면서 display 속성이 'none'인 행을 보이게 설정
+     rows.forEach(row => {
+         if (row.style.display === 'none') {
+             row.style.display = '';
+         }
+     });
+ }
+
+  // 선택된 행들을 숨기는 함수
+ function hideSelectedRows() {
+     // 모든 체크박스를 선택
+     const checkboxes = document.querySelectorAll('.row-checkbox');
+
+     // 각 체크박스를 순회하면서 체크된 행을 숨김
+     checkboxes.forEach((checkbox, index) => {
+         const row = checkbox.closest('tr'); // 체크박스가 속한 행을 찾음
+         if (checkbox.checked) {
+             row.style.display = 'none'; // 체크된 행 숨기기
+         }
+     });
+ }
+
+ function resetSearch() {
+       location.href="/todo";
+
+ }

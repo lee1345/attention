@@ -62,11 +62,23 @@
         </if>
     </select>
 
-    <!--  todo 진행상태별 갯수  -->
+    <!--  부서 todo 진행상태별 갯수  -->
    <select id="getTodoStageCount" parameterType="String" resultType="TodoStageCountVO">
        select t_stage, count(t_id) as count from TODO where t_dept = #{dept} group by t_stage
     </select>
-    <!--  todo 진행상태별 EX)P,PD,..  -->
+
+    <!--  마이 todo 진행상태별 갯수  -->
+    <select id="getMyTodoStageCount" parameterType="String" resultType="TodoStageCountVO">
+        select t.t_stage, count(t.t_id) as count from TODO t
+        join TODO_DETAIL d on t.t_id = d.td_id and
+        ( d.td_participant_1 = #{loginName, jdbcType=VARCHAR} or
+        d.td_participant_2 = #{loginName, jdbcType=VARCHAR} or
+        d.td_participant_3 = #{loginName, jdbcType=VARCHAR} or
+        d.td_participant_4 = #{loginName, jdbcType=VARCHAR} or
+        d.td_participant_5 = #{loginName, jdbcType=VARCHAR} )
+        group by t.t_stage
+    </select>
+
 
     <insert id="addTodo" parameterType="Todo2VO">
         insert into todo (T_ID, T_WRITER, T_GROUP, T_DEPT, T_STAGE, T_PRIORITY, T_TITLE, T_CONTENT, T_START_DATE, T_START_TIME, T_END_DATE, T_UPDATED_ID)
@@ -132,6 +144,10 @@
         WHERE
         t_id = #{t_id, jdbcType=VARCHAR}
     </update>
+
+    <select id="getDeptEmployeeByDept" parameterType="String" resultType="LoginVO">
+        select e_id, e_name, e_dept, e_position from employee where e_dept = #{dept, jdbcType=VARCHAR}
+    </select>
 
 
 
