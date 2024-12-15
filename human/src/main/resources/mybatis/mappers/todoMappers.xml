@@ -96,7 +96,7 @@
         values (
         TODO_SEQ.nextval,
         'hong',
-        'test group',
+        'T',
         #{t_dept, jdbcType=VARCHAR},
         #{t_stage, jdbcType=VARCHAR},
         #{t_priority, jdbcType=VARCHAR},
