@@ -487,3 +487,56 @@ function editPopupOpen(t_id) {
     editModal.style.display = 'block';
     overlay.style.display = 'block';
 }
+
+//정렬버튼 클릭시 이벤트
+document.getElementById('prBtn').addEventListener('click', () => {
+            // 현재 페이지의 URL에서 쿼리 파라미터 가져오기
+            const params = new URLSearchParams(window.location.search);
+            // 특정 쿼리 파라미터 값 가져오기
+            const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
+            console.log(sort); // 해당 파라미터의 값 출력
+            if(sort == 'priorityAsc') {
+                location.href="/todo?sort=priorityDesc"
+            } else {
+                location.href="/todo?sort=priorityAsc"
+            }
+ });
+
+ document.getElementById('stBtn').addEventListener('click', () => {
+             // 현재 페이지의 URL에서 쿼리 파라미터 가져오기
+             const params = new URLSearchParams(window.location.search);
+             // 특정 쿼리 파라미터 값 가져오기
+             const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
+             console.log(sort); // 해당 파라미터의 값 출력
+             if(sort == 'stageAsc') {
+                 location.href="/todo?sort=stageDesc"
+             } else {
+                 location.href="/todo?sort=stageAsc"
+             }
+  });
+
+   document.getElementById('startBtn').addEventListener('click', () => {
+               // 현재 페이지의 URL에서 쿼리 파라미터 가져오기
+               const params = new URLSearchParams(window.location.search);
+               // 특정 쿼리 파라미터 값 가져오기
+               const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
+               console.log(sort); // 해당 파라미터의 값 출력
+               if(sort == 'startAsc') {
+                   location.href="/todo?sort=startDesc"
+               } else {
+                   location.href="/todo?sort=startAsc"
+               }
+    });
+
+     document.getElementById('endBtn').addEventListener('click', () => {
+                 // 현재 페이지의 URL에서 쿼리 파라미터 가져오기
+                 const params = new URLSearchParams(window.location.search);
+                 // 특정 쿼리 파라미터 값 가져오기
+                 const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
+                 console.log(sort); // 해당 파라미터의 값 출력
+                 if(sort == 'endAsc') {
+                     location.href="/todo?sort=endDesc"
+                 } else {
+                     location.href="/todo?sort=endAsc"
+                 }
+      });

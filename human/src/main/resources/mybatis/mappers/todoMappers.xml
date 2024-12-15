@@ -36,6 +36,30 @@
                 AND (t.t_group = #{search} OR t.t_content LIKE CONCAT(CONCAT('%', #{search}), '%'))
             </if>
         </where>
+        <if test="sort != null and sort == 'priorityDesc'">
+            order by t_priority desc
+        </if>
+        <if test="sort != null and sort == 'priorityAsc'">
+            order by t_priority asc
+        </if>
+        <if test="sort != null and sort == 'stageDesc'">
+            order by t_stage desc
+        </if>
+        <if test="sort != null and sort == 'stageAsc'">
+            order by t_stage asc
+        </if>
+        <if test="sort != null and sort == 'startDesc'">
+            order by t_start_date desc
+        </if>
+        <if test="sort != null and sort == 'startAsc'">
+            order by t_start_date asc
+        </if>
+        <if test="sort != null and sort == 'endDesc'">
+            order by t_end_date desc
+        </if>
+        <if test="sort != null and sort == 'endAsc'">
+            order by t_end_date asc
+        </if>
     </select>
 
     <!--  todo 진행상태별 갯수  -->

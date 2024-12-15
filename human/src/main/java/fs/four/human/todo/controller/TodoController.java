@@ -40,7 +40,7 @@ public class TodoController {
         // 세션에서 로그인한 사용자의 부서 정보를 가져옵니다.
         String dept = "M";
         if(commonVO != null) dept = commonVO.getE_dept();
-
+        System.out.println(todoVO.getSort());
         List<Todo2VO> todoVOList = todoService.getAllTodo(todoVO);
         System.out.println("Title: " + todoVO.getT_title()); // 디버깅
         System.out.println(todoVOList); // 디버깅
@@ -51,7 +51,6 @@ public class TodoController {
         ObjectMapper objectMapper = new ObjectMapper();
         String todoStageCountsJson = objectMapper.writeValueAsString(todoStageCountVOList);
         model.addAttribute("todoStageCountsJson", todoStageCountsJson);
-
 
 
 

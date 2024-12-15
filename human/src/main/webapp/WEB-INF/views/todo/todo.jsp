@@ -82,10 +82,10 @@
                         </form>
                        <!-- 정렬 옵션 -->
                        <div class="sort-options">
-                           <button><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
-                           <button><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
-                           <button><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
-                           <button><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
+                           <button id="prBtn"><span class="icon"><i class="fa-solid fa-list"></i></span> 우선순위순</button>
+                           <button id="stBtn"><span class="icon"><i class="fa-solid fa-tasks"></i></span> 진행상황순</button>
+                           <button id="startBtn"><span class="icon"><i class="fa-solid fa-calendar-day"></i></span> 시작일순</button>
+                           <button id="endBtn"><span class="icon"><i class="fa-solid fa-calendar-check"></i></span> 종료일순</button>
                        </div>
 
                    </div>
@@ -127,9 +127,10 @@
                                     <td class="hidden">${todo.t_id}</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${todo.t_priority == 'VU'}">아주높음</c:when>
-                                            <c:when test="${todo.t_priority == 'U'}">높음</c:when>
+                                            <c:when test="${todo.t_priority == 'VU'}">매우긴급</c:when>
+                                            <c:when test="${todo.t_priority == 'U'}">긴급</c:when>
                                             <c:when test="${todo.t_priority == 'N'}">보통</c:when>
+                                            <c:when test="${todo.t_priority == 'NU'}">천천히</c:when>
                                             <c:otherwise>${todo.t_priority}</c:otherwise>
                                         </c:choose>
                                     </td>

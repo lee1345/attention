@@ -26,6 +26,8 @@ public class TodoVO {
     // 검색조건
     private String type;
     private String search;
+    private String sort;
+
 
     public String getT_id() {
         return t_id;
