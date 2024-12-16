@@ -5,6 +5,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
     <link rel="stylesheet" href="${contextPath}/css/address.css" />
     <script src="${contextPath}/js/address.js" defer></script>
