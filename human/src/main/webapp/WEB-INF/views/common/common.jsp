@@ -23,8 +23,8 @@
   <body>
   <div class="common">
       <header>
-        <div class="logo">
-          <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;">
+        <div class="logo" >
+         <a id="comMyTodo"> <img src="${contextPath}/images/logo.png" alt="Logo" style="height: 60px;"></a>
         </div>
         <div class="user-info">
           <span>${employee.e_dept}팀</span>

@@ -69,7 +69,7 @@ $(document).ready(function() {
 
       },
       error: function(xhr, status, error) {
-        alert("회원가입 실패: " + error);
+        alert("회원가입 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.: " + error);
       }
     });
   });
@@ -88,11 +88,11 @@ $('#btn_login').on('click', function(event) {
         url: "/login/logIn",
         data: loginData,
         success: function(response) {
-            alert("로그인 성공하였습니다.");
+            alert("로그인에 성공하였습니다! 환영합니다.");
             window.location.href = "/mytodo";
         },
         error: function(xhr) {
-            alert("로그인 실패 "+xhr.responseText);
+            alert("로그인 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요. "+xhr.responseText);
             window.location.href = "/login";
         }
     });
@@ -128,13 +128,13 @@ $('#pw_confirm').on('blur', function() {
     // 비밀번호와 비밀번호 확인이 일치하지 않으면
     if (password !== passwordConfirm) {
         $('#pwdStatus')
-            .text('비밀번호 불일치')
+            .text('비밀번호가 일치하지않습니다')
             .css('color', 'red')
             .css('font-weight', 'bold')
             .css('font-size', '14px');
     } else {
         $('#pwdStatus')
-            .text('비밀번호 일치')
+            .text('비밀번호가 일치합니다')
             .css('color', 'green')
             .css('font-weight', 'bold')
             .css('font-size', '14px');
@@ -192,6 +192,3 @@ function resetPassword(event) {
         }
     });
 }
-
-
-

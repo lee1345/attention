@@ -203,12 +203,12 @@ $(document).ready(function () {
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(formData),
             success: function () {
-                alert('등록 성공!');
+                alert('게시글 등록이 완료되었습니다');
                 $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
                 freeBoardAllData(); // 전체 데이터 다시 로드
             },
             error: function () {
-                alert('등록 실패!');
+                alert('게시글 등록 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.');
             }
         });
     });
@@ -343,12 +343,12 @@ $('#editForm').on('submit', function (event) {
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify(formData),
         success: function () {
-            alert('수정 성공!');
+            alert('게시글 수정 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.');
             $('#popupOverlay, #editPopup').fadeOut();
             freeBoardAllData(); // 데이터 다시 로드
         },
         error: function () {
-            alert('수정 실패!');
+            alert('게시글 등록요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.);
         }
     });
 });
@@ -362,12 +362,12 @@ $(document).on('click', '.delete-btn', function () {
             type: 'DELETE',
             url: `/api/freeBoard/${freeBoardId}?user=${loggedInUser}`,
             success: function () {
-                alert('삭제 성공!');
+                alert('게시글 삭제가 완료되었습니다');
                 $('#popupOverlay, #freeBoardPopup').fadeOut(); // 팝업 닫기
                 freeBoardAllData(); // 데이터 다시 로드
             },
             error: function () {
-                alert('삭제 실패!');
+                alert('게시글 삭제 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요..);
             }
         });
     }
