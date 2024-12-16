@@ -25,11 +25,15 @@ public class MytodoRestController {
     @PostMapping("/addTodo")
     public ResponseEntity<String> addTodo(@RequestBody MytodoVO mytodoVO, HttpSession session) {
         try {
+
             // 세션에서 사용자 ID 가져오기
             String userId = (String) session.getAttribute("loginUserID");
             if (userId == null) {
                 return ResponseEntity.status(401).body("로그인이 필요합니다.");
             }
+
+            System.out.println("DB에 저장할 데이터: " + mytodoVO);
+
 
             // t_group 기본값 설정
             mytodoVO.setT_group("M");
