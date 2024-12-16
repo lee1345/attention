@@ -247,7 +247,7 @@ $(document).ready(function () {
 
             if (!column) return; // 정렬 가능한 컬럼이 아니면 종료
 
-            // 정렬 요청 AJAX
+            // 정렬 요청 AJAX!
             $.ajax({
                 type: 'GET',
                 url: '/api/address/sort', // 정렬 API 엔드포인트

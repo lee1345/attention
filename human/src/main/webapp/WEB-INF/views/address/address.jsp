@@ -25,7 +25,7 @@
     <div class="address-book">
         <h2>주소록</h2><br>
 
-        <!-- 검색 및 등록 섹션 -->
+        <!-- 검색 및 등록 섹션! -->
         <div class="search-register">
             <form id="searchForm">
                 <div class="filter-group">
