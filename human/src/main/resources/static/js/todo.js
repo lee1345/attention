@@ -53,17 +53,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // 범례 동적 생성
         const legendContainer = document.getElementById(legendId);
         legendContainer.innerHTML = labels.map((label, index) => `
-            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+              <div style="display: flex; align-items: center; margin-bottom: 5px;">
                 <span
                     style="
-                        display: inline-block;
-                        background-color: ${colors[index]};
-                        width: 12px;
-                        height: 12px;
-                        border-radius: 50%;
-                        margin-right: 8px;">
+                               display: inline-block;
+                               background-color: ${colors[index]};
+                               width: 12px;
+                               height: 12px;
+                               border-radius: 50%;
+                               margin-right: 8px;
+                               flex-shrink: 0; /* 아이콘 크기 고정 */
+                           ">
+
                 </span>
-                <span style="margin-right: 10px; font-weight: bold;">${label}</span>
+
+                 <span
+                        style="
+                            margin-right: 10px;
+                            font-weight: bold;
+                            white-space: nowrap; /* 줄바꿈 방지 */
+                        ">
+                        ${label}
+                    </span>
+
                 <button
                     style="
                         margin-left:15px;
@@ -74,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         margin: 0;
                         color: ${colors[index]};
                         text-decoration: underline;
-                        cursor: pointer;"
+                        cursor: pointer;
+                        white-space: nowrap; /* 버튼 내부 줄바꿈 방지 */
+                        "
                     onclick="onButtonClick('${label}', ${data[index]})"
                 >
                     ${data[index]}건

@@ -185,6 +185,7 @@ h2 {
 }
 
 .filters {
+    margin-right:30px;
     max-width: 450px; /* 크기 줄이기 */
     background-color: #ffffff; /* 섹션 배경색 */
     padding: 15px; /* 내부 여백 줄이기 */
@@ -455,6 +456,7 @@ body {
 
 .btn-open-register-modal {
     font-weight:bold;
+    margin-left:80px;
     padding: 12px 24px; /* 버튼 내부 여백 (세로, 가로) */
     font-size: 20px; /* 글자 크기 */
     width: 180px; /* 버튼의 고정 너비 */

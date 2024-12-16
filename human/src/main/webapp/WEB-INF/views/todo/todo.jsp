@@ -18,7 +18,7 @@
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
    <div class="layout-container">
-           <main>
+           <main style="padding: 10px;">
                <!-- 상단 차트 -->
                <div class="chart-section">
                    <!-- 부서 업무 현황 -->
