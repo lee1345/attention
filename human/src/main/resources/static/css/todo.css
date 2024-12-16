@@ -433,6 +433,7 @@ body {
     z-index: 1100; /* 오버레이 위에 표시 */
 }
 
+
 #participant-popup.visible {
     display: block; /* 팝업 보이기 */
 }
@@ -482,6 +483,8 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
+
+
 
 
 
