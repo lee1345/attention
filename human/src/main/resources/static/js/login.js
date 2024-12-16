@@ -59,21 +59,31 @@ $(document).ready(function() {
 
 
     $.ajax({
-      type: "POST",
-      url: "/login/signIn",
-      contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify(formData),
-      success: function(response) {
-        alert("회원가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "/login";
-
-      },
-      error: function(xhr, status, error) {
-        alert("회원가입 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.: " + error);
-      }
+                type: "POST",
+                url: "/login/signIn",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '회원가입 성공!',
+                        text: response,
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = "/login";
+                    });
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '회원가입 실패',
+                        text: xhr.responseText || '다시 시도해 주세요.'
+                    });
+                }
+            });
+        });
     });
-  });
-});
 
 //로그인 기능
 $('#btn_login').on('click', function(event) {
@@ -84,19 +94,29 @@ $('#btn_login').on('click', function(event) {
     };
 
     $.ajax({
-        type: "POST",
-        url: "/login/logIn",
-        data: loginData,
-        success: function(response) {
-            alert("로그인에 성공하였습니다! 환영합니다.");
-            window.location.href = "/mytodo";
-        },
-        error: function(xhr) {
-            alert("로그인 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요. "+xhr.responseText);
-            window.location.href = "/login";
-        }
+            type: "POST",
+            url: "/login/logIn",
+            data: loginData,
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인 성공!',
+                    text: response,
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = "/mytodo";
+                });
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '로그인 실패',
+                    text: xhr.responseText || '다시 시도해 주세요.'
+                });
+            }
+        });
     });
-});
 
 
 ////id 중복체크
@@ -104,21 +124,25 @@ function fn_idCheck() {
     const e_id = $('#e_id').val();
 
     $.ajax({
-        type: "GET",
-        url: "/login/idCheck",
-        data: { e_id: e_id },
-        success: function(response) {
-            alert(response);
-        },
-        error: function(xhr) {
-            if (xhr.status === 409) {
-                alert("이미 사용 중인 아이디입니다.");
-            } else {
-                alert(xhr.responseText);
+            type: "GET",
+            url: "/login/idCheck",
+            data: { e_id: e_id },
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '사용 가능!',
+                    text: response
+                });
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '중복된 아이디',
+                    text: xhr.responseText || '다시 확인해 주세요.'
+                });
             }
-        }
-    });
-}
+        });
+    }
 
 // 비밀번호 확인
 $('#pw_confirm').on('blur', function() {
@@ -148,26 +172,47 @@ function findId(event) {
     const e_name = document.getElementById("input_name").value;
     const e_email = document.getElementById("input_email").value;
 
-    $.ajax({
-        type: "POST",
-        url: "/login/find-id",
-        data: {
-            e_name: e_name,
-            e_email: e_email
-        },
-        success: function(response) {
-            if (response.e_id) {
-                alert("회원님의 아이디는 " + response.e_id + " 입니다.");
-                // 로그인 페이지로 돌아가기
-                document.getElementById('forgot-page').style.display = 'none';
-                document.getElementById('login-page').style.display = 'block';
-            }
-        },
-        error: function(xhr) {
-            alert(xhr.responseText);
+    // 입력 값 검증
+        if (!e_name || !e_email) {
+            Swal.fire({
+                icon: 'warning',
+                title: '입력 오류',
+                text: '이름과 이메일을 모두 입력해주세요.'
+            });
+            return;
         }
-    });
-}
+
+        // AJAX 요청
+        $.ajax({
+            type: "POST",
+            url: "/login/find-id",
+            data: {
+                e_name: e_name,
+                e_email: e_email
+            },
+            success: function(response) {
+                if (response.e_id) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '아이디 찾기 성공',
+                        text: `회원님의 아이디는 "${response.e_id}" 입니다.`,
+                        confirmButtonText: '확인'
+                    }).then(() => {
+                        // 로그인 페이지로 이동
+                        document.getElementById('forgot-page').style.display = 'none';
+                        document.getElementById('login-page').style.display = 'block';
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '아이디 찾기 실패',
+                    text: xhr.responseText || '입력하신 정보를 확인해주세요.'
+                });
+            }
+        });
+    }
 
 // 비밀번호 초기화 요청
 function resetPassword(event) {
@@ -176,19 +221,28 @@ function resetPassword(event) {
     const e_id = document.getElementById("reset_id").value;
     const e_email = document.getElementById("reset_email").value;
 
-    $.ajax({
-        type: "POST",
-        url: "/login/reset-password",
-        data: {
-            e_id: e_id,
-            e_email: e_email
-        },
-        success: function(response) {
-            alert("임시 비밀번호가 이메일로 전송되었습니다. 이메일을 확인하세요.");//이메일 전송 성공 메세지 표시
-            window.location.href = "/login";
-        },
-        error: function(xhr) {
-            alert(xhr.responseText);
-        }
-    });
-}
+   $.ajax({
+           type: "POST",
+           url: "/login/reset-password",
+           data: {
+               e_id: e_id,
+               e_email: e_email
+           },
+           success: function (response) {
+               Swal.fire({
+                   icon: 'success',
+                   title: '임시 비밀번호 전송 성공',
+                   text: response
+               }).then(() => {
+                   window.location.href = "/login";
+               });
+           },
+           error: function (xhr) {
+               Swal.fire({
+                   icon: 'error',
+                   title: '비밀번호 초기화 실패',
+                   text: xhr.responseText || '다시 확인해 주세요.'
+               });
+           }
+       });
+   }
