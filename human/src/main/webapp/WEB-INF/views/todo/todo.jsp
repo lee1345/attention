@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -115,10 +116,20 @@
                                 <tr id="${todo.t_id}">
                                     <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}" class="row-checkbox"></td>
                                     <td class="hidden">${todo.t_id}</td>
-                                    <td>
+                                   <td class="<c:choose>
+                                              <c:when test="${todo.t_priority == 'VU'}">very-urgent</c:when>
+                                              <c:when test="${todo.t_priority == 'U'}">urgent</c:when>
+                                              <c:otherwise>normal-priority</c:otherwise>
+                                          </c:choose>">
                                         <c:choose>
-                                            <c:when test="${todo.t_priority == 'VU'}">매우긴급</c:when>
-                                            <c:when test="${todo.t_priority == 'U'}">긴급</c:when>
+                                             <c:when test="${todo.t_priority == 'VU'}">
+                                               매우긴급
+                                           <i class="icon urgent-icon" data-priority="VU">⚠️</i> <!-- 아이콘 추가 -->
+                                           </c:when>
+                                            <c:when test="${todo.t_priority == 'U'}">
+                                               긴급
+                                         <i class="icon urgent-icon" data-priority="U">⚡</i><!-- 아이콘 추가 -->
+                                            </c:when>
                                             <c:when test="${todo.t_priority == 'N'}">보통</c:when>
                                             <c:when test="${todo.t_priority == 'NU'}">천천히</c:when>
                                             <c:otherwise>${todo.t_priority}</c:otherwise>

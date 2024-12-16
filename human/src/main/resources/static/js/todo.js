@@ -335,7 +335,34 @@ document.addEventListener('DOMContentLoaded', () => {
                            });
 
 
+
+    // 매우긴급, 긴급 아이콘 추가 코드
+    const priorityRows = document.querySelectorAll('.priority-cell'); // 우선순위 셀 선택
+
+    priorityRows.forEach((cell) => {
+        const priorityText = cell.querySelector('.priority-label').textContent.trim();
+        const iconSpan = cell.querySelector('.priority-icon'); // 아이콘 삽입 위치
+
+        if (priorityText === '매우긴급') {
+            cell.style.backgroundColor = '#ffcccc'; // 연한 빨간색 배경
+            cell.style.color = 'red'; // 글씨 색상
+            cell.style.fontWeight = 'bold'; // 글씨 진하게
+            iconSpan.innerHTML = '⚠️';
+            iconSpan.style.color = 'red';
+            iconSpan.style.marginLeft = '5px';
+        } else if (priorityText === '긴급') {
+             cell.style.backgroundColor = '#ffedcc'; // 연한 주황색 배경
+             cell.style.color = 'orange'; // 글씨 색상
+             cell.style.fontWeight = 'bold'; // 글씨 진하게
+             iconSpan.innerHTML = '⚡'; // 번개 아이콘
+            iconSpan.style.color = 'orange';
+            iconSpan.style.marginLeft = '5px';
+        }
+    });
+
+
 });
+
 
 //////////////////////////////////////////////////////////////////
 

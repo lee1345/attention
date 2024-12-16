@@ -305,9 +305,10 @@ h2 {
 }
 
 .task-list th, .task-list td {
+
       font-size: 12px;
       padding: 5px;
-      border: 1px solid #ddd;
+      border: 1px solid #dbd0d0;
       text-align: center;
 }
 
@@ -564,4 +565,24 @@ th.descending::after {
     content: " ↓";
     font-size: 12px;
     color: #666;
+}
+/* 아이콘 */
+.icon {
+    margin-left: 5px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+/* 매우긴급 스타일 */
+td.very-urgent {
+    background-color: #ffcccc !important; /* 연한 빨간 배경 */
+    color: red; /* 텍스트 색상 */
+    font-weight: bold; /* 텍스트 굵게 */
+}
+
+/* 긴급 스타일 */
+td.urgent {
+    background-color: #ffedcc !important; /* 연한 주황 배경 */
+    color: orange; /* 텍스트 색상 */
+    font-weight: bold; /* 텍스트 굵게 */
 }
