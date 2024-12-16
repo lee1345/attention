@@ -23,7 +23,7 @@
                <div class="chart-section">
                    <!-- 부서 업무 현황 -->
                    <section class="chart">
-                       <h1 class="chart-title">부서 업무 현황</h1>
+                       <h1 class="chart-title">전체 부서 업무 현황</h1>
                        <div class="chart-container">
                            <canvas id="departmentChart"></canvas>
                            <ul class="chart-legend" id="departmentLegend">
@@ -38,7 +38,7 @@
 
                    <!-- 나의 업무 참여 현황 -->
                    <section class="chart">
-                       <h1 class="chart-title">나의 업무 참여 현황</h1> <!-- 수정 -->
+                       <h1 class="chart-title">나의 부서업무 참여현황</h1> <!-- 수정 -->
                        <div class="chart-container">
                            <canvas id="myTaskChart"></canvas>
                            <ul class="chart-legend" id="myTaskLegend">

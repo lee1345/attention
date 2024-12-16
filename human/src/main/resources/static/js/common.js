@@ -1,5 +1,5 @@
-// 경로 설정:
 const navigationLinks = {
+  comMyTodo: "/mytodo", // 나의 할일 경로
   login: "/login", // 로그인 경로
   signup: "/signup", // 회원가입 경로
   todo: "/todo", // 팀별 할일 경로

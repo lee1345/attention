@@ -68,17 +68,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
             calendar.render();
 
+             function activateViewButton(activeButtonId) {
+                const buttons = document.querySelectorAll('.right-buttons button');
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                document.getElementById(activeButtonId).classList.add('active');
+            }
             // 뷰 변경 버튼 동작
             document.getElementById('view-month').addEventListener('click', function () {
                 calendar.changeView('dayGridMonth');
+                activateViewButton('view-month');
             });
 
             document.getElementById('view-week').addEventListener('click', function () {
                 calendar.changeView('timeGridWeek');
+                activateViewButton('view-week');
             });
 
             document.getElementById('view-day').addEventListener('click', function () {
                 calendar.changeView('timeGridDay');
+                activateViewButton('view-day');
             });
 
             // 필터 버튼 동작

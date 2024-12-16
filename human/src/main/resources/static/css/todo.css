@@ -5,7 +5,6 @@ body {
 }
 
 .layout-container {
-    padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -305,9 +304,10 @@ h2 {
 }
 
 .task-list th, .task-list td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+      font-size: 12px;
+      padding: 5px;
+      border: 1px solid #ddd;
+      text-align: center;
 }
 
 .task-list th {

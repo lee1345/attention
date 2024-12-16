@@ -158,11 +158,11 @@ $('#registerForm').submit(function (event) {
         contentType: 'application/json',
         data: JSON.stringify(formData),
         success: function (response) {
-            alert('등록 성공!');
+            alert('나의 할일 등록이 완료되었습니다!');
             location.reload();
         },
         error: function () {
-            alert('등록 실패');
+            alert('나의 할일 등록 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.');
         }
     });
 });

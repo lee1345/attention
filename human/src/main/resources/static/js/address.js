@@ -124,13 +124,13 @@ $(document).ready(function () {
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(formData), // JSON 데이터로 변환
             success: function () {
-                alert('등록 성공!');
+                alert('주소록 등록이 완료되었습니다!');
                 $('#popupOverlay, #popup').fadeOut(); // 팝업 닫기
                 $('#registerForm')[0].reset();
                 addressAllData(); // 데이터 다시 로드
             },
             error: function () {
-                alert('등록 실패!');
+                alert('주소록 등록 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.');
             }
         });
     });
@@ -220,7 +220,7 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify(updatedData),
                 success: function () {
-                    alert('수정 성공!');
+                    alert('주소록 수정이 완료되었습니다');
                     $('#popupOverlay, #addressPopup').fadeOut();
                     addressAllData(); // 테이블 다시 로드
 
@@ -229,7 +229,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr) {
                     console.error('수정 실패:', xhr.responseText);
-                    alert('수정 실패! 데이터를 확인해주세요.');
+                    alert('주소록 수정 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.');
                 }
             });
         });
@@ -265,18 +265,18 @@ $('#addressPopup .delete-btn').on('click', function () {
         return;
     }
 
-    if (confirm("정말 삭제하시겠습니까?")) {
+    if (confirm("주소록을 삭제하시겠습니까?")) {
         $.ajax({
             type: 'DELETE',
             url: `/api/address/${addressId}`,
             success: function () {
-                alert('삭제 성공!');
+                alert('주소록 삭제가 완료되었습니다');
                 $('#popupOverlay, #addressPopup').fadeOut(); // 팝업 닫기
                 addressAllData(); // 데이터 다시 로드
             },
             error: function (xhr) {
                 console.error('삭제 요청 실패:', xhr.responseText);
-                alert('삭제 실패! 데이터를 확인해주세요.');
+                alert('주소록 삭제 요청 처리 중 문제가 발생했습니다. 입력 정보를 확인한 후 다시 시도해 주세요.');
             }
         });
     }
