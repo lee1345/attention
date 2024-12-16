@@ -200,7 +200,22 @@ document.addEventListener('DOMContentLoaded', () => {
                participants: selectedParticipants, // 선택된 참여자
            };
 
-           // 서버에 데이터 전송
+            // 커스텀 팝업 열기 함수
+            function openCustomPopup(message) {
+                document.getElementById('popup-message').innerText = message;
+                document.getElementById('custom-popup').style.display = 'block';
+                 document.getElementById('popup-overlay').classList.remove('hidden'); // 오버레이 표시
+            }
+
+            // 커스텀 팝업 닫기 함수
+            function closeCustomPopup() {
+                document.getElementById('custom-popup').style.display = 'none';
+                 document.getElementById('popup-overlay').classList.add('hidden'); // 오버레이 숨기기
+            }
+
+
+
+           // 서버에 데이터 전송 업무등록
            fetch('/api/todo/todos', {
                method: 'POST',
                headers: { 'Content-Type': 'application/json' },
@@ -209,18 +224,19 @@ document.addEventListener('DOMContentLoaded', () => {
                .then((response) => response.json())
                .then((data) => {
                    console.log('서버 응답:', data);
-                   if (data.status === 'success') {
-                       alert('업무가 성공적으로 추가되었습니다!');
-                       // 모달 닫기 및 폼 초기화
-                      document.getElementById('task-popup').style.display = 'none';
-                      document.querySelector('.modal-overlay').style.display = 'none';
-                      document.getElementById('t-registerForm').reset();
+                    if (data.status === 'success') {
+                              openCustomPopup('업무가 성공적으로 추가되었습니다!');
 
-                      location.reload(true);
-                   } else {
-                       alert('업무 추가에 실패했습니다.');
-                   }
-               })
+                              // 모달 닫기 및 폼 초기화
+                              document.getElementById('task-popup').style.display = 'none';
+                              document.querySelector('.modal-overlay').style.display = 'none';
+                              document.getElementById('t-registerForm').reset();
+
+                              setTimeout(() => location.reload(true), 1000); // 1초 후 새로고침
+                          } else {
+                              openCustomPopup('업무 추가에 실패했습니다.');
+                          }
+                      })
                .catch((error) => {
                    console.error('요청 실패:', error);
                    alert('오류가 발생했습니다.');
@@ -277,7 +293,20 @@ document.addEventListener('DOMContentLoaded', () => {
                                    participants: selectedParticipants, // 선택된 참여자
                                };
 
-                               // 서버에 데이터 전송
+                                 function openCustomPopup(message) {
+                                                document.getElementById('popup-message').innerText = message;
+                                                document.getElementById('custom-popup').style.display = 'block';
+                                                 document.getElementById('popup-overlay').classList.remove('hidden'); // 오버레이 표시
+                                            }
+
+                                            // 커스텀 팝업 닫기 함수
+                                            function closeCustomPopup() {
+                                                document.getElementById('custom-popup').style.display = 'none';
+                                                 document.getElementById('popup-overlay').classList.add('hidden'); // 오버레이 숨기기
+                                            }
+
+
+                               // 서버에 데이터 전송 업무 수정
                                fetch('/api/todo/update-todos', {
                                    method: 'PUT',
                                    headers: { 'Content-Type': 'application/json' },
@@ -287,16 +316,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                    .then((data) => {
                                        console.log('서버 응답:', data);
                                        if (data.status === 'success') {
-                                           alert('업무수정이 성공적으로 완료되었습니다!');
-                                           // 모달 닫기 및 폼 초기화
-                                          document.getElementById('task-popup').style.display = 'none';
-                                          document.querySelector('.modal-overlay').style.display = 'none';
-                                          document.getElementById('t-registerForm').reset();
+                                                                    openCustomPopup('업무가 성공적으로 수정되었습니다!');
 
-                                          location.reload(true);
-                                       } else {
-                                           alert('업무 수정에 실패했습니다.');
-                                       }
+                                                                    // 모달 닫기 및 폼 초기화
+                                                                    document.getElementById('task-popup').style.display = 'none';
+                                                                    document.querySelector('.modal-overlay').style.display = 'none';
+                                                                    document.getElementById('t-registerForm').reset();
+
+                                                                    setTimeout(() => location.reload(true), 1000); // 1초 후 새로고침
+                                                                } else {
+                                                                    openCustomPopup('업무 수정에 실패했습니다.');
+                                                                }
                                    })
                                    .catch((error) => {
                                        console.error('요청 실패:', error);
@@ -305,7 +335,34 @@ document.addEventListener('DOMContentLoaded', () => {
                            });
 
 
+
+    // 매우긴급, 긴급 아이콘 추가 코드
+    const priorityRows = document.querySelectorAll('.priority-cell'); // 우선순위 셀 선택
+
+    priorityRows.forEach((cell) => {
+        const priorityText = cell.querySelector('.priority-label').textContent.trim();
+        const iconSpan = cell.querySelector('.priority-icon'); // 아이콘 삽입 위치
+
+        if (priorityText === '매우긴급') {
+            cell.style.backgroundColor = '#ffcccc'; // 연한 빨간색 배경
+            cell.style.color = 'red'; // 글씨 색상
+            cell.style.fontWeight = 'bold'; // 글씨 진하게
+            iconSpan.innerHTML = '⚠️';
+            iconSpan.style.color = 'red';
+            iconSpan.style.marginLeft = '5px';
+        } else if (priorityText === '긴급') {
+             cell.style.backgroundColor = '#ffedcc'; // 연한 주황색 배경
+             cell.style.color = 'orange'; // 글씨 색상
+             cell.style.fontWeight = 'bold'; // 글씨 진하게
+             iconSpan.innerHTML = '⚡'; // 번개 아이콘
+            iconSpan.style.color = 'orange';
+            iconSpan.style.marginLeft = '5px';
+        }
+    });
+
+
 });
+
 
 //////////////////////////////////////////////////////////////////
 
@@ -633,4 +690,48 @@ document.getElementById('prBtn').addEventListener('click', () => {
  function resetSearch() {
        location.href="/todo";
 
- }
+ }// 선택된 행들을 숨기는 함수
+  function hideSelectedRows() {
+      // 모든 체크박스를 선택
+      const checkboxes = document.querySelectorAll('.row-checkbox');
+
+      // 체크된 체크박스 필터링
+      const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+      // 체크된 항목이 없으면 팝업창 표시
+      if (checkedCheckboxes.length === 0) {
+          // 팝업창 생성 또는 기존 팝업 열기
+          openCustomPopup('선택된 항목이 없습니다. 선택해주세요!');
+          return; // 함수 종료
+      }
+
+      // 체크된 행 숨기기
+      checkedCheckboxes.forEach(checkbox => {
+          const row = checkbox.closest('tr'); // 체크박스가 속한 행을 찾음
+          row.style.display = 'none'; // 체크된 행 숨기기
+      });
+  }
+
+  // 팝업창 열기 함수
+  function openCustomPopup(message) {
+      // 팝업 메시지 설정
+      const popupMessage = document.getElementById('popup-message');
+      popupMessage.textContent = message;
+
+      // 팝업 및 오버레이 표시
+      const popup = document.getElementById('custom-popup');
+      const overlay = document.getElementById('popup-overlay');
+
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+  }
+
+  // 팝업창 닫기 함수
+  function closeCustomPopup() {
+      // 팝업 및 오버레이 숨기기
+      const popup = document.getElementById('custom-popup');
+      const overlay = document.getElementById('popup-overlay');
+
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+  }

@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -115,10 +116,20 @@
                                 <tr id="${todo.t_id}">
                                     <td><input type="checkbox" name="selectedTasks" value="${todo.t_id}" class="row-checkbox"></td>
                                     <td class="hidden">${todo.t_id}</td>
-                                    <td>
+                                   <td class="<c:choose>
+                                              <c:when test="${todo.t_priority == 'VU'}">very-urgent</c:when>
+                                              <c:when test="${todo.t_priority == 'U'}">urgent</c:when>
+                                              <c:otherwise>normal-priority</c:otherwise>
+                                          </c:choose>">
                                         <c:choose>
-                                            <c:when test="${todo.t_priority == 'VU'}">매우긴급</c:when>
-                                            <c:when test="${todo.t_priority == 'U'}">긴급</c:when>
+                                             <c:when test="${todo.t_priority == 'VU'}">
+                                               매우긴급
+                                           <i class="icon urgent-icon" data-priority="VU">⚠️</i> <!-- 아이콘 추가 -->
+                                           </c:when>
+                                            <c:when test="${todo.t_priority == 'U'}">
+                                               긴급
+                                         <i class="icon urgent-icon" data-priority="U">⚡</i><!-- 아이콘 추가 -->
+                                            </c:when>
                                             <c:when test="${todo.t_priority == 'N'}">보통</c:when>
                                             <c:when test="${todo.t_priority == 'NU'}">천천히</c:when>
                                             <c:otherwise>${todo.t_priority}</c:otherwise>
@@ -218,60 +229,70 @@
                           <button id="close-participant-popup">선택완료</button>
                           <button id="reset-participant-selection" style="background-color: red; color: white; margin-top: 10px;">선택 초기화</button>
                       </div>
- <!--  업무수정 팝업 -->
-<div class="popup hidden" id="edit-popup">
-    <button class="btn-modal-close">x</button>
-    <h2>업무 수정하기</h2>
-    <form id="edit-task-form">
-        <!-- 숨겨진 수정 ID 필드 -->
-        <input type="hidden" id="edit-id" name="id">
+             <!--  업무수정 팝업 -->
+            <div class="popup hidden" id="edit-popup">
+                <button class="btn-modal-close">x</button>
+                <h2>업무 수정하기</h2>
+                <form id="edit-task-form">
+                    <!-- 숨겨진 수정 ID 필드 -->
+                    <input type="hidden" id="edit-id" name="id">
 
-        <label for="edit-title">제목</label>
-        <input type="text" id="edit-title" name="title" placeholder="제목을 입력하세요">
+                    <label for="edit-title">제목</label>
+                    <input type="text" id="edit-title" name="title" placeholder="제목을 입력하세요">
 
-        <label for="edit-priority">중요도</label>
-        <select id="edit-priority" name="priority">
-            <option value="VU">매우 긴급</option>
-            <option value="U">긴급</option>
-            <option value="N">보통</option>
-            <option value="NU">천천히</option>
-        </select>
+                    <label for="edit-priority">중요도</label>
+                    <select id="edit-priority" name="priority">
+                        <option value="VU">매우 긴급</option>
+                        <option value="U">긴급</option>
+                        <option value="N">보통</option>
+                        <option value="NU">천천히</option>
+                    </select>
 
-        <label for="edit-stage">진행상황</label>
-        <select id="edit-stage" name="stage">
-            <option value="P">예정</option>
-            <option value="PD">진행지연</option>
-            <option value="CD">완료지연</option>
-            <option value="C">완료</option>
-        </select>
+                    <label for="edit-stage">진행상황</label>
+                    <select id="edit-stage" name="stage">
+                        <option value="P">예정</option>
+                        <option value="PD">진행지연</option>
+                        <option value="CD">완료지연</option>
+                        <option value="C">완료</option>
+                    </select>
 
-        <label>일시</label>
-        <label>시작일</label>
-        <div class="date-time">
-            <input type="date" id="edit-start-date" name="startDate">
-        </div>
+                    <label>일시</label>
+                    <label>시작일</label>
+                    <div class="date-time">
+                        <input type="date" id="edit-start-date" name="startDate">
+                    </div>
 
-        <label>종료일</label>
-        <div class="date-time">
-            <input type="date" id="edit-end-date" name="endDate">
-        </div>
+                    <label>종료일</label>
+                    <div class="date-time">
+                        <input type="date" id="edit-end-date" name="endDate">
+                    </div>
 
-        <label>참여자</label>
-        <button id="edit-open-participant-popup" class="open-participant-popup" type="button">참여자 선택</button>
-        <div id="edit-selected-participants"></div>
+                    <label>참여자</label>
+                    <button id="edit-open-participant-popup" class="open-participant-popup" type="button">참여자 선택</button>
+                    <div id="edit-selected-participants"></div>
 
-        <label>내용</label>
-        <textarea id="edit-content" name="content" maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
+                    <label>내용</label>
+                    <textarea id="edit-content" name="content" maxlength="100" placeholder="100자까지 입력 가능합니다."></textarea>
 
-        <button id="save-changes-button" type="button">저장</button>
-    </form>
-</div>
-
+                    <button id="save-changes-button" type="button">저장</button>
+                </form>
+            </div>
            </div>
 
+            <!-- 커스텀 팝업 -->
+            <div id="custom-popup" class="popup hidden">
+                <div class="popup-content">
+                    <p id="popup-message"></p>
+                 <button onclick="closeCustomPopup()" class="btn-close-popup">확인</button>
+                </div>
+            </div>
 
-</body>
+            <!-- 모달 오버레이 -->
+            <div id="popup-overlay" class="modal-overlay hidden"></div>
+
 <script src="${contextPath}/js/todo.js"></script>
+</body>
+
 </html>
 
 <script>
