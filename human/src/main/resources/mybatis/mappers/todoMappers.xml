@@ -135,6 +135,19 @@
         t_id = #{t_id, jdbcType=VARCHAR}
     </update>
 
+    <insert id="updateTodoDetail" parameterType="TodoDetailVO">
+        update todo_detail
+        SET
+        TD_PARTICIPANT_1 = #{td_participant_1, jdbcType=VARCHAR},
+        TD_PARTICIPANT_2 = #{td_participant_2, jdbcType=VARCHAR},
+        TD_PARTICIPANT_3 = #{td_participant_3, jdbcType=VARCHAR},
+        TD_PARTICIPANT_4 = #{td_participant_4, jdbcType=VARCHAR},
+        TD_PARTICIPANT_5 = #{td_participant_5, jdbcType=VARCHAR},
+        td_updated_date = SYSDATE
+        where
+        TD_ID = #{td_id, jdbcType=VARCHAR}
+    </insert>
+
     <!-- 부서별 할 일 가져오기 -->
     <select id="getTodosByDept" parameterType="string" resultType="fs.four.human.todo.vo.TodoVO">
         SELECT *

@@ -86,7 +86,14 @@ public class TodoService {
     }
 
     public int updateTodo2(Todo2VO todoVO) {
-        return todoDAO.updateTodo2(todoVO);
+         todoDAO.updateTodo2(todoVO);
+        // detail에 update
+        List<String> participants = todoVO.getParticipants();
+        TodoDetailVO todoDetailVO = mapParticipantsToVO(participants);
+        todoDetailVO.setTd_id(Long.parseLong(todoVO.getT_id()));
+        System.out.println(todoDetailVO);
+        todoDAO.updateTodoDetail(todoDetailVO);
+         return 1;
     }
 
     public CommonVO getEmployeeById(String e_id) {

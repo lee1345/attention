@@ -27,4 +27,5 @@ public interface TodoDAO {
 
     List<LoginVO> getDeptEmployeeByDept(String dept);
 
+    int updateTodoDetail(TodoDetailVO todoDetailVO);
 }

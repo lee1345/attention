@@ -590,6 +590,66 @@ function editPopupOpen(t_id) {
     console.log(t_id);
     edit_t_id = t_id;
 
+    // row value set to edit popup //////////
+    const row = document.getElementById(t_id);
+
+    if (!row) {
+        console.error(`Row with ID ${t_id} not found.`);
+        return;
+    }
+
+    // 컬럼별 데이터 가져오기
+    let priority = row.cells[2].textContent.trim(); // 긴급 컬럼
+    let stage = row.cells[3].textContent.trim(); //
+    const title = row.cells[4].textContent.trim(); //
+    const content = row.cells[5].textContent.trim(); //
+    const startDate = row.cells[6].textContent.trim(); // 시작일
+    const endDate = row.cells[7].textContent.trim(); // 종료일
+    const writer = row.cells[8].textContent.trim(); // 작성자
+    const participantList = row.cells[9].textContent.trim(); //
+
+    // 값 확인
+    console.log({ t_id, priority, stage, title, content, startDate, endDate, writer, participantList, });
+    // 중요도 텍스트와 value 매핑
+    const priorityMap = {
+        "매우 긴급": "VU",
+        "긴급": "U",
+        "보통": "N",
+        "천천히": "NU"
+    };
+    priority = priorityMap[priority] || priority;
+
+    // 진행상황 텍스트와 value 매핑
+    const stageMap = {
+        "예정": "P",
+        "진행지연": "PD",
+        "완료지연": "CD",
+        "완료": "C"
+    };
+    stage = stageMap[stage] || stage;
+
+    // set value
+    // 팝업 요소 가져오기
+        const popup = document.getElementById('edit-popup');
+        const form = document.getElementById('edit-task-form');
+
+        // 폼 필드에 데이터 채우기
+        form.querySelector('#edit-id').value = t_id;
+        form.querySelector('#edit-title').value = title;
+        form.querySelector('#edit-start-date').value = startDate;
+        form.querySelector('#edit-end-date').value = endDate;
+
+        // 참여자 및 내용
+        const participantsDiv = document.getElementById('edit-selected-participants');
+        participantsDiv.textContent = participantList; // 참여자 정보 추가
+        form.querySelector('#edit-content').value = content;
+
+        selectedParticipants = participantList.split(',').map(participant => participant.trim());
+        console.log(selectedParticipants);
+
+
+    ///////////////////////////////////
+
     // *** 모달 관련 코드 ***
     const editModal = document.querySelector('#edit-popup'); // 모달
 
@@ -609,10 +669,12 @@ document.getElementById('prBtn').addEventListener('click', () => {
             // 특정 쿼리 파라미터 값 가져오기
             const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
             console.log(sort); // 해당 파라미터의 값 출력
+            const type = params.get('type');
+            const search = params.get('search');
             if(sort == 'priorityAsc') {
-                location.href="/todo?sort=priorityDesc"
+                location.href="/todo?sort=priorityDesc&type="+type+"&search="+search;
             } else {
-                location.href="/todo?sort=priorityAsc"
+                location.href="/todo?sort=priorityAsc&type="+type+"&search="+search;
             }
  });
 
@@ -622,10 +684,12 @@ document.getElementById('prBtn').addEventListener('click', () => {
              // 특정 쿼리 파라미터 값 가져오기
              const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
              console.log(sort); // 해당 파라미터의 값 출력
+             const type = params.get('type');
+             const search = params.get('search');
              if(sort == 'stageAsc') {
-                 location.href="/todo?sort=stageDesc"
+                 location.href="/todo?sort=stageDesc&type="+type+"&search="+search;
              } else {
-                 location.href="/todo?sort=stageAsc"
+                 location.href="/todo?sort=stageAsc&type="+type+"&search="+search;
              }
   });
 
@@ -635,10 +699,12 @@ document.getElementById('prBtn').addEventListener('click', () => {
                // 특정 쿼리 파라미터 값 가져오기
                const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
                console.log(sort); // 해당 파라미터의 값 출력
+               const type = params.get('type');
+               const search = params.get('search');
                if(sort == 'startAsc') {
-                   location.href="/todo?sort=startDesc"
+                   location.href="/todo?sort=startDesc&type="+type+"&search="+search;
                } else {
-                   location.href="/todo?sort=startAsc"
+                   location.href="/todo?sort=startAsc&type="+type+"&search="+search;
                }
     });
 
@@ -648,10 +714,12 @@ document.getElementById('prBtn').addEventListener('click', () => {
                  // 특정 쿼리 파라미터 값 가져오기
                  const sort = params.get('sort'); // 'yourParameterName'을 원하는 파라미터 이름으로 변경
                  console.log(sort); // 해당 파라미터의 값 출력
+                 const type = params.get('type');
+                 const search = params.get('search');
                  if(sort == 'endAsc') {
-                     location.href="/todo?sort=endDesc"
+                     location.href="/todo?sort=endDesc&type="+type+"&search="+search;
                  } else {
-                     location.href="/todo?sort=endAsc"
+                     location.href="/todo?sort=endAsc&type="+type+"&search="+search;
                  }
       });
 
