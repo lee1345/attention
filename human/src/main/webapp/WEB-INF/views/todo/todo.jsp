@@ -283,7 +283,7 @@
             <div id="custom-popup" class="popup hidden">
                 <div class="popup-content">
                     <p id="popup-message"></p>
-                    <button id="popup-close-btn" class="btn-close-popup">확인</button>
+                 <button onclick="closeCustomPopup()" class="btn-close-popup">확인</button>
                 </div>
             </div>
 

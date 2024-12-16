@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                    .then((data) => {
                                        console.log('서버 응답:', data);
                                        if (data.status === 'success') {
-                                                                    openCustomPopup('업무가 성공적으로 추가되었습니다!');
+                                                                    openCustomPopup('업무가 성공적으로 수정되었습니다!');
 
                                                                     // 모달 닫기 및 폼 초기화
                                                                     document.getElementById('task-popup').style.display = 'none';
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                                                     setTimeout(() => location.reload(true), 1000); // 1초 후 새로고침
                                                                 } else {
-                                                                    openCustomPopup('업무 추가에 실패했습니다.');
+                                                                    openCustomPopup('업무 수정에 실패했습니다.');
                                                                 }
                                    })
                                    .catch((error) => {
@@ -690,4 +690,48 @@ document.getElementById('prBtn').addEventListener('click', () => {
  function resetSearch() {
        location.href="/todo";
 
- }
+ }// 선택된 행들을 숨기는 함수
+  function hideSelectedRows() {
+      // 모든 체크박스를 선택
+      const checkboxes = document.querySelectorAll('.row-checkbox');
+
+      // 체크된 체크박스 필터링
+      const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+      // 체크된 항목이 없으면 팝업창 표시
+      if (checkedCheckboxes.length === 0) {
+          // 팝업창 생성 또는 기존 팝업 열기
+          openCustomPopup('선택된 항목이 없습니다. 선택해주세요!');
+          return; // 함수 종료
+      }
+
+      // 체크된 행 숨기기
+      checkedCheckboxes.forEach(checkbox => {
+          const row = checkbox.closest('tr'); // 체크박스가 속한 행을 찾음
+          row.style.display = 'none'; // 체크된 행 숨기기
+      });
+  }
+
+  // 팝업창 열기 함수
+  function openCustomPopup(message) {
+      // 팝업 메시지 설정
+      const popupMessage = document.getElementById('popup-message');
+      popupMessage.textContent = message;
+
+      // 팝업 및 오버레이 표시
+      const popup = document.getElementById('custom-popup');
+      const overlay = document.getElementById('popup-overlay');
+
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+  }
+
+  // 팝업창 닫기 함수
+  function closeCustomPopup() {
+      // 팝업 및 오버레이 숨기기
+      const popup = document.getElementById('custom-popup');
+      const overlay = document.getElementById('popup-overlay');
+
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+  }
