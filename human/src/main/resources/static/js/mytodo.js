@@ -279,7 +279,6 @@ function updateStage(button, todoId) {
 
 // 할일 삭제
 function deleteTodo(t_id) {
-    if (confirm("정말 삭제하시겠습니까?")) {
         $.ajax({
             url: '/mytodo/deleteTodo',
             type: 'DELETE',
@@ -292,7 +291,7 @@ function deleteTodo(t_id) {
                 console.error('삭제 실패: ' + xhr.responseText);
             }
         });
-    }
+
 }
 
 // 정렬기능
@@ -365,7 +364,6 @@ function handleBatchAction(actionType) {
                 return;
             }
             url = '/mytodo/deleteSelected';
-            successMessage = '선택한 항목이 삭제되었습니다.';
             requestData = JSON.stringify(selectedIds); // 선택된 항목만 전송
             break;
 
@@ -376,13 +374,11 @@ function handleBatchAction(actionType) {
                 return;
             }
             url = '/mytodo/hideSelected';
-            successMessage = '선택한 일정이 숨겨집니다.';
             requestData = JSON.stringify(idsToHide); // 선택된 항목만 전송
             break;
 
         case 'unhide':
             url = '/mytodo/unhideAll'; // 모든 숨기기를 취소
-            successMessage = '숨겨진 일정이 모두 복귀됩니다.';
             requestData = null; // 선택된 항목 필요 없음
             break;
 
@@ -397,7 +393,6 @@ function handleBatchAction(actionType) {
         contentType: 'application/json',
         data: requestData,
         success: function () {
-            alert(successMessage);
             location.reload(); // 페이지 새로고침
         },
         error: function (xhr) {
