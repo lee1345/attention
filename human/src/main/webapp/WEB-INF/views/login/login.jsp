@@ -8,6 +8,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOGIN</title>
+
+ <!-- SweetAlert2 라이브러리 추가 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- 추가 스타일 -->
   <link rel="stylesheet" href="${contextPath}/css/login.css">
   <script src="https://code.jquery.com/jquery-3.4.1.js" ></script>
 
@@ -83,7 +89,6 @@
           <label for="e_position">직위</label>
             <select id="e_position" name="e_position" required>
               <option value="">직위를 선택하세요</option>
-              <option value="C">대표</option>
               <option value="SM">수석</option>
               <option value="M">책임</option>
               <option value="SA">선임</option>

@@ -18,7 +18,7 @@
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
    <div class="layout-container">
-           <main>
+           <main style="padding: 10px;">
                <!-- 상단 차트 -->
                <div class="chart-section">
                    <!-- 부서 업무 현황 -->
@@ -55,7 +55,7 @@
                <div class="actions-section">
                    <div class="actions-buttons">
                    <div>
-                       <button type="button"class="btn-open-register-modal">
+                       <button type="button"class="btn-open-register-modal" style="background-color:#3498db; color:white; font-size: 15pt; font-weight:bold">
                            TEAM 업무 <br>등록하기</br>
                        </button>
                    </div>

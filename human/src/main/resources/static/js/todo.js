@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 범례 동적 생성
         const legendContainer = document.getElementById(legendId);
         legendContainer.innerHTML = labels.map((label, index) => `
-            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+              <div style="display: flex; align-items: center; margin-bottom: 5px;">
                 <span
                     style="
                                display: inline-block;
